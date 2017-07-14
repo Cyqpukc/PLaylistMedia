@@ -1,0 +1,766 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>Access</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Settings controller</shortDescription>
+        <value>Access</value>
+    </labels>
+    <labels>
+        <fullName>Add</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Add</shortDescription>
+        <value>Add</value>
+    </labels>
+    <labels>
+        <fullName>Add_Email_Address</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Add Email Address</shortDescription>
+        <value>Add email address</value>
+    </labels>
+    <labels>
+        <fullName>Add_To_Channel</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Add To Channel</shortDescription>
+        <value>Add to channel</value>
+    </labels>
+    <labels>
+        <fullName>Address_Already_Exist</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Address Already Exist</shortDescription>
+        <value>This address already exist in list</value>
+    </labels>
+    <labels>
+        <fullName>Address_Not_Valid_Email</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Address Not Valid Email</shortDescription>
+        <value>This address is not valid email</value>
+    </labels>
+    <labels>
+        <fullName>Article_Vote_Confirmation_Text</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Article Vote Confirmation Text</shortDescription>
+        <value>Thanks for voting.</value>
+    </labels>
+    <labels>
+        <fullName>Article_Vote_Text</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Article Vote Text</shortDescription>
+        <value>Was this article helpful?</value>
+    </labels>
+    <labels>
+        <fullName>Back</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Back</shortDescription>
+        <value>Back</value>
+    </labels>
+    <labels>
+        <fullName>Cancel</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cancel</shortDescription>
+        <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>Catalog_AllMedia</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Catalog</shortDescription>
+        <value>Catalog</value>
+    </labels>
+    <labels>
+        <fullName>Channel_Name_Exists</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Channel Name Exists</shortDescription>
+        <value>Channel with this name already exists. Please enter a different name</value>
+    </labels>
+    <labels>
+        <fullName>Channel_Name_Placeholder</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Channel Name Placeholder</shortDescription>
+        <value>Enter the Name</value>
+    </labels>
+    <labels>
+        <fullName>Close</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Close</shortDescription>
+        <value>Close</value>
+    </labels>
+    <labels>
+        <fullName>Create</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Settings controller</shortDescription>
+        <value>Create</value>
+    </labels>
+    <labels>
+        <fullName>Create_Link</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Create Link</shortDescription>
+        <value>Create Link</value>
+    </labels>
+    <labels>
+        <fullName>Create_New_Channel</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Create New Channel</shortDescription>
+        <value>Create New Channel</value>
+    </labels>
+    <labels>
+        <fullName>Delete</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Delete</shortDescription>
+        <value>Delete</value>
+    </labels>
+    <labels>
+        <fullName>Description</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Description</shortDescription>
+        <value>Description</value>
+    </labels>
+    <labels>
+        <fullName>Done</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Done</shortDescription>
+        <value>DONE</value>
+    </labels>
+    <labels>
+        <fullName>Edit</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Edit</shortDescription>
+        <value>Edit</value>
+    </labels>
+    <labels>
+        <fullName>Email_Address_Empty</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Email Address Empty</shortDescription>
+        <value>Email address is empty</value>
+    </labels>
+    <labels>
+        <fullName>Email_Sent</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Email Sent</shortDescription>
+        <value>Email Sent</value>
+    </labels>
+    <labels>
+        <fullName>Email_Template</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Email Template</shortDescription>
+        <value>Email Template</value>
+    </labels>
+    <labels>
+        <fullName>Email_Template_Empty</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Email Template Empty</shortDescription>
+        <value>Email template is empty</value>
+    </labels>
+    <labels>
+        <fullName>Email_Was_Sent</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Email Was Sent</shortDescription>
+        <value>Email was sent</value>
+    </labels>
+    <labels>
+        <fullName>Enter_Email</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Enter Email</shortDescription>
+        <value>Enter email</value>
+    </labels>
+    <labels>
+        <fullName>Error</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error</shortDescription>
+        <value>ERROR</value>
+    </labels>
+    <labels>
+        <fullName>Error_Search_Term</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error Search Term</shortDescription>
+        <value>The search term must be 100 characters or less in length</value>
+    </labels>
+    <labels>
+        <fullName>Error_Send_Email</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error Send Email</shortDescription>
+        <value>Message to {email} not sent</value>
+    </labels>
+    <labels>
+        <fullName>Field</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Settings controller</shortDescription>
+        <value>Field</value>
+    </labels>
+    <labels>
+        <fullName>Group_Name</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Group Name</shortDescription>
+        <value>Group Name</value>
+    </labels>
+    <labels>
+        <fullName>Incorrect_email</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Incorrect email</shortDescription>
+        <value>Incorrect email</value>
+    </labels>
+    <labels>
+        <fullName>Info</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Info</shortDescription>
+        <value>Info</value>
+    </labels>
+    <labels>
+        <fullName>Internal_error_has_occured</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Internal error has occured</shortDescription>
+        <value>An internal error has occurred. Please contact your system administrator.</value>
+    </labels>
+    <labels>
+        <fullName>Is_For_Profile_Page</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>appinium</shortDescription>
+        <value>Is For Profile Page</value>
+    </labels>
+    <labels>
+        <fullName>Loading</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Loading</shortDescription>
+        <value>Loading</value>
+    </labels>
+    <labels>
+        <fullName>Manage_Channels</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Manage Channels</shortDescription>
+        <value>Manage Channels</value>
+    </labels>
+    <labels>
+        <fullName>Media</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Media</shortDescription>
+        <value>Media</value>
+    </labels>
+    <labels>
+        <fullName>MediaNotPublic</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MediaNotPublic</shortDescription>
+        <value>This media is not Public and cannot be shared</value>
+    </labels>
+    <labels>
+        <fullName>Media_Link_Not_Found</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Media Link Not Found</shortDescription>
+        <value>Media link is not found, add {LinkShownHere} to the template body</value>
+    </labels>
+    <labels>
+        <fullName>More</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>More</shortDescription>
+        <value>more</value>
+    </labels>
+    <labels>
+        <fullName>My_Media</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>My Media</shortDescription>
+        <value>My Media</value>
+    </labels>
+    <labels>
+        <fullName>Name_New_Channel</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Name New Channel</shortDescription>
+        <value>Name your new channel</value>
+    </labels>
+    <labels>
+        <fullName>Name_Your_New_Channel</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Name Your New Channel</shortDescription>
+        <value>Name your new channel</value>
+    </labels>
+    <labels>
+        <fullName>Next</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Next</shortDescription>
+        <value>Next</value>
+    </labels>
+    <labels>
+        <fullName>No</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No</shortDescription>
+        <value>No</value>
+    </labels>
+    <labels>
+        <fullName>No_Articles_Found</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No Articles Found</shortDescription>
+        <value>No Articles found</value>
+    </labels>
+    <labels>
+        <fullName>No_Media</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No Media</shortDescription>
+        <value>No media</value>
+    </labels>
+    <labels>
+        <fullName>No_Media_Found</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No Media Found</shortDescription>
+        <value>No Media found</value>
+    </labels>
+    <labels>
+        <fullName>No_One_email_Added_To_List</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No One email Added To List</shortDescription>
+        <value>No one email added to list</value>
+    </labels>
+    <labels>
+        <fullName>No_Permissions_for</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Settings controller</shortDescription>
+        <value>No Permissions for</value>
+    </labels>
+    <labels>
+        <fullName>No_Videos</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No Videos</shortDescription>
+        <value>No videos</value>
+    </labels>
+    <labels>
+        <fullName>No_catalogs</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No catalogs</shortDescription>
+        <value>No catalogs</value>
+    </labels>
+    <labels>
+        <fullName>Object</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Settings controller</shortDescription>
+        <value>Object</value>
+    </labels>
+    <labels>
+        <fullName>Ok</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Ok</shortDescription>
+        <value>Ok</value>
+    </labels>
+    <labels>
+        <fullName>Or</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Or</shortDescription>
+        <value>OR</value>
+    </labels>
+    <labels>
+        <fullName>PleaseSelectGroup</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PleaseSelectGroup</shortDescription>
+        <value>Please select at least one group</value>
+    </labels>
+    <labels>
+        <fullName>Please_Select_Media</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Please Select Media</shortDescription>
+        <value>Please, select media</value>
+    </labels>
+    <labels>
+        <fullName>Please_Select_Site</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Please Select Site</shortDescription>
+        <value>Please, select Site</value>
+    </labels>
+    <labels>
+        <fullName>Post</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Post</shortDescription>
+        <value>Post</value>
+    </labels>
+    <labels>
+        <fullName>Post_To_Chatter</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Post To Chatter</shortDescription>
+        <value>Post To Chatter</value>
+    </labels>
+    <labels>
+        <fullName>Post_To_My_Feed</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Post To My Feed</shortDescription>
+        <value>Post To My Feed</value>
+    </labels>
+    <labels>
+        <fullName>Posted_successfully</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Posted successfully</shortDescription>
+        <value>Posted successfully</value>
+    </labels>
+    <labels>
+        <fullName>Preview</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Preview</shortDescription>
+        <value>Preview</value>
+    </labels>
+    <labels>
+        <fullName>Preview_Image_Height</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Preview Image Height</shortDescription>
+        <value>Preview Image Height in px</value>
+    </labels>
+    <labels>
+        <fullName>Previous</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Previous</shortDescription>
+        <value>Previous</value>
+    </labels>
+    <labels>
+        <fullName>Recently_Published</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Recently Published</shortDescription>
+        <value>Recently Published</value>
+    </labels>
+    <labels>
+        <fullName>Recently_Uploaded</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Recently Uploaded</shortDescription>
+        <value>Recently Uploaded</value>
+    </labels>
+    <labels>
+        <fullName>Recently_Viewed</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Recently Viewed</shortDescription>
+        <value>Recently Viewed</value>
+    </labels>
+    <labels>
+        <fullName>Recepients_Of_Media</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Recepients Of Media</shortDescription>
+        <value>Recepients of media</value>
+    </labels>
+    <labels>
+        <fullName>Recommended</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Recommended</shortDescription>
+        <value>Recommended</value>
+    </labels>
+    <labels>
+        <fullName>Related_Media</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Related Media</shortDescription>
+        <value>Related Media</value>
+    </labels>
+    <labels>
+        <fullName>Remove</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Remove</shortDescription>
+        <value>Remove</value>
+    </labels>
+    <labels>
+        <fullName>Remove_From_Channel</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Remove From Channel</shortDescription>
+        <value>Remove from channel</value>
+    </labels>
+    <labels>
+        <fullName>Remove_Media_From</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Remove Media From</shortDescription>
+        <value>Remove Media from</value>
+    </labels>
+    <labels>
+        <fullName>Remove_Video</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Remove Video</shortDescription>
+        <value>Are you sure you want to remove this media from</value>
+    </labels>
+    <labels>
+        <fullName>Save</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Save</shortDescription>
+        <value>Save</value>
+    </labels>
+    <labels>
+        <fullName>Search</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Search</shortDescription>
+        <value>Search</value>
+    </labels>
+    <labels>
+        <fullName>Search_Placeholder</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Search Placeholder</shortDescription>
+        <value>Please enter the media title</value>
+    </labels>
+    <labels>
+        <fullName>Select_Channel</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Select Channel</shortDescription>
+        <value>Select Channel</value>
+    </labels>
+    <labels>
+        <fullName>Send</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Send</shortDescription>
+        <value>Send</value>
+    </labels>
+    <labels>
+        <fullName>SendMedia_FeatureDisabledInCommunity</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>SendMedia_FeatureDisabledInCommunity</shortDescription>
+        <value>This feature is not available in Community</value>
+    </labels>
+    <labels>
+        <fullName>Send_Media</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Send Media</shortDescription>
+        <value>Send Media</value>
+    </labels>
+    <labels>
+        <fullName>Send_Media_Helper_Text</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Send Media Helper Text</shortDescription>
+        <value>Edit template. Use the MEDIA button to insert a media to the mail</value>
+    </labels>
+    <labels>
+        <fullName>Share_Media</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Share Media</shortDescription>
+        <value>Share media</value>
+    </labels>
+    <labels>
+        <fullName>Show_Recent_Viewed</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Show Recent Viewed</shortDescription>
+        <value>Show Recent Viewed</value>
+    </labels>
+    <labels>
+        <fullName>Sites</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sites</shortDescription>
+        <value>Sites</value>
+    </labels>
+    <labels>
+        <fullName>Subject</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Subject</shortDescription>
+        <value>Subject</value>
+    </labels>
+    <labels>
+        <fullName>Test_Custom_Label</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Test Custom Label</shortDescription>
+        <value>stop</value>
+    </labels>
+    <labels>
+        <fullName>ThumbsDown</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ThumbsDown</shortDescription>
+        <value>Thumbs Down</value>
+    </labels>
+    <labels>
+        <fullName>ThumbsUp</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ThumbsUp</shortDescription>
+        <value>Thumbs Up</value>
+    </labels>
+    <labels>
+        <fullName>Title</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Title</shortDescription>
+        <value>Title</value>
+    </labels>
+    <labels>
+        <fullName>Update</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Settings controller</shortDescription>
+        <value>Update</value>
+    </labels>
+    <labels>
+        <fullName>Update_Details</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Update Details</shortDescription>
+        <value>UPDATE DETAILS</value>
+    </labels>
+    <labels>
+        <fullName>Upload</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Upload</shortDescription>
+        <value>Upload Media</value>
+    </labels>
+    <labels>
+        <fullName>Upload_Completed</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Upload Completed</shortDescription>
+        <value>Completed</value>
+    </labels>
+    <labels>
+        <fullName>Upload_SF_Completed</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Upload SF Completed</shortDescription>
+        <value>Uploaded media file. It is now safe to close your browser window. You will receive an email when your file is processed and is available for use.</value>
+    </labels>
+    <labels>
+        <fullName>Uploading</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Uploading</shortDescription>
+        <value>Uploading...</value>
+    </labels>
+    <labels>
+        <fullName>Uploading_Async</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Uploading Async</shortDescription>
+        <value>Uploading media file … please do not close your browser window.</value>
+    </labels>
+    <labels>
+        <fullName>Uploading_Async_Completed</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Uploading Async Completed</shortDescription>
+        <value>Uploaded media file. It is now safe to close your browser window. You will receive an email when your file is processed and is available for use.</value>
+    </labels>
+    <labels>
+        <fullName>Uploading_SF</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Uploading SF</shortDescription>
+        <value>Uploading media file … please do not close your browser window.</value>
+    </labels>
+    <labels>
+        <fullName>Videos</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Videos</shortDescription>
+        <value>Videos</value>
+    </labels>
+    <labels>
+        <fullName>View_All</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>View All</shortDescription>
+        <value>View All</value>
+    </labels>
+    <labels>
+        <fullName>View_All_Channel</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>View All Channel</shortDescription>
+        <value>View All</value>
+    </labels>
+    <labels>
+        <fullName>View_More</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>View More</shortDescription>
+        <value>View More</value>
+    </labels>
+    <labels>
+        <fullName>Views</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Views</shortDescription>
+        <value>Views</value>
+    </labels>
+    <labels>
+        <fullName>Wrong_Email_Template</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Wrong Email Template</shortDescription>
+        <value>Wrong Email Template!</value>
+    </labels>
+    <labels>
+        <fullName>Yes</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Yes</shortDescription>
+        <value>Yes</value>
+    </labels>
+</CustomLabels>

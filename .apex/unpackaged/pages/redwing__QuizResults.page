@@ -1,0 +1,226 @@
+<!--
+Copyright (c) 2014, salesforce.com, Inc.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+    * Neither the name of the salesforce.com, Inc. nor the names of its contributors
+    may be used to endorse or promote products derived from this software
+    without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<apex:page controller="redwing.QuizResultsCtrl" docType="html-5.0" sidebar="false" showHeader="{!showSFHeader}" standardStylesheets="false" cache="false">
+
+    <apex:composition template="redwing__LMSTemplate">
+
+        <apex:define name="head">
+            <title>{!IF(surveyMode, $Label.redwing__alms_survey_results, $Label.redwing__alms_quiz_results)}</title>
+        </apex:define>
+
+        <apex:define name="body">
+
+            <apex:form >
+
+                <apex:pageMessages id="pMessages"/>
+
+                <apex:outputPanel layout="none" id="resultsPanel">
+                    <apex:inputHidden id="redirectURL" value="{!redirectURL}"/>
+                </apex:outputPanel>
+
+                <apex:actionStatus id="status">
+                    <apex:facet name="start">
+                        <c:LMSStatus statusComponentId="{!$Component.status}"/>
+                    </apex:facet>
+                </apex:actionStatus>
+
+                <apex:outputPanel layout="none" rendered="{!surveyMode}">
+                    <div class="survey-results-message">
+                        <h3>{!$Label.redwing__alms_survey_results_message}</h3>
+                    </div>
+                </apex:outputPanel>
+
+                <apex:outputPanel layout="none" rendered="{!!surveyMode}">
+                    <div class="alert {!messageStyle}">
+                        <h3>{!resultPreMessage} {!$Label.redwing__alms_quiz_results_eval_message} : <b>{!evalResultLabel}</b></h3>
+                    </div>
+
+                    <apex:outputPanel layout="none" rendered="{!maxAttemptsReached}">
+                        <div class="alert info">
+                            <h3>{!$Label.redwing__alms_quiz_max_attempts_reached}</h3>
+                        </div>
+                    </apex:outputPanel>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                          <h2 class="panel-title">{!$Label.redwing__alms_additional_information}</h2>
+                        </div>
+                        <div class="panel-body">
+                          <h3>{!$Label.redwing__alms_quiz_score} : {!evalScore}%</h3>
+                        </div>
+                    </div>
+                </apex:outputPanel>
+
+                <apex:commandbutton value="{!$Label.redwing__alms_continue}" action="{!quizContinue}" styleClass="lmscore-success-btn large-btn" status="status" rerender="resultsPanel,pMessages" oncomplete="doRedirection()"/>
+
+                <apex:outputPanel layout="none" rendered="{!!surveyMode}">
+
+                    <apex:outputPanel layout="none" rendered="{!displayResponsesSummary == 'true' || displayTopicsSummary == 'true'}">
+
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div id="quiz-summary-results">
+                                    <div class="home-component-loading-panel">
+                                        <apex:image value="{!URLFOR($Resource.redwing__lmscore_uilib, '/img/lmscore_loading_generic.gif')}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <script id="quiz-summary-template" type="text/x-handlebars-template">
+
+                            {{#if {!JSENCODE(displayTopicsSummary)} }}
+                                <table class="table table-bordered table-hover quiz-summary-table">
+                                    <thead>
+                                        <tr>
+                                          <th colspan="2" class="quiz-summary-head">{!JSENCODE($Label.redwing__alms_quiz_topic_summary_title)}</th>
+                                        </tr>
+                                     </thead>
+
+                                     {{#each topics}}
+                                        {{#ifCond incorrectCount '>' 0}}
+                                             <tr>
+                                                 <td class="quiz-topic-summary-incorrect">
+                                                     {{name}}
+                                                 </td>
+                                                 <td class="quiz-topic-summary-incorrect">
+                                                     {{unescape description}}
+                                                 </td>
+                                             </tr>
+                                         {{else}}
+                                             {{#ifCond correctCount '>' 0}}
+                                                 <tr>
+                                                     <td class="quiz-topic-summary-correct">
+                                                         {{name}}
+                                                     </td>
+                                                     <td class="quiz-topic-summary-correct">
+                                                         {{unescape description}}
+                                                     </td>
+                                                 </tr>
+                                             {{/ifCond}}
+                                         {{/ifCond}}
+                                     {{/each}}
+
+                                 </table>
+                             {{/if}}
+
+                             {{#if {!JSENCODE(displayResponsesSummary)} }}
+                                 <table class="table table-bordered table-hover quiz-summary-table">
+                                    <thead>
+                                        <tr>
+                                          <th colspan="2" class="quiz-summary-head">{!JSENCODE($Label.redwing__alms_quiz_summary_title)}</th>
+                                        </tr>
+                                     </thead>
+
+                                     {{#each sections}}
+                                        <tr>
+                                            <td colspan="2" class="quiz-section-summary">
+                                                {{name}}
+                                            </td>
+                                        </tr>
+                                        {{#each questions}}
+                                            <tr>
+                                                {{#ifCond response '!=' null}}
+                                                    <td colspan="1" style="width:60%;" class="correct-response-{{response.correct}}-{{response.partialCredit}}">
+                                                        {{description}}
+                                                    </td>
+                                                    <td colspan="1" style="width:40%;" class="correct-response-{{response.correct}}-{{response.partialCredit}}">
+                                                        {{response.answer}}
+                                                    </td>
+                                                {{/ifCond}}
+                                            </tr>
+                                        {{/each}}
+                                    {{else}}
+                                        <tr>
+                                            <td colspan="2">
+                                                {!JSENCODE($Label.redwing__alms_no_data_available)}
+                                            </td>
+                                        </tr>
+                                    {{/each}}
+                                </table>
+                            {{/if}}
+                        </script>
+
+                        <script>
+                            jQuery(document).ready(function($){
+                                Visualforce.remoting.Manager.invokeAction(
+                                    '{!$RemoteAction.QuizResultsCtrl.fetchQuizSummary}',
+                                    '{!JSENCODE($CurrentPage.parameters.aid)}',
+                                    function(result, event){
+                                        if (event.status) {
+                                            var source   = $("#quiz-summary-template").html();
+                                            var template = Handlebars.compile(source);
+                                            $('#quiz-summary-results').html(template(result));
+                                        } else if (event.type === 'exception') {
+                                            lmscore.logMessage(event.message);
+                                        } else {
+                                            lmscore.logMessage(event.message);
+                                        }
+                                    },{buffer: false}
+                                );
+                            });
+
+                            Handlebars.registerHelper('unescape', function(text) {
+                                //text = Handlebars.escapeExpression(text);
+                                if (text) {
+                                    text = new String(text);
+                                    text = text
+                                        .replace(/\&amp\;/g, '&')
+                                        .replace(/\&amp\;/g, '&')
+                                        .replace(/\&quot\;/g, '"')
+                                        .replace(/\&gt\;/g, '>')
+                                        .replace(/\&lt\;/g, '<');
+                                    return new Handlebars.SafeString(text);
+                                }
+                                return null;
+                            });
+                        </script>
+
+                    </apex:outputPanel>
+
+                </apex:outputPanel>
+
+                <script>
+                    function doRedirection(){
+                        var retUrl = document.getElementById('{!$Component.redirectURL}').value;
+                        if({!isLightningContext}){
+                            lmscore.fireLightningEventFromIframe("e.{!JSENCODE(lmsNamespace)}:LearningViewEvent", {type:"close", trainingPlanId: "{!JSENCODE(assignment.redwing__Training_Plan__c)}"});
+                            return true;
+                        }
+                        if(retUrl && retUrl.length > 0){
+                            lmscore.redirectHandlerWithStatus(retUrl,false);
+                        }
+                    }
+                </script>
+
+            </apex:form>
+        </apex:define>
+
+    </apex:composition>
+
+</apex:page>

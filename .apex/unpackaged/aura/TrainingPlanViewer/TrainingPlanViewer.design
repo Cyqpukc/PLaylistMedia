@@ -1,0 +1,5 @@
+<design:component label="Learning Plan Viewer">
+    <design:attribute name="title" label="Title" description="Title to display in the component header" />
+    <design:attribute name="trainingPlanId" label="Learning Plan Id" description="Id of the Learning Plan you'd like to display" />
+    <design:attribute name="autoRegister" label="Auto-Register Users" description="Enable this option to auto-register users on load" />
+</design:component>

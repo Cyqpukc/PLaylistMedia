@@ -1,0 +1,54 @@
+.THIS.hidden, .THIS .hidden {
+    display: none !important;
+}
+.THIS .headerTitle {
+    font-size: 20px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.THIS.search-container .spanLoadingWrapper {
+    text-align: center;
+}
+
+.THIS.search-container .spanLoadingWrapper .loadingBallsWrapper{
+    padding-top: 30px;
+}
+.THIS.search-container .results {
+    position: relative;
+    min-height: 200px;
+    margin-top: 20px;
+}
+.THIS.search-container .results.center{
+    max-width: 650px;
+    margin: auto;
+    margin-top: 20px;
+}
+.THIS.search-container .viewAllLink {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    float: right;
+}
+.THIS.search-container .results .panelsContainer {
+    position:relative;
+    margin-top:10px;
+    min-height: 200px;
+}
+
+.THIS.search-container .results .panelsContainer .noresults {
+    font-weight: 300;
+    line-height: 1.25;
+    font-size: 1.5rem;
+    color: #696969;
+    text-align: center;
+    margin-top: 95px;
+    position: relative;
+}
+
+.THIS.loader{
+    background-color: rgba(197,204,214,0.75);
+    height: 100%;
+    position: fixed;
+    z-index: 10000;
+}

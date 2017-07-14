@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <label><!-- Content --></label>
+        <name>redwing__Content__c</name>
+    </fields>
+    <fields>
+        <label><!-- Order --></label>
+        <name>redwing__Order__c</name>
+    </fields>
+    <fields>
+        <label><!-- Rich Text --></label>
+        <name>redwing__RichText__c</name>
+        <relationshipLabel><!-- Rich Text Content --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Title for this rich text content section --></help>
+        <label><!-- Title --></label>
+        <name>redwing__Title__c</name>
+    </fields>
+    <fields>
+        <label><!-- Video Dimensions Unit --></label>
+        <name>redwing__Video_Dimensions_Unit__c</name>
+        <picklistValues>
+            <masterLabel>percentage</masterLabel>
+            <translation><!-- percentage --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>pixels</masterLabel>
+            <translation><!-- pixels --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Video Height --></label>
+        <name>redwing__Video_Height__c</name>
+    </fields>
+    <fields>
+        <help><!-- URL for an embedded video as part of this Rich Text Content --></help>
+        <label><!-- Video URL --></label>
+        <name>redwing__Video_URL__c</name>
+    </fields>
+    <fields>
+        <label><!-- Video Width --></label>
+        <name>redwing__Video_Width__c</name>
+    </fields>
+</CustomObjectTranslation>

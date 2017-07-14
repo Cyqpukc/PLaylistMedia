@@ -1,0 +1,257 @@
+<!--
+Copyright (c) 2014, salesforce.com, Inc.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+    * Neither the name of the salesforce.com, Inc. nor the names of its contributors
+    may be used to endorse or promote products derived from this software
+    without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<apex:page docType="html-5.0" controller="redwing.TaskViewerCtrl" sidebar="false" showHeader="{!showSFHeader}" standardStylesheets="false" cache="false">
+
+    <apex:composition template="redwing__LMSTemplate">
+
+        <apex:define name="head">
+            <title>{!task.Name}</title>
+            <script type="text/javascript" src="{!URLFOR($Resource.lmscore_uilib, '/js/jquery.filepicker.min.js')}"></script>
+        </apex:define>
+
+        <apex:define name="body">
+
+            <apex:form id="taskViewerForm">
+
+                <apex:actionStatus id="status">
+                    <apex:facet name="start">
+                        <c:LMSStatus statusComponentId="{!$Component.status}"/>
+                    </apex:facet>
+                </apex:actionStatus>
+
+                <!-- js functions used by embedded lightning components -->
+                <apex:actionFunction name="markCompletedAndRedirect" action="{!markCompletedAndRedirect}" />
+                <apex:actionFunction name="markCompleted" action="{!markCompleted}" rerender="resultsPanel,pmessages" oncomplete="doRedirection()"/>
+
+                <apex:outputPanel layout="none" id="resultsPanel">
+                    <apex:inputHidden id="redirectURL" value="{!redirectURL}"/>
+                </apex:outputPanel>
+
+                <apex:outputPanel id="pmessages" layout="none">
+                    <apex:outputPanel layout="block" styleClass="alert alert-danger" rendered="{!hasMessages}">
+                        <script>
+                            forceHideStatus();
+                        </script>
+                        <apex:pageMessages />
+                    </apex:outputPanel>
+                </apex:outputPanel>
+
+                <apex:outputPanel layout="none" rendered="{!task != null}">
+
+                    <apex:outputPanel layout="none" rendered="{!task.redwing__Enable_Video_Upload__c}">
+                        <apex:includeLightning />
+                    </apex:outputPanel>
+
+                    <div class="row">
+                        <div class="col-md-12"><h3>{!task.Name}</h3></div>
+                    </div>
+
+                    <apex:outputPanel layout="none" rendered="{!task.redwing__Description__c != null}">
+                        <div class="row">
+                            <div class="col-md-12"><p class="task-description">{!task.redwing__Description__c}</p></div>
+                        </div>
+                    </apex:outputPanel>
+
+                    <apex:outputPanel layout="block" rendered="{!task.redwing__Description_RTA__c != null}" style="padding:10px 0;">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="task-description-rta">
+                                    <apex:outputField value="{!task.redwing__Description_RTA__c}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </apex:outputPanel>
+
+                    <apex:outputPanel layout="none" rendered="{!assignment.redwing__Approver_Notes__c != null}">
+                        <div class="{!approverNotesStyleClass}">
+                            <h4>{!$Label.redwing__alms_note_from_approver}</h4>
+                            <p>{!assignment.redwing__Approver_Notes__c}</p>
+                        </div>
+                    </apex:outputPanel>
+
+                    <apex:outputPanel layout="none" rendered="{!externalResourceURL != null}">
+                        <div class="panel panel-default">
+                          <div class="panel-heading"><b>{!$Label.redwing__alms_additional_information}</b></div>
+                          <div class="panel-body">
+                              <a href="javascript:lmscore.redirectHandlerWithTarget('{!JSENCODE(externalResourceURL)}','_{!JSINHTMLENCODE(task.redwing__External_Resource_Target__c)}',true)">{!IF(task.redwing__External_Resource_Name__c!=null,task.redwing__External_Resource_Name__c,externalResourceURL)}</a>
+                          </div>
+                        </div>
+                    </apex:outputPanel>
+
+                    <apex:outputPanel layout="none" rendered="{!task.redwing__Enable_Video_Upload__c}">
+
+                        <div id="lmsTaskVideoComponent" class="lms-task-video-component-container"/>
+
+                        <script>
+
+                            // Handle events submitted by embedded component
+                            function handleViewerEvent(event){
+                                forceShowStatus();
+                                var viewerEventType = event.getParam("type");
+                                if(viewerEventType == "submit"){
+                                    if({!task.redwing__Enable_Image_Upload__c}){
+                                        markCompletedAndRedirect();
+                                    }else{
+                                        markCompleted();
+                                    }
+                                }else{
+                                    doCancel();
+                                }
+                            }
+
+                            $Lightning.use("{!JSENCODE(videoComponentsNamespace)}:TaskVideoOutApp", function() {
+                              $Lightning.createComponent("{!JSENCODE(videoComponentsNamespace)}:TaskVideoComponent",
+                              {
+                                  "assignmentId" : "{!assignment.Id}",
+                                  "preview" : "{!assignment.Is_Test_Assignment__c}",
+                                  "userId" : "{!JSENCODE(assignment.User__c)}",
+                                  "status" : "{!JSENCODE(assignment.Progress__c)}"
+                              },
+                              "lmsTaskVideoComponent",
+                              function(cmp, status, errorMessage){
+                                  //Add the new button to the body array
+                                  if (status === "SUCCESS") {
+                                      $A.eventService.addHandler({ "event": "{!JSENCODE(lmsNamespace)}:TaskViewerEvent", "handler" : handleViewerEvent});
+                                  }else if (status === "INCOMPLETE") {
+                                      lmscore.logMessage("No response from server or client is offline.")
+                                  }else if (status === "ERROR") {
+                                      lmscore.logMessage("Error: " + errorMessage);
+                                  }
+                              });
+                            });
+
+                        </script>
+
+                    </apex:outputPanel>
+
+                    <apex:outputPanel layout="none" rendered="{!!taskCompleted}">
+
+                        <apex:outputPanel layout="none" rendered="{!task.redwing__Enable_Image_Upload__c}">
+                            <div class="panel panel-default">
+                                <div class="panel-heading"><b>{!$Label.redwing__alms_upload_image}</b></div>
+                                <div class="panel-body">
+                                    <apex:inputFile value="{!attachment.body}" filename="{!attachment.name}" id="file" styleClass="form-control image-upload-control" />
+                                </div>
+                            </div>
+                        </apex:outputPanel>
+
+                        <apex:outputPanel layout="none" rendered="{!!task.redwing__Disable_Comments__c}">
+                            <div class="panel panel-default">
+                                <div class="panel-heading"><b>{!$Label.redwing__alms_task_comments}</b></div>
+                                <div class="panel-body">
+                                  <div class="form-group">
+                                      <apex:inputTextArea value="{!assignmentComments}" rows="6" styleClass="form-control" />
+                                  </div>
+                                </div>
+                            </div>
+                        </apex:outputPanel>
+
+                        <apex:outputPanel layout="none" rendered="{!task.redwing__Enable_Image_Upload__c}">
+                          <apex:commandButton value="{!$Label.redwing__alms_task_done_button}" action="{!markCompletedAndRedirect}" styleClass="lmscore-success-btn large-btn" onclick="forceShowStatus();"/>
+                        </apex:outputPanel>
+                        <apex:outputPanel layout="none" rendered="{!!task.redwing__Enable_Image_Upload__c}">
+                          <apex:commandButton value="{!$Label.redwing__alms_task_done_button}" action="{!markCompleted}" styleClass="lmscore-success-btn large-btn" onclick="forceShowStatus();" rerender="resultsPanel,pmessages" oncomplete="doRedirection()"/>
+                        </apex:outputPanel>
+
+                        <a href="javascript:doCancel()" class="lmscore-primary-btn large-btn" style="margin-top:15px;">{!$Label.ALMS_Task_Working_Button}</a>
+
+                    </apex:outputPanel>
+
+                    <apex:outputPanel layout="none" rendered="{!taskInReview}">
+                        <div class="alert alert-info">
+                            <h4>{!$Label.redwing__alms_task_in_review_message}</h4>
+                        </div>
+                    </apex:outputPanel>
+
+                    <apex:outputPanel layout="none" rendered="{!taskCompleted}">
+
+                        <apex:outputPanel rendered="{!latestImageAttachment != null}">
+                            <apex:outputPanel layout="block" style="text-align:center;">
+                                <div class="panel panel-default">
+                                  <div class="panel-body">
+                                        <apex:image url="{!URLFOR($Action.Attachment.Download,latestImageAttachment)}" styleClass="taskviewer-thumbnail"/>
+                                    </div>
+                                </div>
+                            </apex:outputPanel>
+                        </apex:outputPanel>
+
+                        <apex:outputPanel layout="block" rendered="{!assignment.redwing__User_Notes__c != null}">
+                            <div class="panel panel-default">
+                                <div class="panel-heading"><b>{!$Label.redwing__alms_task_comments}</b></div>
+                                <div class="panel-body" style="overflow-x: auto;">
+                                    <apex:outputField value="{!assignment.redwing__User_Notes__c}"/>
+                                </div>
+                            </div>
+                        </apex:outputPanel>
+
+                        <apex:commandButton value="{!$Label.redwing__alms_task_undo_button}" action="{!resetTask}" styleClass="lmscore-warning-btn large-btn" style="margin-bottom:15px;" onclick="if(!confirm('{!JSINHTMLENCODE($Label.redwing__alms_confirm_alert)}')){return false}else{forceShowStatus()};" rerender="resultsPanel" oncomplete="doRedirection()" rendered="{!isTaskValidForReset}"/>
+
+                        <apex:commandButton value="{!$Label.redwing__alms_task_back_button}" action="{!cancelTask}" styleClass="lmscore-danger-btn large-btn" onclick="forceShowStatus();" rerender="resultsPanel" oncomplete="doRedirection()"/>
+
+                    </apex:outputPanel>
+
+                    <script>
+                        jQuery(document).ready(function($){
+                          $(".image-upload-control").attr('data-label', '{!JSENCODE($Label.redwing__alms_select_image)}');
+                          $("input[type='file']").filepicker({
+                            style: 'bootstrap'
+                          });
+                        });
+
+                        function doCancel(){
+                            forceShowStatus();
+                            if({!isLightningContext}){
+                                lmscore.fireLightningEventFromIframe("e.{!JSENCODE(lmsNamespace)}:LearningViewEvent", {type:"close"});
+                                return true;
+                            }
+                            var retUrl = '{!JSENCODE(cancelURL)}';
+                            if(retUrl && retUrl.length > 0){
+                                lmscore.redirectHandlerWithStatus(retUrl,false);
+                            }
+                        }
+                    </script>
+                </apex:outputPanel>
+                <apex:commandButton value="{!$Label.redwing__alms_task_back_button}" action="{!cancelTask}" styleClass="lmscore-danger-btn large-btn" onclick="forceShowStatus();" rerender="resultsPanel" oncomplete="doRedirection()" rendered="{!task == null}"/>
+             <script>
+                function doRedirection(){
+                    if({!isLightningContext}){
+                        lmscore.fireLightningEventFromIframe("e.{!JSENCODE(lmsNamespace)}:LearningViewEvent", {type:"close", trainingPlanId: "{!JSENCODE(assignment.redwing__Training_Plan__c)}"});
+                        return true;
+                    }
+                    var retUrl = document.getElementById('{!$Component.redirectURL}').value;
+                    if(retUrl && retUrl.length > 0){
+                        lmscore.redirectHandlerWithStatus(retUrl,false);
+                    }
+                }
+            </script>
+            </apex:form>
+        </apex:define>
+
+      </apex:composition>
+
+</apex:page>

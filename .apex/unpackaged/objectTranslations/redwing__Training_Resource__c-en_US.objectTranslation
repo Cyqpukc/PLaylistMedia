@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <help><!-- Enabling this option will pass context parameters to the Resource URL. (e.g. https://someurl.com/?aid=ASSIGNMENT_ID&amp;tid=TPLAN_ID) --></help>
+        <label><!-- Add training parameters to URL --></label>
+        <name>redwing__Add_training_parameters_to_URL__c</name>
+    </fields>
+    <fields>
+        <label><!-- Description --></label>
+        <name>redwing__Description__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enabling this option will load the Resource URL within an iframe instead of a new window --></help>
+        <label><!-- Display in Iframe --></label>
+        <name>redwing__Display_in_Iframe__c</name>
+    </fields>
+    <fields>
+        <label><!-- Learning --></label>
+        <name>redwing__Learning__c</name>
+        <relationshipLabel><!-- Training Resources --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Learning objects of type &quot;Resource&quot; are marked as completed on launch by default, enable this option if you want to delegate the completion to the Resource URL --></help>
+        <label><!-- Delegate assignment completion --></label>
+        <name>redwing__Prevent_completion_on_launch__c</name>
+    </fields>
+    <fields>
+        <help><!-- URL of the learning resource you would like to use for this learning (e.g. https://someurl.com) --></help>
+        <label><!-- Resource URL --></label>
+        <name>redwing__Resource_URL__c</name>
+    </fields>
+</CustomObjectTranslation>

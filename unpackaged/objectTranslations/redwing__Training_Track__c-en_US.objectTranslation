@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <help><!-- The Achievement will determine the badge displayed in the Learning Trac box and header --></help>
+        <label><!-- Achievement --></label>
+        <name>redwing__Achievement__c</name>
+        <relationshipLabel><!-- Learning Tracs --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Only assign self-registration enabled Learning Plans when assigning/registering for a Learning Trac --></help>
+        <label><!-- Assign Only Self-Registration Plans --></label>
+        <name>redwing__Assign_Only_Self_Registration_Plans__c</name>
+    </fields>
+    <fields>
+        <help><!-- HEX Color code for the header background color (e.g. #dcdcdc, more examples in : http://www.color-hex.com/) --></help>
+        <label><!-- Background Color --></label>
+        <name>redwing__Background_Color__c</name>
+    </fields>
+    <fields>
+        <help><!-- URL for the image displayed in the Learning Trac detail header --></help>
+        <label><!-- Background Image URL --></label>
+        <name>redwing__Background_Image_URL__c</name>
+    </fields>
+    <fields>
+        <label><!-- Description --></label>
+        <name>redwing__Description__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enabling this checkbox will expose this Learning Trac to all external (Community/Portal) users --></help>
+        <label><!-- Enable for all external users --></label>
+        <name>redwing__Enable_all_external_accounts__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enabling this checkbox will expose this Learning Trac to all internal users --></help>
+        <label><!-- Enable for all internal users --></label>
+        <name>redwing__Enable_all_internal_users__c</name>
+    </fields>
+    <fields>
+        <help><!-- Catalog used for grouping Learning Tracs into sections --></help>
+        <label><!-- Group --></label>
+        <name>redwing__Learning_Category__c</name>
+        <relationshipLabel><!-- Learning Tracs --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Display a New ribbon in the Learning Trac until the specified date --></help>
+        <label><!-- New Until --></label>
+        <name>redwing__New_Until__c</name>
+    </fields>
+    <fields>
+        <help><!-- Number that defines the position in which this track will appear in the tracks page --></help>
+        <label><!-- Order --></label>
+        <name>redwing__Order__c</name>
+    </fields>
+    <fields>
+        <help><!-- Learning Tracs are not available to end users until they are &quot;Active&quot; --></help>
+        <label><!-- Status --></label>
+        <name>redwing__Status__c</name>
+        <picklistValues>
+            <masterLabel>Active</masterLabel>
+            <translation><!-- Active --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Draft</masterLabel>
+            <translation><!-- Draft --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- HEX Color code for the header text color (e.g. #333333, more examples in : http://www.color-hex.com/) --></help>
+        <label><!-- Text Color --></label>
+        <name>redwing__Text_Color__c</name>
+    </fields>
+    <sharingReasons>
+        <label><!-- LMS Sharing --></label>
+        <name>redwing__LMS_Sharing</name>
+    </sharingReasons>
+    <webLinks>
+        <label><!-- Export_Training_Track --></label>
+        <name>redwing__Export_Training_Track</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Manage_Assignments --></label>
+        <name>redwing__Manage_Assignments</name>
+    </webLinks>
+</CustomObjectTranslation>

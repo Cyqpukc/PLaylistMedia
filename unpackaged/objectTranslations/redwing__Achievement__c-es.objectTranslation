@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Logro</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Logros</value>
+    </caseValues>
+    <fields>
+        <label><!-- Achievement Category --></label>
+        <name>redwing__Achievement_Category__c</name>
+        <relationshipLabel><!-- Achievements --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Acquired Image --></label>
+        <name>redwing__Acquired_Image__c</name>
+    </fields>
+    <fields>
+        <label><!-- Eligible Image --></label>
+        <name>redwing__Eligible_Image__c</name>
+    </fields>
+    <fields>
+        <help>Lanzar la URL de Impresión al dar click en el Logro Adquirido</help>
+        <label><!-- Enable Printing --></label>
+        <name>redwing__Enable_Printing__c</name>
+    </fields>
+    <fields>
+        <help>Logros expirados no seran mostrados en el perfil de los usuarios</help>
+        <label><!-- Expiration Date --></label>
+        <name>redwing__Expiration_Date__c</name>
+    </fields>
+    <fields>
+        <help>Si esta seleccionado, este logro no será desplegado en el perfil de los usuarios</help>
+        <label><!-- Hidden --></label>
+        <name>redwing__Hidden__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción para esconder este Logro de los usuarios externos</help>
+        <label><!-- Is Internal --></label>
+        <name>redwing__Is_Internal__c</name>
+    </fields>
+    <fields>
+        <help>Sobrescribir el estado Adquirido, mostrará el estado seleccionado aquí en lugar del estado Adquirido. Es su responsabilidad crear un proceso que mueva la asignación del Logro al estado Adquirido.</help>
+        <label><!-- Override Completed Status --></label>
+        <name>redwing__Override_Completed_Status__c</name>
+        <picklistValues>
+            <masterLabel>In Review</masterLabel>
+            <translation>En Revisión</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help>Especifique una liga a la cual los usuarios serian enviados cuando presionen la imagen en su Perfil.</help>
+        <label><!-- Override URL --></label>
+        <name>redwing__Override_URL__c</name>
+    </fields>
+    <fields>
+        <help>Mostar Logo en Perfil aunque ya haya expirado</help>
+        <label><!-- Show If Expired --></label>
+        <name>redwing__Show_If_Expired__c</name>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>redwing__Type__c</name>
+        <picklistValues>
+            <masterLabel>Achievements</masterLabel>
+            <translation>Logros</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Certifications</masterLabel>
+            <translation>Certificaciones</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Work.com Badge Giver --></label>
+        <name>redwing__Work_Badge_Giver__c</name>
+        <relationshipLabel><!-- Achievements --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Work.com Badge Id --></label>
+        <name>redwing__Work_Badge_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Work.com Badge Image URL --></label>
+        <name>redwing__Work_Badge_Image_URL__c</name>
+    </fields>
+    <fields>
+        <label><!-- Work.com Badge Message --></label>
+        <name>redwing__Work_Badge_Message__c</name>
+    </fields>
+    <gender>Masculine</gender>
+    <nameFieldLabel>Nombre de Logro</nameFieldLabel>
+    <webLinks>
+        <label><!-- Add_Work_com_Badge --></label>
+        <name>redwing__Add_Work_com_Badge</name>
+    </webLinks>
+</CustomObjectTranslation>

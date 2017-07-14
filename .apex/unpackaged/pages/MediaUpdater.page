@@ -1,0 +1,19 @@
+<apex:page controller="MediaUpdaterCtrl">
+    <script>
+        function disableOnSubmit(input) {
+            setTimeout(function(){disableAfterTimeout(input.id);}, 50);
+        }
+    </script>
+    <apex:form >
+        <apex:pageBlock title="Update Media Title">
+            <apex:pageBlockButtons >
+                <apex:commandButton value="{!IF(isDone, 'Done', 'Back')}" onclick="if(window.parent && window.parent.reload){window.parent.reload();}"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection columns="1"> 
+                <apex:outputPanel rendered="{! isDone == true }" style="font-size: 14px; font-weight: bold; color: dark-green;">Done</apex:outputPanel>
+                <apex:inputFile value="{!contentFile}" filename="{!nameFile}" accept=".csv"/><br/>
+                <apex:commandButton id="uploadBtn" value="Upload" action="{!upload}" onclick="disableOnSubmit(this);" />
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

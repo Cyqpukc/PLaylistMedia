@@ -1,0 +1,7 @@
+<design:component >
+    <design:attribute name="showRecommended" label="Show Recommended" />
+    <design:attribute name="maxCountRecommendedVideos" label="Max Recommended Videos"/>
+    <design:attribute name="showShared" label="Show 'Share' Button"/>
+    <design:attribute name="showPin" label="Show Pin Button"/>
+    <design:attribute name="showChannel" label="Show Channels"/>
+</design:component>

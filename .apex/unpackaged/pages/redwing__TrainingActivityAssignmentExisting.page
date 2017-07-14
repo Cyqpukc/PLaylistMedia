@@ -1,0 +1,51 @@
+<apex:page standardController="redwing__Training_Activity__c" extensions="redwing.TrainingActivityAssignmentExistingExt" sidebar="false">
+
+    <apex:form id="assignmentFormExisting">
+
+        <apex:pageMessages />
+
+        <apex:outputPanel layout="none" rendered="{!hasEditAccess}">
+            <apex:pageBlock >
+
+                <apex:pageBlockButtons location="top">
+                    <apex:commandButton value="{!$Label.redwing__alms_update}" action="{!updateAssignments}" status="status" rerender="assignmentFormExisting" onclick="if(!confirm('{!JSINHTMLENCODE($Label.redwing__alms_confirm_alert)}')){return};" />
+                    <apex:commandButton value="{!$Label.redwing__alms_delete}" action="{!deleteAssignments}" status="status" rerender="assignmentFormExisting" onclick="if(!confirm('{!JSINHTMLENCODE($Label.redwing__alms_confirm_alert)}')){return};"/>
+                    <apex:commandButton value="{!$Label.redwing__alms_cancel}" action="{!cancel}" />
+                </apex:pageBlockButtons>
+
+                <apex:outputPanel layout="block" rendered="{!rows != null && rows.size == 0}">
+                    <apex:pageMessage summary="{!$Label.redwing__alms_search_no_results}" severity="info" strength="3" />
+                </apex:outputPanel>
+
+                <apex:outputPanel layout="block" style="padding:10px 0;">
+                    <a href="javascript:selectAllCBs('lmsCBSelectExt')">{!$Label.redwing__alms_select_all}</a> | <a href="javascript:unSelectAllCBs('lmsCBSelectExt')">{!$Label.redwing__alms_unselect_all}</a>
+                </apex:outputPanel>
+
+                <apex:outputPanel rendered="{!rows != null && rows.size > 0}">
+                    <apex:pageBlockTable value="{!rows}" var="r">
+                        <apex:column headerValue="{!$Label.redwing__alms_action}">
+                            <apex:inputCheckbox value="{!r.isSelected}" styleClass="lmsCBSelectExt"/>
+                        </apex:column>
+                        <apex:column value="{!r.assignmentRecord.redwing__User__c}"/>
+                        <apex:column value="{!r.assignmentRecord.User__r.Email}"/>
+                        <apex:column headerValue="{!$Label.redwing__alms_due_date}">
+                            <apex:inputField value="{!r.assignmentRecord.redwing__Due_Date__c}"/>
+                        </apex:column>
+                        <apex:column value="{!r.assignmentRecord.User__r.ProfileId}"/>
+                        <apex:column value="{!r.assignmentRecord.User__r.UserRoleId}"/>
+                    </apex:pageBlockTable>
+
+                    <apex:outputPanel layout="block" style="width:100%;text-align:center;padding:10px 0;">
+                        <apex:commandLink action="{!doPrevious}" rendered="{!hasPrevious}" value="{!$Label.redwing__alms_previous}"/>
+                        <apex:outputLabel value=" ({!$Label.redwing__alms_search_page} {!pageNumber} {!$Label.redwing__alms_search_page_separator} {!totalPages}) " />
+                        <apex:commandLink action="{!doNext}" rendered="{!hasNext}" value="{!$Label.redwing__alms_next}" />
+                    </apex:outputPanel>
+
+                </apex:outputPanel>
+
+            </apex:pageBlock>
+
+        </apex:outputPanel>
+    </apex:form>
+
+</apex:page>

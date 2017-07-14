@@ -1,0 +1,34 @@
+<apex:page standardController="redwing__Training_Track__c" extensions="redwing.TrainingTrackAssignmentBatchExt" sidebar="false">
+    <apex:form id="assignmentFormBatch">
+
+        <apex:pageMessages />
+
+        <apex:outputPanel layout="none" rendered="{!hasEditAccess}">
+            <apex:pageBlock >
+
+                <apex:outputPanel layout="none" rendered="{!redwing__Training_Track__c.redwing__Status__c != 'Active'}">
+                    <apex:pageMessage severity="warning" strength="3" detail="{!$Label.redwing__alms_inactive_tplan_warning}"/>
+                </apex:outputPanel>
+
+                <apex:pageBlockButtons location="top">
+                    <apex:commandButton value="{!$Label.redwing__alms_recalculate_all_assignments}"
+                            action="{!recalculateAllAssignments}"
+                            onclick="if(!confirm('{!JSINHTMLENCODE($Label.redwing__alms_confirm_alert)}')){return};"
+                            rerender="assignmentFormBatch"
+                            status="status"
+                    />
+                    <apex:commandButton value="{!$Label.redwing__alms_update_all_assignments}"
+                            action="{!updateAllAssignments}"
+                            onclick="if(!confirm('{!JSINHTMLENCODE($Label.redwing__alms_confirm_alert)}')){return};"
+                            rerender="assignmentFormBatch"
+                            status="status"
+                    />
+                </apex:pageBlockButtons>
+
+                <apex:pageMessage summary="{!$Label.redwing__alms_update_all_assignments_message} {!redwing__Training_Track__c.Name}" severity="warning" strength="3" />
+
+            </apex:pageBlock>
+        </apex:outputPanel>
+
+    </apex:form>
+</apex:page>

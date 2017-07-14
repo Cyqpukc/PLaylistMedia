@@ -1,0 +1,59 @@
+<aura:component controller="CatalogsCmpCtrl" implements="forceCommunity:availableForAllPageTypes" access="global">
+
+    <aura:attribute name="catalogs" type="CatalogWrapper[]"/>
+    <aura:attribute name="channel" type="ChannelWrapper[]"/>
+    <aura:attribute name="showCatalogs" type="Boolean" default="true"/>
+    <aura:attribute name="showAllVideosCmp" type="Boolean" default="false"/>
+    <aura:attribute name="panelColor" type="String" default="#888888" access="global"/>
+
+    <aura:attribute name="showChannel" type="Boolean" default="true" access="global"/>
+    <aura:attribute name="showShared" type="Boolean" default="true" access="global"/>
+    <aura:attribute name="shareButtonStyle" type="String" access="global"/>
+    <aura:attribute name="shareLinkType" type="String" access="global"/>
+    <aura:attribute name="siteId" type="String" access="global"/>
+    <aura:attribute name="showPin" type="Boolean" default="true" access="global"/>
+    <aura:attribute name="showProgress" type="Boolean" default="true" access="global"/>
+
+    <aura:attribute name="cmpInstances" type="Aura.Component[]" />
+    <aura:attribute name="mediaPopupCmpInstance" type="Aura.Component[]" />
+
+    <ltng:require styles="/resource/ViewTracCustomCss"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <div class="search-container">
+
+        <!--List channels-->
+        <aura:renderIf isTrue="{!v.showCatalogs &amp;&amp; v.showChannel &amp;&amp; (v.channel != null || v.channel.length &gt; 0)}">
+            <div class="channels">
+                <aura:iteration items="{!v.channel}" var="channel">
+                    <a data-channel="{! channel.id }" data-channel-name="{! channel.name }" onclick="{! c.toChannel }" >{!channel.name}</a>
+                </aura:iteration>
+            </div>
+        </aura:renderIf>
+
+        <aura:renderIf isTrue="{!v.showCatalogs}">
+            <div class="results">
+                <span>
+                    <span class="panelsContainer">
+                        <aura:iteration items="{!v.catalogs}" var="w">
+                            <a class="catalogPanelOne" href="#cpm" data-catalog="{! w.catalogId }" data-catalog-name="{! w.name }" onclick="{! c.toCatalog }">
+                                <div class="{! 'hoverColor ' + ((w.backImage == null) ? 'withoutCover' : '')}" style="{!'background-color: ' + v.panelColor + ';'}"></div>
+                                <aura:renderIf isTrue="{!w.backImage != null}">
+                                    <div class="backgroundImage" style="{!'background-image: url(\'' + w.backImage + '\');'}"></div>
+                                </aura:renderIf>
+                                <div class="titleCatalog" ><div class="title-inner">{!w.name}</div></div>
+                            </a>
+                        </aura:iteration>
+                        <div class="{!(v.catalogs == null || v.catalogs.length le 0) ? 'noresults' : 'hidden'}">{!$Label.c.No_catalogs}</div>
+                    </span>
+                </span>
+            </div>
+            {!v.mediaPopupCmpInstance}
+        </aura:renderIf>
+        <aura:renderIf isTrue="{!v.showAllVideosCmp}">
+            <a onclick="{!c.reloadPage}"> {!$Label.c.Back} </a>
+            {!v.cmpInstances}
+        </aura:renderIf>
+    </div>
+</aura:component>

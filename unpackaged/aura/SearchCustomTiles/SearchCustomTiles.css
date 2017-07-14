@@ -1,0 +1,91 @@
+.THIS.hidden, .THIS .hidden {
+    display: none !important;
+}
+
+.THIS.search-container .article-item.selfServiceArticleListItem {
+    margin: 0;
+    padding: 0 0 25px 0;
+}
+
+.THIS.search-container h3.article-head {
+    font-weight: bold;
+    margin-bottom: 10px;
+    margin-top: 25px;
+}
+
+.THIS.search-container span.dot {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.THIS.search-container div.footer {
+    font-weight: 300;
+    font-size: 12px;
+}
+
+.THIS.search-container .tabs .tab {
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: Montserrat;
+    cursor: pointer;
+    color: #696969;
+    padding-bottom: 8px;
+    margin: 0 14px;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* IE/Edge */
+    user-select: none;
+}
+
+.THIS.search-container .tabs .tab:first-child {
+	margin-left: 0px !important;
+}
+
+.THIS.search-container .tabs .tab.active {
+    color: #333;
+    border-bottom-width: 4px;
+    border-bottom-style: solid;
+    margin-bottom: -4px;
+}
+
+.THIS.search-container .tabs .tab:hover {
+    color: #898989;
+}
+
+.THIS.search-container .results {
+    position: relative;
+    min-height: 200px;
+    margin-top: 20px;
+}
+
+.THIS.search-container .results .panelsContainer {
+    position:relative;
+    margin-top:10px;
+    min-height: 200px;
+}
+
+.THIS.search-container .results .panelsContainer .noresults {
+    font-weight: 300;
+    line-height: 1.25;
+    font-size: 1.5rem;
+    color: #696969;
+    text-align: center;
+    margin-top: 95px;
+    position: relative;
+}
+
+.THIS.search-container .results .uiTabset .uiTabBar {
+    display: none !important;
+}
+
+.THIS.search-container .spanLoadingWrapper {
+    text-align: center;
+}
+
+.THIS.search-container .spanLoadingWrapper .loadingBallsWrapper{
+    padding-top: 30px;
+}

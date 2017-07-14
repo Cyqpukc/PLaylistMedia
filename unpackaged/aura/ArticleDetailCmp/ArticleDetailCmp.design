@@ -1,0 +1,6 @@
+<design:component label="Article Content">
+	<design:attribute name="recordId" label="Article ID" description="Please set it to {!recordId}" />
+	<design:attribute name="isVotingEnable" label="Enable Article Voting" />
+	<design:attribute name="voteText" label="Vote Prompt Text" />
+	<design:attribute name="voteConfirmationText" label="Vote Confirmation Text" />
+</design:component>

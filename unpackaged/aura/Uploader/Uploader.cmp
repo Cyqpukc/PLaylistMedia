@@ -1,0 +1,23 @@
+<aura:component Controller="UploaderCtrl" implements="flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" >
+	<ltng:require scripts="{!join(',',$Resource.Components_Library + '/vendor/components/jquery/jquery.min.js',$Resource.Components_Library + '/js/forcetk.js')}" afterScriptsLoaded="{!c.initUploader}" />
+ 	<aura:attribute name="sessionId" type="String" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+		<div id="uploaderButton" class="slds-form-element">
+            <div class="slds-form-element__control">
+                <div class="slds-group-container">
+                    <div class="slds-file-selector slds-file-selector--files">
+                        <input type="file" class="slds-file-selector__input slds-assistive-text" id="file" aria-describedby="file-selector-id" onchange="{!c.uploadFile}" data-session-id="{!$Api.Session_ID}" />
+                        <label class="slds-file-selector__body" for="file">
+                            <span class="slds-file-selector__button slds-button slds-button--neutral uiButton--brand">
+                                UPLOAD FILES
+                            </span>
+                        </label>
+                    </div>
+                    <div class="slds-progress-bar slds-hide" id="fileProgress">
+                        <div class="status"></div>
+                    </div>
+                    <div id="message"></div>
+                </div>
+            </div>
+        </div>
+</aura:component>

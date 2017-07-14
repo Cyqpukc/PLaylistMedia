@@ -1,0 +1,54 @@
+<apex:page standardController="rwscorm__Learning_Course_Item__c" recordSetVar="items" extensions="rwscorm.UploadCourse" action="{!redirectWithParams}" tabStyle="redwing__Learning__c">
+    <style>
+        input.btnImportant.cancelUpload {
+            height:36px;
+            width:140px;
+            float:right;
+            font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size:18px;
+            font-weight:normal;
+        }
+        input.btnImportant.cancelUpload:hover {
+            background-position: right -14px;
+        }
+        .waitStatusContainer {
+            background-color: #fbfbfb;
+            height: 100%;
+            opacity: 0.65;
+            width: 100%;
+        }
+        
+        .waitStatusMinContainer {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+        }
+        
+        .waitStatusMinContainer img {
+            float: left;
+        }
+        
+        .waitStatusMinContainer label {
+            float: left;
+            font-size: 14px;
+            margin-left: 4px;
+        }
+    </style>
+    <apex:form >
+        <iframe 
+            frameborder="0" height="700px" id="theIframe" name="theIframe" scrolling="no" title="Content" width="100%"
+            src="{!iframeSrc}" onload="return hideWaitStatus();"
+        />
+        <apex:commandButton action="{!cancel}" value="CANCEL" styleClass="btnImportant cancelUpload" />
+        <div id="iframeWaitStatus" class="waitingSearchDiv waitStatusContainer">
+            <div class="waitingHolder">
+                <img class="waitingImage" src="/img/loading32.gif" />
+            </div>
+        </div>
+    </apex:form>
+    <script>
+        function hideWaitStatus() {
+            document.getElementById("iframeWaitStatus").style.display = "none";
+        }
+    </script>
+</apex:page>

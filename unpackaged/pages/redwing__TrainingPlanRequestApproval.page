@@ -1,0 +1,30 @@
+<apex:page standardController="redwing__Training_Plan_Access_Request__c" extensions="redwing.TrainingPlanRequestApprovalExt" sidebar="false">
+
+    <apex:sectionHeader title="{!$Label.redwing__alms_plan_request_approval}" subtitle="{!redwing__Training_Plan_Access_Request__c.Name}"/>
+
+    <apex:form >
+        <apex:outputPanel layout="none" rendered="{!dummyRecord != null}">
+            <apex:pageBlock >
+                <apex:pageMessages />
+                    <apex:pageBlockButtons >
+                        <apex:commandButton value="{!$Label.redwing__alms_save}" action="{!saveRecord}" />
+                        <apex:commandButton value="{!$Label.redwing__alms_cancel}" action="{!cancel}" />
+                    </apex:pageBlockButtons>
+
+                    <apex:pageBlockSection columns="2" collapsible="false">
+                        <apex:inputField value="{!dummyRecord.redwing__Status__c}" />
+                        <apex:inputField value="{!dummyRecord.redwing__Approver_Comments__c}" />
+                    </apex:pageBlockSection>
+            </apex:pageBlock>
+        </apex:outputPanel>
+        <apex:outputPanel layout="none" rendered="{!dummyRecord == null}">
+            <apex:pageBlock >
+                <apex:pageMessages />
+                <apex:pageBlockButtons >
+                    <apex:commandButton value="{!$Label.redwing__alms_cancel}" action="{!cancel}" />
+                </apex:pageBlockButtons>
+            </apex:pageBlock>
+        </apex:outputPanel>
+    </apex:form>
+
+</apex:page>

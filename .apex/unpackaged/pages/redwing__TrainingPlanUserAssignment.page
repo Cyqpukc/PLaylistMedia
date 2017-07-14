@@ -1,0 +1,184 @@
+<apex:page docType="html-5.0" controller="redwing.TrainingPlanUserAssignmentCtrl" sidebar="false" showHeader="{!showSFHeader}" standardStylesheets="false">
+
+    <apex:composition template="redwing__LMSTemplate">
+
+        <apex:define name="head">
+            <title>{!$Label.redwing__alms_training_plan_assignment}</title>
+        </apex:define>
+
+        <apex:define name="body">
+
+            <apex:outputPanel layout="none" rendered="{!trainingPlan != null}">
+                <h3>{!trainingPlan.Name}</h3>
+            </apex:outputPanel>
+
+            <div style="padding:10px 0 20px 0;">
+                <a href="javascript:lmscore.redirectHandlerWithStatus('{!$Page.redwing__TrainingPlanAbout}?id={!JSENCODE(trainingPlanId)}',false)">{!$Label.redwing__alms_training_plan_back}</a>
+            </div>
+
+            <apex:outputPanel layout="none" rendered="{!!assignmentsEnabled}">
+                <apex:outputPanel layout="block" rendered="{!hasMessages}">
+                    <div class="alert {!IF(messageType != null, messageType ,'alert-danger')}" style="margin-top:10px;">
+                        <apex:pageMessages />
+                    </div>
+                </apex:outputPanel>
+            </apex:outputPanel>
+
+            <apex:form id="theForm" styleClass="form-inline" rendered="{!assignmentsEnabled}">
+
+                <div class="row">
+                    <div class="col-md-6" >
+                        <div class="form-group">
+                            <input type="text" class="form-control lms-search-input-box" id="lms-search-input" autocomplete="off" maxlength="100" placeholder="{!$Label.ALMS_Contact_Search_Box_Placeholder}"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control lms-search-input-box" id="lms-accsearch-input" autocomplete="off" maxlength="100" placeholder="{!$Label.ALMS_Account_Search_Box_Placeholder}"/>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-default" type="button" id="lms-search-button" style="margin-bottom: 10px;"><span class="glyphicon glyphicon-search"></span></button>
+                        </div>
+                    </div>
+                    <div class="col-md-6" >
+                        <apex:outputPanel layout="none" rendered="{!hasCommunities}">
+                            <div class="form-group">
+                               <apex:selectList value="{!communityId}" size="1" styleClass="form-control communities-select-list">
+                                   <apex:selectOptions value="{!communities}" />
+                               </apex:selectList>
+                            </div>
+                        </apex:outputPanel>
+                        <a href="javascript:upsertAssignments()" class="lmscore-warning-btn large-btn" style="width: 300px;padding:5px !important;margin-bottom: 10px;">{!$Label.ALMS_Assign_Users_button}</a>
+                    </div>
+                </div>
+
+                <apex:outputPanel layout="block" rendered="{!hasMessages}">
+                    <div class="alert {!IF(messageType != null, messageType ,'alert-danger')}" style="margin-top:10px;">
+                        <apex:pageMessages />
+                    </div>
+                </apex:outputPanel>
+
+                <div class="row">
+
+                    <div class="col-xs-12 col-sm-12 col-md-12" style="margin-top:20px;">
+
+                        <apex:outputPanel layout="none" rendered="{!users != null && users.size > 0}">
+
+                            <apex:outputPanel layout="block" style="padding:10px 0;">
+                                <a href="javascript:selectAllCBs('lmsCBSelectExt')">{!$Label.redwing__alms_select_all}</a> | <a href="javascript:unSelectAllCBs('lmsCBSelectExt')">{!$Label.redwing__alms_unselect_all}</a>
+                            </apex:outputPanel>
+
+                            <div class="list-group">
+                                <apex:repeat value="{!users}" var="u" id="theRepeat">
+                                    <div class="lms-user-search-item list-group-item">
+                                        <apex:outputPanel layout="none" rendered="{!u.userId != null}">
+                                            <apex:inputCheckbox styleClass="lmsCBSelectExt" value="{!u.isSelected}" style="margin-right:10px;"/>
+                                            <img src="{!u.userPhotoURL}" class="round-image-45"/>
+                                        </apex:outputpanel>
+                                        <apex:outputPanel layout="none" rendered="{!u.userId == null}">
+                                            <div style="display:inline;margin-right:25px;" />
+                                            <img src="{!URLFOR($Resource.lmscore_uilib, '/img/generic-user-disabled.png')}" class="round-image-45"/>
+                                        </apex:outputPanel>
+                                        <span class="list-group-item-text" style="padding: 0 0 0 10px;">{!u.contactRecord.Name}</span>
+                                        <span class="list-group-item-text-subtitle">
+                                            {!u.contactRecord.Account.Name} - {!u.contactRecord.Title}
+                                        </span>
+                                        <apex:outputPanel layout="none" rendered="{!u.assignment != null}">
+                                            <label class="label {!IF(u.assignment.redwing__Status__c =='Completed','label-success',IF(u.assignment.redwing__Status__c =='In Progress','label-primary','label-default'))}">
+                                                {!IF(u.assignment.redwing__Status__c == 'Completed',$Label.redwing__alms_training_status_completed, IF(u.assignment.redwing__Status__c == 'In Progress', $Label.redwing__alms_training_status_in_progress, $Label.redwing__alms_training_status_not_started))}
+                                            </label>
+                                        </apex:outputPanel>
+                                    </div>
+                                </apex:repeat>
+                            </div>
+                        </apex:outputPanel>
+
+                    </div>
+
+                </div>
+
+                <apex:outputPanel layout="none" rendered="{!users.size > 0 && totalPages > 1}">
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3">
+                            <ul class="pager">
+                                <apex:outputPanel layout="none" rendered="{!hasPrevious}">
+                                    <li><apex:commandLink action="{!doPrevious}" value="<<" rerender="theForm" status="status"/></li>
+                                </apex:outputPanel>
+                                <apex:outputPanel layout="none" rendered="{!!hasPrevious}">
+                                    <li><span>&lt;&lt;</span></li>
+                                </apex:outputPanel>
+                                <li><label style="padding:0 10px;">{!$Label.redwing__alms_search_page} {!pageNumber} {!$Label.redwing__alms_search_page_separator} {!totalPages}</label></li>
+                                <apex:outputPanel layout="none" rendered="{!hasNext}">
+                                    <li><apex:commandLink action="{!doNext}" rendered="{!hasNext}" value=">>" rerender="theForm" status="status"/></li>
+                                </apex:outputPanel>
+                                <apex:outputPanel layout="none" rendered="{!!hasNext}">
+                                    <li><span>&gt;&gt;</span></li>
+                                </apex:outputPanel>
+                            </ul>
+                        </div>
+                    </div>
+                </apex:outputPanel>
+
+                <apex:outputPanel layout="none" rendered="{!users == null || users.size == 0}">
+                    <div style="width:100%;text-align:center;padding:20px;0;">
+                        <h2>{!$Label.redwing__alms_search_no_results_found}</h2>
+                    </div>
+                </apex:outputPanel>
+
+                <apex:actionFunction action="{!upsertAssignments}" name="upsertAssignments" rerender="theForm"  status="status" />
+
+                <apex:actionStatus id="status">
+                    <apex:facet name="start">
+                        <apex:outputPanel >
+                            <c:LMSStatus statusComponentId="{!$Component.status}"/>
+                        </apex:outputPanel>
+                    </apex:facet>
+                </apex:actionStatus>
+
+                <script>
+                    jQuery(document).ready(function($){
+                        $("#lms-search-input").val("{!JSENCODE(currentSearchTerm)}");
+                        $("#lms-accsearch-input").val("{!JSENCODE(accountName)}");
+                        $( document ).on( "click", "#lms-search-button", function() {
+                            doContactsSearch();
+                        });
+                        $( document ).on( "keypress", ".lms-search-input-box", function(e) {
+                            if(e.which == 13){
+                                e.preventDefault();
+                                doContactsSearch();
+                            }
+                        });
+                        $("div.lms-user-search-item").on("click",function(event) {
+                            var target = $(event.target);
+                            if (target.is('input:checkbox')) return;
+
+                            var checkbox = $(this).find("input[type='checkbox']");
+
+                            if( !checkbox.prop("checked") ){
+                                checkbox.prop("checked",true);
+                            } else {
+                                checkbox.prop("checked",false);
+                            }
+                        });
+                    });
+                    function doContactsSearch(){
+                        var searchTerm = jQuery('#lms-search-input').val();
+                        var accSearchTerm = jQuery('#lms-accsearch-input').val();
+                        var searchURL = '{!$Page.redwing__TrainingPlanUserAssignment}?id={!JSENCODE(trainingPlanId)}&q='+encodeURIComponent(searchTerm)+'&acc='+encodeURIComponent(accSearchTerm);
+                        if(searchURL){
+                            //Do not retain navigation history for searches
+                            lmscore.redirectHandlerWithStatus(searchURL,false);
+                        }
+                    }
+                    function selectAllCBs(className){
+                        jQuery('.'+className).prop('checked',true);
+                    }
+                    function unSelectAllCBs(className){
+                        jQuery('.'+className).prop('checked',false);
+                    }
+                </script>
+
+            </apex:form>
+
+        </apex:define>
+
+    </apex:composition>
+</apex:page>

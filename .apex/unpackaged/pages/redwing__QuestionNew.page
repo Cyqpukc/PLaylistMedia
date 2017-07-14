@@ -1,0 +1,173 @@
+<!--
+Copyright (c) 2014, salesforce.com, Inc.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+    * Neither the name of the salesforce.com, Inc. nor the names of its contributors
+    may be used to endorse or promote products derived from this software
+    without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<apex:page standardController="redwing__Question__c" extensions="redwing.QuestionNewCtrl" >
+    <style>
+        .qtxtinput{
+            width: 80% !important;
+        }
+        .qorder{
+            width: 20px;
+        }
+        .bPageBlock .detailList .labelCol {
+            width: 7%;
+        }
+        .bPageBlock .detailList .dataCol {
+            width:auto;
+        }
+    </style>
+    <script src="{!URLFOR($Resource.lmscore_uilib, '/js/jquery.min.js')}" />
+    <script src="{!URLFOR($Resource.lmscore_uilib, '/js/lmscoreutils.js')}"/>
+
+    <apex:actionStatus id="status">
+        <apex:facet name="start">
+            <c:LMSStatus />
+        </apex:facet>
+    </apex:actionStatus>
+
+    <apex:form >
+
+        <apex:actionFunction action="{!answerseqenabler}" name="answerseqenablerJS" rerender="therepeater, qsection, qsection2" status="status">
+            <apex:param name="qtype" assignTo="{!questiontype}" value="" />
+        </apex:actionFunction>
+
+        <apex:sectionHeader title="{!$Label.redwing__alms_question_line}" subtitle="{!IF(question.Name != null, question.Name, $Label.redwing__alms_new_question)}"/>
+
+        <apex:pageBlock >
+
+            <apex:pageMessages />
+
+            <apex:pageBlockButtons location="top" >
+                <apex:commandButton action="{!c_save}" value="{!$Label.redwing__alms_save}" id="savebtn" />
+                <apex:commandButton action="{!c_save_new}" value="{!$Label.redwing__alms_save_and_new}" id="savenewbtn" />
+                <apex:commandButton action="{!cancel}" value="{!$Label.redwing__alms_cancel}" id="cancelbtn" />
+            </apex:pageBlockButtons>
+
+            <apex:pageBlockSection id="qsection" columns="{!IF(banswerseq,IF(banswermult,6,4),3)}" >
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.redwing__alms_question}" for="qdesc" ></apex:outputLabel>
+                    <apex:inputField value="{!question.redwing__Description__c}"  id="qdesc" styleClass="qtxtinput"/>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.redwing__alms_question_type}" for="qtype" ></apex:outputLabel>
+                    <apex:inputField value="{!question.redwing__Type__c}" id="qtype" onchange="answerseqenablerJS(this.value)"/>
+                </apex:pageBlockSectionItem>
+
+                <apex:inputField value="{!question.redwing__Max_Answers__c}" id="qmaxansw" rendered="{!banswermult}" />
+
+                <apex:inputField value="{!question.redwing__Allow_Partial_Credit__c}" id="qpartialcredit" rendered="{!banswermult}" />
+
+                <apex:inputField value="{!question.redwing__Randomize__c}" id="qrand" rendered="{!banswerseq}" />
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.redwing__alms_question_order}" for="qorder" ></apex:outputLabel>
+                    <apex:inputField value="{!question.redwing__Order__c}" id="qorder" styleClass="qorder"/>
+                </apex:pageBlockSectionItem>
+
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection id="topicSection" columns="3" title="{!$Label.redwing__alms_topic_information}" collapsible="false">
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.redwing__alms_question_topic}" for="qtopic" ></apex:outputLabel>
+                    <apex:inputField value="{!question.redwing__Question_Topic__c}"  id="qtopic" />
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem >
+                    <a href="javascript:lmscore.redirectHandlerWithTarget('{!URLFOR($Action.Question_Topic__c.List, $ObjectType.Question_Topic__c)}', '_blank', true)" class="btn" style="text-decoration:none;padding:3px 5px;">{!$Label.ALMS_Manage_Topics}</a>
+                </apex:pageBlockSectionItem>
+
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection id="qsectionopts" columns="2" collapsible="true" title="{!$Label.redwing__alms_additional_information}" >
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.redwing__alms_question_additional}" for="qdescrta" ></apex:outputLabel>
+                    <apex:inputField value="{!question.redwing__Description_RTA__c}"  id="qdescrta" styleClass="qtxtinput"/>
+                </apex:pageBlockSectionItem>
+
+                <apex:inputField value="{!question.redwing__Question_Line__c}" />
+
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection id="qsection2" columns="1">
+
+                <apex:pageBlockSectionItem rendered="{!banswernum && !surveyMode}" >
+                    <apex:outputLabel value="{!$Label.redwing__alms_number_question}" for="qnum" ></apex:outputLabel>
+                    <apex:inputField value="{!question.redwing__Correct_Number__c}" id="qnum"/>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem rendered="{!banswerbool && !surveyMode}" >
+                    <apex:outputLabel value="{!$Label.redwing__alms_boolean_question}" for="qbool" ></apex:outputLabel>
+                    <apex:inputField value="{!question.redwing__Correct_Boolean__c}" id="qbool"/>
+                </apex:pageBlockSectionItem>
+
+            </apex:pageBlockSection>
+
+        </apex:pageBlock>
+
+        <apex:pageBlock id="therepeater">
+            <apex:pageBlockButtons location="bottom" rendered="{!banswerseq}" >
+                <apex:commandButton action="{!addAnswerSeqItem}" value="{!$Label.redwing__alms_add_answer_sequence_item}" id="theButton" rerender="therepeater" status="status"/>
+            </apex:pageBlockButtons>
+
+            <apex:variable var="cnt" value="{!0}" />
+            <apex:pageBlockSection columns="{!IF(surveyMode,4,5)}" rendered="{!banswerseq}" >
+                <apex:repeat value="{!lanswerseqitems}" var="item" >
+                    <apex:inputField value="{!item.redwing__Item_Id__c}" required="false" styleClass="qtxtinput" />
+                    <apex:inputField value="{!item.redwing__Answer_Text__c}" styleClass="qtxtinput" />
+                    <apex:inputField value="{!item.redwing__Order__c}" styleClass="qorder" />
+                    <apex:inputField value="{!item.redwing__Is_Correct_Answer__c}" rendered="{!!surveyMode}"/>
+                    <apex:outputPanel layout="block">
+                        <apex:commandButton action="{!deleteAnswerSeqItem}" value="{!$Label.redwing__alms_delete}" id="theDelButton" rerender="therepeater" status="status">
+                            <apex:param assignTo="{!itemIndexToDelete}" name="delIndex" value="{!cnt}"/>
+                        </apex:commandButton>
+                        <apex:variable var="cnt" value="{!cnt+1}"/>
+                    </apex:outputPanel>
+                </apex:repeat>
+            </apex:pageBlockSection>
+
+        </apex:pageBlock>
+
+        <script>
+            jQuery(document).ready(function($) {
+                var imgs = $('img');
+                if(imgs){
+                    for(var x in imgs){
+                        if(imgs[x].className=='hideListButton' || imgs[x].className=='showListButton'){
+                            twistSection(imgs[x]);
+                        }
+                    }
+                }
+            });
+        </script>
+
+    </apex:form>
+
+</apex:page>

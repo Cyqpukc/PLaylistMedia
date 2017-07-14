@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Evaluación</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Evaluaciones</value>
+    </caseValues>
+    <fields>
+        <help>Eliminar los registros de respuestas una vez que los usuarios terminen su evaluación</help>
+        <label><!-- Delete Responses on Submission --></label>
+        <name>redwing__Delete_Responses_On_Submission__c</name>
+    </fields>
+    <fields>
+        <label><!-- Display Progress Bar --></label>
+        <name>redwing__Display_Progress_Bar__c</name>
+    </fields>
+    <fields>
+        <label><!-- Display Quiz Navigator --></label>
+        <name>redwing__Display_Quiz_Navigator__c</name>
+    </fields>
+    <fields>
+        <help>Mostrar un resumen con las preguntas correctas/incorrectas de la evaluación</help>
+        <label><!-- Display Response Summary --></label>
+        <name>redwing__Display_Results_Summary__c</name>
+    </fields>
+    <fields>
+        <help>Mostrar un resumen con los temas correctos/incorrectos de la evaluación</help>
+        <label><!-- Display Topics Summary --></label>
+        <name>redwing__Display_Topics_Summary__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar el Modo Encuesta previene eliminar respuestas al enviar la Evaluación y la puntuación es deshabilitada</help>
+        <label><!-- Survey Mode --></label>
+        <name>redwing__Enable_Survey_Mode__c</name>
+    </fields>
+    <fields>
+        <label><!-- Learning --></label>
+        <name>redwing__Learning__c</name>
+        <relationshipLabel><!-- Quizzes --></relationshipLabel>
+    </fields>
+    <fields>
+        <help>Máximo número de intentos para llegar a la calificación de pase</help>
+        <label><!-- Max Attempts --></label>
+        <name>redwing__Max_Attempts__c</name>
+    </fields>
+    <fields>
+        <help>Número entre 0 y 100 que determinará el porcentaje mínimo de respuestas correctas para obtener una calificación de pase</help>
+        <label><!-- Passing Score --></label>
+        <name>redwing__Passing_Score__c</name>
+    </fields>
+    <fields>
+        <label><!-- Randomize Question Lines --></label>
+        <name>redwing__Randomize_Question_Lines__c</name>
+    </fields>
+    <fields>
+        <label><!-- Randomize Questions --></label>
+        <name>redwing__Randomize__c</name>
+    </fields>
+    <fields>
+        <label><!-- Round Score --></label>
+        <name>redwing__Round_Score__c</name>
+    </fields>
+    <fields>
+        <help>Número de minutos para completar la evaluación</help>
+        <label><!-- Time Limit (mins) --></label>
+        <name>redwing__Time_Limit__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Questions --></label>
+        <name>redwing__Total_Questions__c</name>
+    </fields>
+    <gender>Feminine</gender>
+    <nameFieldLabel>Nombre de Evaluación</nameFieldLabel>
+    <validationRules>
+        <errorMessage><!-- Number of attempts must be greater than zero --></errorMessage>
+        <name>redwing__Checking_Positive_Number</name>
+    </validationRules>
+</CustomObjectTranslation>

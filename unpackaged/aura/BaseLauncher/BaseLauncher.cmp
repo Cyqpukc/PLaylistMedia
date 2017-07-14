@@ -1,0 +1,25 @@
+<aura:component extensible="true" implements="redwing:ILearningLauncher">
+
+    <aura:attribute name="trainingPlanId" type="String"/>
+    <aura:attribute name="sectionItemId" type="String"/>
+    <aura:attribute name="learningId" type="String"/>
+    <aura:attribute name="learningName" type="String"/>
+    <aura:attribute name="assignmentId" type="String"/>
+    <aura:attribute name="progress" type="Double" />
+    <aura:attribute name="lmsNamespace" type="String" />
+    <aura:attribute name="communityName" type="String" />
+    <aura:attribute name="hideLaunch" type="Boolean"/>
+
+    <aura:registerEvent name="tPlanItemViewEvent" type="redwing:TrainingPlanItemViewEvent"/>
+
+    <li class="slds-list__item" onclick="{!c.launchLearning}" style="min-width: 218px;">
+        <div class="slds-tile slds-tile--board">
+            <p class="slds-tile__title slds-truncate"><b>{!v.learningName}</b></p>
+            <div class="slds-tile__detail">
+                {!v.body}
+            </div>
+            <p class="slds-text-heading--medium"><ui:outputNumber value="{!v.progress}" format="0.00"/> %</p>
+        </div>
+    </li>
+
+</aura:component>

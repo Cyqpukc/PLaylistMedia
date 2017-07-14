@@ -1,0 +1,139 @@
+<aura:component controller="PostToChatterCtrl" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" >
+
+    <aura:attribute name="groupList" type="ChatterGroupWrapper[]"/>
+    <aura:attribute name="message" type="String"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.getGroupLst}"/>
+
+    <div aura:id="spinnerPostToChatter" class="loader slds-spinner_container slds-hide">
+        <div class="slds-spinner--inverse slds-spinner slds-spinner--large" role="alert">
+            <span class="slds-assistive-text">{!$Label.c.Loading}</span>
+            <div class="slds-spinner__dot-a"></div>
+            <div class="slds-spinner__dot-b"></div>
+        </div>
+    </div>
+
+    <ltng:require styles="/resource/ViewTracCustomCss.css"/>
+
+    <div class="slds-col slds-no-flex slds-align-bottom buttonDiv">
+        <div class="slds-button-group">
+            <button class="uiButton--default uiButton--brand uiButton buttonUpload" onclick="{!c.showModal}">{!$Label.c.Post_To_Chatter}</button>
+        </div>
+    </div>
+
+    <div aria-hidden="false" aura:id="groupsSectionId" id="groupsSectionId" role="dialog" class="slds-modal slds-modal--large">
+        <div class="slds-modal__container">
+            <div class="slds-modal__header">
+                <button class="slds-button slds-button--icon-inverse slds-modal__close" onclick="{!c.showModalBox}">
+                    <c:svg class="slds-button__icon slds-button__icon--large"
+                    xlinkHref="{!$Resource.slds + '/assets/icons/action-sprite/svg/symbols.svg#close'}"
+                    ariaHidden="true"
+                    />
+                    <span class="slds-assistive-text">{!$Label.c.Close}</span>
+                </button>
+            </div>
+            <div class="slds-modal__content">
+                <div>
+                    <center>
+                        <table class="slds-table slds-table--bordered" style="width: 96%;border-right: 1px solid #d8dde6;border-left: 1px solid #d8dde6;margin-left: 2%;margin-right: 2%;">
+                            <thead>
+                                <tr class="slds-text-heading--label">
+                                    <th class="slds-cell-shrink" scope="col"></th>
+                                    <td role="gridcell" class="slds-cell-shrink" scope="col">
+                                    </td>
+                                    <th class="slds-truncate" scope="col">
+                                        <span class="slds-truncate">{!$Label.c.Group_Name}</span>
+                                    </th>
+                                    <th scope="col" class="mobileHide">
+                                        <span class="slds-truncate">{!$Label.c.Description}</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <aura:iteration items="{!v.groupList}" var="glst">
+                                    <tr class="slds-hint-parent">
+                                        <th data-label="glst-name" role="row">
+                                            <c:svg class="slds-icon slds-icon-text-default" xlinkHref="{!$Resource.slds + '/assets/icons/standard-sprite/svg/symbols.svg#account'}"/>
+                                        </th>
+                                        <td role="gridcell" class="slds-cell-shrink" data-label="Select row Cloudhub">
+                                            <label class="slds-checkbox">
+                                              <input aura:id="postTocheckbox" type="checkbox" class="postTocheckbox" name="options" data-group-id="{!glst.Id}" />
+                                              <span class="slds-checkbox--faux"></span>
+                                              <span class="slds-assistive-text">Select row Cloudhub</span>
+                                            </label>
+                                        </td>
+                                        <th data-label="glst-name" role="row">
+                                            {!glst.Name}
+                                        </th>
+                                        <td class="slds-cell-wrap" data-label="industry">
+                                            {!glst.Description}
+                                        </td>
+                                    </tr>
+                                </aura:iteration>
+                            </tbody>
+                        </table>
+                    </center>
+                </div>
+            </div>
+            <div class="slds-modal__footer">
+                <div class="slds-form-element">
+                    <div class="slds-form-element">
+                        <ui:inputText aura:id="messageToChatter" class="slds-input" placeholder="Message" updateOn="keyUp" value="{!v.message}"/>
+                    </div>
+                </div>
+                <div class="slds-form-element slds-m-top--x-small">
+                    <ui:button aura:id="postButton" class="slds-button slds-button--neutral" press="{!c.postHereCtrl}" >{!$Label.c.Post}</ui:button>
+                    <button class="slds-button slds-button--neutral" onclick="{!c.showModalBox}" >{!$Label.c.Close}</button>
+                </div>
+            </div>
+        </div>
+        <div class="slds-backdrop " aura:id="backGroundGroupsId" id="backGroundGroupsId"></div>
+    </div>
+    <div aria-hidden="false" aura:id="modalSuccessfully" id="modalSuccessfully" role="dialog" class="slds-modal slds-modal">
+        <div class="slds-modal__container">
+            <div class="slds-modal__header">
+                <button class="slds-button slds-button--icon-inverse slds-modal__close" onclick="{!c.showModalBox}">
+                    <c:svg class="slds-button__icon slds-button__icon--large"
+                    xlinkHref="{!$Resource.slds + '/assets/icons/action-sprite/svg/symbols.svg#close'}"
+                    ariaHidden="true"
+                    />
+                    <span class="slds-assistive-text">{!$Label.c.Close}</span>
+                </button>
+            </div>
+            <div class="slds-modal__content">
+                <div class="slds-m-around--xx-large slds-text-align--center">
+                    {!$Label.c.Posted_successfully}
+                </div>
+            </div>
+            <div class="slds-modal__footer">
+              <div class="slds-form-element slds-m-top--x-small">
+                  <button class="slds-button slds-button--neutral" onclick="{!c.showModalBox}" >{!$Label.c.Close}</button>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div aria-hidden="false" aura:id="modalError" id="modalError" role="dialog" class="slds-modal slds-modal">
+        <div class="slds-modal__container">
+            <div class="slds-modal__header">
+                <button class="slds-button slds-button--icon-inverse slds-modal__close" onclick="{!c.hiddenErrorModalBox}">
+                    <c:svg class="slds-button__icon slds-button__icon--large"
+                    xlinkHref="{!$Resource.slds + '/assets/icons/action-sprite/svg/symbols.svg#close'}"
+                    ariaHidden="true"
+                    />
+                    <span class="slds-assistive-text">{!$Label.c.Close}</span>
+                </button>
+            </div>
+            <div class="slds-modal__content">
+                <div class="slds-m-around--xx-large slds-text-align--center">
+                    {!$Label.c.PleaseSelectGroup}
+                </div>
+            </div>
+            <div class="slds-modal__footer">
+              <div class="slds-form-element slds-m-top--x-small">
+                    <button class="slds-button slds-button--neutral" onclick="{!c.hiddenErrorModalBox}" >{!$Label.c.Close}</button>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="slds-backdrop " aura:id="backGroundGroupsSectionId" id="backGroundGroupsSectionId"></div>
+</aura:component>

@@ -1,0 +1,88 @@
+<apex:page standardController="redwing__Question_Line__c" extensions="redwing.QuestionLineImportQuestionsExt" >
+
+    <script src="{!URLFOR($Resource.lmscore_uilib, '/js/jquery.min.js')}" />
+    <style>
+        .manage-qbank-section{
+            padding-top: 8px !important;
+        }
+        .manage-qbank-button{
+            text-decoration:none;
+            padding:3px 5px;
+        }
+    </style>
+
+    <apex:actionStatus id="status">
+        <apex:facet name="start">
+            <c:LMSStatus />
+        </apex:facet>
+    </apex:actionStatus>
+
+    <apex:form id="theForm">
+
+        <apex:sectionHeader title="{!$Label.redwing__alms_import_questions}" subtitle="{!redwing__Question_Line__c.Name}"/>
+
+        <apex:pageBlock >
+
+            <apex:pageMessages id="pMessages"/>
+
+            <apex:pageBlockButtons location="top" >
+                <apex:commandButton action="{!cancel}" value="{!$Label.redwing__alms_back}" id="cancelbtn"/>
+                <apex:commandButton action="{!importQuestions}" value="{!$Label.redwing__alms_import_button}" id="importbtn" styleClass="btnImportant" rerender="pMessages, questionsSection" status="status"/>
+            </apex:pageBlockButtons>
+
+            <apex:pageBlockSection columns="2" collapsible="false" title="{!$Label.redwing__alms_question_bank}">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.redwing__alms_question_bank}" for="import_questionbank"/>
+                    <apex:selectList value="{!selectedQuestionBank}" size="1">
+                        <apex:actionSupport event="onchange" action="{!loadQuestionBankQuestions}" reRender="pMessages, questionsSection" status="status"/>
+                        <apex:selectOptions value="{!questionBanks}" />
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem dataStyleClass="manage-qbank-section">
+                    <apex:outputLink value="{!URLFOR($Action.redwing__Question_Bank__c.List, $ObjectType.redwing__Question_Bank__c)}" target="_blank" styleClass="btn manage-qbank-button">{!$Label.redwing__alms_manage_question_banks}</apex:outputLink>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection columns="1" collapsible="false" title="{!$Label.redwing__alms_questions}" id="questionsSection">
+
+                <apex:outputPanel rendered="{!rows != null && rows.size > 0}">
+
+                    <apex:outputPanel layout="block" style="padding:10px 0;">
+                        <a href="javascript:selectAllCBs('lmsCBSelectExt')">{!$Label.redwing__alms_select_all}</a> | <a href="javascript:unSelectAllCBs('lmsCBSelectExt')">{!$Label.redwing__alms_unselect_all}</a>
+                    </apex:outputPanel>
+
+                    <apex:pageBlockTable value="{!rows}" var="r">
+                        <apex:column headerValue="{!$Label.redwing__alms_action}">
+                            <apex:inputCheckbox value="{!r.isSelected}" styleClass="lmsCBSelectExt"/>
+                        </apex:column>
+                        <apex:column value="{!r.question.Name}"/>
+                        <apex:column value="{!r.question.redwing__Description__c}"/>
+                        <apex:column value="{!r.question.redwing__Type__c}"/>
+                    </apex:pageBlockTable>
+
+                    <apex:outputPanel layout="block" style="width:100%;text-align:center;padding:10px 0;">
+                        <apex:commandLink action="{!doPrevious}" rendered="{!hasPrevious}" value="{!$Label.redwing__alms_previous}"/>
+                        <apex:outputLabel value=" ({!$Label.redwing__alms_search_page} {!pageNumber} {!$Label.redwing__alms_search_page_separator} {!totalPages}) " />
+                        <apex:commandLink action="{!doNext}" rendered="{!hasNext}" value="{!$Label.redwing__alms_next}" />
+                    </apex:outputPanel>
+
+                </apex:outputPanel>
+
+            </apex:pageBlockSection>
+
+        </apex:pageBlock>
+
+        <script>
+            $j = jQuery.noConflict();
+            function selectAllCBs(className){
+                $j('.'+className).prop('checked',true);
+            }
+            function unSelectAllCBs(className){
+                $j('.'+className).prop('checked',false);
+            }
+        </script>
+
+    </apex:form>
+
+</apex:page>

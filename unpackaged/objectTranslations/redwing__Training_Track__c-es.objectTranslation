@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Trayectoria</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Trayectorias</value>
+    </caseValues>
+    <fields>
+        <help>El logro determinará la imagen mostrada en las cajas y encabezado de las trayectorias</help>
+        <label><!-- Achievement --></label>
+        <name>redwing__Achievement__c</name>
+        <relationshipLabel><!-- Learning Tracs --></relationshipLabel>
+    </fields>
+    <fields>
+        <help>Solo asignar Cursos que tengan asignación por usuario habilitado al asignar/registrarse a la Trayectoria</help>
+        <label><!-- Assign Only Self-Registration Plans --></label>
+        <name>redwing__Assign_Only_Self_Registration_Plans__c</name>
+    </fields>
+    <fields>
+        <help>Código de color Hex para el fondo del encabezado (ej. #dcdcdc, más ejemplos en : http://www.color-hex.com/)</help>
+        <label><!-- Background Color --></label>
+        <name>redwing__Background_Color__c</name>
+    </fields>
+    <fields>
+        <help>Liga hacia la imagen que será desplegada en el encabezado de la trayectoria</help>
+        <label><!-- Background Image URL --></label>
+        <name>redwing__Background_Image_URL__c</name>
+    </fields>
+    <fields>
+        <label><!-- Description --></label>
+        <name>redwing__Description__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción para mostrar esta Trayectoria a todos los usuarios externos</help>
+        <label><!-- Enable for all external users --></label>
+        <name>redwing__Enable_all_external_accounts__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción para mostrar esta Trayectoria a todos los usuarios internos</help>
+        <label><!-- Enable for all internal users --></label>
+        <name>redwing__Enable_all_internal_users__c</name>
+    </fields>
+    <fields>
+        <help>Catálogo usado para agrupar trayectorias en secciones</help>
+        <label><!-- Group --></label>
+        <name>redwing__Learning_Category__c</name>
+        <relationshipLabel><!-- Learning Tracs --></relationshipLabel>
+    </fields>
+    <fields>
+        <help>Desplegar una etiqueta que indique que la trayectoria es Nueva hasta la fecha definida</help>
+        <label><!-- New Until --></label>
+        <name>redwing__New_Until__c</name>
+    </fields>
+    <fields>
+        <help>Número que define la posición en la que será mostrada la trayectoria</help>
+        <label><!-- Order --></label>
+        <name>redwing__Order__c</name>
+    </fields>
+    <fields>
+        <help>Trayectorias en estado Borrador no serán desplegadas a los usuarios finales</help>
+        <label><!-- Status --></label>
+        <name>redwing__Status__c</name>
+        <picklistValues>
+            <masterLabel>Active</masterLabel>
+            <translation>Activo</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Draft</masterLabel>
+            <translation>Borrador</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help>Código de color Hex para el texto del encabezado (ej. #333333, más ejemplos en : http://www.color-hex.com/)</help>
+        <label><!-- Text Color --></label>
+        <name>redwing__Text_Color__c</name>
+    </fields>
+    <gender>Feminine</gender>
+    <nameFieldLabel>Nombre de Trayectoria</nameFieldLabel>
+    <sharingReasons>
+        <label><!-- LMS Sharing --></label>
+        <name>redwing__LMS_Sharing</name>
+    </sharingReasons>
+    <webLinks>
+        <label><!-- Export_Training_Track --></label>
+        <name>redwing__Export_Training_Track</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Manage_Assignments --></label>
+        <name>redwing__Manage_Assignments</name>
+    </webLinks>
+</CustomObjectTranslation>

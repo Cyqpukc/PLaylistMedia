@@ -1,0 +1,36 @@
+.THIS.upload_wrapper{
+    position: relative;
+    background: #fff;
+}
+.THIS.loader{
+    display: none;
+    height: 100%;
+    position: fixed;
+    z-index: 10000;
+}
+.THIS .inputDetail{
+    width: 100%;
+}
+.THIS.uploading{
+    height: 139px;
+}
+.THIS.uploadingSF{
+    height: 114px;
+}
+.THIS.uploadingSFMobile{
+    height: 150px;
+}
+.THIS.uploadSFMobile{
+    height: 220px;
+}
+.THIS .popupForSF1{
+    max-height: 586px;
+}
+.THIS.hidden,
+.THIS .hidden {
+    display: none !important;
+}
+.THIS .show,
+.THIS.show{
+    display: block !important;
+}

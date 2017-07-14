@@ -1,0 +1,136 @@
+<apex:page Controller="scormanywhere.SettingsController" standardStylesheets="false" sidebar="false" applyBodyTag="false" docType="html-5.0">
+
+<html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <title>{!$Label.ViewTrac_Settings}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+ 
+  <!-- Import the Design System style sheet -->
+  <apex:slds />
+</head>
+ 
+<body>
+ 
+  <!-- REQUIRED SLDS WRAPPER -->
+  <div class="slds-scope">
+ 
+    <!-- MASTHEAD -->
+    <p class="slds-text-heading--label slds-m-bottom--small">
+      
+    </p>
+    <!-- / MASTHEAD -->
+ 
+    <!-- PAGE HEADER -->
+    <apex:outputPanel layout="block" id="msg_block" style="display: none;">
+        <div id="err_wrapper"
+             class="slds-notify slds-notify--alert slds-theme--{!alertType} slds-theme--alert-texture"
+             role="alert">
+            <h2>
+                <div xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <svg aria-hidden="true"
+                         class="slds-icon icon-text-email slds-icon--small slds-m-right--x-small">
+                        <use xlink:href="{!URLFOR($Resource.SCORM_Library, '/slds/assets/icons/utility-sprite/svg/symbols.svg#' + if(alertType = 'success','check','ban'))}"></use>
+                    </svg>
+                    <span id="err_text"></span>
+                </div>
+            </h2>
+        </div>
+
+    </apex:outputPanel>    
+    <!-- / PAGE HEADER -->
+ 
+    <!-- PRIMARY CONTENT WRAPPER -->
+    <center>
+    <apex:form styleClass="slds-form--inline" style="max-width: 500px" id="apiUser">
+    <fieldset class="slds-form--compound">
+	    <div class="slds-form-element__group">
+	    	<div class="slds-form-element__row">
+				<div class="slds-form-element slds-size--1-of-1">
+					<label class="slds-form-element__label" for="Username">{!$Label.scormanywhere__username}<abbr class="slds-required" title="required">*</abbr></label>
+					<apex:inputText value="{!uName}" id="Username" styleclass="slds-input"></apex:inputText>
+					<apex:outputPanel layout="none" rendered="{!requiredNameError}">
+						<div id="error-message slds-required" class="slds-form-element__help">{!$Label.required_field}</div>
+					</apex:outputPanel>
+				</div>
+			</div>
+			<div class="slds-form-element__row">
+				<div class="slds-form-element slds-size--1-of-1">
+					<label class="slds-form-element__label" for="Password">{!$Label.scormanywhere__password}<abbr class="slds-required" title="required">*</abbr></label>
+					<apex:inputSecret value="{!uPass}" id="Password" styleclass="slds-input"></apex:inputSecret>
+					<apex:outputPanel layout="none" rendered="{!requiredPassError}">
+						<div id="error-message slds-required" class="slds-form-element__help">{!$Label.required_field}</div>
+					</apex:outputPanel>
+				</div>	    	
+			</div>
+			<div class="slds-form-element__row">
+				<div class="slds-form-element slds-size--1-of-1">
+					<label class="slds-form-element__label" for="sToken">{!$Label.scormanywhere__security_token}</label>
+					<apex:inputSecret value="{!sToken}" id="sToken" styleclass="slds-input"></apex:inputSecret>
+				</div>	    	
+			</div>
+		</div>
+	</fieldset>    
+	<fieldset class="slds-form--compound">
+	    <div class="slds-form-element__group">
+	    	<div class="slds-form-element__row">
+	    		<div class="slds-form-element slds-size--1-of-1">
+	    			<div class="slds-align--absolute-center">
+	    				<apex:commandButton action="{!save}" id="saveBtn" value="{!$Label.scormanywhere__save}" styleClass="slds-button slds-button--brand"/>
+    					<!-- <apex:commandButton action="{!validate}" value="Validate" styleClass="slds-button slds-button--brand"/> -->
+    					<apex:commandButton onclick="this.form.reset();return clearForm();return false;" value="{!$Label.scormanywhere__reset}" styleClass="slds-button slds-button--brand"/>
+    				</div>
+    			</div>
+    		</div>
+		</div>
+	</fieldset>		
+    </apex:form>
+	</center>    
+    <div class="myapp slds-p-horizontal--medium">
+      <ul id="contact-list" class="slds-has-dividers--bottom-space"></ul>
+    </div>
+    <!-- / PRIMARY CONTENT WRAPPER -->
+ 
+    <!-- FOOTER -->
+    <!-- / FOOTER -->
+ 
+  </div>
+  <!-- / REQUIRED SLDS WRAPPER -->   
+ 
+  <!-- JAVASCRIPT -->
+	<script>
+		function clearForm() {
+			document.getElementById('{!$Component.apiUser.Username}').value = '';
+			document.getElementById('{!$Component.apiUser.Password}').value = '';
+			document.getElementById('{!$Component.apiUser.sToken}').value = '';
+			return false;
+		}	
+		function checkMessages() {
+		    if (hasMessages) {
+		        document.getElementById('err_text').innerHTML = errorMessage;
+		        document.getElementById('{!$Component.msg_block}').style.display = '';
+		    } else {
+		        document.getElementById('{!$Component.msg_block}').style.display = 'none';
+		    }
+		
+		}
+	</script>          
+        <apex:outputPanel id="post_processing">
+
+            <script>
+
+                var hasMessages = {!hasMessages};
+                var errorMessage = '{!errorMessage}';
+
+                checkMessages();
+
+            </script>
+
+        </apex:outputPanel>  
+  <!-- / JAVASCRIPT -->
+        
+ 
+</body>
+</html>
+</apex:page>

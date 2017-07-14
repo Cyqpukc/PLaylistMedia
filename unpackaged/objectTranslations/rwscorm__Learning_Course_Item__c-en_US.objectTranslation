@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <label><!-- Media --></label>
+        <name>rwscorm__Course__c</name>
+        <relationshipLabel><!-- Learning Media Items --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Learning --></label>
+        <name>rwscorm__Learning__c</name>
+        <relationshipLabel><!-- Learning Media Items --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Test Progress % --></label>
+        <name>rwscorm__Test_Progress__c</name>
+    </fields>
+    <fields>
+        <label><!-- Test Score --></label>
+        <name>rwscorm__Test_Score__c</name>
+    </fields>
+    <fields>
+        <label><!-- Test Status --></label>
+        <name>rwscorm__Test_Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- Test Transcript --></label>
+        <name>rwscorm__Test_Transcript__c</name>
+    </fields>
+    <fields>
+        <label><!-- Tested By --></label>
+        <name>rwscorm__Tested_By__c</name>
+    </fields>
+    <fields>
+        <label><!-- Tested Date --></label>
+        <name>rwscorm__Tested_Date__c</name>
+    </fields>
+    <webLinks>
+        <label><!-- New_Learning_Course_Item --></label>
+        <name>rwscorm__New_Learning_Course_Item</name>
+    </webLinks>
+</CustomObjectTranslation>

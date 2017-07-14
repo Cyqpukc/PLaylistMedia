@@ -1,0 +1,208 @@
+<!--
+Copyright (c) 2014, salesforce.com, Inc.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+    * Neither the name of the salesforce.com, Inc. nor the names of its contributors
+    may be used to endorse or promote products derived from this software
+    without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<apex:page controller="redwing.TrainingTrackDetailCtrl" docType="html-5.0" sidebar="false" showHeader="{!showSFHeader}" standardStylesheets="false" cache="false">
+
+    <apex:composition template="redwing__LMSHeroTemplate">
+
+        <apex:define name="head">
+            <title>{!track.Name}</title>
+        </apex:define>
+
+        <apex:define name="hero-banner">
+            <div id="hb-wrap">
+                <h2>{!track.Name}</h2>
+                <p><apex:outputField value="{!track.redwing__Description__c}"/></p>
+            </div>
+        </apex:define>
+
+        <apex:define name="hero-banner-badge">
+            <div id="hb-right" class="col-xs-12 col-sm-4 col-md-3">
+                <div class="badge-container">
+                    <apex:variable var="hasBadge" value="{!track.Achievement__r.redwing__Acquired_Image__c != null || track.Achievement__r.redwing__Work_Badge_Image_URL__c != null}" />
+                    <apex:outputPanel layout="none" rendered="{!hasBadge}">
+                        <apex:outputfield value="{!track.Achievement__r.redwing__Acquired_Image__c}" rendered="{!track.Achievement__r.redwing__Work_Badge_Image_URL__c == null}"/>
+                        <apex:image url="{!track.Achievement__r.redwing__Work_Badge_Image_URL__c}" rendered="{!track.Achievement__r.redwing__Work_Badge_Image_URL__c != null}"/>
+                    </apex:outputPanel>
+                    <apex:outputPanel layout="none" rendered="{!!hasBadge}">
+                        <apex:image url="{!URLFOR($Resource.redwing__lmscore_uilib, '/img/defaulttrack.png')}" />
+                    </apex:outputPanel>
+                </div>
+            </div>
+        </apex:define>
+
+        <apex:define name="hero-banner-footer">
+            <span><b>{!$Label.redwing__alms_total_plans}</b> : {!totalItems} /</span>
+            <apex:outputPanel layout="none" rendered="{!tTrackAssignmentStatus != null}">
+                <span><b>{!$Label.redwing__alms_training_plan_assignment_status}</b> : {!IF(tTrackAssignmentStatus == 'Completed',$Label.redwing__alms_training_status_completed, IF(tTrackAssignmentStatus == 'In Progress', $Label.redwing__alms_training_status_in_progress, $Label.redwing__alms_training_status_not_started))}</span>
+            </apex:outputPanel>
+            <apex:outputPanel layout="none" rendered="{!tTrackAssignmentStatus == null}">
+                <span><b>{!$Label.redwing__alms_training_plan_assignment_status}</b> : {!$Label.redwing__alms_tplan_not_registered}</span>
+            </apex:outputPanel>
+        </apex:define>
+
+        <apex:define name="body">
+
+            <c:LMSHeaderOverrides bkImageURL="{!track.redwing__Background_Image_URL__c}" bkColor="{!track.redwing__Background_Color__c}" txtColor="{!track.redwing__Text_Color__c}"/>
+
+            <apex:form >
+
+                <apex:outputPanel layout="none" id="pageMessages">
+                    <apex:outputPanel layout="block" styleClass="alert alert-info" rendered="{!hasMessages}">
+                        <apex:pageMessages />
+                    </apex:outputPanel>
+                </apex:outputPanel>
+
+                <apex:outputPanel layout="none" id="resultsPanel">
+                    <apex:inputHidden id="redirectURL" value="{!redirectURL}"/>
+                </apex:outputPanel>
+
+                <apex:actionFunction name="registerForTrack" action="{!registerForTrainingTrack}" rerender="pageMessages,resultsPanel" status="status" oncomplete="doRedirection()"/>
+
+                <apex:outputPanel layout="none" rendered="{!!hasTrackAssignment}">
+                    <div class="well" style="text-align:center;">
+                        <button type="button" class="lmscore-success-btn large-btn" style="width:300px;margin-top: 5px;" onclick="doRegistration()">{!$Label.ALMS_Register_Button}</button>
+                    </div>
+                </apex:outputPanel>
+
+                <apex:variable var="trackProgress" value="{!IF(totalCompleted != null && totalItems > 0,(totalCompleted/totalItems)*100,0.0)}" />
+
+                <div class="progress" style="border-radius: 10px;">
+                    <div class="progress-bar {!IF(trackProgress == 100, 'progress-bar-success', IF(trackProgress > 0, 'progress-bar-info', 'progress-bar-empty'))}" role="progressbar" aria-valuenow="{!trackProgress}" aria-valuemin="0" aria-valuemax="100" style="min-width: 3em; width: {!trackProgress}%;">
+                        <apex:outputText value="{0, number, ###,##0.0}">
+                            <apex:param value="{!trackProgress}"/>
+                        </apex:outputText>%
+                    </div>
+                </div>
+
+                <apex:outputPanel layout="none" rendered="{!trackLevels == null || trackLevels.size == 0}">
+                    <div style="width:100%;text-align:center;padding:20px;0;">
+                        <h2>{!$Label.redwing__alms_nothing_to_see}</h2>
+                    </div>
+                </apex:outputPanel>
+
+                <apex:repeat value="{!trackLevels}" var="l">
+
+                    <h3>{!l.name}</h3>
+                    <hr/>
+                    <h5>{!l.description}</h5>
+                    <div class="trainingplan-container row">
+                        <apex:repeat value="{!l.trackItems}" var="ti">
+
+                            <apex:variable var="hasBadge" value="{!ti.mainAchievement.redwing__Acquired_Image__c != null || ti.mainAchievement.redwing__Work_Badge_Image_URL__c != null}" />
+                            <apex:variable var="itemURL" value="{!ti.itemURL}"/>
+
+                            <div class="col-xs-12 col-sm-6 col-md-4 track-level-item-content" item-url="{!IF(ti.isExpired,'',itemURL)}">
+                                <div class="tplan_box {!IF(itemURL == null,'tplan_box_disabled','')}">
+                                    <apex:outputPanel layout="none" rendered="{!ti.cost != null}">
+                                        <div class="tplan_box_price">
+                                            <label class="label label-success">
+                                                <c:LMSCurrencyFormat itemCurrencySymbol="{!ti.currencySymbol}" itemCurrencyCode="{!ti.currencyCode}" itemCost="{!ti.cost}" />
+                                            </label>
+                                        </div>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!hasBadge}">
+                                        <div class="tplan_img">
+                                            <apex:outputPanel layout="none" rendered="{!ti.itemURL != null}">
+                                                <apex:outputfield value="{!ti.mainAchievement.redwing__Acquired_Image__c}" rendered="{!ti.mainAchievement.redwing__Work_Badge_Image_URL__c == null}"/>
+                                                <apex:image url="{!ti.mainAchievement.redwing__Work_Badge_Image_URL__c}" rendered="{!ti.mainAchievement.redwing__Work_Badge_Image_URL__c != null}"/>
+                                            </apex:outputPanel>
+                                            <apex:outputPanel layout="none" rendered="{!ti.itemURL == null}">
+                                                <apex:outputfield value="{!ti.mainAchievement.redwing__Eligible_Image__c}" rendered="{!ti.mainAchievement.redwing__Work_Badge_Image_URL__c == null}"/>
+                                                <apex:image url="{!ti.mainAchievement.redwing__Work_Badge_Image_URL__c}" styleClass="badge-disabled" rendered="{!ti.mainAchievement.redwing__Work_Badge_Image_URL__c != null}"/>
+                                            </apex:outputPanel>
+                                        </div>
+                                    </apex:outputPanel>
+                                    <div class="{!IF(hasBadge,'tplan_details','tplan_details_no_image')}" >
+                                        <h4>{!ti.trackItem.Training_Plan__r.Name}</h4>
+                                        <apex:outputPanel layout="block" rendered="{!ti.tplanAssignment != null && !ti.isExpired}">
+                                            <label class="label {!IF(ti.tplanAssignment.redwing__Status__c=='Completed','label-success',IF(ti.tplanAssignment.redwing__Status__c=='In Progress','label-primary','label-default'))}">
+                                                {!IF(ti.tplanAssignment.redwing__Status__c == 'Completed',$Label.redwing__alms_training_status_completed, IF(ti.tplanAssignment.redwing__Status__c == 'In Progress', $Label.redwing__alms_training_status_in_progress, $Label.redwing__alms_training_status_not_started))}
+                                            </label>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel layout="block" rendered="{!itemURL != null && ti.tplanAssignment == null && !ti.isExpired}">
+                                            <label class="label label-info">{!$Label.redwing__alms_tplan_not_registered}</label>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel layout="block" rendered="{!itemURL == null && !ti.isExpired}">
+                                            <label class="label label-default">{!$Label.redwing__alms_tplan_requires_assignment}</label>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel layout="block" rendered="{!ti.isExpired}">
+                                            <label class="label label-default">{!IF(ti.trackItem.Training_Plan__r.redwing__Status__c == 'Archived',$Label.redwing__alms_tplan_archived, $Label.redwing__alms_tplan_expired)}</label>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel layout="none" rendered="{!ti.trackItem.Training_Plan__r.redwing__Hide_After_End_Date__c && ti.trackItem.Training_Plan__r.redwing__End_Date__c != null}">
+                                            <span class="plan-due-date">{!$Label.ALMS_Training_Plan_Due} :&nbsp;<apex:outputField value="{!ti.trackItem.Training_Plan__r.redwing__End_Date__c}" /></span>
+                                        </apex:outputPanel>
+                                    </div>
+                                    <apex:outputPanel rendered="{!ti.trackItem.Training_Plan__r.redwing__New_Until__c != null && TODAY() <= ti.trackItem.Training_Plan__r.redwing__New_Until__c}">
+                                        <div class="ribbon-wrapper-green"><div class="ribbon-green">{!$Label.redwing__alms_new_training_plan}</div></div>
+                                    </apex:outputPanel>
+                                </div>
+                            </div>
+
+                        </apex:repeat>
+                    </div>
+
+                </apex:repeat>
+
+                <script>
+                    jQuery(document).ready(function($){
+                        $(document.body).delegate('.track-level-item-content', 'click', function(){
+                            var planUrl = $(this).attr('item-url');
+                            if(planUrl){
+                                // Retain navigation history
+                                lmscore.redirectHandlerWithStatus(planUrl,true);
+                            }
+                        });
+                    });
+
+                    function doRedirection(){
+                        var retUrl = document.getElementById('{!$Component.redirectURL}').value;
+                        if(retUrl && retUrl.length > 0){
+                            lmscore.redirectHandlerWithStatus(retUrl,false);
+                        }
+                    }
+
+                    function doRegistration(){
+                        registerForTrack();
+                    }
+                </script>
+
+            </apex:form>
+
+            <apex:actionStatus id="status">
+                <apex:facet name="start">
+                    <apex:outputPanel >
+                        <c:LMSStatus statusComponentId="{!$Component.status}"/>
+                    </apex:outputPanel>
+                </apex:facet>
+            </apex:actionStatus>
+
+        </apex:define>
+
+    </apex:composition>
+
+</apex:page>

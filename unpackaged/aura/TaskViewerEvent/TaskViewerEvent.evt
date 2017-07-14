@@ -1,0 +1,4 @@
+<aura:event type="APPLICATION" access="global" description="Event used by task viewer">
+    <aura:attribute name="type" type="String" access="global"/>
+    <aura:attribute name="param" type="String" access="global"/>
+</aura:event>

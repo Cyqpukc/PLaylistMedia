@@ -1,0 +1,63 @@
+<apex:page controller="redwing.LMSItemsToApproveListCtrl" readOnly="true" docType="html-5.0" sidebar="false" showHeader="{!showSFHeader}" standardStylesheets="false" cache="false">
+
+    <apex:composition template="redwing__LMSTemplate">
+
+        <apex:define name="head">
+            <title>{!$Label.redwing__alms_items_to_approve}</title>
+        </apex:define>
+
+        <apex:define name="body">
+
+            <apex:outputPanel layout="none" rendered="{!assignmentItems != null && assignmentItems.size > 0}">
+                <div class="list-group">
+                    <apex:repeat value="{!assignmentItems}" var="la" id="theRepeat">
+                        <a class="lms-approval-item list-group-item" item-id="{!la.id}">
+                            <img src="{!la.User__r.SmallPhotoUrl}" class="round-image-45"/>
+                            <span class="list-group-item-text" style="padding: 0 0 0 10px;">{!la.User__r.Name}</span>
+                            <div class="panel panel-default" style="margin-top:10px;">
+                                <div class="panel-heading">{!la.Training_Plan__r.Name}</div>
+                                <div class="panel-body">
+                                  {!la.Learning__r.Name}
+                                </div>
+                            </div>
+                        </a>
+                    </apex:repeat>
+                </div>
+            </apex:outputPanel>
+
+            <apex:outputPanel layout="none" rendered="{!assignmentItems == null || assignmentItems.size == 0}">
+                <div style="width:100%;text-align:center;padding:20px;0;">
+                    <h2>{!$Label.redwing__alms_no_approval_items}</h2>
+                </div>
+            </apex:outputPanel>
+
+            <apex:actionStatus id="status">
+                <apex:facet name="start">
+                    <apex:outputPanel >
+                        <c:LMSStatus statusComponentId="{!$Component.status}"/>
+                    </apex:outputPanel>
+                </apex:facet>
+            </apex:actionStatus>
+
+            <script>
+                jQuery(document).ready(function($){
+                    $(document.body).delegate('.lms-approval-item', 'click', function(){
+                        var assignmentRecordId = $(this).attr('item-id');
+                        if(assignmentRecordId){
+                            //Retain navigation history
+                            lmscore.redirectHandlerWithStatus(
+                                "{!$Page.redwing__LearningAssignmentApprove}"
+                                    + "?id=" + assignmentRecordId
+                                    + "&fromapprovelist=1"
+                                ,true
+                            );
+                        }
+                    });
+                });
+            </script>
+
+        </apex:define>
+
+    </apex:composition>
+
+</apex:page>

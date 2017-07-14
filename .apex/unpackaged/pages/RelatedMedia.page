@@ -1,0 +1,24 @@
+<apex:page standardController="multM__c" extensions="RelatedMediaCtrl" showHeader="false" sidebar="false">
+    <apex:includeLightning />
+    <div id="lightningUpload" />
+    <div style="min-height:500px;  -webkit-overflow-scrolling: touch;" id="lightningRelated" />
+    <script>
+  
+    
+    console.log(' ------- start');
+    $Lightning.use("c:RelatedMediaApp", function() {
+        console.log(' ------- Lightning.use 1');
+        $Lightning.createComponent("c:RelatedMediaCmp",{"recordId" : "{!mm.Id}", "showShared" : false},
+                                   "lightningRelated",
+                                   function(cmp) {
+                                       console.log(' ------- create 1');
+                                   });
+        $Lightning.createComponent("c:MediaUploader",{"recordId" : "{!mm.Id}", "isCreateMediaContent" : "true"},
+                                   "lightningUpload",
+                                   function(cmp) {
+                                       console.log(' ------- create 2');
+                                   });
+    });
+
+    </script>
+</apex:page>

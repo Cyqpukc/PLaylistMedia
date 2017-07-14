@@ -1,0 +1,32 @@
+<aura:component controller="MultimediaListCmpCtrl"  implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
+	
+    <aura:attribute name="showDetail" type="Boolean" default="false"/>
+	<aura:attribute name="recordId" type="String" default=""/>
+    <aura:attribute name="mediaId" type="String" default=" "/>
+    <aura:attribute name="cmpUploadButton" type="Aura.Component[]" />
+    <aura:attribute name="cmpInstances" type="Aura.Component[]" />
+    <aura:attribute name="mediaItems" type="MultimediaListCmpCtrl.MMediaWrapper[]"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    
+    <aura:renderIf isTrue="{! !v.showDetail }">
+        <!--c:MediaUploader recordId="a0D41000006dody"/-->
+        <div>
+            <aura:iteration items="{!v.mediaItems}" var="w">
+                <div style="width:100%">
+                	<a data-record="{!w.id}" data-mediaid="{!w.mediaId}" onclick="{!c.goToURL}">{!w.Name}</a>
+                </div>
+            </aura:iteration>
+        </div>
+        
+        
+        <aura:set attribute="else">
+            <a onclick="{!c.goBack}">Back</a>
+            <!--c:MediaUploader recordId="{!v.recordId}" isCreateMediaContent="true"/-->
+            {!v.cmpUploadButton} 
+            <force:recordView recordId="{!v.recordId}"/>
+            {!v.cmpInstances}            
+        </aura:set>
+    </aura:renderIf>
+</aura:component>

@@ -1,0 +1,7 @@
+<design:component label="Custom Search Results (with tiles)">
+	<design:attribute name="videosTabName" label="Videos Tab Label" />
+    <design:attribute name="discussionsTabName" label="Discussions Tab Label" />
+    <design:attribute name="articlesTabName" label="Articles Tab Label" />
+    <design:attribute name="searchString" label="Search string" description="Please set '{!searchString}' for standard search community page."/>
+	<design:attribute name="topicId" label="Topic ID" description="Please set '{!topicId}' for standard topic details community page."/>
+</design:component>

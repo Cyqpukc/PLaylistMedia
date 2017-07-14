@@ -1,0 +1,646 @@
+<apex:page cache="false" docType="html-5.0" controller="scormanywhere.PlayerController" Extensions="scormanywhere.HeaderExtension" showHeader="{!ISBLANK($CurrentPage.parameters.disableHeader)}" sidebar="false" standardStyleSheets="false" action="{!init}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    
+    <apex:includeScript value="{!URLFOR($Resource.scormanywhere__SCORM_Library, 'js/jquery-2.1.4.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.scormanywhere__SCORM_Library, 'js/functions.js')}"/>
+    <apex:messages id="msg"/>
+    <apex:outputpanel id="playerSections" layout="none" rendered="{!isCourseAvailable}">
+    <apex:stylesheet value="/resource/ViewTracCustomCss" />
+        <style>
+            html,height{
+                height:100%!important;
+            }
+            body {
+                overflow: hidden;
+            }
+            #player {
+            	overflow:hidden
+            }
+            .vjs-default-skin.vjs-big-play-centered .vjs-big-play-button.amex {
+                left: 0%;
+                margin-left: inherit;
+                bottom: 0%;
+                margin-top: inherit;
+                position: absolute;
+                top: inherit;
+                border: 0px;
+                border-radius: 0px;
+                background: #009bbb;
+                color: #fff;
+            }
+			@media (max-width: 500px) {
+				.vjs-default-skin.vjs-big-play-centered .vjs-big-play-button.amex {
+					width: 50%;
+    				max-width: 60px;
+				    height: 41%;
+				    max-height: 39px;
+				    font-size: 1.5em;
+				}
+			}            
+        </style>    
+        <script>
+            //do not move this js to static resources
+            var playerStyle = getURLParameter('playerstyle');
+            var tmpCourseId = '{!JSENCODE(courseVFPId)}';
+            var tmpTranscriptId = '{!JSENCODE(transcriptVFPId)}';
+            var tmpContentVersionId = '{!JSENCODE(contentVersionVFPId)}';
+            var isNotScormCourse = '{!isNotScormCourse}' === 'true';
+            var pathToContent = '{!pathToContent}';
+            var sessionBefore = '{!sessionTmp}';
+            var sessionTmp;
+            
+            
+            sessionModel = {
+                        bookmarkEnd :  "",
+                        progress :   0,
+                        transcriptId : tmpTranscriptId,
+                        courseId : tmpCourseId ,
+                        launchId : "",
+                        ip : "{!JSENCODE(ipAddress)}",
+                        userAgent : "{!JSENCODE(myuserAgent)}"
+                    }            
+            
+            if (sessionBefore === '') {
+                sessionTmp = sessionModel;
+            } else {
+                sessionTmp = JSON.parse(sessionBefore);    
+            }
+            
+            var thumbUrl = '{!thumbPath}';
+            var courseType = "video";
+                            
+            //to do move to the static js resource
+            function addslashes(str) {
+                str=str.replace(/\\/g,'\\\\');
+                str=str.replace(/\'/g,'\\\'');
+                return str;
+            }
+    
+            function stripslashes(str) {
+                str = str.replace(/\\'/g, '\'');
+                str = str.replace(/\\"/g, '"');
+                str = str.replace(/\\0/g, '\0');
+                str = str.replace(/\\\\/g, '\\');
+                return str;
+            }
+        </script>
+
+<!-- JS&CSS for Local Player -->
+    <apex:outputpanel rendered="{!isLocalCourseAndLocalPlayer}" layout="none">
+        <apex:includeScript value="{!URLFOR($Resource.scormanywhere__SCORM_Player, 'js/video.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.scormanywhere__SCORM_Player, 'js/videojs.disableProgress.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.scormanywhere__SCORM_Player, 'js/player-0.0.11.min.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.scormanywhere__SCORM_Player, 'js/logicVideo.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.scormanywhere__SCORM_Player, 'js/sessiontracker.js')}"/>
+        
+        <apex:stylesheet value="{!URLFOR($Resource.scormanywhere__SCORM_Player, 'css/layout.css')}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.scormanywhere__SCORM_Player, 'css/slds_player.css')}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.scormanywhere__SCORM_Player, 'css/video-js.css')}"/>
+    </apex:outputpanel> 
+<!-- JS&CSS For Local Player End -->
+
+    <!-- Remote Courses -->
+        <apex:includeScript value="{!URLFOR($Resource.scormanywhere__SCORM_Player, 'Client.Sync/CORS.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.scormanywhere__SCORM_Library, 'js/launcher.js')}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.scormanywhere__SCORM_Library, 'css/launcher.css')}"/>
+        <apex:outputpanel rendered="{!isFromArticle}" id="all">
+            <apex:stylesheet value="{!URLFOR($Resource.scormanywhere__SCORM_Library, 'css/articlePreview.css')}"/>
+    
+            <apex:outputPanel id="articleData" styleClass="allPanel">
+                            <apex:form rendered="{!IF(startPlay==false, true, IF(isVideo == false, true, false))}" id="articleForm" ><br />
+                                    <div class="gradient">
+                                            <img src="{!URLFOR($Resource.SCORM_Library, 'img/servlet.png')}" class="logo"/>
+                                            <a href="javascript:openCourse()">
+                                                    <img src="{!URLFOR($Resource.SCORM_Library, 'img/play.png')}" id="play" class="play"/>
+                                            </a>
+                                            <span class="demo" id="demo">{!articleCourseTitle}</span>
+                                    </div>
+                            </apex:form>
+                             <script>
+                                 if ('{!isVideo}' == 'true') {
+                                   	window.location = window.location.origin+'{!$Site.prefix}{!JSENCODE(launchUrl)}'+'&'+additionalParams.get();
+                                 }  
+                                 
+                                 function openCourse() {
+                                    window.open(window.location.origin+'{!$Site.prefix}{!JSENCODE(launchUrl)}'+'&'+additionalParams.get(), '', 'location=1,resizable=1,status=1,scrollbars=1,toolbar=1');
+                                 }
+                                 
+                             </script>
+            </apex:outputPanel>
+        </apex:outputpanel>
+        
+        <apex:outputpanel rendered="{!!isFromArticle}" layout="none">
+            <!-- <apex:outputPanel rendered="{!isReferrer}">
+                <div class="bPageTitle" style="float:right; right: 20px; padding: 0px 5px 0px 5px; cursor:pointer">
+                    <div><a href="#" onclick="goBack();" style="text-decoration:none">{!referrerLabel}</a></div>
+                </div>
+            </apex:outputPanel>-->
+            <apex:outputpanel rendered="{!!isLaunchFromPlayer}" layout="none">
+            <!-- external player -->
+                <apex:outputpanel rendered="{!!isLocalCourseAndLocalPlayer}" layout="none">
+                    <c:LoadingBox isPlayerLoader="{!isSfdcSpinnerEnable}" rendered="{!AND(transcript != null, course != null)}"/>
+                        <!-- iframe for SCORM Player -->
+                    <apex:outputPanel rendered="{!AND(transcript != null, course != null)}" layout="none">
+                        <div id="main" style="height: 100%;position:absolute;width: 100%;">
+                            <iframe style="width:100%;height:100%;position:relative;" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" oallowfullscreen="true" msallowfullscreen="true" frameborder="0" id="launcher-content" onload="closeLoader('{!$Component.playerContent}')"></iframe>
+                        </div>
+                    </apex:outputPanel>
+                </apex:outputpanel>
+            <!--external player end -->
+            </apex:outputPanel>
+            <!-- Internal Player-->
+                <apex:outputpanel rendered="{!isLocalCourseAndLocalPlayer}" layout="none">
+                    <div id="main" oncontextmenu="return false;" style="height: 100%;position:absolute;width: 100%;left:0;">
+                        <video preload="none" style='height: 100%;width: 100%;' id="player" src="{!pathToContent}" class="video-js vjs-default-skin vjs-big-play-centered"></video>
+                    </div>
+                    <img class="imageSrc" src="{!thumbPath}" style="display: none" />
+                </apex:outputpanel>         
+            <!-- Internal Player end -->            
+            <apex:outputPanel rendered="{!AND(transcript != null, course != null)}" id="playerContent" style="position: relative; margin: 0 auto;display:  table;">
+                <apex:outputPanel id="backlog">
+                    <script>
+                        var manifest = '' + addslashes(htmlDecode('{!JSENCODE(courseManifest)}'));
+                        manifest = manifest.replace(/\\\\/g, '\\');
+                        //manifest = stripslashes(manifest);
+                        var contentAdlData = {};
+                        console.log(manifest);
+                        console.dir(manifest);
+                        if (manifest != '') {
+                        	try {
+                            	contentAdlData = JSON.parse(JSON.parse(JSON.stringify(manifest)));
+                            }  catch (err) {
+                            	contentAdlData = JSON.parse(JSON.stringify(manifest));
+                            }
+                        }
+                        console.log(contentAdlData);
+
+                        if(contentAdlData.videoType == 'Audio' && playerStyle == ''){
+                            window.resizeTo(650, 300);
+                        }
+                        
+                        var d = new Date();
+                        contentAdlData.sfDateTime = d.toUTCString();
+                            
+                        function getData(objectKey, data, success) {
+                            var requestType = getRequestUrl(objectKey);
+                            switch(requestType) {
+                                    case 'receivedata' :
+                                        receiveData(data,success);
+                                        break;
+                                    default:
+                                        console.error('Unsupported action [%s]', requestType);
+                            }
+                        };
+                        
+                        
+                        
+                        function receiveData(data, success){
+                            channels.addChannel('{!$Label.Community}', '{!URLENCODE($Network.Name)}');
+                            channels.addChannel('{!$Label.site}', '{!URLENCODE($Site.Name)}');
+                            channels.addChannel('{!$Label.Internal_CRM}', '{!URLENCODE($Organization.Name)}');
+                            
+                            channels.setChanel();
+                            var statusCode = '';
+                            var videoData = '';
+                            if(data) {
+                                statusCode = data.statusCode;
+                            }
+                            if(contentAdlData != undefined && contentAdlData.videoData != undefined) {
+                                videoData = contentAdlData.videoData;
+                            }
+                        
+                            var params = {
+                                courseId : tmpCourseId,
+                                userIp : '{!JSENCODE(ipAddress)}',
+                                
+                                userAgent : '{!JSENCODE(myuserAgent)}',
+                                channelType: channels.selectedChannelType,
+                                channelName: channels.selectedChannelName,
+                                statusCode: statusCode,
+                                videoData : videoData
+                            };
+                            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.PlayerController.getLaunchData}', tmpTranscriptId, JSON.stringify(params), function(result, event) {
+                                    if (event.status) {
+                                        if (result.errorCode == 8) {
+                                            location.reload();
+                                        }                           
+                                        console.info('getReceiveData - OK!');
+                                        result["contentAdlData"] = contentAdlData;
+                                        if(result.session != "")
+                                        {
+                                           result["session"] = JSON.parse(htmlDecode(result.session));
+                                        }
+                                        
+                                        console.log(result);
+                                        result.contentPath = stripslashes(htmlDecode(result.contentPath));
+                                        console.log(result); 
+                                        
+                                        success(result);
+                                    } else if (event.type === 'exception') {
+                                        console.error(event.message);
+                                    } else {
+                                        console.error(event.message);
+                                    }
+                            }, { buffer: false, escape: true, timeout: 60000 });
+                        };
+                        
+                        function setData(objectKey, data, callbackHandler) {
+                            var requestType = getRequestUrl(objectKey);
+                            console.log('objectKey: '+objectKey);
+                            var urlElements = objectKey.split('/');
+                            var type = urlElements[0];
+                            console.log('type: '+type);
+                            switch(type) {
+                                    case 'postdata' :
+                                        postData(data, callbackHandler);
+                                        console.dir(data);
+                                        break;
+                                    case 'localstorage':
+                                        postDataLocalStorage(urlElements[1], data, callbackHandler);
+                                        console.log('localstorage path processed successfully');
+                                        break;                                    
+                                    default:
+                                        console.error('Unsupported action [%s]', requestType);
+                            }
+                        };
+                        
+                        function postDataLocalStorage(transcriptFromPath, data, callbackHandler) {
+                            console.info('Post data called');
+                            var rootActivityId = "org";
+                            console.log('rootActivityId = [%s]', rootActivityId);
+                            var jsonData = JSON.parse(data);
+                            var myAutoplay = '{!JSENCODE(isAutoplay)}';
+                            jsonData.autoplay = '{!JSENCODE(isAutoplay)}';
+                            var isExitClicked = false;
+                            if (jsonData.isLmsFinished === true) {
+                                isExitClicked = true;
+                                jsonData.isLmsFinished = false;
+                            }                            
+                            console.dir(data);
+                            data = JSON.stringify(jsonData);
+                            var changedData = JSON.stringify(jsonData);
+                            console.dir(data);
+                            console.dir(jsonData);
+                            try {
+                                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.PlayerController.setState}', transcriptFromPath, rootActivityId , changedData, function(result, event) {
+                                    if (event.status) {
+                                        console.info('Post data - OK!');
+                                        console.log(data);
+										if (isExitClicked) {
+                                            exitCourse();
+										}
+                                    } else if (event.type === 'exception') {
+                                    
+                                        console.log(event.message);
+                                        var jsonCallBack =  {type:'SFSetStateException', message : event.message, errorCode : '003', userMessage : '{!$Label.Error1}'};
+                                        
+                                        var pattLogout = /Logged in/g;
+                                        
+                                        if (event.message.indexOf('List has no rows for') != -1) {
+                                            //transcript or course was deleted
+                                            jsonCallBack.errorCode = '001';
+                                            jsonCallBack.userMessage = '{!$Label.Error1}';
+                                        } else if (pattLogout.test(event.message) == true) {
+                                            //logout or session timeout
+                                            jsonCallBack.errorCode = '002';
+                                            jsonCallBack.userMessage = '{!$Label.Error1}';
+                                        }
+                                        callbackHandler(JSON.stringify(jsonCallBack));
+                                    } else {
+                                        console.error(event.message);
+                                    }
+                                }, { buffer: false, escape: true, timeout: 60000 });
+                            } catch (Exx) {
+                                console.log(Exx);
+                            }
+                        };
+                        
+                        function postData(data, callbackHandler) {
+                            console.info('Post data called');
+                            var rootActivityId = "org";
+                            console.log('rootActivityId = [%s]', rootActivityId);
+                            var jsonData;
+                            if ( '{!isLocalCourseAndLocalPlayer}' == 'true' ) {
+                                jsonData = data;
+                            } else {
+                                jsonData = JSON.parse(data);
+                            }
+                            var myAutoplay = '{!JSENCODE(isAutoplay)}';
+                            jsonData.autoplay = '{!JSENCODE(isAutoplay)}';
+                            var isExitClicked = false;
+                            if (jsonData.isLmsFinished === true) {
+                                isExitClicked = true;
+                                jsonData.isLmsFinished = false;
+                            }
+							jsonData.autoplay = '{!JSENCODE(isAutoplay)}'
+                            console.dir(data);
+                            data = JSON.stringify(jsonData);
+                            var changedData = JSON.stringify(jsonData);
+                            console.dir(data);
+                            console.dir(jsonData);
+                            try {
+                                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.PlayerController.setState}', tmpTranscriptId, rootActivityId , changedData, function(result, event) {
+                                    if (event.status) {
+                                        console.info('Post data - OK!');
+                                        console.log(data);
+										if (isExitClicked) {
+                                            exitCourse();
+										}
+                                    } else if (event.type === 'exception') {
+                                    
+                                        console.log(event.message);
+                                        var jsonCallBack =  {type:'SFSetStateException', message : event.message, errorCode : '003', userMessage : '{!$Label.Error1}'};
+                                        
+                                        var pattLogout = /Logged in/g;
+                                        
+                                        if (event.message.indexOf('List has no rows for') != -1) {
+                                            //transcript or course was deleted
+                                            jsonCallBack.errorCode = '001';
+                                            jsonCallBack.userMessage = '{!$Label.Error1}';
+                                        } else if (pattLogout.test(event.message) == true) {
+                                            //logout or session timeout
+                                            jsonCallBack.errorCode = '002';
+                                            jsonCallBack.userMessage = '{!$Label.Error1}';
+                                        }
+                                        //<!-- Below code for external for internal remove it-->
+                                        callbackHandler(JSON.stringify(jsonCallBack));
+                                        //<!-- Below code for external for internal remove it end-->
+                                    } else {
+                                        console.error(event.message);
+                                    }
+                                }, { buffer: false, escape: true, timeout: 60000 });
+                            } catch (Exx) {
+                                console.log(Exx);
+                            }
+                        };
+                        
+                    </script>
+                        
+                        <apex:outputpanel rendered="{!!isLocalCourseAndLocalPlayer}" layout="none">
+                            <apex:outputpanel rendered="{!isLaunchFromPlayer}" layout="none">
+                            	<script>
+                                	new Server(window.parent, '{!SERVER_URL}', getData, setData);
+                                </script>
+                            </apex:outputpanel>
+                            <apex:outputpanel rendered="{!!isLaunchFromPlayer}" layout="none">
+                            	<script>
+                                	new Server(window[0], '{!SERVER_URL}', getData, setData);
+                                </script>
+                            </apex:outputpanel>
+                        </apex:outputpanel>
+                                            
+                </apex:outputPanel>
+            </apex:outputPanel> 
+        </apex:outputpanel>
+    	
+    	<apex:outputPanel rendered="{!AND(transcript != null, course != null)}" >
+	        <script>
+	    
+	            function goBack() {
+	                if ('{!JSENCODE(referrer)}' == 'true') {
+	                    window.history.go(-1);
+	                } else {
+	                    window.location.href = '{!JSENCODE(referrer)}';
+	                }
+	            }
+	        
+	        	function exitCourse() {
+	                console.log('exit called');
+	                //TODO: handle different cases
+	                if ('{!isReferrer}' === 'true') {
+	                    exitCourseItem();
+	                } else {
+	                	window.close();
+	                }
+	            }
+	        
+	        	function exitCourseItem() {
+	                if ('{!JSENCODE(referrer)}' == 'true') {
+	                    window.history.go(-1);
+	                } else {
+	                    window.top.location.href = '{!JSENCODE(referrer)}';
+	                }
+	            }
+	        
+	            <!-- Below code for external remove for internal -->
+	            var client = new Client(win, '{!SERVER_URL}');
+	            var launcherType = "";
+	            window.cookiesSet = true;
+	            
+	            if(contentAdlData.videoType) {
+	                launcherType = contentAdlData.videoType;
+	            }
+	            /**/
+	            channels.addChannel('{!$Label.scormanywhere__community}', '{!URLENCODE($Network.Name)}');
+	            channels.addChannel('{!$Label.site}', '{!URLENCODE($Site.Name)}');
+	            channels.addChannel('{!$Label.scormanywhere__internal_crm}', '{!URLENCODE($Organization.Name)}');
+	            channels.setChanel();
+	            /**/
+	            document.getElementById('{!$Component.playerContent}').style.display = '';
+	            document.getElementById('{!$Component.playerContent}').style.position = 'absolute';
+	            var Link = {
+	                fullLink : '',
+	                addLinkTo : function(linkTo) {
+	                    this.fullLink = linkTo;
+	                },
+	                addAttributes : function(attr, delim) {
+	                    if (attr != '') {
+	                        delim = typeof delim !== 'undefined' ? delim : '&';
+	                            if (this.fullLink == '') { 
+	                                console.log('Error! 1'); 
+	                            }
+	                        this.fullLink += attr + delim;
+	                    }
+	                },
+	                getFullLink : function () {
+	                    return this.fullLink;
+	                }
+	            }
+	                                    
+	            var linkTo = '{!JSENCODE(SERVER_URL)}/player?'+'{!encryptedLinkForPlayer}';
+	            Link.addLinkTo(linkTo);
+	
+	            var selectedChannelName = 'channel=' + encodeURIComponent(channels.selectedChannelName);
+	            Link.addAttributes(selectedChannelName);
+	
+	            var OrgIDParam = 'OrgID={!URLENCODE($Organization.Id)}';
+	            Link.addAttributes(OrgIDParam, '');
+	
+	            console.log('FullLink: '+Link.getFullLink());
+	            console.log('FullLink enc: {!encryptedLinkForPlayer}');
+	            
+	        </script>
+	        <!-- Below code for external remove for internal -->
+	        <apex:outputpanel rendered="{!!isLaunchFromPlayer}" layout="none">
+	            <apex:outputpanel rendered="{!!isLocalCourseAndLocalPlayer}" layout="none">
+	                <script>
+	                    iFramePlayer = document.getElementById('launcher-content');
+	                    iFramePlayer.src = Link.getFullLink();
+	                </script>
+	            </apex:outputpanel>
+	        </apex:outputpanel>
+	        <!-- Below code for external remove for internal end -->
+	        <apex:outputpanel rendered="{!isLaunchFromPlayer}" layout="none">
+	            <script>
+	                var win = window.parent;
+	                var data = {
+	                    context: 'chatter',
+	                    url: Link.getFullLink()+'&'+additionalParams.get(),
+	                    domain: window.location.origin
+	                };
+	                function extractDomain(url) {
+	                    var domain;
+	                    
+	                    if (url.indexOf("://") > -1) {
+	                        domain = url.split('/')[2];
+	                    }
+	                    else {
+	                        domain = url.split('/')[0];
+	                    }
+	                    domain = domain.split(':')[0];
+	                
+	                    return domain;
+	                    
+	                }
+	                
+	                var domainExtracted = 'https://'+extractDomain(document.referrer);
+	                            
+	                win.postMessage(JSON.stringify(data), domainExtracted );
+	            </script>
+	        </apex:outputpanel>
+        </apex:outputPanel>
+        <apex:outputpanel rendered="{!!isLaunchFromPlayer}" layout="none">
+        <!-- Below code for external remove for internal -->
+            <apex:outputpanel rendered="{!!isLocalCourseAndLocalPlayer}" layout="none">
+            <script>
+                jQuery( document ).ready(function() {
+                //This fix for fullscreen allowing on community pages. By default, SF remove this attributes.
+                    iFramePlayer = document.getElementById('launcher-content');
+                    iFramePlayer.setAttribute("allowfullscreen", "true");
+                    iFramePlayer.setAttribute("mozallowfullscreen", "true");
+                    iFramePlayer.setAttribute("msallowfullscreen", "true");
+                    iFramePlayer.setAttribute("oallowfullscreen", "true");
+                    iFramePlayer.setAttribute("webkitallowfullscreen", "true");             
+                });
+            </script>
+            </apex:outputpanel>
+        <!-- Below code for external remove for internal end -->
+            <!-- Below code for internal remove for external-->
+            <apex:outputpanel rendered="{!isLocalCourseAndLocalPlayer}" layout="none">
+            <script>
+                var Launcher = function () {
+
+                this.start = function () {
+                    window.SessionTracker = new SessionTracker(sessionTmp, postData);
+
+                    //new videoLogic(autoplay);
+                    new videoLogic(false);
+                    //window.videoplayer.disableProgress({ autoDisable: !enableScroll });
+
+                    var cookie = getCookie(sessionTmp.courseId + "LGF");
+                    /*if (DisplayLgf && cookie == '') {
+                        window.videoplayer.on("play", function () {
+                            if (!sendLGF) { LGFInterval = setInterval(function () { ShowLGF(); }, 100); }
+                        });
+                        window.videoplayer.on("pause", function () {
+                            clearInterval(LGFInterval);
+                        });
+                    }*/
+
+                    /*if (playerStyle === 'amex') {
+                        $('.vjs-big-play-button').addClass('amex');
+                    }*/
+
+                    //jQuery('#main').css('height', height);
+                    //jQuery('#main').css('width', width);
+                };
+            };
+
+
+            function getCookie(cname) {
+                var name = cname + "=";
+                var ca = document.cookie.split(';');
+                for (var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        var value = c.substring(name.length, c.length);
+                        value = decodeURIComponent(value);
+                        return value;
+                    }
+                }
+                return "";
+            }
+
+            function setCookie(name, value) {
+                var expires = new Date();
+                expires.setTime(expires.getTime() + 30 * 24 * 60 * 60 * 1000);
+                if (expires && expires.toUTCString) {
+                    expires = expires.toUTCString();
+                }
+                value = encodeURIComponent(value);
+                var updatedCookie = name + '=' + value + '; path=/; expires=' + expires + '; secure';
+                document.cookie = updatedCookie;
+            }
+            
+            var getUrlParameter = function getUrlParameter(sParam) {
+                var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+                    sURLVariables = sPageURL.split('&'),
+                    sParameterName,
+                    i;
+            
+                for (i = 0; i < sURLVariables.length; i++) {
+                    sParameterName = sURLVariables[i].split('=');
+            
+                    if (sParameterName[0] === sParam) {
+                        return sParameterName[1] === undefined ? true : sParameterName[1];
+                    }
+                }
+                return '';
+            };            
+               jQuery( document ).ready(function() {
+               		var item = document.getElementById('main');
+		 			var img = document.getElementsByClassName('imageSrc')[0];
+		 			
+	                img.onload = function () {
+	                    if(img.width >= img.height){
+	                        item.classList.add("landscapeImage");
+	                    }else if(img.width < img.height){
+	                        item.classList.add("portraitImage");
+	                    }
+	                }
+	                try {
+	                	//for IE11
+		            	img.src = img.src;       
+		            } catch (ex) {
+		            }
+                   console.log(getUrlParameter('playerstyle'));
+                   console.log(getUrlParameter('playerstyle') === 'amex');
+                    new Launcher().start();
+                    var customSettingsPlayerStyle = '{!JSENCODE(customPlayerStyle)}';
+                    var playerStyle = '';
+                    
+                    if ( getUrlParameter('playerstyle') != '') {
+                    	playerStyle = getUrlParameter('playerstyle');
+                    } else if (customSettingsPlayerStyle != ''){
+                    	playerStyle = customSettingsPlayerStyle;
+                    }
+                    if (playerStyle.toLowerCase() == 'orion') {
+                    	playerStyle = 'amex';
+                    } 
+                    if (playerStyle != '') {
+                        jQuery('.vjs-big-play-button').addClass(playerStyle);
+                    }                       
+               });
+            </script>           
+            </apex:outputpanel>
+            <!-- Below code for internal remove for external end-->
+            
+        </apex:outputpanel>
+        <!-- END Remote Courses -->
+    </apex:outputpanel>
+</apex:page>

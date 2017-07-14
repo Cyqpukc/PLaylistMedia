@@ -1,0 +1,15 @@
+<aura:component Controller="MediaUploaderCtrl" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" >
+   	<aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:attribute name="prefix" type="String"/>
+    <aura:attribute name="domain" type="String"/>
+    <aura:attribute name="originalDomain" type="String"/>
+    <aura:attribute name="recordId" type="String" access="global" default=""/>
+    <aura:attribute name="isCreateMediaContent" type="Boolean" access="global" default="false"/>
+
+    <iframe class="upload_wrapper" src="{! 'https://' + v.domain + v.prefix + '/apex/mediauploader'+'?originalDomain='+v.originalDomain}"
+            aura:id="uploaderIframe"
+            id="uploaderIframe"
+            style="border: none; "
+            height="124px"
+            ></iframe>
+</aura:component>

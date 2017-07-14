@@ -1,0 +1,26 @@
+<apex:page controller="redwing.QuestionBankExportCtrl" sidebar="false" showHeader="true" tabStyle="redwing__Question_Bank__c">
+
+    <apex:sectionHeader title="{!$Label.redwing__alms_export_question_bank}" subtitle="{!qBank.name}">
+        <div class="bPageTitle" style="padding:0px;">
+            <div class="ptBreadcrumb">&nbsp;&lt;&lt;&nbsp;<a href="/{!qBank.Id}">{!$Label.ALMS_Question_Bank_Back}</a></div>
+        </div>
+    </apex:sectionHeader>
+
+    <script src="{!URLFOR($Resource.lmscore_uilib, '/js/jquery.min.js')}" />
+
+    <apex:form id="theForm">
+
+        <apex:actionStatus id="status">
+            <apex:facet name="start">
+                <c:LMSStatus />
+            </apex:facet>
+        </apex:actionStatus>
+
+        <apex:pageBlock >
+            <apex:pageMessages />
+            <apex:inputTextArea value="{!qBankJSON}" style="height:300px;width:98%;"/>
+        </apex:pageBlock>
+
+    </apex:form>
+
+</apex:page>

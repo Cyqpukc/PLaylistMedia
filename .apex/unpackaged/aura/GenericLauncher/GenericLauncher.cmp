@@ -1,0 +1,5 @@
+<aura:component extends="redwing:BaseLauncher">
+
+    <redwing:SVGImage sprite="action-sprite" symbolsAnchor="new_custom100" lmsNamespace="{!v.lmsNamespace}" communityName="{!v.communityName}" wrapperStyle="background-color:#517e82;margin:40px 0;"/>
+
+</aura:component>

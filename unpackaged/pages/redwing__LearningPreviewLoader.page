@@ -1,0 +1,31 @@
+<apex:page controller="redwing.LearningPreviewLoaderCtrl" docType="html-5.0" sidebar="false" showHeader="false" standardStylesheets="true" cache="false">
+
+    <apex:pageMessages />
+    <apex:pageMessage summary="{!$Label.redwing__alms_resource_redirect}" severity="info" strength="1" />
+
+    <apex:includeScript value="{!URLFOR($Resource.redwing__lmscore_uilib, '/js/jquery.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.redwing__lmscore_uilib, '/js/lmscoreutils.js')}"/>
+
+    <script>
+        jQuery(document).ready(function(){
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.LearningPreviewLoaderCtrl.previewContent}',
+                '{!JSENCODE($CurrentPage.parameters.lid)}',
+                '{!JSENCODE($CurrentPage.parameters.cid)}',
+                function(result, event){
+                    if (event.status) {
+                        if(result){
+                            var decodedURL = result.replace(/&amp\;/g, '&');
+                            lmscore.redirectHandler(decodedURL, false);
+                        }
+                    } else if (event.type === 'exception') {
+                        lmscore.logMessage(event.message);
+                    } else {
+                        lmscore.logMessage(event.message);
+                    }
+                },{buffer: false}
+            );
+        });
+    </script>
+
+</apex:page>

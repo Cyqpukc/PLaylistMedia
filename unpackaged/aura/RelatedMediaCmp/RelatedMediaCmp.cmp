@@ -1,0 +1,51 @@
+<aura:component controller="RelatedMediaCmpCtrl" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" >
+
+    <aura:attribute name="showShared" type="Boolean" default="true" access="global"/>
+    <aura:attribute name="shareButtonStyle" type="String" access="global"/>
+    <aura:attribute name="shareLinkType" type="String" access="global"/>
+    <aura:attribute name="siteId" type="String" access="global"/>
+
+    <aura:attribute name="parentId" access="global" type="String"/>
+    <aura:attribute name="showProgress" type="Boolean" default="true"/>
+
+    <aura:attribute name="media" type="MediaWrapper[]"/>
+
+     <!-- MediaPopupCmp params-->
+    <aura:attribute name="showMediaPopup" type="Boolean" default="false"/>
+    <aura:attribute name="showMediaPopupBackground" type="Boolean" default="false"/>
+    <aura:attribute name="currentMediaSrc" type="String" default=""/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <aura:handler name="showPopupBackgroundEvent" event="c:EventCmp" action="{!c.showPopupBackgroundHandler}"/>
+    <aura:handler name="openVideoModalEvent" event="c:EventCmp" action="{!c.openVideoModalHandler}"/>
+
+    <ltng:require scripts="{!$Resource.Components_Library + '/vendor/components/svg4everybody.min.js'}" afterScriptsLoaded="{!c.loadSvgScript}" />
+
+    <ltng:require styles="/resource/ViewTracCustomCss.css"/>
+
+    <div class="{!(v.media == null || v.media.length le 0) ? 'hidden' : 'search-container'}">
+        <div class="headerTitle" >{!$Label.c.Related_Media}</div>
+
+        <div class="results">
+            <span>
+                <span class="panelsContainer">
+                    <c:MediaCmp mediaItems="{!v.media}"
+                        showShared="{!v.showShared}"
+                        showProgress="{!v.showProgress}"
+                        showPin="false"
+                        showChannel="false"
+                        shareButtonStyle="{!v.shareButtonStyle}"
+                        shareLinkType="{!v.shareLinkType}"
+                        siteId="{!v.siteId}"
+                        showDelete="false"
+                    />
+                    <div class="{!(v.media == null || v.media.length le 0) ? 'noresults' : 'hidden'}">{!$Label.c.No_Media}</div>
+                </span>
+            </span>
+        </div>
+    </div>
+
+    <c:MediaPopupCmp aura:id="mediaPopupInst" showPopup="{!v.showMediaPopup}" showPopupBackground="{!v.showMediaPopupBackground}" mediaSrc="{!v.currentMediaSrc}"/>
+
+</aura:component>

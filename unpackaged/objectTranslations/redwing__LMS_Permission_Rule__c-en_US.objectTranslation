@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <help><!-- Optional description about this rule --></help>
+        <label><!-- Description --></label>
+        <name>redwing__Description__c</name>
+    </fields>
+    <fields>
+        <help><!-- User object field API name --></help>
+        <label><!-- Field API Name --></label>
+        <name>redwing__Field_API_Name__c</name>
+    </fields>
+    <fields>
+        <help><!-- User object field expected value. If using a regex you can test it at https://regex101.com/ --></help>
+        <label><!-- Field Value --></label>
+        <name>redwing__Field_Value__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enable/disable the execution of this rule. --></help>
+        <label><!-- Is Active --></label>
+        <name>redwing__IsActive__c</name>
+    </fields>
+    <fields>
+        <help><!-- Operator used in this rule. IN and NOT IN expect a list of comma separated values --></help>
+        <label><!-- Operator --></label>
+        <name>redwing__Operator__c</name>
+        <picklistValues>
+            <masterLabel>contains</masterLabel>
+            <translation><!-- contains --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>ends with</masterLabel>
+            <translation><!-- ends with --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>equals</masterLabel>
+            <translation><!-- equals --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>in</masterLabel>
+            <translation><!-- in --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>not in</masterLabel>
+            <translation><!-- not in --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>regex</masterLabel>
+            <translation><!-- regex --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>starts with</masterLabel>
+            <translation><!-- starts with --></translation>
+        </picklistValues>
+    </fields>
+</CustomObjectTranslation>

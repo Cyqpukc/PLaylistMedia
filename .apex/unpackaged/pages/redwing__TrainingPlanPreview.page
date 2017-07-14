@@ -1,0 +1,200 @@
+<!--
+Copyright (c) 2014, salesforce.com, Inc.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+    * Neither the name of the salesforce.com, Inc. nor the names of its contributors
+    may be used to endorse or promote products derived from this software
+    without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<apex:page controller="redwing.TrainingPlanPreviewCtrl" docType="html-5.0" sidebar="false" showHeader="{!showSFHeader}" standardStylesheets="false" action="{!checkAssignment}">
+
+    <apex:outputPanel layout="none" rendered="{!tPlan != null}">
+
+        <apex:composition template="redwing__LMSHeroTemplate">
+
+            <apex:define name="head">
+                <title>{!tPlan.trainingPlan.Name}</title>
+            </apex:define>
+
+            <apex:define name="hero-banner">
+                <c:TrainingPlanBannerInfo trainingPlanName="{!tPlan.trainingPlan.Name}" description="{!tPlan.trainingPlan.redwing__Description__c}" hideChatterPhotos="{!tPlan.trainingPlan.redwing__Hide_Chatter_Photos__c}" usersWithAchievements="{!lUsersWithAchievement}"/>
+            </apex:define>
+
+            <apex:define name="hero-banner-badge">
+                <c:TrainingPlanBannerAchievement achievement="{!tPlan.mainAchievement}" />
+            </apex:define>
+
+            <apex:define name="hero-banner-footer">
+                <apex:outputPanel layout="none" rendered="{!tPlan.trainingPlan != null && tplan.trainingPlan.redwing__Hide_After_End_Date__c && tplan.trainingPlan.redwing__End_Date__c != null}">
+                    <span><b>{!$Label.ALMS_Training_Plan_Due}</b> :&nbsp;<apex:outputField value="{!tPlan.trainingPlan.redwing__End_Date__c}" /> /</span>
+                </apex:outputPanel>
+                <apex:outputPanel layout="none" rendered="{!tPlan.totalMins != null && tPlan.totalMins > 0}">
+                    <span><b>{!$Label.redwing__alms_duration}</b> : {!tPlan.TotalDuration} /</span>
+                </apex:outputPanel>
+                <apex:outputPanel layout="none">
+                    <span><b>{!$Label.redwing__alms_training_plan_assignment_status}</b> : {!$Label.redwing__alms_tplan_not_registered}</span>
+                </apex:outputPanel>
+            </apex:define>
+
+            <apex:define name="container-header">
+                <apex:outputPanel layout="none" rendered="{!tPlan != null}">
+                    <c:TrainingPlanSections trainingPlanId="{!tplan.trainingPlan.Id}" isPreview="true" currentSection="details" />
+                </apex:outputPanel>
+            </apex:define>
+
+            <apex:define name="body">
+
+                <apex:outputPanel layout="none" rendered="{!tPlan.trainingPlan != null}">
+                    <c:LMSHeaderOverrides bkImageURL="{!tPlan.trainingPlan.redwing__Background_Image_URL__c}" bkColor="{!tPlan.trainingPlan.redwing__Background_Color__c}" txtColor="{!tPlan.trainingPlan.redwing__Text_Color__c}"/>
+                </apex:outputPanel>
+
+                <apex:form id="trainingPreviewForm" styleClass="tplan-preview-form">
+
+                    <apex:outputPanel layout="none" id="pageMessages">
+                        <apex:outputPanel layout="block" styleClass="alert alert-danger" rendered="{!hasMessages}">
+                            <apex:pageMessages />
+                        </apex:outputPanel>
+                    </apex:outputPanel>
+
+                    <div class="alert alert-info" role="alert" style="text-align:center;">{!$Label.redwing__alms_register_helptext}</div>
+
+                    <div class="required-asterisk-panel"><span class="required_asterisk">*</span> = {!$Label.redwing__alms_required}</div>
+
+                    <apex:repeat value="{!tPlan.sections}" var="o" >
+                        <div class="activity-section-wrap" >
+                        <div class="activity-section-head row" >
+
+                            <div class="col-xs-1 col-sm-1 col-md-1 learn-icon">
+
+                                <apex:outputPanel layout="none" rendered="{!o.mainAchievement.redwing__Work_Badge_Image_URL__c == null}">
+                                    <apex:outputField value="{!o.mainAchievement.redwing__Acquired_Image__c}" rendered="{!o.sectionAssignment.redwing__Status__c == 'Completed'}" />
+                                    <apex:outputField value="{!o.mainAchievement.redwing__Eligible_Image__c}" rendered="{!o.sectionAssignment.redwing__Status__c != 'Completed'}" />
+                                </apex:outputPanel>
+                                <apex:outputPanel layout="none" rendered="{!o.mainAchievement.redwing__Work_Badge_Image_URL__c != null}">
+                                    <apex:image url="{!o.mainAchievement.redwing__Work_Badge_Image_URL__c}" styleClass="{!IF(o.sectionAssignment.redwing__Status__c != 'Completed','badge-disabled','')}"/>
+                                </apex:outputPanel>
+
+                            </div>
+
+                            <div class="col-xs-4 col-sm-4 col-md-4 title">
+                                <span class="tplan-section-title"><apex:outputField value="{!o.trainingPlanSection.Name}"  /></span>
+                            </div>
+
+                            <div class="col-xs-5 col-sm-5 col-md-5 prog-status">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-empty" role="progressbar" aria-valuemin="0" aria-valuenow="0" aria-valuemax="100" style="min-width: 3em;">
+                                        0.0%
+                                    </div>
+                                </div>
+                                <div class="progresshours">
+                                    <span class="tplan-section-hours"><apex:outputText value="{!o.totalDuration}" rendered="{!o.totalMins != null && o.totalMins > 0}"/></span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <apex:repeat value="{!o.items}" var="i">
+                            <div class="activity-section-learning row" >
+
+                                <div class="col-xs-1 col-sm-1 col-md-1 learn-icon">
+                                    <apex:outputPanel layout="none" rendered="{!i.learning.RecordType.DeveloperName == 'Task'}"><span class="glyphicon glyphicon-pushpin"></span></apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!i.learning.RecordType.DeveloperName == 'Quiz'}"><span class="glyphicon glyphicon-question-sign"></span></apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!i.learning.RecordType.DeveloperName == 'Resource'}"><span class="glyphicon glyphicon-globe"></span></apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!i.learning.RecordType.DeveloperName == 'CheckIn'}"><span class="glyphicon glyphicon-map-marker"></span></apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!i.learning.RecordType.DeveloperName == 'RichText'}"><span class="glyphicon glyphicon-align-left"></span></apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!i.learning.RecordType.DeveloperName != 'RichText' && i.learning.RecordType.DeveloperName != 'Task' && i.learning.RecordType.DeveloperName != 'Quiz' && i.learning.RecordType.DeveloperName != 'Resource' && i.learning.RecordType.DeveloperName != 'CheckIn'}"><span class="glyphicon glyphicon-play-circle"></span></apex:outputPanel>
+                                </div>
+
+                                <div class="col-xs-10 col-sm-4 col-md-4 title ls-learning-wrapper">
+                                    <apex:outputPanel layout="none" rendered="{!!i.trainingPlanSectionItem.redwing__Optional__c}">
+                                        <span class="requiredItem">*</span>
+                                    </apex:outputPanel>
+                                    <span class="learning-description" data-toggle="popover" data-content="{!IF(i.learning.Description__c==null, $Label.ALMS_Not_Available, i.learning.Description__c)}" data-title="{!$Label.ALMS_Description}" data-trigger="hover click" data-placement="top">
+                                        <apex:outputField value="{!i.learning.Name}"/>
+                                    </span>
+                                </div>
+
+                                <div class="mobile-learning-wrapper launch-learning-btn" lms-data-sectionId="{!o.trainingPlanSection.Id}" lms-data-itemId="{!i.trainingPlanSectionItem.Id}">
+                                    <div class="col-xs-9 col-xs-offset-1 col-sm-9 col-md-9 title">
+                                        <apex:outputPanel layout="none" rendered="{!!i.trainingPlanSectionItem.redwing__Optional__c}">
+                                            <span class="requiredItem">*</span>
+                                        </apex:outputPanel>
+                                        <apex:outputField value="{!i.learning.Name}"  />
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-5 col-sm-5 col-md-5 prog-status">
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-empty" role="progressbar" aria-valuemin="0" aria-valuenow="0" aria-valuemax="100" style="min-width: 3em;">
+                                            0.0%
+                                        </div>
+                                    </div>
+                                    <div class="progresshours">
+                                        <apex:outputField value="{!i.trainingPlanSectionItem.redwing__Duration_hours__c}"  />
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-2 col-sm-2 col-md-2 learn-action">
+                                    <!-- Button trigger modal -->
+                                    <apex:outputPanel rendered="{!i.latestAssignment != null}" layout="none">
+                                        <a href="javascript:void(0)" lms-data-sectionId="{!o.trainingPlanSection.Id}" lms-data-itemId="{!i.trainingPlanSectionItem.Id}" class="lmscore-primary-btn small-btn" >{!$Label.ALMS_Launch}</a>
+                                        <a href="javascript:void(0)" class="launch-btn-mobile">
+                                            <span class="glyphicon glyphicon-unchecked"></span>
+                                        </a>
+                                    </apex:outputPanel>
+
+                                </div>
+
+                            </div><!-- activity-section-learning -->
+                        <!-- end repeat for section itmes html -->
+                        </apex:repeat>
+                        </div><!-- activity-section-wrap -->
+                    <!-- end repeat for section html -->
+                    </apex:repeat>
+
+                    <script>
+                        var $jk = jQuery.noConflict();
+
+                        $jk(document).ready(function(){
+                            $jk(function () {
+                              $jk('.learning-description').popover();
+                            });
+                        });
+                    </script>
+
+                    <apex:actionStatus id="status">
+                        <apex:facet name="start">
+                            <apex:outputPanel >
+                                <c:LMSStatus statusComponentId="{!$Component.status}"/>
+                            </apex:outputPanel>
+                        </apex:facet>
+                    </apex:actionStatus>
+
+                </apex:form>
+            </apex:define>
+
+        </apex:composition>
+    </apex:outputPanel>
+    <apex:outputPanel layout="none" rendered="{!tPlan == null}">
+        <apex:pageMessages />
+    </apex:outputPanel>
+</apex:page>

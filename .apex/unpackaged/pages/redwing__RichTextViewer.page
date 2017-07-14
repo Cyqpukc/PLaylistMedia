@@ -1,0 +1,150 @@
+<apex:page docType="html-5.0" controller="redwing.RichTextViewerCtrl" sidebar="false" showHeader="{!showSFHeader}" standardStylesheets="false" cache="false">
+
+    <apex:composition template="redwing__LMSTemplate">
+        <iframe style="height:0px;width:0px;visibility:hidden" src="about:blank"></iframe>
+
+        <apex:define name="head">
+            <apex:outputPanel layout="none" rendered="{!richText != null}">
+                <title>{!richText.Name}</title>
+            </apex:outputPanel>
+        </apex:define>
+
+        <apex:define name="body">
+
+            <div class="row">
+                <apex:outputPanel layout="none" rendered="{!richText != null}">
+                    <div class="col-md-12"><h2 class="strong-header">{!richText.Name}</h2></div>
+                </apex:outputPanel>
+            </div>
+
+            <apex:form id="richTextViewerForm">
+
+                <apex:actionStatus id="status">
+                    <apex:facet name="start">
+                        <c:LMSStatus statusComponentId="{!$Component.status}"/>
+                    </apex:facet>
+                </apex:actionStatus>
+
+                <apex:outputPanel layout="none" id="resultsPanel">
+                    <apex:inputHidden id="redirectURL" value="{!redirectURL}"/>
+                </apex:outputPanel>
+
+                <apex:outputPanel id="pmessages" layout="none">
+                    <apex:outputPanel layout="block" styleClass="alert alert-danger" rendered="{!hasMessages}">
+                        <script>
+                            forceHideStatus();
+                        </script>
+                        <apex:pageMessages />
+                    </apex:outputPanel>
+                </apex:outputPanel>
+
+                <apex:outputPanel layout="none" rendered="{!richText != null}">
+                    <div class="row">
+                        <apex:outputPanel layout="none" rendered="{!!richText.redwing__Hide_Topics__c}">
+                            <div class="col-md-3 col-md-push-9">
+                                <div id="sidebar">
+                                    <apex:outputPanel rendered="{!contents != null && contents.size > 0}" layout="none">
+                                        <h4 class="strong-header">{!$Label.redwing__alms_richtext_topics}</h4>
+                                        <ul class="sidebar-topics">
+                                            <apex:repeat value="{!contents}" var="c">
+                                                <apex:outputPanel layout="none" rendered="{!c.content.redwing__Title__c != null}">
+                                                    <li>
+                                                        <a
+                                                            id="lnk_{!JSENCODE(c.content.Id)}"
+                                                            href="#{!JSENCODE(c.content.Id)}"
+                                                            data-contentid="{!JSENCODE(c.content.Id)}"
+                                                            onclick="clickAnchorLink(this)"
+                                                        >
+                                                            {!c.content.Title__c}
+                                                        </a>
+                                                    </li>
+                                                </apex:outputPanel>
+                                            </apex:repeat>
+                                            <script>
+                                                function clickAnchorLink(lnk) {
+                                                    if( (typeof sforce != 'undefined') && (sforce != null) ) {
+                                                        var contId = lnk.getAttribute("data-contentid");
+                                                        if (contId) {
+                                                            var anchor = document.getElementById(contId);
+                                                            anchor.focus();
+                                                            anchor.blur();
+                                                        }
+                                                    }
+                                                }
+                                            </script>
+                                        </ul>
+                                    </apex:outputPanel>
+                                </div>
+                            </div>
+                        </apex:outputPanel>
+                        <div class="{!IF(richText.redwing__Hide_Topics__c,'col-md-12','col-md-9 col-md-pull-3')}">
+                            <apex:outputPanel rendered="{!contents != null}" layout="none">
+                                <apex:repeat value="{!contents}" var="c">
+                                    <div>
+                                        <apex:outputPanel layout="none" rendered="{!c.content.redwing__Title__c != null}">
+                                            <a id="{!c.content.Id}" tabindex="-1" style="position: absolute; opacity: 0;">&nbsp;</a>
+                                            <h4 class="strong-header">{!c.content.Title__c}</h4>
+                                        </apex:outputPanel>
+                                        <div class="richtext-content">
+                                            <apex:outputField value="{!c.content.redwing__Content__c}" />
+                                        </div>
+                                        <apex:outputPanel layout="none" rendered="{!c.embeddedVideoURL != null}">
+                                            <div class="richtext-iframe" style="{!IF(c.content.Video_Dimensions_Unit__c == 'percentage','height:300px;','')}">
+                                                <iframe src="{!c.embeddedVideoURL}" width="{!c.embeddedVideoWidth}" height="{!c.embeddedVideoHeight}" allowfullscreen="true" mozallowfullscreen="true" msallowfullscreen="true" oallowfullscreen="true" webkitallowfullscreen="true"/>
+                                            </div>
+                                        </apex:outputPanel>
+
+                                    </div>
+                                </apex:repeat>
+                            </apex:outputPanel>
+                            <apex:commandButton style="margin-top:15px;" value="{!$Label.redwing__alms_richtext_done_button}" action="{!markCompleted}" styleClass="lmscore-success-btn large-btn" onclick="forceShowStatus();" rerender="resultsPanel,pmessages" oncomplete="doRedirection()"/>
+                        </div>
+                    </div>
+                </apex:outputPanel>
+                <apex:outputPanel layout="none" rendered="{!richText == null}">
+                    <a href="javascript:doCancel()" class="lmscore-default-btn large-btn" style="margin-top:15px;">{!$Label.ALMS_Cancel}</a>
+                </apex:outputPanel>
+
+
+                <script>
+                    function doRedirection(){
+                        if({!isLightningContext}){
+                            lmscore.fireLightningEventFromIframe("e.{!JSENCODE(lmsNamespace)}:LearningViewEvent", {type:"close", trainingPlanId: "{!JSENCODE(assignment.redwing__Training_Plan__c)}"});
+                            return true;
+                        }
+                        var retUrl = document.getElementById('{!$Component.redirectURL}').value;
+                        if(retUrl && retUrl.length > 0){
+                            lmscore.redirectHandlerWithStatus(retUrl,false);
+                        }
+                    }
+                    function doCancel(){
+                        if({!isLightningContext}){
+                            lmscore.fireLightningEventFromIframe("e.{!JSENCODE(lmsNamespace)}:LearningViewEvent", {type:"close"});
+                            return true;
+                        }
+                        forceShowStatus();
+                        var retUrl = '{!JSENCODE(cancelURL)}';
+                        if(retUrl && retUrl.length > 0){
+                            lmscore.redirectHandlerWithStatus(retUrl,false);
+                        }
+                    }
+                    if (navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1){
+                        document.getElementById('sidebar').className += ' col-md-push-9';
+                    }
+                </script>
+                <apex:outputPanel layout="none" rendered="{!!isMobileDevice}">
+                    <script>
+                        $('#sidebar').affix({
+                              offset: {
+                                top: 245
+                              }
+                        });
+                    </script>
+                </apex:outputPanel>
+            </apex:form>
+
+        </apex:define>
+
+      </apex:composition>
+
+</apex:page>

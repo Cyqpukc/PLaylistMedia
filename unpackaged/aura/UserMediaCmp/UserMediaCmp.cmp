@@ -1,0 +1,138 @@
+<aura:component controller="UserMediaCmpCtrl" implements="forceCommunity:availableForAllPageTypes" access="global" >
+
+    <aura:attribute name="uploadedMedia" type="MediaWrapper[]"/>
+    <aura:attribute name="viewedMedia" type="MediaWrapper[]"/>
+
+    <aura:attribute name="mediaViewedIds" type="String[]"/>
+    <aura:attribute name="mediaUploadedIds" type="String[]"/>
+    <aura:attribute name="currentIndexViewed" type="Integer" default="0"/>
+    <aura:attribute name="currentIndexUploaded" type="Integer" default="0"/>
+    <aura:attribute name="showButtonViewMoreViewed" type="Boolean" default="true"/>
+    <aura:attribute name="showButtonViewMoreUploaded" type="Boolean" default="true"/>
+    <aura:attribute name="cmpUploadInstances" type="Aura.Component[]" />
+    <aura:attribute name="cmpViewInstances" type="Aura.Component[]" />
+
+    <aura:attribute name="countMedia" type="Integer" default="20" access="global"/>
+    <aura:attribute name="isCourseNameLink" type="Boolean" default="false" access="global" />
+    <aura:attribute name="isCreatedByLink" type="Boolean" default="false" access="global" />
+    <aura:attribute name="isForProfilePage" type="Boolean" default="true" access="global"/>
+    <aura:attribute name="isShowTitle" type="Boolean" default="true" access="global"/>
+    <aura:attribute name="isShowViewAllLink" type="Boolean" default="true" access="global"/>
+    <aura:attribute name="shareButtonStyle" type="String" access="global"/>
+    <aura:attribute name="shareLinkType" type="String" access="global"/>
+    <aura:attribute name="siteId" type="String" access="global"/>
+    <aura:attribute name="showProgress" type="Boolean" default="true" access="global"/>
+    <aura:attribute name="showRecentViewed" type="Boolean" default="true" access="global"/>
+    <aura:attribute name="showShared" type="Boolean" access="global"/>
+    <aura:attribute name="userId" type="String" access="global" />
+    <aura:attribute name="hideComponent" type="Boolean" default="false" access="global" />
+
+    <aura:attribute name="isInitComplete" type="Boolean" default="false" />
+    <aura:attribute name="isSameUser" type="Boolean" default="false" />
+    <aura:attribute name="prefix" type="String"/>
+
+    <!-- MediaPopupCmp params-->
+    <aura:attribute name="showMediaPopup" type="Boolean" default="false"/>
+    <aura:attribute name="showMediaPopupBackground" type="Boolean" default="false"/>
+    <aura:attribute name="currentMediaSrc" type="String" default=""/>
+
+    <ltng:require scripts="{!$Resource.Components_Library + '/vendor/components/svg4everybody.min.js'}" afterScriptsLoaded="{!c.loadSvgScript}" />
+
+    <ltng:require styles="/resource/ViewTracCustomCss"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <aura:handler name="showPopupBackgroundEvent" event="c:EventCmp" action="{!c.showPopupBackgroundHandler}"/>
+    <aura:handler name="openVideoModalEvent" event="c:EventCmp" action="{!c.openVideoModalHandler}"/>
+
+    <div aura:id="spinnerUserMedia" class="loader slds-spinner_container slds-hide">
+        <div class="slds-spinner--inverse slds-spinner slds-spinner--large" role="alert">
+            <span class="slds-assistive-text">{!$Label.c.Loading}</span>
+            <div class="slds-spinner__dot-a"></div>
+            <div class="slds-spinner__dot-b"></div>
+        </div>
+    </div>
+
+    <aura:renderIf isTrue="{! v.showRecentViewed &amp;&amp; v.isSameUser}">
+        <div class="{! (v.hideComponent &amp;&amp; (v.viewedMedia == null || v.viewedMedia.length le 0)) ? 'hidden' : 'search-container'}">
+                <h1 class="headerTitle" >
+                    <aura:renderIf isTrue="{!v.isShowTitle}">
+                        {!$Label.c.Recently_Viewed}
+                    </aura:renderIf>
+                </h1>
+            <div class="results">
+                <span>
+                    <span class="panelsContainer">
+                        <c:MediaCmp mediaItems="{!v.viewedMedia}"
+                            showShared="{!v.showShared}"
+                            showPin="false"
+                            showChannel="false"
+                            shareButtonStyle="{!v.shareButtonStyle}"
+                            isCourseNameLink="{!v.isCourseNameLink}"
+                            isCreatedByLink="{!v.isCreatedByLink}"
+                            showProgress="{!v.showProgress}"
+                            siteId="{!v.siteId}"
+                            shareLinkType="{!v.shareLinkType}"
+                        />
+                        {!v.cmpViewInstances}
+                        <div class="{!((v.viewedMedia == null || v.viewedMedia.length le 0) &amp;&amp; v.isInitComplete) ? 'noresults' : 'hidden'}">{!$Label.c.No_Media}</div>
+                    </span>
+                </span>
+            </div>
+            <aura:renderIf isTrue="{!v.showButtonViewMoreViewed}">
+                <ui:button class="slds-align--absolute-center" label="View More" press="{!c.showMoreMediaViewed}"/>
+            </aura:renderIf>
+        </div>
+    </aura:renderIf>
+    <div class="{! (v.hideComponent &amp;&amp; (v.uploadedMedia == null || v.uploadedMedia.length le 0)) ? 'hidden' : 'search-container'}">
+        <aura:renderIf isTrue="{!v.showRecentViewed}">
+                <h1 class="headerTitle" >
+                    <aura:renderIf isTrue="{!v.isShowTitle}">
+                        {!$Label.c.Recently_Uploaded}
+                    </aura:renderIf>
+                </h1>
+            <aura:set attribute="else">
+                    <h1 class="headerTitle" >
+                        <aura:renderIf isTrue="{!v.isShowTitle}">
+                            {!$Label.c.My_Media}
+                        </aura:renderIf>
+                    </h1>
+                <aura:renderIf isTrue="{!v.isShowViewAllLink}">
+                    <div class="viewAllLink">
+                        <a onclick="{!c.goToURL}" >{!$Label.c.View_All} > </a>
+                    </div>
+                </aura:renderIf>
+            </aura:set>
+        </aura:renderIf>
+        <div class="{! 'results ' + (v.showRecentViewed ? '' : 'center')}">
+            <span>
+                <span class="panelsContainer">
+                    <c:MediaCmp mediaItems="{!v.uploadedMedia}"
+                        showShared="{!v.showShared}"
+                        showPin="false"
+                        showChannel="false"
+                        shareButtonStyle="{!v.shareButtonStyle}"
+                        isCourseNameLink="{!v.isCourseNameLink}"
+                        isCreatedByLink="{!v.isCreatedByLink}"
+                        showProgress="{!v.showProgress}"
+                        siteId="{!v.siteId}"
+                        shareLinkType="{!v.shareLinkType}"
+                    />
+                    {!v.cmpUploadInstances}
+                    <div class="{!((v.uploadedMedia == null || v.uploadedMedia.length le 0) &amp;&amp; v.isInitComplete) ? 'noresults' : 'hidden'}">{!$Label.c.No_Media}</div>
+                </span>
+            </span>
+        </div>
+        <aura:renderIf isTrue="{!v.showButtonViewMoreUploaded}">
+            <ui:button class="slds-align--absolute-center" label="{!$Label.c.View_More}" press="{!c.showMoreMediaUploaded}"/>
+        </aura:renderIf>
+    </div>
+
+    <aura:renderIf isTrue="{! v.isShowViewAllLink &amp;&amp; v.isForProfilePage &amp;&amp; v.showRecentViewed}">
+        <div class="{!((v.uploadedMedia == null || v.uploadedMedia.length le 0) &amp;&amp; (v.viewedMedia == null || v.viewedMedia.length le 0)) ? 'hidden' : ''}">
+            <a onclick="{!c.goToURL}" >{!$Label.c.View_All}</a>
+        </div>
+    </aura:renderIf>
+
+    <c:MediaPopupCmp aura:id="mediaPopupInst" showPopup="{!v.showMediaPopup}" showPopupBackground="{!v.showMediaPopupBackground}" mediaSrc="{!v.currentMediaSrc}"/>
+</aura:component>

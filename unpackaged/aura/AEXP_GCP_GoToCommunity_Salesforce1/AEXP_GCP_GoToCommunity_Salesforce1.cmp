@@ -1,0 +1,6 @@
+<aura:component implements="force:appHostable" 
+                access="global" 
+                controller="AEXP_GCP_NavigationCtrl"
+                extends="c:AEXP_GCP_CommunitySiteBaseComponent">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+</aura:component>

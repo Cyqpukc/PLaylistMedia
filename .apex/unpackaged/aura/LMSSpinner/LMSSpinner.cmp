@@ -1,0 +1,5 @@
+<aura:component >
+    <aura:attribute name="sourceId" type="String"/>
+    <aura:handler event="redwing:LMSSpinnerEvent" action="{!c.changeHandler}"/>
+    <div aura:id="lmsSpinner" class="lms-spinner-container" style="display:none;"></div>
+</aura:component>

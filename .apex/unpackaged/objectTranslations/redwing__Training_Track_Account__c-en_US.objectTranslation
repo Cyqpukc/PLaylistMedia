@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <label><!-- Account --></label>
+        <name>redwing__Account__c</name>
+        <relationshipLabel><!-- Account Learning Tracs --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Learning Trac --></label>
+        <name>redwing__Training_Track__c</name>
+        <relationshipLabel><!-- Learning Trac Accounts --></relationshipLabel>
+    </fields>
+</CustomObjectTranslation>

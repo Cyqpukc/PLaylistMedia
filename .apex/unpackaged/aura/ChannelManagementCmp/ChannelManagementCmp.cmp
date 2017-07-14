@@ -1,0 +1,181 @@
+<aura:component >
+
+    <aura:attribute name="showChannel" type="Boolean" default="false"/>
+    <aura:attribute name="isChannelListEmpty" type="Boolean" default="false"/>
+    <aura:attribute name="channel" type="ChannelWrapper[]"/>
+    <aura:attribute name="activeChannelId" type="String" default="All"/>
+    <aura:attribute name="activeChannelName" type="String" default=""/>
+    <aura:attribute name="videoDetail" type="MediaWrapper"/>
+    <aura:attribute name="newChannelName" type="String" default=""/>
+
+    <aura:attribute name="showAttachModal" type="Boolean" default="false"/>
+    <aura:attribute name="showRemoveModal" type="Boolean" default="false"/>
+    <aura:attribute name="showChannelsModal" type="Boolean" default="false"/>
+
+    <aura:registerEvent name="showPopupBackgroundEvent" type="c:EventCmp"/>
+    <aura:registerEvent name="removeMediaFromChanEvent" type="c:EventCmp"/>
+    <aura:registerEvent name="addMediaToChannelEvent" type="c:EventCmp"/>
+    <aura:registerEvent name="deleteChannelEvent" type="c:EventCmp"/>
+    <aura:registerEvent name="renameChannelEvent" type="c:EventCmp"/>
+    <aura:registerEvent name="setChannelsEvent" type="c:EventCmp"/>
+    <ltng:require styles="/resource/ViewTracCustomCss"/>
+
+    <aura:method name="isOpenModal" action="{!c.isOpenModalHandler}">
+        <aura:attribute name="modalId" type="String" />
+    </aura:method>
+    <aura:method name="showModal" action="{!c.showModalHandler}">
+        <aura:attribute name="modalId" type="String" />
+        <aura:attribute name="show" type="Boolean" />
+    </aura:method>
+
+    <!-- remove video from channel -->
+    <aura:renderIf isTrue="{!v.showRemoveModal}">
+        <div role="dialog" tabindex="100" class="slds-modal remove-channel-modal slds-fade-in-open" id="theRemoveModal">
+            <div class="slds-modal__container">
+                <div class="slds-modal__header">
+                    <button class="slds-button slds-button--icon-inverse slds-modal__close" onclick="{!c.closeRemoveModal}">
+                        <c:svg class="slds-button__icon slds-button__icon--large"
+                               xlinkHref="{!$Resource.slds + '/assets/icons/action-sprite/svg/symbols.svg#close'}"
+                               ariaHidden="true"
+                               />
+                        <span class="slds-assistive-text">{!$Label.c.Close}</span>
+                    </button>
+                </div>
+                <div class="slds-modal__content slds-p-around--medium">
+                    <div class="slds-grid">
+                        <div class="slds-col slds-size--5-of-12">
+                            <div class="slds-box">
+                                <aura:renderIf isTrue="{!v.videoDetail.backImage != null}">
+                                    <img src="{!v.videoDetail.backImage}" />
+                                </aura:renderIf>
+                                <div class="title" >{!v.videoDetail.name}</div>
+                                <div class="uploadDate">{!v.videoDetail.uploadDate}</div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size--7-of-12">
+                            <div class="slds-box">
+                                <h3>{! $Label.c.Remove_Media_From + ' ' + v.activeChannelName + '?'}</h3>
+                                <a id="removeBtn1" onclick="{!c.closeRemoveModal}">{!$Label.c.Cancel}</a>
+                                <button id="removeBtn2" onclick="{!c.removeMediaFromChan}" data-media-id="{!v.videoDetail.id}">{!$Label.c.Yes}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-modal__footer"></div>
+            </div>
+        </div>
+    </aura:renderIf>
+    <!-- add video to channel -->
+    <aura:renderIf isTrue="{!v.showAttachModal}">
+        <div role="dialog" tabindex="100" class="slds-modal attach-modal slds-fade-in-open" id="theAttachModal">
+            <div class="slds-modal__container">
+                <div class="slds-modal__header">
+                    <button class="slds-button slds-button--icon-inverse slds-modal__close" onclick="{!c.closeAttachModal}" data-modal-id="{!v.videoDetail.id}">
+                        <c:svg class="slds-button__icon slds-button__icon--large"
+                               xlinkHref="{!$Resource.slds + '/assets/icons/action-sprite/svg/symbols.svg#close'}"
+                               ariaHidden="true"
+                               />
+                        <span class="slds-assistive-text">{!$Label.c.Close}</span>
+                    </button>
+                </div>
+                <div class="slds-modal__content slds-p-around--medium">
+                    <div class="slds-grid">
+                        <div class="slds-col slds-size--6-of-12">
+                            <div class="slds-box">
+                                <aura:renderIf isTrue="{!v.videoDetail.backImage != null}">
+                                    <img src="{!v.videoDetail.backImage}" />
+                                </aura:renderIf>
+                                <div class="title" >{!v.videoDetail.name}</div>
+                                <div class="uploadDate">{!v.videoDetail.uploadDate}</div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size--6-of-12" >
+                            <div class="slds-box">
+                                <aura:renderIf isTrue="{! !v.isChannelListEmpty}">
+                                     <div class="channel-list-container">
+                                        <h2>{!$Label.c.Select_Channel}</h2>
+                                        <div class="options-container">
+                                            <div class="options">
+                                                <aura:iteration items="{!v.videoDetail.allChannels}" var="channel">
+                                                    <div  class="option" data-channel-id="{!channel.id}" data-media-id="{!v.videoDetail.id}" onclick="{!c.addMediaToChan}"  style="{! channel.containsVideo ?  'color: #2574a9;font-weight: bold;' : ''}">{!channel.name}</div>
+                                                </aura:iteration>
+                                            </div>
+                                        </div>
+                                        <div class="delimiter">{!$Label.c.Or}</div>
+                                    </div>
+                                </aura:renderIf>
+                                <h2>{!$Label.c.Create_New_Channel}</h2>
+                                <div class=""  onkeyup="{!c.addMediaToChanByEnter}">
+                                    <ui:inputText label="" maxlength="25" class="input" placeholder="{!$Label.c.Name_Your_New_Channel}" value="{!v.newChannelName}" updateOn="keyup" />
+                                    <button id="addChanelByEnter" aura:id="addChanelByEnter" class="button uiButton--default uiButton create-channel" onclick="{!c.addMediaToChan}" data-input-id="{!'cN'+v.videoDetail.id}">{!$Label.c.Save}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-modal__footer">
+                </div>
+            </div>
+        </div>
+    </aura:renderIf>
+
+    <!-- manage channels-->
+    <aura:renderIf isTrue="{!v.showChannelsModal}">
+        <div role="dialog" tabindex="100" class="slds-modal manage-videos-modal slds-fade-in-open" id="manageChannelsModal" aura:id="manageChannelsModal">
+            <div class="slds-modal__container">
+                <div class="slds-modal__header">
+                    <button class="slds-button slds-button--icon-inverse slds-modal__close" onclick="{!c.closeChannelModal}" data-modal-id="manageVideosModal">
+                        <c:svg class="slds-button__icon slds-button__icon--large"
+                               xlinkHref="{!$Resource.slds + '/assets/icons/action-sprite/svg/symbols.svg#close'}"
+                               ariaHidden="true"
+                               />
+                        <span class="slds-assistive-text">{!$Label.c.Close}</span>
+                    </button>
+                </div>
+                <div class="slds-modal__content slds-p-around--medium">
+                    <div class="channel-container">
+                        <h3>{!$Label.c.Manage_Channels}</h3>
+                        <div class="channels ">
+                            <aura:iteration items="{!v.channel}" var="channel">
+                                <div class="channel channel-list-item" aura:id="channelListItem" data-channel-id="{!channel.id}">
+                                    <div class="info" id="{!'iNf'+channel.id}" aura:id="infoBlock">
+                                        <span class="name">{!channel.name}<span class="size">({!channel.countVideo + ' ' + $Label.c.Media})</span></span>
+                                        <span class="actions">
+                                            <a href="javascript:void(0)" onclick="{!c.showHandler}" data-channel-id="{!channel.id}" data-action="edit">{!$Label.c.Edit}</a> |
+                                            <a href="javascript:void(0)" onclick="{!c.showHandler}" data-channel-id="{!channel.id}" data-action="remove">{!$Label.c.Remove}</a>
+                                        </span>
+                                    </div>
+                                    <div class="remove hide" id="{!'rM'+channel.id}" aura:id="removeBlock">
+                                        <span class="name">{! $Label.c.Remove + ' ' + channel.name}</span>
+                                        <span class="actions">
+                                            <a href="javascript:void(0)" onclick="{!c.showHandler}" data-channel-id="{!channel.id}" data-action="info">{!$Label.c.No}</a>
+                                            <a href="javascript:void(0)" onclick="{!c.deleteChannel}" data-channel-id="{!channel.id}">{!$Label.c.Yes}</a>
+                                        </span>
+                                    </div>
+                                    <div class="edit hide" id="{!'eD'+channel.id}" aura:id="editBlock">
+                                        <span class="hidden-name hide" aura:id="hiddenName" data-channel-id="{!channel.id}">{!channel.name}</span>
+                                        <span class="name">
+                                            <input type="text" value="{!channel.name}" id="{!'field'+channel.id}" aura:id="fieldChannel"  maxlength="25"/>
+                                        </span>
+                                        <span class="actions">
+                                            <a href="javascript:void(0)" onclick="{!c.showHandler}" data-channel-id="{!channel.id}" data-action="info">{!$Label.c.Cancel}</a>
+                                            <a href="javascript:void(0)" onclick="{!c.renameChannel}" data-channel-id="{!channel.id}" data-element-id="{!'eD'+channel.id}" data-input-id="{!'field'+channel.id}">{!$Label.c.Ok}</a>
+                                        </span>
+                                        <span class="span-error hide" aura:id="renameSpanError" data-channel-id="{!channel.id}">{!$Label.c.Channel_Name_Exists}</span>
+                                    </div>
+                                </div>
+                            </aura:iteration>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-modal__footer">
+
+                </div>
+            </div>
+        </div>
+    </aura:renderIf>
+
+    <aura:renderIf isTrue="{!v.showAttachModal || v.showRemoveModal || v.showChannelsModal}">
+        <div class="slds-backdrop slds-backdrop--open" id="BackgroundChannelsPopUp" aura:id="BackgroundChannelsPopUp"></div>
+    </aura:renderIf>
+</aura:component>

@@ -1,0 +1,26 @@
+<aura:component controller="RelatedMediaCmpCtrl" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" >
+
+    <aura:attribute name="parentId" access="global" type="String"/>
+
+    <aura:attribute name="media" type="MediaWrapper[]"/>
+    <aura:attribute name="shareEmails" type="String"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <ltng:require scripts="{!$Resource.Components_Library + '/vendor/components/svg4everybody.min.js'}" afterScriptsLoaded="{!c.loadSvgScript}" />
+
+    <div class="{!(v.media == null || v.media.length le 0) ? 'hidden' : 'search-container'}">
+        <div class="headerTitle" >Related Media</div>
+
+        <div class="results">
+            <span>
+                    <span class="panelsContainer">
+                        <c:MediaCmp mediaItems="{!v.media}" showShared="true" showPin="false" showChannel="false" shareEmails="true" />
+                        <div class="{!(v.media == null || v.media.length le 0) ? 'noresults' : 'hidden'}">No Media</div>
+                    </span>
+            </span>
+        </div>
+    </div>
+
+    <c:MediaPopupCmp />
+</aura:component>

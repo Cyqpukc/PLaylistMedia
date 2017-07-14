@@ -1,0 +1,95 @@
+<aura:component controller="SimpleMediaCmpCtrl" implements="force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" >
+
+    <aura:attribute name="mediaLink" type="String" default=""/>
+    <aura:attribute name="mediaId" type="String" default="" access="global"/>
+    <aura:attribute name="mediaSrc" type="String" default=""/>
+    <aura:attribute name="prefix" type="String" default=""/>
+    <aura:attribute name="isShowPlayer" type="Boolean" default="true"/>
+    <aura:attribute name="isError" type="Boolean" default="false"/>
+
+    <aura:attribute name="showShared" type="Boolean" default="true" access="global" />
+    <aura:attribute name="shareButtonStyle" type="String" access="global"/>
+    <aura:attribute name="shareLinkType" type="String" access="global"/>
+    <aura:attribute name="siteId" type="String" access="global"/>
+    <aura:attribute name="shareEmails" type="String"/>
+
+    <aura:attribute name="publicLink" type="String"/>
+
+    <aura:attribute name="frameHeight" type="String" default="0"/>
+    <aura:attribute name="frameStyleHeight" type="String" default="height: auto;"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <ltng:require styles="/resource/ViewTracCustomCss"/>
+
+    <div class="slds-modal__content slds-p-around--medium">
+        <div id="videoPlayer">
+            <aura:renderIf isTrue="{! !v.isShowPlayer}">
+                <aura:renderIf isTrue="{! v.isError}">
+                    <div class="slds-align--absolute-center">
+                        <img src="{!$Resource.Components_Library + '/img/Media_is_not_available.jpg'}" width="100%" style="width:100%"/>
+                    </div>
+                    <aura:set attribute="else">
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                            <p class="logo-text">{!$Label.scormanywhere.Powered_by}</p><img src="{!$Resource.scormanywhere__SCORM_Library + '/img/servlet.png'}" />
+                        </div>
+                    </aura:set>
+                </aura:renderIf>
+            </aura:renderIf>
+            <aura:if isTrue="{! (!v.isError &amp;&amp; v.showShared)}">
+                <div class="active">
+                    <div id="attachLink" onclick="{!c.showSendForm}" style="{! 'background: url('+$Resource.Components_Library + '/img/share.svg) no-repeat; background-size: contain;'}"></div>
+                </div>
+                <div class="sendForm slds-hide" id="sendForm" aura:id="sendForm">
+                    <input type="text" class="email" placeholder="Enter email" value="{!v.shareEmails}" onkeyup="{!c.shareEnter}" data-sendForm-id="{!mediaId}"/>
+                    <button onclick="{!c.shareContents}">{!$Label.c.Send}</button>
+                    <a class="close" onclick="{!c.hiddeSendFormCancel}">{!$Label.c.Cancel}</a>
+                </div>
+                <div class="success-email-form slds-hide" aura:id="successSendNotification">
+                    <span class="slds-icon_container slds-icon_container--circle">
+                        <lightning:icon iconName="action:approval" size="small" alternativeText=""/>
+                    </span>
+                    <span class="success-message">{!$Label.c.Email_Sent}</span>
+                </div>
+            </aura:if>
+            <aura:if isTrue="{! v.isShowPlayer}">
+                <iframe id="CustomPlayerIframe" aura:id="CustomPlayerIframe"
+                    scrolling="auto"
+                    frameborder="0"
+                    allowfullscreen="true"
+                    mozallowfullscreen="true"
+                    msallowfullscreen="true"
+                    oallowfullscreen="true"
+                    webkitallowfullscreen="true"
+                    onload="{!c.setFrameSize}"
+                    width="100%"
+                    height="{!v.frameHeight}"
+                    style="{!v.frameStyleHeight}"
+                />
+            </aura:if>
+        </div>
+    </div>
+
+    <div role="dialog" tabindex="-1" class="slds-modal slds-modal" aria-labelledby="header43" id="modalBox" aura:id="modalBox">
+        <div class="slds-modal__container">
+            <div class="slds-modal__header">
+                <button class="slds-button slds-button--icon-inverse slds-modal__close" onclick="{!c.showSendForm}">
+                    <c:svg class="slds-button__icon slds-button__icon--large"
+                           xlinkHref="{!$Resource.slds + '/assets/icons/action-sprite/svg/symbols.svg#close'}"
+                           ariaHidden="true"
+                           />
+                    <span class="slds-assistive-text">{!$Label.c.Close}</span>
+                </button>
+            </div>
+            <div class="{!(v.publicLink == $Label.c.MediaNotPublic)? 'slds-modal__content slds-p-around--medium slds-text-align--center'  : 'slds-modal__content slds-p-around--medium'}">
+                {!v.mediaLink}
+                {!v.publicLink}
+            </div>
+            <div class="slds-modal__footer">
+                <button class="slds-button slds-button--neutral" onclick="{!c.showSendForm}">{!$Label.c.Cancel}</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="slds-backdrop " id="backgroundModal" aura:id="backgroundModal"></div>
+</aura:component>

@@ -1,0 +1,8 @@
+<design:component label="LearnTrac App">
+    <design:attribute name="communityName" label="Community URL" description="URL path for your community. (e.g. customers, partners, support, etc.)" />
+    <design:attribute name="startPage" label="Start Page" description="Name of the Start Page that will be loaded in the Learning Frame" />
+    <design:attribute name="height" label="Height (px)" description="Height in pixels for the LMS iFrame" />
+    <design:attribute name="lmsNamespace" label="App Namespace" description="Namespace of the Learning application, should be left as redwing when using the managed package" />
+    <design:attribute name="disableHeightResize" label="Disable Dynamic Height Resize" description="Disable automatic height resize of the frame to match its content size" />
+    <design:attribute name="enableFixedCommunityHeader" label="Fixed Community Header" description="Currently supports only the Napili template and Disable Dynamic Height Resize must be unchecked. This is other method for resizing of frame." />
+</design:component>

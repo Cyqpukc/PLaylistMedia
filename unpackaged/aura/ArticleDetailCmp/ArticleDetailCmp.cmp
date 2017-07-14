@@ -1,0 +1,119 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes,force:hasRecordId"
+                controller="ArticleDetailCmpCtrl"
+                access="global">
+    <aura:attribute name="recordId" type="String" default=""/>
+    <aura:attribute name="isVotingEnable" type="Boolean" default="false"/>
+    <aura:attribute name="voteText" type="String" default="Was this article helpful?"/>
+    <aura:attribute name="voteConfirmationText" type="String" default="Thanks for voting."/>
+    <aura:attribute name="articleDetails" type="ArticleWrapper"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <div class="slds-card article-card" aura:id="articleDetailDiv">
+        <div class="article-feature-list">
+
+        </div>
+
+        <div class="article-item-container">
+            <div class="article-body article-grouping">
+                <h1 class="article-title">
+                    <ui:outputText value="{!v.articleDetails.title}"/>
+                </h1>
+                <div class="article-summary">
+                    <ui:outputText value="{!v.articleDetails.summary}"/>
+                </div>
+                <div class="article-meta">
+                    <div class="article-clockIcon">
+                        <lightning:icon iconName="utility:clock" size="xx-small" alternativeText=""/>
+                    </div>
+                    <ui:outputText class="article-date" value="{!v.articleDetails.lastPublishedDate}" />
+                    <span class="article-dot">•</span>
+                    <ui:outputText class="article-type" value="{!v.articleDetails.articleType}" />
+                </div>
+            </div>
+        </div>
+        <aura:iteration items="{!v.articleDetails.customFields}" var="field">
+            <div class="article-body article-grouping">
+                <span class="article-sub-title">{!field.name}</span>
+                <div class="article-item-container" >
+                    <aura:if isTrue="{!field.fieldType == 'URL'}">
+                        <a data-record="{!field.value}" onclick="{!c.goToURL}">{!field.value}</a>
+                        <aura:set attribute="else">
+                            <aura:if isTrue="{!field.fieldType == 'DATEQ'}">
+                                <ui:outputDate value="{!field.value}" />
+                                <aura:set attribute="else">
+                                    <aura:if isTrue="{!field.fieldType == 'DATETIMEQ'}">
+                                        <ui:outputDateTime value="{!field.value}" />
+                                        <aura:set attribute="else">
+                                            <aura:if isTrue="{!field.fieldType == 'BOOLEAN'}">
+                                                <aura:if isTrue="{!field.value == 'true'}">
+                                                    <ui:outputCheckbox value="true"/>
+                                                    <aura:set attribute="else">
+                                                        <ui:outputCheckbox value="false"/>
+                                                    </aura:set>
+                                                </aura:if>
+                                                <aura:set attribute="else">
+                                                    <aura:if isTrue="{!field.fieldType == 'REFERENCE'}">
+                                                        <a data-record="{!field.value}" onclick="{!c.goToURL}">{!field.label}</a>
+                                                        <aura:set attribute="else">
+                                                            <aura:if isTrue="{!field.fieldType == 'FILE'}">
+                                                                <a data-record="{!field.value}" onclick="{!c.goToURL}">{!field.label}</a>
+                                                                <aura:set attribute="else">
+                                                                    <aura:unescapedHtml value="{!field.value}"/>
+                                                                </aura:set>
+                                                            </aura:if>
+                                                        </aura:set>
+                                                    </aura:if>
+                                                </aura:set>
+                                            </aura:if>
+                                        </aura:set>
+                                    </aura:if>
+                                </aura:set>
+                            </aura:if>
+                        </aura:set>
+                    </aura:if>
+                </div>
+            </div>
+        </aura:iteration>
+        <aura:if isTrue="{!v.isVotingEnable}">
+            <aura:if isTrue="{!v.articleDetails.voteType == ''}">
+                <div class="article-votingBox">
+                    <span class="votingText" title="Was this article helpful?">
+                        <span class="uiOutputText" data-aura-class="uiOutputText">{!v.voteText}</span>
+                    </span>
+                    <div class="article-votingOptions" data-aura-rendered-by="40:2;a">
+                        <div class="article-upvote article-mainIcon" aria-label="Thumbs Up" onclick="{!c.voteUp}">
+                            <lightning:icon iconName="utility:like" size="xx-small" alternativeText=""/>
+                        </div>
+                        <div class="article-downvote article-mainIcon" aria-label="Thumbs Down" onclick="{!c.voteDown}">
+                            <lightning:icon iconName="utility:dislike" size="xx-small" alternativeText=""/>
+                        </div>
+                    </div>
+                </div>
+            </aura:if>
+            <aura:if isTrue="{!v.articleDetails.voteType != ''}">
+                <div class="article-votingBox">
+                    <span class="votingText" title="Thanks for voting.">
+                        <span class="uiOutputText" data-aura-class="uiOutputText">{!v.voteConfirmationText}</span>
+                        {!v.articleDetails.voteType}
+                    </span>
+                    <div class="article-votingOptions" data-aura-rendered-by="40:2;a">
+                        <aura:if isTrue="{!v.articleDetails.voteType == 'Up'}">
+                            <div class="article-upvote article-mainIcon active" aria-label="Thumbs Up">
+                                <lightning:icon iconName="utility:like" size="xx-small" alternativeText=""/>
+                                <span class="slds-assistive-text">Thumbs Up</span>
+                            </div>
+                        </aura:if>
+                        <aura:if isTrue="{!v.articleDetails.voteType == 'Down'}">
+                            <div class="article-downvote article-mainIcon active" aria-label="Thumbs Down">
+                                <lightning:icon iconName="utility:dislike" size="xx-small" alternativeText=""/>
+                                <span class="slds-assistive-text">Thumbs Down</span>
+                            </div>
+                        </aura:if>
+                    </div>
+                </div>
+            </aura:if>
+        </aura:if>
+    </div>
+
+</aura:component>

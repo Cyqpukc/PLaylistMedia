@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <label><!-- Community Id --></label>
+        <name>redwing__Community_Id__c</name>
+    </fields>
+    <fields>
+        <help><!-- Date this assignment was completed --></help>
+        <label><!-- Completed On --></label>
+        <name>redwing__Completed_On__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact --></label>
+        <name>redwing__Contact__c</name>
+        <relationshipLabel><!-- Learning Plan Assignments --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Due Date for assignments to be completed --></help>
+        <label><!-- Due Date --></label>
+        <name>redwing__Due_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Updated --></label>
+        <name>redwing__Last_Updated__c</name>
+    </fields>
+    <fields>
+        <label><!-- Progress % --></label>
+        <name>redwing__Progress_Percentage__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>redwing__Status__c</name>
+        <picklistValues>
+            <masterLabel>Completed</masterLabel>
+            <translation><!-- Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>In Progress</masterLabel>
+            <translation><!-- In Progress --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Started</masterLabel>
+            <translation><!-- Not Started --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Total Completed Items --></label>
+        <name>redwing__Total_Completed_Items__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total In Progress Items --></label>
+        <name>redwing__Total_InProgress_Items__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total In Review Items --></label>
+        <name>redwing__Total_InReview_Items__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Not Started Items --></label>
+        <name>redwing__Total_NotStarted_Items__c</name>
+    </fields>
+    <fields>
+        <label><!-- Learning Plan --></label>
+        <name>redwing__Training_Plan__c</name>
+        <relationshipLabel><!-- Learning Plan Assignments --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- User --></label>
+        <name>redwing__User__c</name>
+        <relationshipLabel><!-- Learning Plan Assignments --></relationshipLabel>
+    </fields>
+</CustomObjectTranslation>

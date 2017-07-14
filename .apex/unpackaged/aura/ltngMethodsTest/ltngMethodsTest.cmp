@@ -1,0 +1,8 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:method name="sampleMethod" action="{!c.doAction}"
+      description="Sample method with parameters">
+        <aura:attribute name="param1" type="String" default="parameter 1" />
+    </aura:method>
+ 
+    <ui:button label="Press Me" press="{!c.handleClick}"/>
+</aura:component>

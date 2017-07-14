@@ -1,0 +1,9 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global" >
+
+    <aura:attribute name="cmpInstances" type="Aura.Component[]" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    {!v.cmpInstances}
+
+</aura:component>

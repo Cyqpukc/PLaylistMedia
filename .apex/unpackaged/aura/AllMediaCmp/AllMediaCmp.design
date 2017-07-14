@@ -1,0 +1,14 @@
+<design:component label="All Media">
+    <design:attribute name="showRecommended" label="Show Recommended" description="If selected, section with Recommended media records will be displayed on the page"/>
+    <design:attribute name="maxCountRecommendedVideos" label="Max Recommended Media" description="Number of media that will be displayed in the Recommended section"/>
+    <design:attribute name="showPin" label="Show Pin Button"/>
+    <design:attribute name="showChannel" label="Show Channels" description="If selected, users will be able to create and use channels with media records"/>
+    <design:attribute name="showProgress" label="Show Progress" description="If selected, progress will be displayed for each media on the page"/>
+    <design:attribute name="showShared" label="Show 'Share' Button"/>
+    <design:attribute name="shareButtonStyle" label="Share button type" datasource="Email,Iframe,Link" default="Email" description="Used to send an email with a link to the media, or to get a link that can be used in an article, or to get a public link"/>
+    <design:attribute name="shareLinkType" label="Share Link Type" datasource="New Window,PopUp" default="New Window" description="By using a public link, video will be opened on a current page in a pop-up or in a new window"/>
+    <design:attribute name="siteId" label="Site Id for Public Link" description="Required attribute for a public link"/>
+    <design:attribute name="isCourseNameLink" label="Show Media Name as a Link" description="If selected, clicking on a media name will redirect to the Media detail page"/>
+    <design:attribute name="isCreatedByLink" label="Show User Name as a Link" description="If selected, clicking on a user name will redirect to user’s profile"/>
+    <design:attribute name="countMedia" label="Media Count" description="Number of Media that will be displayed on the page. To see more records, users will need to click on View More button (max 100)"/>
+</design:component>

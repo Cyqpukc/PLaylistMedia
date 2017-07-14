@@ -1,0 +1,68 @@
+<apex:page controller="scormanywhere.MyCoursesController" id="myTrainingPage" Extensions="scormanywhere.HeaderExtension" cache="false">
+    <c:LoadingBox />
+    <apex:pageMessages />
+    <apex:form id="form">
+        <apex:pageBlock title="{!userNamesCoursesTitle}" rendered="{!showTrainingBlock}" id="trainingBlock">
+            <apex:pageBlockTable value="{!transcriptWrappers}" var="t" id="courseList">
+                <apex:column headerValue="{!$Label.scormanywhere__title}">{!t.title}</apex:column>
+                <apex:column value="{!t.duration}" headerValue="{!$Label.scormanywhere__duration}"/>
+                <apex:column value="{!t.status}" headerValue="{!$Label.scormanywhere__status}"/>
+                <apex:column value="{!t.progress}" headerValue="{!$Label.scormanywhere__progress}"/>
+                <apex:column value="{!t.attempts}" headerValue="{!$Label.scormanywhere__attempts}"/>
+                <apex:column value="{!t.score}" headerValue="{!$Label.scormanywhere__score}"/>
+                <apex:column value="{!t.sessionTime}" headerValue="{!$Label.scormanywhere__session_time}"/>
+                <apex:column value="{!t.totalTime}" headerValue="{!$Label.scormanywhere__total_time}"/>
+                <apex:column headerValue="{!$Label.scormanywhere__action}">
+                    <a class="btn" href="javascript:;" onclick="window.open('{!JSENCODE($Page.scormanywhere__SCORM_Player)}?inline=1&{!JSENCODE(t.action)}', '_blank', 'location=1,resizable=1,status=1,scrollbars=1,toolbar=1');">{!$Label.scormanywhere__launch}</a>
+                </apex:column>
+            </apex:pageBlockTable>
+            <apex:pageBlock id="paginationButtons" >
+                <div class="paginator">
+                    <span class="left">
+                        <apex:outputText value="{!pageInfoLabel}" />
+                        &nbsp;
+                        {!$Label.Show}&nbsp;
+                        <apex:selectList value="{!listSize}" size="1" styleClass="waiting_onchange">
+                            <apex:selectOptions value="{!RecPerPageList}"/>
+                            <apex:actionSupport event="onchange" status="loadStatus" action="{!resetPagination}" rerender="courseList,paginationButtons"/>
+                        </apex:selectList>
+                        {!$Label.Records_per_Page}
+                    </span>
+                    <span class="prevNextLinks">
+                        <span class="prevNext,waiting" >
+                            <apex:commandLink styleClass="waiting" action="{!toBegin}" status="loadStatus" onclick="{!IF(disablePrevious, 'return false', '')}" rerender="courseList,paginationButtons"><img class="{!If(disablePrevious,'firstoff','first')}" alt="{!$Label.Begin}" title="{!$Label.Begin}" src="/s.gif" /></apex:commandlink>
+                        </span>
+                        <span class="prevNext,waiting" >
+                            <apex:commandLink styleClass="waiting" action="{!toPrevious}" status="loadStatus" onclick="{!IF(disablePrevious, 'return false', '')}" style="{!If(disablePrevious,'color:grey','')}" rerender="courseList,paginationButtons"><img class="{!If(disablePrevious,'prevoff','prev')}" alt="{!$Label.Previous}" title="{!$Label.Previous}" src="/s.gif" />{!$Label.Previous}</apex:commandlink>
+                        </span>
+                        <span class="prevNext,waiting" >
+                            <apex:commandLink styleClass="waiting" action="{!toNext}" status="loadStatus" onclick="{!IF(disableNext, 'return false', '')}" style="{!If(disableNext,'color:grey','')}" rerender="courseList,paginationButtons">{!$Label.Next}<img class="{!If(disableNext,'nextoff','next')}" alt="{!$Label.Next}" title="{!$Label.Next}" src="/s.gif" /></apex:commandlink>
+                        </span>
+                        <span class="prevNext,waiting" >
+                            <apex:commandLink styleClass="waiting" action="{!toEnd}" status="loadStatus" onclick="{!IF(disableNext, 'return false', '')}" rerender="courseList,paginationButtons"><img class="{!If(disableNext,'lastoff','last')}" alt="{!$Label.End}" title="{!$Label.End}" src="/s.gif" /></apex:commandlink>
+                        </span>
+                    </span>
+                    <span class="right">
+                        <apex:outputText value="{!$Label.scormanywhere__go_to_page} " />
+                        <apex:inputText value="{!currentPageFromInput}" size="1" onkeypress="return goToPageOnEnter(event);" />
+                        <apex:outputText value="{!' ' + $Label.scormanywhere__of + ' ' + TEXT(totalPages)} " />
+                    </span>
+                </div>
+            </apex:pageBlock>
+        </apex:pageBlock>
+        <script>
+            function goToPageOnEnter(ev) {
+                if (window.event && window.event.keyCode === 13 || ev.which === 13) {
+                    goToPage();
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        </script>
+        <apex:actionFunction name="goToPage" action="{!toPage}" status="loadStatus" reRender="courseList,paginationButtons"/>
+    </apex:form>
+    <!-- DO NOT REMOVE -->
+    <c:SessionStorage page="MyTraining"/>
+    <!-- DO NOT REMOVE -->
+</apex:page>

@@ -1,0 +1,30 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" >
+    <aura:attribute name="uploaderUrl" type="String" default="" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <div class="slds-col slds-no-flex slds-align-bottom wait">
+        <div class="slds-button-group" style="display:none;">
+            <button class="slds-button slds-button--neutral" id="uploadCourseChatterBtn1" onclick="{!c.showModal}">Upload Course</button>
+        </div>
+    </div>
+	<div aria-hidden="false" id="ChatterCourseUploadBox" role="dialog" class="wait slds-modal slds-modal--large slds-fade-in-open" style="display:none;">
+		<div class="slds-modal__container">
+			<div class="slds-modal__header">
+                 <h2 id="header43" class="slds-text-heading--small">Upload Course</h2>
+			</div>
+			<div class="slds-modal__content">
+				<div>
+                    <center>
+						<iframe src="{!v.uploaderUrl}" frameborder="0" width="100%" scrolling="no" height="500px"/>					
+                    </center>
+				</div>
+			</div>
+			<div class="slds-modal__footer">
+				<div class="slds-x-small-buttons--horizontal">
+					<button class="slds-button slds-button--neutral" onclick="{!c.showModalBox}" >Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="slds-backdrop slds-backdrop--open wait" id="ChatterCourseUploadBoxBackground" style="display:none;"></div>
+</aura:component>

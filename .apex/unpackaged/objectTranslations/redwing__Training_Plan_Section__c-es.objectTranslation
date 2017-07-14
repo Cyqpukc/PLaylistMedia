@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Sección de Curso</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Secciones de Curso</value>
+    </caseValues>
+    <fields>
+        <help>Habilitar esta opción si solo planea agregar aprendizajes de curso opcionales bajo esta sección</help>
+        <label><!-- Optional --></label>
+        <name>redwing__Optional__c</name>
+    </fields>
+    <fields>
+        <help>Número que define la posición en la que será mostrada esta sección dentro del Curso</help>
+        <label><!-- Order --></label>
+        <name>redwing__Order__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Section Items --></label>
+        <name>redwing__Total_Section_Items__c</name>
+    </fields>
+    <fields>
+        <label><!-- Learning Plan --></label>
+        <name>redwing__Training_Plan__c</name>
+        <relationshipLabel><!-- Learning Plan Sections --></relationshipLabel>
+    </fields>
+    <gender>Feminine</gender>
+    <nameFieldLabel>Nombre de Sección</nameFieldLabel>
+    <webLinks>
+        <label><!-- Delete_Assignments --></label>
+        <name>redwing__Delete_Assignments</name>
+    </webLinks>
+</CustomObjectTranslation>

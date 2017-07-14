@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>redwing__Description__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Optional description about this rule</inlineHelpText>
+        <label>Description</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Field_API_Name__c</fullName>
+        <deprecated>false</deprecated>
+        <description>User field API name</description>
+        <externalId>true</externalId>
+        <inlineHelpText>User object field API name</inlineHelpText>
+        <label>Field API Name</label>
+        <length>100</length>
+        <required>true</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>redwing__Field_Value__c</fullName>
+        <deprecated>false</deprecated>
+        <description>User object field expected value.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>User object field expected value. If using a regex you can test it at https://regex101.com/</inlineHelpText>
+        <label>Field Value</label>
+        <length>255</length>
+        <required>true</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>redwing__IsActive__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Enable/disable the execution of this rule.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable/disable the execution of this rule.</inlineHelpText>
+        <label>Is Active</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Operator__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Operator used in this rule. IN and NOT IN expect a list of comma separated values</inlineHelpText>
+        <label>Operator</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>equals</fullName>
+                    <default>false</default>
+                    <label>equals</label>
+                </value>
+                <value>
+                    <fullName>contains</fullName>
+                    <default>false</default>
+                    <label>contains</label>
+                </value>
+                <value>
+                    <fullName>starts with</fullName>
+                    <default>false</default>
+                    <label>starts with</label>
+                </value>
+                <value>
+                    <fullName>ends with</fullName>
+                    <default>false</default>
+                    <label>ends with</label>
+                </value>
+                <value>
+                    <fullName>in</fullName>
+                    <default>false</default>
+                    <label>in</label>
+                </value>
+                <value>
+                    <fullName>not in</fullName>
+                    <default>false</default>
+                    <label>not in</label>
+                </value>
+                <value>
+                    <fullName>regex</fullName>
+                    <default>false</default>
+                    <label>regex</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <label>LMS Permission Rule</label>
+    <listViews>
+        <fullName>redwing__All</fullName>
+        <columns>NAME</columns>
+        <columns>redwing__Field_API_Name__c</columns>
+        <columns>redwing__Operator__c</columns>
+        <columns>redwing__Field_Value__c</columns>
+        <columns>redwing__IsActive__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>LMS Permission Rule Name</label>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>LMS Permission Rules</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>redwing__Field_API_Name__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>redwing__Operator__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>redwing__Field_Value__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>redwing__IsActive__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CREATEDBY_USER</customTabListAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Private</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

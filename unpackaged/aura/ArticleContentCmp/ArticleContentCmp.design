@@ -1,0 +1,3 @@
+<design:component label="Article Content">
+	<design:attribute name="isVotingEnable" label="Enable Article Voting" />
+</design:component>

@@ -1,0 +1,1059 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="salesforce.module" version="4">
+  <component name="ComponentSet">
+    <managedPackages>
+      <entry key="redwing" value="PARTIALLY_RETRIEVED" />
+      <entry key="rwscorm" value="PARTIALLY_RETRIEVED" />
+      <entry key="scormanywhere" value="RETRIEVED" />
+      <entry key="sf_chttr_apps" value="RETRIEVED" />
+      <entry key="sf_com_apps" value="RETRIEVED" />
+    </managedPackages>
+    <type2Names>
+      <SFMetaTypeNamesState type="COMMUNITY_THEME_DEFINITION" setAll="true" />
+      <SFMetaTypeNamesState type="CUSTOM_TAB" setAll="true">
+        <option name="myNames">
+          <set>
+            <option value="Custom_Object" />
+            <option value="Go_To_Community" />
+            <option value="Knowledge__kav" />
+            <option value="Multimedia" />
+            <option value="My" />
+            <option value="multM__c" />
+            <option value="redwing__Achievement_Category__c" />
+            <option value="redwing__Achievement__c" />
+            <option value="redwing__Instructor__c" />
+            <option value="redwing__LMS_Cache__c" />
+            <option value="redwing__Learning" />
+            <option value="redwing__Learning_Assignment__c" />
+            <option value="redwing__Learning_Category__c" />
+            <option value="redwing__Learning__c" />
+            <option value="redwing__My_Training" />
+            <option value="redwing__Start_Here" />
+            <option value="redwing__SubTabAchievements" />
+            <option value="redwing__Training_Activity__c" />
+            <option value="redwing__Training_Plan__c" />
+            <option value="redwing__Training_Track__c" />
+            <option value="scormanywhere__Catalog__c" />
+            <option value="scormanywhere__Course__c" />
+            <option value="scormanywhere__My_Courses" />
+            <option value="scormanywhere__Related_Media__c" />
+            <option value="scormanywhere__Transcript__c" />
+          </set>
+        </option>
+      </SFMetaTypeNamesState>
+      <SFMetaTypeNamesState type="STATIC_RESOURCE" setAll="true">
+        <option name="myNames">
+          <set>
+            <option value="Components_Library" />
+            <option value="SiteSamples" />
+            <option value="redwing__lmscore_LMSInitData" />
+            <option value="redwing__lmscore_LMSInitDataWithTracks" />
+            <option value="redwing__lmscore_LMSInitData_es" />
+            <option value="redwing__lmscore_uilib" />
+            <option value="redwing__salesforce_lds" />
+            <option value="rwscorm__jquery_2_1_3" />
+            <option value="rwscorm__uploadPopup" />
+            <option value="scormanywhere__SCORM_Library" />
+            <option value="scormanywhere__SCORM_Player" />
+            <option value="slds" />
+            <option value="video_icon" />
+          </set>
+        </option>
+      </SFMetaTypeNamesState>
+      <SFMetaTypeNamesState type="LAYOUT" setAll="true">
+        <option name="myNames">
+          <set>
+            <option value="Account-Account %28Marketing%29 Layout" />
+            <option value="Account-Account %28Sales%29 Layout" />
+            <option value="Account-Account %28Support%29 Layout" />
+            <option value="Account-Account Layout" />
+            <option value="Asset-Asset Layout" />
+            <option value="Campaign-Campaign Layout" />
+            <option value="CampaignMember-Campaign Member Page Layout" />
+            <option value="Case-Case %28Marketing%29 Layout" />
+            <option value="Case-Case %28Sales%29 Layout" />
+            <option value="Case-Case %28Support%29 Layout" />
+            <option value="Case-Case Layout" />
+            <option value="CaseClose-Close Case Layout" />
+            <option value="CollaborationGroup-Group Layout" />
+            <option value="Contact-Contact %28Marketing%29 Layout" />
+            <option value="Contact-Contact %28Sales%29 Layout" />
+            <option value="Contact-Contact %28Support%29 Layout" />
+            <option value="Contact-Contact Layout" />
+            <option value="ContentVersion-Content Version Layout" />
+            <option value="Contract-Contract Layout" />
+            <option value="Course_Account__c-Course Account Layout" />
+            <option value="DandBCompany-D%26B Company Layout" />
+            <option value="DuplicateRecordSet-Duplicate Record Set Layout" />
+            <option value="EmailMessage-Email Message Layout" />
+            <option value="Event-Event Layout" />
+            <option value="FeedItem-Feed Item Layout" />
+            <option value="Global-Global Layout" />
+            <option value="Idea-Idea Layout" />
+            <option value="Knowledge__kav-Knowledge Layout" />
+            <option value="Lead-Lead %28Marketing%29 Layout" />
+            <option value="Lead-Lead %28Sales%29 Layout" />
+            <option value="Lead-Lead %28Support%29 Layout" />
+            <option value="Lead-Lead Layout" />
+            <option value="Macro-Macro Layout" />
+            <option value="Opportunity-Opportunity %28Marketing%29 Layout" />
+            <option value="Opportunity-Opportunity %28Sales%29 Layout" />
+            <option value="Opportunity-Opportunity %28Support%29 Layout" />
+            <option value="Opportunity-Opportunity Layout" />
+            <option value="OpportunityLineItem-Opportunity Product Layout" />
+            <option value="Order-Order Layout" />
+            <option value="OrderItem-Order Product Layout" />
+            <option value="Pricebook2-Price Book Layout" />
+            <option value="PricebookEntry-Price Book Entry Layout" />
+            <option value="Product2-Product Layout" />
+            <option value="SocialPersona-Social Persona Layout" />
+            <option value="SocialPost-Social Post Layout" />
+            <option value="Solution-Solution Layout" />
+            <option value="Task-Task Layout" />
+            <option value="User-User Layout" />
+            <option value="UserAlt-User Profile Layout" />
+            <option value="UserAppMenuItem-Application Layout" />
+            <option value="UserProvAccount-User Provisioning Account Layout" />
+            <option value="UserProvisioningLog-User Provisioning Log Layout" />
+            <option value="UserProvisioningRequest-User Provisioning Request Layout" />
+            <option value="WorkAccess-Access Layout" />
+            <option value="WorkBadge-Badge Received Layout" />
+            <option value="WorkBadgeDefinition-Badge Layout" />
+            <option value="WorkThanks-Thanks Layout" />
+            <option value="multM__c-multM Layout" />
+            <option value="redwing__Achievement_Assignment__c-Achievement Assignment Layout" />
+            <option value="redwing__Achievement_Category__c-Achivement Category Layout" />
+            <option value="redwing__Achievement__c-Achievement Layout" />
+            <option value="redwing__Answer_Sequence_Item__c-Answer Sequence Item Layout" />
+            <option value="redwing__Answer_Sequence__c-Answer Sequence Layout" />
+            <option value="redwing__Batch_Operation_Record__c-Batch Operation Record Layout" />
+            <option value="redwing__CheckIn__c-CheckIn Layout" />
+            <option value="redwing__Instructor__c-Instructor Layout" />
+            <option value="redwing__LMS_Cache__c-LMS Cache Layout" />
+            <option value="redwing__LMS_Permission_Rule_PermSet__c-LMS Permission Rule PermSet Layout" />
+            <option value="redwing__LMS_Permission_Rule__c-LMS Permission Rule Layout" />
+            <option value="redwing__LMS_Plugin__c-LMS Plugin Layout" />
+            <option value="redwing__Learning_Assignment__c-Learning Assignment Layout" />
+            <option value="redwing__Learning_Category_Account__c-Learning Category Account Layout" />
+            <option value="redwing__Learning_Category_Profile__c-Learning Category Profile Layout" />
+            <option value="redwing__Learning_Category__c-Learning Category Layout" />
+            <option value="redwing__Learning_Version__c-Learning Version Layout" />
+            <option value="redwing__Learning__c-Learning-CheckIn Layout" />
+            <option value="redwing__Learning__c-Learning-Course Layout" />
+            <option value="redwing__Learning__c-Learning-Quiz Layout" />
+            <option value="redwing__Learning__c-Learning-Resource Layout" />
+            <option value="redwing__Learning__c-Learning-RichText Layout" />
+            <option value="redwing__Learning__c-Learning-Task Layout" />
+            <option value="redwing__Question_Bank_Question__c-Question Bank Question Layout" />
+            <option value="redwing__Question_Bank__c-Question Bank Layout" />
+            <option value="redwing__Question_Line__c-Question Line Layout" />
+            <option value="redwing__Question_Topic__c-Question Topic Layout" />
+            <option value="redwing__Question__c-Question Layout" />
+            <option value="redwing__Quiz__c-Quiz Layout" />
+            <option value="redwing__Response_Summary__c-Response Summary Layout" />
+            <option value="redwing__Response__c-Response Layout" />
+            <option value="redwing__RichText_Content__c-RichText Content Layout" />
+            <option value="redwing__RichText__c-RichText Layout" />
+            <option value="redwing__Shared_Learning_Assignment__c-Shared Learning Assignment Layout" />
+            <option value="redwing__Task_Approver__c-Task Approver Layout" />
+            <option value="redwing__Task__c-Task Layout" />
+            <option value="redwing__Training_Activity_Account__c-Training Activity Account Layout" />
+            <option value="redwing__Training_Activity_Category__c-Training Activity Category Layout" />
+            <option value="redwing__Training_Activity__c-Training Activity Layout" />
+            <option value="redwing__Training_Plan_Access_Request__c-Training Plan Access Request Layout" />
+            <option value="redwing__Training_Plan_Account__c-Training Plan Account Layout" />
+            <option value="redwing__Training_Plan_Achievement__c-Training Plan Achievement Layout" />
+            <option value="redwing__Training_Plan_Assignment__c-Training Plan Assignment Layout" />
+            <option value="redwing__Training_Plan_Batch_Operation__c-Training Plan Batch Operation Layout" />
+            <option value="redwing__Training_Plan_Category__c-Training Plan Category Layout" />
+            <option value="redwing__Training_Plan_Feedback__c-Training Plan Feedback Layout" />
+            <option value="redwing__Training_Plan_Instructor__c-Training Plan Instructor Layout" />
+            <option value="redwing__Training_Plan_Section_Assignment__c-Training Plan Section Assignment Layout" />
+            <option value="redwing__Training_Plan_Section_Item__c-Training Plan Section Item Layout" />
+            <option value="redwing__Training_Plan_Section__c-Training Plan Section Layout" />
+            <option value="redwing__Training_Plan__c-Training Plan Layout" />
+            <option value="redwing__Training_Resource__c-Training Resource Layout" />
+            <option value="redwing__Training_Track_Account__c-Training Track Account Layout" />
+            <option value="redwing__Training_Track_Assignment__c-Training Track Assignment Layout" />
+            <option value="redwing__Training_Track_Category__c-Training Track Category Layout" />
+            <option value="redwing__Training_Track_Level_Item__c-Training Track Level Item Layout" />
+            <option value="redwing__Training_Track_Level__c-Training Track Level Layout" />
+            <option value="redwing__Training_Track__c-Training Track Layout" />
+            <option value="redwing__User_Certification__c-User Certification Layout" />
+            <option value="rwscorm__Learning_Course_Item__c-Learning Course Item Layout" />
+            <option value="scormanywhere__Catalog__c-Catalog Layout" />
+            <option value="scormanywhere__Channel_Course__c-Course Channel Layout" />
+            <option value="scormanywhere__Channel__c-Channel Layout" />
+            <option value="scormanywhere__Course_Catalog__c-Course Catalog Layout" />
+            <option value="scormanywhere__Course_Version__c-Course Version Layout" />
+            <option value="scormanywhere__Course__c-Course Layout" />
+            <option value="scormanywhere__Related_Media__c-Media Content Layout" />
+            <option value="scormanywhere__Transcript__c-Transcript Layout" />
+          </set>
+        </option>
+      </SFMetaTypeNamesState>
+      <SFMetaTypeNamesState type="APEX_PAGE" setAll="true">
+        <option name="myNames">
+          <set>
+            <option value="AnswersHome" />
+            <option value="BandwidthExceeded" />
+            <option value="CatalogMedia" />
+            <option value="ChangePassword" />
+            <option value="CommunitiesLanding" />
+            <option value="CommunitiesLogin" />
+            <option value="CommunitiesSelfReg" />
+            <option value="CommunitiesSelfRegConfirm" />
+            <option value="CommunitiesTemplate" />
+            <option value="CommunityChatterUploader" />
+            <option value="CourseList" />
+            <option value="Exception" />
+            <option value="FileNotFound" />
+            <option value="ForgotPassword" />
+            <option value="ForgotPasswordConfirm" />
+            <option value="GetPublicUrl" />
+            <option value="IdeasHome" />
+            <option value="InMaintenance" />
+            <option value="MediaUpdater" />
+            <option value="MediaUploader" />
+            <option value="MediaUploaderCN" />
+            <option value="MediaUploaderCopy" />
+            <option value="MediaUploaderCopy2" />
+            <option value="MediaUploaderHeroku" />
+            <option value="MediaUploaderSF" />
+            <option value="MyProfilePage" />
+            <option value="RelatedMedia" />
+            <option value="SiteLogin" />
+            <option value="SiteRegister" />
+            <option value="SiteRegisterConfirm" />
+            <option value="SiteTemplate" />
+            <option value="StdExceptionTemplate" />
+            <option value="Unauthorized" />
+            <option value="UnderConstruction" />
+            <option value="UploadFileHeroku" />
+            <option value="UploaderCmp" />
+            <option value="getPublicLink" />
+            <option value="redwing__AchievementWorkBadgeView" />
+            <option value="redwing__AchievementWorkCom" />
+            <option value="redwing__AchievementsSubTab" />
+            <option value="redwing__AchievementsUserSearch" />
+            <option value="redwing__CheckInViewer" />
+            <option value="redwing__LMSHeroTemplate" />
+            <option value="redwing__LMSItemsToApproveList" />
+            <option value="redwing__LMSJobs" />
+            <option value="redwing__LMSLightningHandler" />
+            <option value="redwing__LMSStart" />
+            <option value="redwing__LMSTemplate" />
+            <option value="redwing__LearningAssignmentApprove" />
+            <option value="redwing__LearningDeleteSharedAssignments" />
+            <option value="redwing__LearningManageAssignments" />
+            <option value="redwing__LearningPreview" />
+            <option value="redwing__LearningPreviewLoader" />
+            <option value="redwing__LearningPublish" />
+            <option value="redwing__MyProfile" />
+            <option value="redwing__MyTraining" />
+            <option value="redwing__QuestionAddToBank" />
+            <option value="redwing__QuestionBankExport" />
+            <option value="redwing__QuestionBankQuestionNew" />
+            <option value="redwing__QuestionLineImportQuestions" />
+            <option value="redwing__QuestionNew" />
+            <option value="redwing__QuizResults" />
+            <option value="redwing__QuizStart" />
+            <option value="redwing__QuizViewer" />
+            <option value="redwing__ResourceViewer" />
+            <option value="redwing__RichTextViewer" />
+            <option value="redwing__TaskViewer" />
+            <option value="redwing__TrainingActivityAssignment" />
+            <option value="redwing__TrainingActivityAssignmentExisting" />
+            <option value="redwing__TrainingActivityAssignmentNew" />
+            <option value="redwing__TrainingActivityAssignmentNewSingle" />
+            <option value="redwing__TrainingCatalogDetail" />
+            <option value="redwing__TrainingCatalogHome" />
+            <option value="redwing__TrainingHome" />
+            <option value="redwing__TrainingPlanAbout" />
+            <option value="redwing__TrainingPlanAssignment" />
+            <option value="redwing__TrainingPlanAssignmentBatch" />
+            <option value="redwing__TrainingPlanAssignmentExisting" />
+            <option value="redwing__TrainingPlanAssignmentNew" />
+            <option value="redwing__TrainingPlanAssignmentNewSingle" />
+            <option value="redwing__TrainingPlanDetail" />
+            <option value="redwing__TrainingPlanExport" />
+            <option value="redwing__TrainingPlanFeedback" />
+            <option value="redwing__TrainingPlanImportAssignments" />
+            <option value="redwing__TrainingPlanPreview" />
+            <option value="redwing__TrainingPlanRequestApproval" />
+            <option value="redwing__TrainingPlanSectionAssignmentsDelete" />
+            <option value="redwing__TrainingPlanSectionItemAssignmentsDelete" />
+            <option value="redwing__TrainingPlanUserAssignment" />
+            <option value="redwing__TrainingPlansSearch" />
+            <option value="redwing__TrainingTrackAssignment" />
+            <option value="redwing__TrainingTrackAssignmentBatch" />
+            <option value="redwing__TrainingTrackAssignmentExisting" />
+            <option value="redwing__TrainingTrackAssignmentNew" />
+            <option value="redwing__TrainingTrackAssignmentNewSingle" />
+            <option value="redwing__TrainingTrackDetail" />
+            <option value="redwing__TrainingTrackExport" />
+            <option value="redwing__TrainingTracks" />
+            <option value="redwing__s1UpdateTrainingPlanAssignments" />
+            <option value="rwscorm__AssignTPlanToCommunityUsers" />
+            <option value="rwscorm__CourseLaunch" />
+            <option value="rwscorm__UploadCourse" />
+            <option value="scormanywhere__CourseDetails" />
+            <option value="scormanywhere__EnrollUsers" />
+            <option value="scormanywhere__MyCourses" />
+            <option value="scormanywhere__SCORM_Player" />
+            <option value="scormanywhere__Settings" />
+            <option value="scormanywhere__ShareCourse" />
+            <option value="scormanywhere__UploadCourses" />
+            <option value="testpage" />
+          </set>
+        </option>
+      </SFMetaTypeNamesState>
+      <SFMetaTypeNamesState type="INSTALLED_PACKAGE" setAll="true">
+        <option name="myNames">
+          <set>
+            <option value="redwing" />
+            <option value="rwscorm" />
+            <option value="scormanywhere" />
+            <option value="sf_chttr_apps" />
+            <option value="sf_com_apps" />
+          </set>
+        </option>
+      </SFMetaTypeNamesState>
+      <SFMetaTypeNamesState type="COMMUNITY_TEMPLATE_DEFINITION" setAll="true" />
+      <SFMetaTypeNamesState type="APEX_TRIGGER" setAll="true">
+        <option name="myNames">
+          <set>
+            <option value="Course" />
+            <option value="UploadFilesTrigger" />
+          </set>
+        </option>
+      </SFMetaTypeNamesState>
+      <SFMetaTypeNamesState type="APEX_COMPONENT" setAll="true">
+        <option name="myNames">
+          <set>
+            <option value="SiteFooter" />
+            <option value="SiteHeader" />
+            <option value="SiteLogin" />
+            <option value="SitePoweredBy" />
+            <option value="redwing__AchievementsLeaderBoard" />
+            <option value="redwing__AchievementsList" />
+            <option value="redwing__AchievementsUserSearchBar" />
+            <option value="redwing__CatalogTrainingActivities" />
+            <option value="redwing__LMSCurrencyFormat" />
+            <option value="redwing__LMSCustomJS" />
+            <option value="redwing__LMSFooter" />
+            <option value="redwing__LMSHeader" />
+            <option value="redwing__LMSHeaderOverrides" />
+            <option value="redwing__LMSHomeSections" />
+            <option value="redwing__LMSItemsToApprove" />
+            <option value="redwing__LMSPaginationInfo" />
+            <option value="redwing__LMSStatus" />
+            <option value="redwing__LMSTemplateCSS" />
+            <option value="redwing__LMSTemplateJS" />
+            <option value="redwing__LMSUserOverview" />
+            <option value="redwing__MyTrainingActivities" />
+            <option value="redwing__MyTrainingTracks" />
+            <option value="redwing__SelectBooleanQuestion" />
+            <option value="redwing__SelectMultipleQuestion" />
+            <option value="redwing__SelectOneQuestion" />
+            <option value="redwing__TrainingActivitiesSearch" />
+            <option value="redwing__TrainingActivityTemplates" />
+            <option value="redwing__TrainingPlanBannerAchievement" />
+            <option value="redwing__TrainingPlanBannerInfo" />
+            <option value="redwing__TrainingPlanInfo" />
+            <option value="redwing__TrainingPlanSections" />
+            <option value="redwing__TrainingPlansSearchBar" />
+            <option value="redwing__TrainingTrackTemplates" />
+            <option value="redwing__TrainingTracksList" />
+            <option value="scormanywhere__LoadingBox" />
+            <option value="scormanywhere__SessionStorage" />
+          </set>
+        </option>
+      </SFMetaTypeNamesState>
+      <SFMetaTypeNamesState type="ASSIGNMENT_RULES" setAll="true">
+        <option name="myNames">
+          <set>
+            <option value="Case" />
+            <option value="Lead" />
+          </set>
+        </option>
+      </SFMetaTypeNamesState>
+      <SFMetaTypeNamesState type="COMMUNITY" setAll="true">
+        <option name="myNames">
+          <set>
+            <option value="Internal Zone" />
+          </set>
+        </option>
+      </SFMetaTypeNamesState>
+      <SFMetaTypeNamesState type="APEX_CLASS" setAll="true">
+        <option name="myNames">
+          <set>
+            <option value="AEXP_GCP_NavigationCtrl" />
+            <option value="AllMediaCmpCtrl" />
+            <option value="ArticleContentCmpCtrl" />
+            <option value="ArticleContentFiledWrapper" />
+            <option value="ArticleDetailCmpCtrl" />
+            <option value="ArticleWrapper" />
+            <option value="CarouselPageWrapper" />
+            <option value="CarouselWrapper" />
+            <option value="CatalogMediaController" />
+            <option value="CatalogWrapper" />
+            <option value="CatalogsCmpCtrl" />
+            <option value="CatalogsPlugin" />
+            <option value="ChangePasswordController" />
+            <option value="ChangePasswordControllerTest" />
+            <option value="ChannelWrapper" />
+            <option value="ChatterGroupWrapper" />
+            <option value="CommunitiesLandingController" />
+            <option value="CommunitiesLandingControllerTest" />
+            <option value="CommunitiesLoginController" />
+            <option value="CommunitiesLoginControllerTest" />
+            <option value="CommunitiesSelfRegConfirmController" />
+            <option value="CommunitiesSelfRegConfirmControllerTest" />
+            <option value="CommunitiesSelfRegController" />
+            <option value="CommunitiesSelfRegControllerTest" />
+            <option value="CommunityChatterUploaderCtrl" />
+            <option value="CommunityChatterUploaderCtrlTest" />
+            <option value="CustomField" />
+            <option value="ForgotPasswordController" />
+            <option value="ForgotPasswordControllerTest" />
+            <option value="GetPublicUrlCtrl" />
+            <option value="LightningForgotPasswordController" />
+            <option value="LightningLoginFormController" />
+            <option value="LightningSelfRegisterController" />
+            <option value="MediaUpdaterCtrl" />
+            <option value="MediaUploaderCtrl" />
+            <option value="MediaUploaderCtrltest" />
+            <option value="MediaWrapper" />
+            <option value="MultimediaListCmpCtrl" />
+            <option value="MyMediaCmpCtrl" />
+            <option value="MyProfilePageController" />
+            <option value="MyProfilePageControllerTest" />
+            <option value="PluginService" />
+            <option value="PostToChatterCtrl" />
+            <option value="PostToMyFeedCtrl" />
+            <option value="RelatedMediaCmpCtrl" />
+            <option value="RelatedMediaCtrl" />
+            <option value="SearchCustomController" />
+            <option value="SearchCustomControllerTest" />
+            <option value="SendMediaCmpCtrl" />
+            <option value="SimpleMediaCmpCtrl" />
+            <option value="SiteLoginController" />
+            <option value="SiteLoginControllerTest" />
+            <option value="SiteRegisterController" />
+            <option value="SiteRegisterControllerTest" />
+            <option value="TemplateWrapper" />
+            <option value="TestAllMediaCmpCtrl" />
+            <option value="TestArticleContentCmpCtrl" />
+            <option value="TestArticleDetailCmpCtrl" />
+            <option value="TestCatalogsCmpCtrl" />
+            <option value="TestMediaUploaderCtrl" />
+            <option value="TestMyMediaCmpCtrl" />
+            <option value="TestPostToChatter" />
+            <option value="TestPostToMyFeedCtrl" />
+            <option value="TestRelatedMediaCmpCtrl" />
+            <option value="TestSendMediaCmpCtrl" />
+            <option value="TestSimpleMediaCmpCtrl" />
+            <option value="TestUserMediaCmpCtrl" />
+            <option value="UploaderCmpCtrl" />
+            <option value="UploaderCtrl" />
+            <option value="UserMediaCmpCtrl" />
+            <option value="Util" />
+            <option value="WithoutSharingController" />
+            <option value="getPublicLinkCtrl" />
+          </set>
+        </option>
+      </SFMetaTypeNamesState>
+      <SFMetaTypeNamesState type="APPROVAL_PROCESS" setAll="true" />
+      <SFMetaTypeNamesState type="APEX_TEST_SUITE" setAll="true" />
+      <SFMetaTypeNamesState type="CUSTOM_OBJECT" setAll="true">
+        <option name="myNames">
+          <set>
+            <option value="Account" />
+            <option value="AccountCleanInfo" />
+            <option value="AccountContactRole" />
+            <option value="Activity" />
+            <option value="Asset" />
+            <option value="AssetRelationship" />
+            <option value="AssistantProgress" />
+            <option value="Campaign" />
+            <option value="CampaignMember" />
+            <option value="Case" />
+            <option value="CaseContactRole" />
+            <option value="Common_Settings__c" />
+            <option value="Contact" />
+            <option value="ContactCleanInfo" />
+            <option value="ContentVersion" />
+            <option value="Contract" />
+            <option value="ContractContactRole" />
+            <option value="Course_Account__c" />
+            <option value="DandBCompany" />
+            <option value="DuplicateRecordItem" />
+            <option value="DuplicateRecordSet" />
+            <option value="EmailMessage" />
+            <option value="Event" />
+            <option value="ExchangeUserMapping" />
+            <option value="FeedItem" />
+            <option value="ForecastingCategoryMapping" />
+            <option value="Idea" />
+            <option value="Knowledge__kav" />
+            <option value="Lead" />
+            <option value="LeadCleanInfo" />
+            <option value="LinkedArticle" />
+            <option value="Macro" />
+            <option value="MacroAction" />
+            <option value="MacroInstruction" />
+            <option value="Opportunity" />
+            <option value="OpportunityCompetitor" />
+            <option value="OpportunityContactRole" />
+            <option value="OpportunityLineItem" />
+            <option value="Order" />
+            <option value="OrderItem" />
+            <option value="PartnerRole" />
+            <option value="Pricebook2" />
+            <option value="PricebookEntry" />
+            <option value="Product2" />
+            <option value="Site" />
+            <option value="SocialPersona" />
+            <option value="Solution" />
+            <option value="StreamingChannel" />
+            <option value="Task" />
+            <option value="User" />
+            <option value="UserProvisioningRequest" />
+            <option value="WorkBadge" />
+            <option value="WorkBadgeDefinition" />
+            <option value="WorkThanks" />
+            <option value="multM__c" />
+            <option value="redwing__Achievement_Assignment__c" />
+            <option value="redwing__Achievement_Category__c" />
+            <option value="redwing__Achievement__c" />
+            <option value="redwing__Answer_Sequence_Item__c" />
+            <option value="redwing__Answer_Sequence__c" />
+            <option value="redwing__Batch_Operation_Record__c" />
+            <option value="redwing__CheckIn__c" />
+            <option value="redwing__Instructor__c" />
+            <option value="redwing__LMS_Cache__c" />
+            <option value="redwing__LMS_Permission_Rule_PermSet__c" />
+            <option value="redwing__LMS_Permission_Rule__c" />
+            <option value="redwing__LMS_Plugin__c" />
+            <option value="redwing__LMS_Settings__c" />
+            <option value="redwing__Learning_Assignment__c" />
+            <option value="redwing__Learning_Category_Account__c" />
+            <option value="redwing__Learning_Category_Profile__c" />
+            <option value="redwing__Learning_Category__c" />
+            <option value="redwing__Learning_Version__c" />
+            <option value="redwing__Learning__c" />
+            <option value="redwing__Question_Bank_Question__c" />
+            <option value="redwing__Question_Bank__c" />
+            <option value="redwing__Question_Line__c" />
+            <option value="redwing__Question_Topic__c" />
+            <option value="redwing__Question__c" />
+            <option value="redwing__Quiz__c" />
+            <option value="redwing__Response_Summary__c" />
+            <option value="redwing__Response__c" />
+            <option value="redwing__RichText_Content__c" />
+            <option value="redwing__RichText__c" />
+            <option value="redwing__Shared_Learning_Assignment__c" />
+            <option value="redwing__Task_Approver__c" />
+            <option value="redwing__Task__c" />
+            <option value="redwing__Training_Activity_Account__c" />
+            <option value="redwing__Training_Activity_Category__c" />
+            <option value="redwing__Training_Activity__c" />
+            <option value="redwing__Training_Plan_Access_Request__c" />
+            <option value="redwing__Training_Plan_Account__c" />
+            <option value="redwing__Training_Plan_Achievement__c" />
+            <option value="redwing__Training_Plan_Assignment__c" />
+            <option value="redwing__Training_Plan_Batch_Operation__c" />
+            <option value="redwing__Training_Plan_Category__c" />
+            <option value="redwing__Training_Plan_Feedback__c" />
+            <option value="redwing__Training_Plan_Instructor__c" />
+            <option value="redwing__Training_Plan_Section_Assignment__c" />
+            <option value="redwing__Training_Plan_Section_Item__c" />
+            <option value="redwing__Training_Plan_Section__c" />
+            <option value="redwing__Training_Plan__c" />
+            <option value="redwing__Training_Resource__c" />
+            <option value="redwing__Training_Track_Account__c" />
+            <option value="redwing__Training_Track_Assignment__c" />
+            <option value="redwing__Training_Track_Category__c" />
+            <option value="redwing__Training_Track_Level_Item__c" />
+            <option value="redwing__Training_Track_Level__c" />
+            <option value="redwing__Training_Track__c" />
+            <option value="redwing__User_Certification__c" />
+            <option value="rwscorm__Learning_Course_Item__c" />
+            <option value="scorm_engine__c" />
+            <option value="scormanywhere__Catalog__c" />
+            <option value="scormanywhere__Channel_Course__c" />
+            <option value="scormanywhere__Channel__c" />
+            <option value="scormanywhere__Course_Catalog__c" />
+            <option value="scormanywhere__Course_Version__c" />
+            <option value="scormanywhere__Course__c" />
+            <option value="scormanywhere__Related_Media__c" />
+            <option value="scormanywhere__Transcript__c" />
+            <option value="scormanywhere__ViewTrac_Settings__c" />
+          </set>
+        </option>
+      </SFMetaTypeNamesState>
+      <SFMetaTypeNamesState type="FLOW" setAll="true" />
+      <SFMetaTypeNamesState type="TRANSLATIONS" setAll="true" />
+      <SFMetaTypeNamesState type="CUSTOM_SITE" setAll="true">
+        <option name="myNames">
+          <set>
+            <option value="autumn" />
+            <option value="spring" />
+            <option value="spring17" />
+            <option value="summer" />
+            <option value="winter" />
+            <option value="year" />
+          </set>
+        </option>
+      </SFMetaTypeNamesState>
+      <SFMetaTypeNamesState type="CUSTOM_LABELS" setAll="true">
+        <option name="myNames">
+          <set>
+            <option value="CustomLabels" />
+          </set>
+        </option>
+      </SFMetaTypeNamesState>
+      <SFMetaTypeNamesState type="CUSTOM_APPLICATION" setAll="true">
+        <option name="myNames">
+          <set>
+            <option value="redwing__lmscore" />
+            <option value="scormanywhere__Scorm_Engine" />
+            <option value="standard__AppLauncher" />
+            <option value="standard__Chatter" />
+            <option value="standard__Community" />
+            <option value="standard__Content" />
+            <option value="standard__LightningSales" />
+            <option value="standard__Marketing" />
+            <option value="standard__Platform" />
+            <option value="standard__Sales" />
+            <option value="standard__Service" />
+            <option value="standard__ServiceConsole" />
+            <option value="standard__Sites" />
+          </set>
+        </option>
+      </SFMetaTypeNamesState>
+      <SFMetaTypeNamesState type="PORTAL" setAll="true" />
+      <SFMetaTypeNamesState type="CUSTOM_METADATA" setAll="true" />
+      <SFMetaTypeNamesState type="WORKFLOW" setAll="true">
+        <option name="myNames">
+          <set>
+            <option value="Account" />
+            <option value="Asset" />
+            <option value="AssetRelationship" />
+            <option value="AssistantProgress" />
+            <option value="Campaign" />
+            <option value="CampaignMember" />
+            <option value="Case" />
+            <option value="Common_Settings__c" />
+            <option value="Contact" />
+            <option value="Contract" />
+            <option value="Course_Account__c" />
+            <option value="DandBCompany" />
+            <option value="DuplicateRecordItem" />
+            <option value="DuplicateRecordSet" />
+            <option value="EmailMessage" />
+            <option value="Event" />
+            <option value="ExchangeUserMapping" />
+            <option value="FeedItem" />
+            <option value="Idea" />
+            <option value="Knowledge__kav" />
+            <option value="Lead" />
+            <option value="LinkedArticle" />
+            <option value="Macro" />
+            <option value="MacroAction" />
+            <option value="MacroInstruction" />
+            <option value="Opportunity" />
+            <option value="OpportunityLineItem" />
+            <option value="Order" />
+            <option value="OrderItem" />
+            <option value="Organization" />
+            <option value="Product2" />
+            <option value="Site" />
+            <option value="SocialPersona" />
+            <option value="Solution" />
+            <option value="StreamingChannel" />
+            <option value="Task" />
+            <option value="User" />
+            <option value="UserLicense" />
+            <option value="UserProvisioningRequest" />
+            <option value="WorkBadge" />
+            <option value="WorkBadgeDefinition" />
+            <option value="WorkThanks" />
+            <option value="multM__c" />
+            <option value="redwing__Achievement_Assignment__c" />
+            <option value="redwing__Achievement_Category__c" />
+            <option value="redwing__Achievement__c" />
+            <option value="redwing__Answer_Sequence_Item__c" />
+            <option value="redwing__Answer_Sequence__c" />
+            <option value="redwing__Batch_Operation_Record__c" />
+            <option value="redwing__CheckIn__c" />
+            <option value="redwing__Instructor__c" />
+            <option value="redwing__LMS_Cache__c" />
+            <option value="redwing__LMS_Permission_Rule_PermSet__c" />
+            <option value="redwing__LMS_Permission_Rule__c" />
+            <option value="redwing__LMS_Plugin__c" />
+            <option value="redwing__LMS_Settings__c" />
+            <option value="redwing__Learning_Assignment__c" />
+            <option value="redwing__Learning_Category_Account__c" />
+            <option value="redwing__Learning_Category_Profile__c" />
+            <option value="redwing__Learning_Category__c" />
+            <option value="redwing__Learning_Version__c" />
+            <option value="redwing__Learning__c" />
+            <option value="redwing__Question_Bank_Question__c" />
+            <option value="redwing__Question_Bank__c" />
+            <option value="redwing__Question_Line__c" />
+            <option value="redwing__Question_Topic__c" />
+            <option value="redwing__Question__c" />
+            <option value="redwing__Quiz__c" />
+            <option value="redwing__Response_Summary__c" />
+            <option value="redwing__Response__c" />
+            <option value="redwing__RichText_Content__c" />
+            <option value="redwing__RichText__c" />
+            <option value="redwing__Shared_Learning_Assignment__c" />
+            <option value="redwing__Task_Approver__c" />
+            <option value="redwing__Task__c" />
+            <option value="redwing__Training_Activity_Account__c" />
+            <option value="redwing__Training_Activity_Category__c" />
+            <option value="redwing__Training_Activity__c" />
+            <option value="redwing__Training_Plan_Access_Request__c" />
+            <option value="redwing__Training_Plan_Account__c" />
+            <option value="redwing__Training_Plan_Achievement__c" />
+            <option value="redwing__Training_Plan_Assignment__c" />
+            <option value="redwing__Training_Plan_Batch_Operation__c" />
+            <option value="redwing__Training_Plan_Category__c" />
+            <option value="redwing__Training_Plan_Feedback__c" />
+            <option value="redwing__Training_Plan_Instructor__c" />
+            <option value="redwing__Training_Plan_Section_Assignment__c" />
+            <option value="redwing__Training_Plan_Section_Item__c" />
+            <option value="redwing__Training_Plan_Section__c" />
+            <option value="redwing__Training_Plan__c" />
+            <option value="redwing__Training_Resource__c" />
+            <option value="redwing__Training_Track_Account__c" />
+            <option value="redwing__Training_Track_Assignment__c" />
+            <option value="redwing__Training_Track_Category__c" />
+            <option value="redwing__Training_Track_Level_Item__c" />
+            <option value="redwing__Training_Track_Level__c" />
+            <option value="redwing__Training_Track__c" />
+            <option value="redwing__User_Certification__c" />
+            <option value="rwscorm__Learning_Course_Item__c" />
+            <option value="scorm_engine__c" />
+            <option value="scormanywhere__Catalog__c" />
+            <option value="scormanywhere__Channel_Course__c" />
+            <option value="scormanywhere__Channel__c" />
+            <option value="scormanywhere__Course_Catalog__c" />
+            <option value="scormanywhere__Course_Version__c" />
+            <option value="scormanywhere__Course__c" />
+            <option value="scormanywhere__Related_Media__c" />
+            <option value="scormanywhere__Transcript__c" />
+            <option value="scormanywhere__ViewTrac_Settings__c" />
+          </set>
+        </option>
+      </SFMetaTypeNamesState>
+      <SFMetaTypeNamesState type="CUSTOM_OBJECT_TRANSLATION" setAll="true">
+        <option name="myNames">
+          <set>
+            <option value="Common_Settings__c-en_US" />
+            <option value="Course_Account__c-en_US" />
+            <option value="Knowledge__kav-en_US" />
+            <option value="multM__c-en_US" />
+            <option value="redwing__Achievement_Assignment__c-en_US" />
+            <option value="redwing__Achievement_Assignment__c-es" />
+            <option value="redwing__Achievement_Category__c-en_US" />
+            <option value="redwing__Achievement_Category__c-es" />
+            <option value="redwing__Achievement__c-en_US" />
+            <option value="redwing__Achievement__c-es" />
+            <option value="redwing__Answer_Sequence_Item__c-en_US" />
+            <option value="redwing__Answer_Sequence_Item__c-es" />
+            <option value="redwing__Answer_Sequence__c-en_US" />
+            <option value="redwing__Answer_Sequence__c-es" />
+            <option value="redwing__Batch_Operation_Record__c-en_US" />
+            <option value="redwing__Batch_Operation_Record__c-es" />
+            <option value="redwing__CheckIn__c-en_US" />
+            <option value="redwing__CheckIn__c-es" />
+            <option value="redwing__Instructor__c-en_US" />
+            <option value="redwing__Instructor__c-es" />
+            <option value="redwing__LMS_Cache__c-en_US" />
+            <option value="redwing__LMS_Permission_Rule_PermSet__c-en_US" />
+            <option value="redwing__LMS_Permission_Rule_PermSet__c-es" />
+            <option value="redwing__LMS_Permission_Rule__c-en_US" />
+            <option value="redwing__LMS_Permission_Rule__c-es" />
+            <option value="redwing__LMS_Plugin__c-en_US" />
+            <option value="redwing__LMS_Settings__c-en_US" />
+            <option value="redwing__LMS_Settings__c-es" />
+            <option value="redwing__Learning_Assignment__c-en_US" />
+            <option value="redwing__Learning_Assignment__c-es" />
+            <option value="redwing__Learning_Category_Account__c-en_US" />
+            <option value="redwing__Learning_Category_Account__c-es" />
+            <option value="redwing__Learning_Category_Profile__c-en_US" />
+            <option value="redwing__Learning_Category_Profile__c-es" />
+            <option value="redwing__Learning_Category__c-en_US" />
+            <option value="redwing__Learning_Category__c-es" />
+            <option value="redwing__Learning_Version__c-en_US" />
+            <option value="redwing__Learning_Version__c-es" />
+            <option value="redwing__Learning__c-en_US" />
+            <option value="redwing__Learning__c-es" />
+            <option value="redwing__Question_Bank_Question__c-en_US" />
+            <option value="redwing__Question_Bank_Question__c-es" />
+            <option value="redwing__Question_Bank__c-en_US" />
+            <option value="redwing__Question_Bank__c-es" />
+            <option value="redwing__Question_Line__c-en_US" />
+            <option value="redwing__Question_Line__c-es" />
+            <option value="redwing__Question_Topic__c-en_US" />
+            <option value="redwing__Question_Topic__c-es" />
+            <option value="redwing__Question__c-en_US" />
+            <option value="redwing__Question__c-es" />
+            <option value="redwing__Quiz__c-en_US" />
+            <option value="redwing__Quiz__c-es" />
+            <option value="redwing__Response_Summary__c-en_US" />
+            <option value="redwing__Response_Summary__c-es" />
+            <option value="redwing__Response__c-en_US" />
+            <option value="redwing__Response__c-es" />
+            <option value="redwing__RichText_Content__c-en_US" />
+            <option value="redwing__RichText_Content__c-es" />
+            <option value="redwing__RichText__c-en_US" />
+            <option value="redwing__RichText__c-es" />
+            <option value="redwing__Shared_Learning_Assignment__c-en_US" />
+            <option value="redwing__Shared_Learning_Assignment__c-es" />
+            <option value="redwing__Task_Approver__c-en_US" />
+            <option value="redwing__Task_Approver__c-es" />
+            <option value="redwing__Task__c-en_US" />
+            <option value="redwing__Task__c-es" />
+            <option value="redwing__Training_Activity_Account__c-en_US" />
+            <option value="redwing__Training_Activity_Account__c-es" />
+            <option value="redwing__Training_Activity_Category__c-en_US" />
+            <option value="redwing__Training_Activity_Category__c-es" />
+            <option value="redwing__Training_Activity__c-en_US" />
+            <option value="redwing__Training_Activity__c-es" />
+            <option value="redwing__Training_Plan_Access_Request__c-en_US" />
+            <option value="redwing__Training_Plan_Access_Request__c-es" />
+            <option value="redwing__Training_Plan_Account__c-en_US" />
+            <option value="redwing__Training_Plan_Account__c-es" />
+            <option value="redwing__Training_Plan_Achievement__c-en_US" />
+            <option value="redwing__Training_Plan_Achievement__c-es" />
+            <option value="redwing__Training_Plan_Assignment__c-en_US" />
+            <option value="redwing__Training_Plan_Assignment__c-es" />
+            <option value="redwing__Training_Plan_Batch_Operation__c-en_US" />
+            <option value="redwing__Training_Plan_Batch_Operation__c-es" />
+            <option value="redwing__Training_Plan_Category__c-en_US" />
+            <option value="redwing__Training_Plan_Category__c-es" />
+            <option value="redwing__Training_Plan_Feedback__c-en_US" />
+            <option value="redwing__Training_Plan_Feedback__c-es" />
+            <option value="redwing__Training_Plan_Instructor__c-en_US" />
+            <option value="redwing__Training_Plan_Instructor__c-es" />
+            <option value="redwing__Training_Plan_Section_Assignment__c-en_US" />
+            <option value="redwing__Training_Plan_Section_Assignment__c-es" />
+            <option value="redwing__Training_Plan_Section_Item__c-en_US" />
+            <option value="redwing__Training_Plan_Section_Item__c-es" />
+            <option value="redwing__Training_Plan_Section__c-en_US" />
+            <option value="redwing__Training_Plan_Section__c-es" />
+            <option value="redwing__Training_Plan__c-en_US" />
+            <option value="redwing__Training_Plan__c-es" />
+            <option value="redwing__Training_Resource__c-en_US" />
+            <option value="redwing__Training_Resource__c-es" />
+            <option value="redwing__Training_Track_Account__c-en_US" />
+            <option value="redwing__Training_Track_Account__c-es" />
+            <option value="redwing__Training_Track_Assignment__c-en_US" />
+            <option value="redwing__Training_Track_Assignment__c-es" />
+            <option value="redwing__Training_Track_Category__c-en_US" />
+            <option value="redwing__Training_Track_Category__c-es" />
+            <option value="redwing__Training_Track_Level_Item__c-en_US" />
+            <option value="redwing__Training_Track_Level_Item__c-es" />
+            <option value="redwing__Training_Track_Level__c-en_US" />
+            <option value="redwing__Training_Track_Level__c-es" />
+            <option value="redwing__Training_Track__c-en_US" />
+            <option value="redwing__Training_Track__c-es" />
+            <option value="redwing__User_Certification__c-en_US" />
+            <option value="redwing__User_Certification__c-es" />
+            <option value="rwscorm__Learning_Course_Item__c-en_US" />
+            <option value="scorm_engine__c-en_US" />
+            <option value="scormanywhere__Catalog__c-en_US" />
+            <option value="scormanywhere__Channel_Course__c-en_US" />
+            <option value="scormanywhere__Channel__c-en_US" />
+            <option value="scormanywhere__Course_Catalog__c-en_US" />
+            <option value="scormanywhere__Course_Version__c-en_US" />
+            <option value="scormanywhere__Course__c-en_US" />
+            <option value="scormanywhere__Related_Media__c-en_US" />
+            <option value="scormanywhere__Transcript__c-en_US" />
+            <option value="scormanywhere__ViewTrac_Settings__c-en_US" />
+          </set>
+        </option>
+      </SFMetaTypeNamesState>
+      <SFMetaTypeNamesState type="LIGHTNING_BUNDLE" setAll="true">
+        <option name="myNames">
+          <set>
+            <option value="AEXP_GCP_CommunitySiteBaseComponent" />
+            <option value="AEXP_GCP_GoToCommunity_Salesforce1" />
+            <option value="AllMediaCmp" />
+            <option value="ArticleContentCmp" />
+            <option value="ArticleDetailCmp" />
+            <option value="CatalogsCmp" />
+            <option value="ChannelManagementCmp" />
+            <option value="ChatterApp" />
+            <option value="ChatterUploaderComponent" />
+            <option value="ComponentMain" />
+            <option value="CustomObjectListCmp" />
+            <option value="EventCmp" />
+            <option value="MediaCmp" />
+            <option value="MediaPopupCmp" />
+            <option value="MediaUploader" />
+            <option value="MediaUploaderLightningCmp" />
+            <option value="MyMediaCmp" />
+            <option value="PostToChatter" />
+            <option value="PostToMyFeed" />
+            <option value="RelatedMediaApp" />
+            <option value="RelatedMediaCmp" />
+            <option value="RelatedMediaCmpTiles" />
+            <option value="SearchCustom" />
+            <option value="SearchCustomTiles" />
+            <option value="SendMediaCmp" />
+            <option value="SimpleMediaCmp" />
+            <option value="TestExtend" />
+            <option value="TestUploaderCmp" />
+            <option value="Uploader" />
+            <option value="UploaderApp" />
+            <option value="UploaderCmp" />
+            <option value="UserMediaCmp" />
+            <option value="forgotPassword" />
+            <option value="loginForm" />
+            <option value="ltngMethodsTest" />
+            <option value="ltngMethodsTest2" />
+            <option value="recordDetailCmp" />
+            <option value="redwing__BaseLauncher" />
+            <option value="redwing__CheckInLauncher" />
+            <option value="redwing__GenericLauncher" />
+            <option value="redwing__ILearningLauncher" />
+            <option value="redwing__LMSFrame" />
+            <option value="redwing__LMSSpinner" />
+            <option value="redwing__LMSSpinnerEvent" />
+            <option value="redwing__LearningViewEvent" />
+            <option value="redwing__LearningViewer" />
+            <option value="redwing__QuizLauncher" />
+            <option value="redwing__ResourceLauncher" />
+            <option value="redwing__RichTextLauncher" />
+            <option value="redwing__SVGImage" />
+            <option value="redwing__TaskLauncher" />
+            <option value="redwing__TaskViewerEvent" />
+            <option value="redwing__TrainingPlanItemViewEvent" />
+            <option value="redwing__TrainingPlanViewEvent" />
+            <option value="redwing__TrainingPlanViewer" />
+            <option value="selfRegister" />
+            <option value="setStartUrl" />
+            <option value="svg" />
+            <option value="testBLobXHR" />
+          </set>
+        </option>
+      </SFMetaTypeNamesState>
+    </type2Names>
+    <builtIn>
+      <type value="CUSTOM_FIELD" />
+      <type value="CUSTOM_OBJECT" />
+      <type value="WEB_LINK" />
+    </builtIn>
+    <unmananged>
+      <type value="SHARING_RULES" />
+      <type value="COMMUNITY_THEME_DEFINITION" />
+      <type value="CUSTOM_TAB" />
+      <type value="STATIC_RESOURCE" />
+      <type value="LAYOUT" />
+      <type value="CALL_CENTER" />
+      <type value="APEX_PAGE" />
+      <type value="INSTALLED_PACKAGE" />
+      <type value="COMMUNITY_TEMPLATE_DEFINITION" />
+      <type value="APEX_TRIGGER" />
+      <type value="QUICK_ACTION" />
+      <type value="SITE_DOT_COM" />
+      <type value="APEX_COMPONENT" />
+      <type value="ASSIGNMENT_RULES" />
+      <type value="COMMUNITY" />
+      <type value="PROFILE" />
+      <type value="APEX_CLASS" />
+      <type value="APPROVAL_PROCESS" />
+      <type value="HOME_PAGE_LAYOUT" />
+      <type value="CUSTOM_FIELD" />
+      <type value="SETTINGS" />
+      <type value="APEX_TEST_SUITE" />
+      <type value="CUSTOM_OBJECT" />
+      <type value="FLOW" />
+      <type value="PLATFORM_CACHE_PARTITION" />
+      <type value="TRANSLATIONS" />
+      <type value="WEB_LINK" />
+      <type value="GROUP" />
+      <type value="CUSTOM_SITE" />
+      <type value="REPORT" />
+      <type value="QUEUE" />
+      <type value="CUSTOM_LABELS" />
+      <type value="SHARING_SET" />
+      <type value="POST_TEMPLATE" />
+      <type value="CUSTOM_APPLICATION" />
+      <type value="FLOW_DEFINITION" />
+      <type value="PORTAL" />
+      <type value="CUSTOM_METADATA" />
+      <type value="ROLE" />
+      <type value="REPORT_TYPE" />
+      <type value="HOME_PAGE_COMPONENT" />
+      <type value="WORKFLOW" />
+      <type value="CUSTOM_OBJECT_TRANSLATION" />
+      <type value="PERMISSION_SET" />
+      <type value="LIGHTNING_BUNDLE" />
+    </unmananged>
+    <managed>
+      <type value="CUSTOM_FIELD" />
+      <type value="CUSTOM_OBJECT" />
+      <type value="WEB_LINK" />
+      <type value="APEX_CLASS" />
+    </managed>
+    <components>
+      <SFMetaComponentState type="ApexClass" chosen="true" isMajor="true" />
+      <SFMetaComponentState type="ApexComponent" chosen="true" isMajor="true" />
+      <SFMetaComponentState type="ApexPage" chosen="true" isMajor="true" />
+      <SFMetaComponentState type="ApexTrigger" chosen="true" isMajor="true" />
+      <SFMetaComponentState type="AuraDefinitionBundle" chosen="true" isMajor="true" />
+      <SFMetaComponentState type="CustomApplication" chosen="true" isMajor="true" />
+      <SFMetaComponentState type="CustomLabels" chosen="true" isMajor="true" />
+      <SFMetaComponentState type="CustomObject" chosen="true" isMajor="true" />
+      <SFMetaComponentState type="CustomTab" chosen="true" isMajor="true" />
+      <SFMetaComponentState type="Flow" chosen="true" isMajor="true" />
+      <SFMetaComponentState type="InstalledPackage" chosen="true" isMajor="true" />
+      <SFMetaComponentState type="Layout" chosen="true" isMajor="true" />
+      <SFMetaComponentState type="StaticResource" chosen="true" isMajor="true" />
+      <SFMetaComponentState type="Workflow" chosen="true" isMajor="true" />
+      <SFMetaComponentState type="ApexTestSuite" chosen="true" />
+      <SFMetaComponentState type="ApprovalProcess" chosen="true" />
+      <SFMetaComponentState type="AssignmentRules" chosen="true" />
+      <SFMetaComponentState type="CallCenter" />
+      <SFMetaComponentState type="Community" chosen="true" />
+      <SFMetaComponentState type="CommunityTemplateDefinition" chosen="true" />
+      <SFMetaComponentState type="CommunityThemeDefinition" chosen="true" />
+      <SFMetaComponentState type="CustomMetadata" chosen="true" />
+      <SFMetaComponentState type="CustomObjectTranslation" chosen="true" />
+      <SFMetaComponentState type="CustomSite" chosen="true" />
+      <SFMetaComponentState type="FlowDefinition" />
+      <SFMetaComponentState type="Group" />
+      <SFMetaComponentState type="HomePageComponent" />
+      <SFMetaComponentState type="HomePageLayout" />
+      <SFMetaComponentState type="PermissionSet" />
+      <SFMetaComponentState type="PlatformCachePartition" />
+      <SFMetaComponentState type="Portal" chosen="true" />
+      <SFMetaComponentState type="PostTemplate" />
+      <SFMetaComponentState type="Profile" />
+      <SFMetaComponentState type="Queue" />
+      <SFMetaComponentState type="QuickAction" />
+      <SFMetaComponentState type="Report" />
+      <SFMetaComponentState type="ReportType" />
+      <SFMetaComponentState type="Role" />
+      <SFMetaComponentState type="Settings" />
+      <SFMetaComponentState type="SharingRules" />
+      <SFMetaComponentState type="SharingSet" />
+      <SFMetaComponentState type="SiteDotCom" />
+      <SFMetaComponentState type="Translations" chosen="true" />
+    </components>
+  </component>
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/unpackaged" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

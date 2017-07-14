@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <label><!-- Duration (minutes) --></label>
+        <name>redwing__Duration__c</name>
+    </fields>
+    <fields>
+        <label><!-- Duration (hours) --></label>
+        <name>redwing__Duration_hours__c</name>
+    </fields>
+    <fields>
+        <label><!-- Learning --></label>
+        <lookupFilter>
+            <errorMessage><!-- Only published learning objects can be added to a Learning Plan --></errorMessage>
+            <informationalMessage><!-- NOTE: Only published learning objects can be associated to a Learning Plan --></informationalMessage>
+        </lookupFilter>
+        <name>redwing__Learning__c</name>
+        <relationshipLabel><!-- Learning Plan Section Items --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Optional --></label>
+        <name>redwing__Optional__c</name>
+    </fields>
+    <fields>
+        <label><!-- Order --></label>
+        <name>redwing__Order__c</name>
+    </fields>
+    <fields>
+        <label><!-- Learning Plan Section --></label>
+        <name>redwing__Training_Plan_Section__c</name>
+        <relationshipLabel><!-- Learning Plan Section Items --></relationshipLabel>
+    </fields>
+    <validationRules>
+        <errorMessage><!-- Please select a Learning Object --></errorMessage>
+        <name>redwing__Learning_Validation</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- Delete_Assignments --></label>
+        <name>redwing__Delete_Assignments</name>
+    </webLinks>
+</CustomObjectTranslation>

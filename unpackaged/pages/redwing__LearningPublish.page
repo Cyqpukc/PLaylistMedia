@@ -1,0 +1,82 @@
+<!--
+Copyright (c) 2014, salesforce.com, Inc.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+    * Neither the name of the salesforce.com, Inc. nor the names of its contributors
+    may be used to endorse or promote products derived from this software
+    without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<apex:page standardController="redwing__Learning__c" extensions="redwing.LearningPublishExt" tabStyle="redwing__Learning__c" action="{!checkAutoPublish}">
+
+    <apex:sectionHeader title="{!$Label.redwing__alms_learning}" subtitle="{!$Label.redwing__alms_publish_new_learning_version}" rendered="{!learning != null}">
+        <div class="bPageTitle" style="padding:0px;">
+            <div class="ptBreadcrumb">&nbsp;&lt;&lt;&nbsp;<a href="/{!Learning__c}">{!$Label.ALMS_Learning_Back}: {!learning.Name} </a></div>
+        </div>
+    </apex:sectionHeader>
+
+    <apex:form >
+
+        <apex:pageBlock title="{!$Label.redwing__alms_select_published_content}">
+
+            <style>
+                a.btnLMSPublish ,a.btnLMSPublish:hover{
+                    text-decoration:none;
+                    color:#fff;
+                }
+            </style>
+
+            <apex:pageMessages id="thePageMessages"/>
+
+            <apex:outputPanel layout="none" rendered="{!!publishOnInit}">
+                <apex:pageBlockSection columns="1" rendered="{!enableVersionBehavior}">
+                    <apex:inputField value="{!dummyLearningVersion.redwing__Version_selection_behavior__c}" required="true"/>
+                </apex:pageBlockSection>
+
+                <apex:pageBlockTable value="{!contents}" var="c">
+                    <apex:column headerValue="{!$Label.redwing__alms_action}">
+                        <apex:commandLink value="{!$Label.redwing__alms_publish}" action="{!publishContent}" styleClass="btnImportant btnLMSPublish" onclick="return confirm('{!JSINHTMLENCODE($Label.redwing__alms_confirm_alert)}');" >
+                            <apex:param name="selectedContent" value="{!c.Id}" assignTo="{!selectedContent}" />
+                        </apex:commandLink>
+                    </apex:column>
+                    <apex:column value="{!c['Name']}" />
+                    <apex:column value="{!c['CreatedDate']}" />
+                </apex:pageBlockTable>
+                <apex:outputPanel layout="none" rendered="{!contents != null && contents.size == 0}">
+                    <apex:pageMessage severity="info" strength="3" detail="{!$Label.redwing__alms_no_previewpublish_content}"/>
+                </apex:outputPanel>
+            </apex:outputPanel>
+
+            <apex:actionRegion rendered="{!publishOnInit}">
+                <apex:actionFunction action="{!publishContent}" name="publishOnInit"/>
+                <apex:pageMessage severity="info" strength="3" detail="{!$Label.redwing__alms_autopublish_learning_message}"/>
+                <apex:outputPanel layout="none" >
+                    <script>
+                        setTimeout(publishOnInit, 1000);
+                    </script>
+                </apex:outputPanel>
+            </apex:actionRegion>
+
+        </apex:pageBlock>
+    </apex:form>
+
+
+</apex:page>

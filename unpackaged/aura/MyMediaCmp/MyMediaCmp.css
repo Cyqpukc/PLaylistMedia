@@ -1,0 +1,208 @@
+.THIS h1, .THIS h2, .THIS h3, .THIS h4, .THIS h5, .THIS h6 {
+    font-family: Sans-serif;
+    font-weight: bold;
+}
+.THIS{
+    max-width: 1130px;
+    margin: auto;
+}
+.THIS .background{
+    width:100%;
+}
+.THIS .top{
+    z-index: 1;
+}
+.THIS .carousel-control{
+    color: #515f85;
+}
+.THIS .carousel .tooltipMedia{
+    position:absolute;
+    top:0px;
+    left:0px;
+    cursor:pointer;
+}
+.THIS .playLink{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    z-index: 1;
+}
+.THIS .carousel-block-cmp .slds-image__crop .tooltipMedia {
+    visibility: hidden;
+}
+.THIS .carousel-block-cmp .slds-image__crop:hover .tooltipMedia,
+.THIS .carousel-block-cmp .slds-image__crop:active .tooltipMedia,
+.THIS .carousel-block-cmp .slds-image__crop:focus .tooltipMedia{
+    visibility: visible;
+}
+.THIS .noresults {
+    font-weight: 300;
+    line-height: 1.25;
+    font-size: 1.5rem;
+    color: #696969;
+    text-align: center;
+    margin-top: 95px;
+    position: relative;
+}
+.THIS .carousel-block-cmp{
+    width: 82%;
+}
+.THIS .carousel-nav-cmp{
+    width: 9%;
+}
+
+.THIS .slds-search-form .search-elements{
+    z-index: 2;
+}
+
+/*channels*/
+.THIS .channels{
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
+.THIS .channels a{
+    margin: 0 15px 0 15px;
+    font-size: 14px;
+    color: #21507a;
+    display: inline-block;
+}
+.THIS .channels .manage{
+    margin: 0 5px 0 5px;
+    font-size: 14px;
+    color: #21507a;
+    display: inline-block;
+}
+.THIS .channels .manageChannel .manage{
+    color: #5e5e5e;
+}
+.THIS .channels .manageChannel:hover{
+    text-decoration: none;
+    cursor: pointer;
+    opacity: 0.7;
+}
+.THIS .channels a.active{
+    font-weight: bold;
+}
+
+/*spinner*/
+.THIS .loader{
+    background-color: rgba(197,204,214,0.75);
+    height: 100%;
+    position: fixed;
+    z-index: 10000;
+}
+
+.THIS .slds-global-header-blue{
+    margin-top: -37px;
+    margin-left: -12px;
+    margin-right: -12px;
+}
+
+.THIS .slds-dropdown-fixed{
+    border-radius: 0px;
+    box-shadow: none;
+    z-index: 1;
+    right: 0px;
+    background: #fff;
+    width: 100%;
+    position: fixed;
+    bottom: 56px;
+    box-shadow: -3px 0px 5px rgba(0,0,0,0.3);
+}
+.THIS .slds-dropdown-fixed .manageChannel img{
+    height: 15px !important;
+    margin-left: 20px;
+    margin-right: 5px;
+}
+.THIS .slds-dropdown-fixed .manageChannel  span.manage{
+    font-size: 11px;
+}
+.THIS .slds-dropdown-fixed a.channelList{
+    font-size: 11px;
+    position: relative;
+    padding: 0 20px 0 20px;
+}
+.THIS .slds-dropdown-fixed .slds-datepicker__filter .slds-form-element__control .slds-col{
+    height: 200px;
+    overflow-y: auto;
+}
+.THIS .slds-dropdown-fixed a.channelList.active{
+    font-weight: normal !important;
+}
+.THIS .slds-dropdown-fixed a.channelList img{
+    position: absolute;
+    display: none;
+    left: 0px;
+    top: 0px;
+}
+.THIS .slds-dropdown-fixed a.channelList.active img{
+    display: block;
+}
+.THIS .slds-dropdown-fixed .slds-align-middle{
+    width: 100%;
+}
+.THIS .slds-docked-composer__footer.footer{
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    z-index: 20;
+    background: #0070d2;
+    border: none;
+        height: 57px;
+}
+.THIS .slds-docked-composer__footer.footer .channelLink,
+.THIS .slds-docked-composer__footer.footer .slds-search-btn{
+    display: table;
+    margin: auto;
+}
+.THIS .slds-docked-composer__footer.footer .slds-icon,
+.THIS .slds-docked-composer__footer.footer .channelLink img{
+    width: 1.2rem;
+    height: 1.2rem;
+    margin: auto;
+    display: block;
+}
+.THIS .slds-docked-composer__footer.footer .channelLink:after{
+	content: "Channel";
+    z-index: 22;
+    color: #fff;
+    font-size: 10px;
+    display: block;
+    margin: auto;
+    width: 39px;
+}
+.THIS .slds-docked-composer__footer.footer .slds-search-btn:after{
+	content: "Filter";
+    z-index: 22;
+    color: #fff;
+    font-size: 10px;
+    display: block;
+    margin: auto;
+    width: 24px;
+}
+.THIS .slds-docked-composer__footer.footer .slds-icon-text-default{
+    fill: #fff;
+}
+.THIS .slds-docked-composer__footer.footer .slds-input{
+    line-height: 17px;
+}
+
+.THIS.mobile + .THIS.main-container{
+    padding-bottom: 70px;
+}
+
+.THIS .blue-mobile-header {
+    padding: 7px;
+}
+.THIS .slds-news-box h1 {
+    margin-top: 0px;
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+    text-overflow: ellipsis;
+}
+.THIS .search-input {
+    padding-right: 2rem;
+}

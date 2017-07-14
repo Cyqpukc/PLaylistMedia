@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Actividad</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Actividades</value>
+    </caseValues>
+    <fields>
+        <label><!-- Achievement --></label>
+        <name>redwing__Achievement__c</name>
+        <relationshipLabel><!-- Learning Activities --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Disable this option if you don&apos;t want users to receive chatter notifications. --></help>
+        <label><!-- Chatter Notifications Enabled --></label>
+        <name>redwing__Chatter_Notifications_Enabled__c</name>
+    </fields>
+    <fields>
+        <help><!-- Custom message used for chatter notifications --></help>
+        <label><!-- Custom Notification Message --></label>
+        <name>redwing__Custom_Notification_Message__c</name>
+    </fields>
+    <fields>
+        <label><!-- Duration (minutes) --></label>
+        <name>redwing__Duration__c</name>
+    </fields>
+    <fields>
+        <label><!-- Duration (hours) --></label>
+        <name>redwing__Duration_hours__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción para mostrar esta Actividad a todos los usuarios externos</help>
+        <label><!-- Enable for all external users --></label>
+        <name>redwing__Enable_all_external_accounts__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción para mostrar esta Actividad a todos los usuarios internos</help>
+        <label><!-- Enable for all internal users --></label>
+        <name>redwing__Enable_all_internal_users__c</name>
+    </fields>
+    <fields>
+        <label><!-- Learning Description --></label>
+        <name>redwing__Learning_Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Learning Name --></label>
+        <name>redwing__Learning_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Learning --></label>
+        <lookupFilter>
+            <errorMessage><!-- Only published learning objects can be used as Learning Activities --></errorMessage>
+            <informationalMessage><!-- NOTE: Only published learning objects can be used as Learning Activities --></informationalMessage>
+        </lookupFilter>
+        <name>redwing__Learning__c</name>
+        <relationshipLabel><!-- Learning Activities --></relationshipLabel>
+    </fields>
+    <gender>Feminine</gender>
+    <nameFieldLabel>ID de Actividad</nameFieldLabel>
+    <sharingReasons>
+        <label><!-- LMS Sharing --></label>
+        <name>redwing__LMS_Sharing</name>
+    </sharingReasons>
+    <webLinks>
+        <label><!-- Manage_Assignments --></label>
+        <name>redwing__Manage_Assignments</name>
+    </webLinks>
+</CustomObjectTranslation>

@@ -1,0 +1,111 @@
+<!--
+Copyright (c) 2014, salesforce.com, Inc.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+    * Neither the name of the salesforce.com, Inc. nor the names of its contributors
+    may be used to endorse or promote products derived from this software
+    without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<apex:page controller="redwing.LMSStartCtrl" sidebar="false" tabStyle="Start_Here__tab">
+
+    <apex:sectionHeader title="{!$Label.redwing__alms_start_here_title}" subtitle="{!$Label.redwing__alms_start_here_subtitle}"/>
+
+    <script src="{!URLFOR($Resource.lmscore_uilib, '/js/jquery.min.js')}" />
+    <script src="{!URLFOR($Resource.lmscore_uilib, '/js/lmscoreutils.js')}"/>
+
+    <style>
+        .other-section{
+            display:block;
+            margin-top:10px;
+        }
+
+        .other-section .other-button{
+            text-decoration:none;
+            padding:3px 5px;
+        }
+    </style>
+
+    <apex:form id="theForm">
+
+        <apex:actionStatus id="status">
+            <apex:facet name="start">
+                <c:LMSStatus />
+            </apex:facet>
+        </apex:actionStatus>
+
+        <apex:pageBlock >
+
+            <apex:pageMessages />
+
+            <apex:pageBlockSection title="{!$Label.redwing__alms_start_sample_data_section}" columns="1" collapsible="false">
+                <apex:pageMessage summary="{!$Label.redwing__alms_start_here_message}" severity="info" strength="3" />
+                <apex:pageBlockSectionItem >
+                    <apex:commandButton value="{!$Label.redwing__alms_start_sample_data_button}" action="{!initSampleData}" rerender="theForm" status="status" styleClass="btnImportant"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="{!$Label.redwing__alms_additional_options}" columns="1" collapsible="true">
+                <apex:inputTextArea value="{!jsonData}" style="height:300px;width:98%;"/>
+                <apex:pageBlockSectionItem >
+                    <apex:commandButton value="{!$Label.redwing__alms_load_json}" action="{!initFromJSONString}" rerender="theForm" status="status" styleClass="btnImportant"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="{!$Label.redwing__alms_start_here_admin}" columns="1" collapsible="false" rendered="{!isAdminUser}">
+                <apex:pageBlockSectionItem >
+                    <apex:commandButton value="{!$Label.redwing__alms_manage_jobs}" action="{!goToLMSJobs}" rerender="theForm" status="status" />
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="{!$Label.redwing__alms_start_here_other}" columns="2" collapsible="false">
+                <apex:pageBlockSectionItem dataStyleClass="other-section">
+                    <a href="javascript:lmscore.redirectHandlerWithTarget('{!URLFOR($Action.Question_Topic__c.List, $ObjectType.Question_Topic__c)}', '_blank', true)" class="btn other-button">{!$Label.ALMS_Manage_Topics}</a>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem dataStyleClass="other-section">
+                    <a href="javascript:lmscore.redirectHandlerWithTarget('{!URLFOR($Action.Question_Bank__c.List, $ObjectType.Question_Bank__c)}', '_blank', true)" class="btn other-button">{!$Label.ALMS_Manage_Question_Banks}</a>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem dataStyleClass="other-section">
+                    <a href="javascript:lmscore.redirectHandlerWithTarget('{!URLFOR($Action.LMS_Permission_Rule__c.List, $ObjectType.LMS_Permission_Rule__c)}', '_blank', true)" class="btn other-button">{!$Label.ALMS_Manage_Permission_Rules}</a>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem dataStyleClass="other-section">
+                    <a href="javascript:lmscore.redirectHandlerWithTarget('{!URLFOR($Action.LMS_Plugin__c.List, $ObjectType.LMS_Plugin__c)}', '_blank', true)" class="btn other-button">{!$Label.ALMS_Manage_LMS_Plugins}</a>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+        </apex:pageBlock>
+
+        <script>
+            jQuery(document).ready(function($) {
+                var imgs = $('img');
+                if(imgs){
+                    for(var x in imgs){
+                        if(imgs[x].className=='hideListButton' || imgs[x].className=='showListButton'){
+                            twistSection(imgs[x]);
+                        }
+                    }
+                }
+            });
+        </script>
+
+    </apex:form>
+
+</apex:page>

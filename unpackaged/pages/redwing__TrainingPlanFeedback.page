@@ -1,0 +1,199 @@
+<!--
+Copyright (c) 2014, salesforce.com, Inc.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+    * Neither the name of the salesforce.com, Inc. nor the names of its contributors
+    may be used to endorse or promote products derived from this software
+    without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<apex:page controller="redwing.TrainingPlanFeedbackCtrl" docType="html-5.0" sidebar="false" showHeader="{!showSFHeader}" standardStylesheets="false" >
+
+
+    <apex:outputPanel layout="none" rendered="{!isAllowedToView}">
+
+        <apex:composition template="redwing__LMSHeroTemplate">
+
+                <apex:define name="head">
+                    <title>{!tPlan.trainingPlan.Name}</title>
+                </apex:define>
+
+                <apex:define name="hero-banner">
+                    <c:TrainingPlanBannerInfo trainingPlanName="{!tPlan.trainingPlan.Name}" description="{!tPlan.trainingPlan.redwing__Description__c}" hideChatterPhotos="{!tPlan.trainingPlan.redwing__Hide_Chatter_Photos__c}" usersWithAchievements="{!lUsersWithAchievement}"/>
+                </apex:define>
+
+                <apex:define name="hero-banner-badge">
+                    <c:TrainingPlanBannerAchievement achievement="{!tPlan.mainAchievement}" />
+                </apex:define>
+
+                <apex:define name="hero-banner-footer">
+                    <span><b>{!$Label.redwing__alms_overall_rating}</b> : {!tPlan.trainingPlan.redwing__Training_Plan_Rating__c}</span>
+                </apex:define>
+
+                <apex:define name="container-header">
+                    <c:TrainingPlanSections trainingPlanId="{!tplan.trainingPlan.Id}" isPreview="{!isPreview}" currentSection="feedback" />
+                </apex:define>
+
+                <apex:define name="body">
+
+                    <apex:outputPanel layout="none" rendered="{!tPlan.trainingPlan != null}">
+                        <c:LMSHeaderOverrides bkImageURL="{!tPlan.trainingPlan.redwing__Background_Image_URL__c}" bkColor="{!tPlan.trainingPlan.redwing__Background_Color__c}" txtColor="{!tPlan.trainingPlan.redwing__Text_Color__c}"/>
+                    </apex:outputPanel>
+
+                    <style>
+                      .lmscore .rating_bar{
+                          background: url({!URLFOR($Resource.redwing__lmscore_uilib, '/img/stars.png')});
+                          background-position: 0 0;
+                      }
+                      .lmscore .rating{
+                          background: url({!URLFOR($Resource.redwing__lmscore_uilib, '/img/stars.png')});
+                          background-position: 0 -16px;
+                      }
+                    </style>
+
+                    <apex:form id="feedbackForm">
+
+                        <apex:outputPanel layout="none" rendered="{!isAssignedToTrainingPlan}">
+                        <div class="row">
+                            <div class="col-md-2 col-md-offset-2 tplan-feedback-photo" style="text-align:center;padding:0 0 10px 0;">
+                                <div><img src="{!currentUser.SmallPhotoUrl}" class="round-image-45"/></div>
+                                <div><span class="feedback-username">{!currentUser.Name}</span></div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="panel panel-default feedback-panel">
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            <label>{!$Label.ALMS_Feedback_Rating} : </label>
+                                            <div id="feedback-rating" class="rateit bigstars" data-rateit-step="1" data-rateit-starwidth="32" data-rateit-starheight="32"></div>
+                                            <apex:inputHidden id="feedbackRating" value="{!feedback.redwing__Rating__c}" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>{!$Label.redwing__alms_feedback_comments} : </label>
+                                            <apex:inputField value="{!feedback.redwing__Comments__c}" styleClass="form-control" />
+                                        </div>
+                                        <apex:commandButton value="{!$Label.redwing__alms_feedback_submit}" action="{!submitFeedback}" styleClass="btn btn-success btn-plan-feedback" status="status" rerender="feedbackContent" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </apex:outputPanel>
+
+                        <apex:outputPanel id="feedbackContent" layout="block">
+
+                            <apex:outputPanel layout="none" id="pageMessages">
+                                <apex:outputPanel layout="block" styleClass="col-md-6 col-md-offset-4 alert alert-{!IF(feedbackSuccess,'success','danger')}" rendered="{!hasMessages}">
+                                    <apex:pageMessages />
+                                </apex:outputPanel>
+                            </apex:outputPanel>
+
+                            <apex:outputPanel layout="none" rendered="{!comments != null && comments.size > 0}">
+                                <apex:repeat value="{!comments}" var="c">
+                                    <div class="row">
+                                        <div class="col-md-2 col-md-offset-2" style="text-align:center;padding:0 0 10px 0;margin-bottom:10px;">
+                                            <a href="javascript:lmscore.redirectHandlerWithStatus('{!$Page.MyProfile}?id={!c.User__c}',true)">
+                                              <img src="{!c.User__r.SmallPhotoUrl}" class="round-image-45"/>
+                                            </a>
+                                            <div><span class="feedback-username">{!c.User__r.Name}</span></div>
+                                            <apex:outputPanel layout="none" rendered="{!c.Rating__c != null && c.Rating__c > 0 }">
+                                                <div><span class="feedback-rating">{!$Label.redwing__alms_feedback_rating} : {!c.redwing__Rating__c}</span></div>
+                                            </apex:outputPanel>
+                                        </div>
+                                        <div class="col-md-6">
+                                                <div class="well">
+                                                  <apex:outputPanel layout="none" rendered="{!c.redwing__Rating__c != null && c.redwing__Rating__c > 0}">
+                                                    <div class="rating_bar">
+                                                      <div  class="rating" style="width:{!c.Rating__c*20}%;"></div>
+                                                    </div>
+                                                  </apex:outputPanel>
+                                                <apex:outputField value="{!c.redwing__Comments__c}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </apex:repeat>
+
+                                <apex:outputPanel layout="none" rendered="{!comments.size > 0 && totalPages > 1}">
+                                    <div class="row">
+                                        <div class="col-md-6 col-md-offset-4">
+                                            <ul class="pager">
+                                                <apex:outputPanel layout="none" rendered="{!hasPrevious}">
+                                                    <li><apex:commandLink action="{!doPrevious}" value="<<" rerender="feedbackContent" status="status"/></li>
+                                                </apex:outputPanel>
+                                                <apex:outputPanel layout="none" rendered="{!!hasPrevious}">
+                                                    <li><span>&lt;&lt;</span></li>
+                                                </apex:outputPanel>
+                                                    <li><label style="padding:0 10px;">{!$Label.redwing__alms_search_page} {!pageNumber} {!$Label.redwing__alms_search_page_separator} {!totalPages}</label></li>
+                                                <apex:outputPanel layout="none" rendered="{!hasNext}">
+                                                    <li><apex:commandLink action="{!doNext}" rendered="{!hasNext}" value=">>" rerender="feedbackContent" status="status"/></li>
+                                                </apex:outputPanel>
+                                                <apex:outputPanel layout="none" rendered="{!!hasNext}">
+                                                    <li><span>&gt;&gt;</span></li>
+                                                </apex:outputPanel>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </apex:outputPanel>
+                            </apex:outputPanel>
+                            <apex:outputPanel layout="none" rendered="{!!isAssignedToTrainingPlan && (comments == null || comments.size == 0)}">
+                                <div style="width:100%;text-align:center;padding:20px;0;">
+                                    <h2>{!$Label.redwing__alms_nothing_to_see}</h2>
+                                </div>
+                            </apex:outputPanel>
+
+                        </apex:outputPanel>
+
+                        <apex:actionStatus id="status">
+                            <apex:facet name="start">
+                                <apex:outputPanel >
+                                    <c:LMSStatus statusComponentId="{!$Component.status}"/>
+                                </apex:outputPanel>
+                            </apex:facet>
+                        </apex:actionStatus>
+
+                    </apex:form>
+
+                    <script>
+                      var $jk = jQuery.noConflict();
+
+                      $jk(document).ready(function(){
+                          $jk('#feedback-rating').bind('rated', function() {
+                              var ratingValue = $jk(this).rateit('value');
+                              document.getElementById('{!$Component.feedbackForm.feedbackRating}').value = ratingValue;
+                          });
+                          $jk('#feedback-rating').bind('reset', function() {
+                              document.getElementById('{!$Component.feedbackForm.feedbackRating}').value = "";
+                          });
+                      });
+                    </script>
+
+              </apex:define>
+
+              <apex:define name="additional-scripts">
+                    <apex:includeScript value="{!URLFOR($Resource.redwing__lmscore_uilib, '/js/jquery.rateit.min.js')}"/>
+              </apex:define>
+
+        </apex:composition>
+    </apex:outputPanel>
+    <apex:outputPanel layout="none" rendered="{!!isAllowedToView}">
+        <apex:pageMessages />
+    </apex:outputPanel>
+
+
+</apex:page>

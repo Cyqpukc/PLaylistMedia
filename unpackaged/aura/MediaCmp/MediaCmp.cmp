@@ -1,0 +1,201 @@
+<aura:component controller="AllMediaCmpCtrl">
+    <aura:attribute name="mediaItems" type="MediaWrapper[]"/>
+    <aura:attribute name="showChannel" type="Boolean"/>
+    <aura:attribute name="showPin" type="Boolean"/>
+    <aura:attribute name="showShared" type="Boolean"/>
+    <aura:attribute name="showDelete" type="Boolean" default="false"/>
+    <aura:attribute name="showProgress" type="Boolean" default="true"/>
+    <aura:attribute name="activeChannelId" type="String" default="All"/>
+	<aura:attribute name="shareEmails" type="String"/>
+    <aura:attribute name="progressColor" type="String" default="red"/>
+    <aura:attribute name="sldsStyle" type="Boolean" default="false"/>
+    <aura:attribute name="mediaLimit" type="String" default="10000"/>
+    <aura:attribute name="videoDetail" type="MediaWrapper"/>
+
+    <aura:attribute name="shareButtonStyle" type="String"/>
+    <aura:attribute name="shareLinkType" type="String"/>
+    <aura:attribute name="siteId" type="String"/>
+
+
+    <aura:attribute name="isCourseNameLink" type="Boolean" default="false"/>
+    <aura:attribute name="isCreatedByLink" type="Boolean" default="false"/>
+    <aura:attribute name="isMobile" type="Boolean" default="false"/>
+    <aura:attribute name="mediaLink" type="String"/>
+	<aura:attribute name="publicLink" type="String"/>
+
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <aura:registerEvent name="openVideoModalEvent" type="c:EventCmp"/>
+    <aura:registerEvent name="showPopupBackgroundEvent" type="c:EventCmp"/>
+    <aura:registerEvent name="getVideoDetailEvent" type="c:EventCmp"/>
+    <aura:registerEvent name="setChannelsEvent" type="c:EventCmp"/>
+
+    <ltng:require scripts="{!$Resource.Components_Library + '/js/helper.js'}"/>
+
+    <ltng:require styles="/resource/ViewTracCustomCss"/>
+
+    <aura:iteration items="{!v.mediaItems}" var="w" start="0" end="{!v.mediaLimit}" indexVar="i">
+
+        <aura:renderIf isTrue="{! !v.sldsStyle }">
+
+            <div class="panelOne" data-sendForm-id="{!'rSend-' + w.id}" aura:id="mediaItem">
+                <div class="{! 'hoverColor ' + ((w.backImage == null) ? 'withoutCover' : '')}"></div>
+                <div class="backgroundImage" style="{!'background-image: url(\'' + w.backImage + '\');'}">
+                    <img src="{!w.backImage}" style="display: none" class="imageSrc" />
+                    <div class="header">
+                        <div class="{! v.isMobile ? 'actions mobile' : 'actions'}">
+                            <aura:renderIf isTrue="{!v.showDelete}">
+                                <button class="{! v.isMobile ? '' : 'nomobile'}" id="attachLink4" onclick="{!c.deleteMedia}" data-form-id="{!w.id}" data-sendForm-id="{!'rSend-' + w.id}" style="{!'background: url('+$Resource.Components_Library + '/img/delete.svg) no-repeat; background-size: contain;'}"><div class="tooltipMedia">{!$Label.c.Delete}</div></button>
+                            </aura:renderIf>
+                            <aura:renderIf isTrue="{!v.showPin &amp;&amp; v.activeChannelId != 'All'}">
+                                <button class="{! v.isMobile ? '' : 'nomobile'}" id="attachLink3" onclick="{!c.removeModalHandler}" data-record-id="{!w.id}" style="{!'background: url('+$Resource.Components_Library + '/img/remove.svg) no-repeat; background-size: contain;'}"><div class="tooltipMedia">{!$Label.c.Remove_From_Channel}</div></button>
+                            </aura:renderIf>
+                            <aura:renderIf isTrue="{!v.showPin &amp;&amp; v.activeChannelId == 'All'}">
+                                <button class="{! v.isMobile ? '' : 'nomobile'}" id="attachLink1" onclick="{!c.attachModalHandler}" data-modal-id="{!w.id}" style="{!'background: url('+$Resource.Components_Library + '/img/add.svg) no-repeat; background-size: contain;'}"><div class="tooltipMedia">{!$Label.c.Add_To_Channel}</div></button>
+                            </aura:renderIf>
+                            <aura:renderIf isTrue="{!v.showShared}">
+                                <button class="{! v.isMobile ? '' : 'nomobile'}" id="attachLink2" onclick="{!c.showSendForm}" data-form-id="{!w.id}" data-sendForm-id="{!'rSend-' + w.id}" style="{!'background: url('+$Resource.Components_Library + '/img/share.svg) no-repeat; background-size: contain;'}"><div class="tooltipMedia">{!$Label.c.Share_Media}</div></button>
+                            </aura:renderIf>
+                        </div>
+                    </div>
+                    <a href="{!w.link}" onclick="{!c.showModal}" class="{! v.isMobile ? 'play-btn mobile' : 'play-btn'}" style="{!'background: url('+$Resource.Components_Library + '/img/play-button.svg) no-repeat; background-size: contain;'}"></a>
+                    <div class="sendForm" id="{!'rSend-' + w.id}" data-sendForm-id="{!'rSend-' + w.id}">
+                        <input type="text" class="email" placeholder="{!$Label.c.Enter_Email}" value="{!v.shareEmails}" onkeyup="{!c.shareEnter}" data-sendForm-id="{!'rSend-' + w.id}"/>
+                        <button onclick="{!c.shareContents}" data-sendForm-id="{!w.id}">{!$Label.c.Send}</button>
+                        <a class="close" onclick="{!c.hiddeSendFormCancel}" data-sendForm-id="{!'rSend-' + w.id}" >{!$Label.c.Cancel}</a>
+                    </div>
+                    <div class="success-email-form hide" data-success-email-form-id="{!'rSend-' + w.id}">
+                        <span class="slds-icon_container slds-icon-action-approval slds-icon_container--circle">
+                            <c:svg class="slds-icon slds-icon--small" ariaHidden="true"
+                                   xlinkHref="{!$Resource.slds + '/assets/icons/action-sprite/svg/symbols.svg#approval'}"
+                                   />
+                        </span>
+                        <span class="success-message">{!$Label.c.Email_Sent}</span>
+                    </div>
+                </div>
+                <div class="{! (v.showProgress &amp;&amp; w.progress != 0 ) ? 'progress' : ' hidden'}">
+                    <div class="bar" style="{! 'width:' + w.progress + '%;background-color:' + v.progressColor + ';'}"></div>
+                </div>
+                <a class="title" data-record="{! (v.isCourseNameLink) ? w.linkCourse : ''}" onclick="{!c.goToURL}"  >{!w.name}</a>
+                <a class="uploadName" data-record="{! (v.isCreatedByLink) ? '/profile'+w.linkProfile : ''}" onclick="{!c.goToURL}" >{!w.userName}</a>
+                <!--div class="{! (v.showProgress &amp;&amp; w.progress != 0) ? 'uploadDate progressValue' : ' hidden'}" >{!w.progress + '%'}</div-->
+                <div class="uploadDate" >{!w.uploadDate}</div>
+            </div>
+
+            <aura:set attribute="else">
+                <div class="slds-news-item slds-medium-size--6-of-12 slds-small-size--12-of-12 slds-size--12-of-12 slds-p-bottom--medium slds-p-top--medium slds-p-horizontal--small">
+                    <div class="slds-box slds-news-box bg-white no-border-radius slds-box--small slds-theme--shade">
+                        <h1 title="{!w.name}">{!w.name}</h1>
+                        <div class="slds-grid slds-wrap slds-p-top--medium">
+                            <div class="slds-col slds-size--12-of-12 slds-small-size--12-of-12 slds-medium-size--6-of-12">
+                                <div class="action top">
+                                    <aura:renderIf isTrue="{!v.showPin &amp;&amp; v.activeChannelId != 'All'}">
+                                        <a href="javascript:void(0)" class="pin remove" onclick="{!c.removeModalHandler}" data-record-id="{!w.id}" ></a>
+                                    </aura:renderIf>
+                                    <aura:renderIf isTrue="{!v.showPin &amp;&amp; v.activeChannelId == 'All'}">
+                                        <a href="javascript:void(0)" class="pin" onclick="{!c.attachModalHandler}" data-modal-id="{!w.id}"></a>
+                                    </aura:renderIf>
+                                    <aura:renderIf isTrue="{!v.showShared}">
+                                        <a href="javascript:void(0)" class="share" onclick="{!c.showSendForm}" data-form-id="{!w.id}"></a>
+                                    </aura:renderIf>
+                                </div>
+                                <div class="slds-video-container" style="position:relative; background-color: #000;display:block">
+                                    <div class="sendForm" id="{!'rSend-' + w.id}" data-sendForm-id="{!'rSend-' + w.id}">
+                                        <input type="text" class="email" placeholder="{!$Label.c.Enter_Email}" value="{!v.shareEmails}" onkeyup="{!c.shareEnter}" data-sendForm-id="{!'rSend-' + w.id}"/>
+                                        <button onclick="{!c.shareContents}" data-form-id="{!w.id}">{!$Label.c.Send}</button>
+                                        <a class="close" onclick="{!c.hiddeSendFormCancel}" data-sendForm-id="{!'rSend-' + w.id}" >{!$Label.c.Cancel}</a>
+                                    </div>
+                                    <div class="success-email-form hide" data-success-email-form-id="{!'rSend-' + w.id}">
+                                        <span class="slds-icon_container slds-icon-action-approval slds-icon_container--circle">
+                                            <c:svg class="slds-icon slds-icon--small" ariaHidden="true"
+                                                xlinkHref="{!$Resource.slds + '/assets/icons/action-sprite/svg/symbols.svg#approval'}"
+                                            />
+                                        </span>
+                                        <span class="success-message">{!$Label.c.Email_Sent}</span>
+                                    </div>
+                                    <a href="{!w.link}" onclick="{!c.showModal}" class="play-button top" ></a>
+                                    <div class="frame slds-image__crop slds-image__crop--4-by-3">
+                                        <aura:renderIf isTrue="{!w.backImage != null}">
+                                            <img src="{!w.backImage}" width="100%" style="width:100%;"/>
+                                            <aura:set attribute="else">
+                                                <img src="{!$Resource.Components_Library + '/img/demo-img.png'}" width="100%" style="width:100%"/>
+                                            </aura:set>
+                                        </aura:renderIf>
+                                    </div>
+                                </div>
+                                <div class="progress slds-m-top--small">
+                                    <div class="bar" style="{! 'width:' + w.progress + '%;background-color:' + w.color + ';'}"></div>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size--12-of-12 slds-small-size--12-of-12 slds-medium-size--6-of-12">
+                                <p class="slds-medium-show slds-p-left--small slds-p-bottom--small text-break-word">
+                                    <aura:renderIf isTrue="{!w.discriptionMedium != null}">
+                                        {!w.discriptionMedium}
+                                        <a href="javascript:void(0)" onclick="{!c.descriptionModal}" data-index="{!i}" class="more-link">{!$Label.c.More}</a>
+                                        <aura:set attribute="else">
+                                            {!w.discription}
+                                        </aura:set>
+                                    </aura:renderIf>
+                                </p>
+                                <p class="slds-small-show  text-break-word">
+                                    <aura:renderIf isTrue="{!w.discriptionSmall != null}">
+                                        {!w.discriptionSmall}
+                                        <a href="javascript:void(0)" onclick="{!c.descriptionModal}" data-index="{!i}"  class="more-link">{!$Label.c.More}</a>
+                                        <aura:set attribute="else">
+                                            {!w.discription}
+                                        </aura:set>
+                                    </aura:renderIf>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aura:set>
+
+        </aura:renderIf>
+    </aura:iteration>
+    <!-- discription modal -->
+    <div role="dialog" tabindex="-1" aria-labelledby="header43" class="lgh-share-media slds-modal" id="DiscriptionModal" aura:id="DiscriptionModal">
+        <div class="slds-modal__container">
+            <div class="slds-modal__header">
+                <button class="slds-button slds-modal__close slds-button--icon-inverse slds-modal__close-btn" title="Close" onclick="{!c.descriptionModal}">
+                    <c:svg ariaHidden="true" class="slds-button__icon slds-button__icon--large"
+                           xlinkHref="{!$Resource.slds + '/assets/icons/action-sprite/svg/symbols.svg#close'}"
+                           />
+                    <span class="slds-assistive-text">{!$Label.c.Close}</span>
+                </button>
+                <h2 id="header43" class="slds-text-heading--medium slds-text-align--left">Description</h2>
+            </div>
+            <div class="slds-modal__content slds-p-around--large">
+                <p class="discription">
+                    {!v.videoDetail.discription}
+                </p>
+            </div>
+            <div class="slds-modal__footer">
+                <button class="slds-button slds-button--brand slds-modal__close-btn" onclick="{!c.descriptionModal}">{!$Label.c.Close}</button>
+            </div>
+        </div>
+    </div>
+    <!-- media link in iframe -->
+    <div role="dialog" tabindex="-1" class="slds-modal slds-modal" aria-labelledby="header43" id="LinkModal" aura:id="LinkModal">
+        <div class="slds-modal__container">
+            <div class="slds-modal__header">
+                <button class="slds-button slds-button--icon-inverse slds-modal__close" onclick="{!c.showSendForm}">
+                    <c:svg class="slds-button__icon slds-button__icon--large"
+                           xlinkHref="{!$Resource.slds + '/assets/icons/action-sprite/svg/symbols.svg#close'}"
+                           ariaHidden="true"
+                           />
+                    <span class="slds-assistive-text">{!$Label.c.Close}</span>
+                </button>
+            </div>
+            <div class="{!(v.publicLink == $Label.c.MediaNotPublic)? 'slds-modal__content slds-p-around--medium slds-text-align--center'  : 'slds-modal__content slds-p-around--medium'}">
+                {!v.mediaLink}
+                {!v.publicLink}
+            </div>
+            <div class="slds-modal__footer">
+                <button class="slds-button slds-button--neutral" onclick="{!c.showSendForm}">{!$Label.c.Cancel}</button>
+            </div>
+        </div>
+    </div>
+    <div class="slds-backdrop" id="BackgroundLinkModal" aura:id="BackgroundLinkModal"></div>
+</aura:component>

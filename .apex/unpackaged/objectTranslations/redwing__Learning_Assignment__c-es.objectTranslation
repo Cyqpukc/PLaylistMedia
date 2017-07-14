@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Asignación de Aprendizaje</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Asignaciones de Aprendizaje</value>
+    </caseValues>
+    <fields>
+        <label><!-- Approval Status --></label>
+        <name>redwing__Approval_Status__c</name>
+        <picklistValues>
+            <masterLabel>Approved</masterLabel>
+            <translation>Aprovado</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pending</masterLabel>
+            <translation>Pendiente</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Rejected</masterLabel>
+            <translation>Rechazado</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Approved By --></label>
+        <name>redwing__Approved_By__c</name>
+        <relationshipLabel><!-- Learning Assignments (Approved By) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Approved --></label>
+        <name>redwing__Approved__c</name>
+    </fields>
+    <fields>
+        <label><!-- Approver Notes --></label>
+        <name>redwing__Approver_Notes__c</name>
+    </fields>
+    <fields>
+        <help>Número de minutos para completar la evaluación</help>
+        <label><!-- Assignment Time Limit (mins) --></label>
+        <name>redwing__Assignment_Time_Limit__c</name>
+    </fields>
+    <fields>
+        <label><!-- Check-In Latitude --></label>
+        <name>redwing__CheckIn_Latitude__c</name>
+    </fields>
+    <fields>
+        <label><!-- Check-In Longitude --></label>
+        <name>redwing__CheckIn_Longitude__c</name>
+    </fields>
+    <fields>
+        <label><!-- Community Id --></label>
+        <name>redwing__Community_Id__c</name>
+    </fields>
+    <fields>
+        <help>Fecha en la que se completó esta asignación</help>
+        <label><!-- Completed On --></label>
+        <name>redwing__Completed_On__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact --></label>
+        <name>redwing__Contact__c</name>
+        <relationshipLabel><!-- Learning Assignments --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Due Date for assignments to be completed --></help>
+        <label><!-- Due Date --></label>
+        <name>redwing__Due_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Evaluation Result Text --></label>
+        <name>redwing__Evaluation_Result_Text__c</name>
+    </fields>
+    <fields>
+        <label><!-- Evaluation Result --></label>
+        <name>redwing__Evaluation_Result__c</name>
+        <picklistValues>
+            <masterLabel>Failed</masterLabel>
+            <translation>Reprobado</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>N/A</masterLabel>
+            <translation>N/A</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Passed</masterLabel>
+            <translation>Aprobado</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Evaluation Score --></label>
+        <name>redwing__Evaluation_Score__c</name>
+    </fields>
+    <fields>
+        <label><!-- Evaluation Start Time --></label>
+        <name>redwing__Evaluation_Start_Time__c</name>
+    </fields>
+    <fields>
+        <label><!-- Evaluation Time Limit Exceeded --></label>
+        <name>redwing__Evaluation_Time_Limit_Exceeded__c</name>
+    </fields>
+    <fields>
+        <label><!-- Evaluation Times Taken --></label>
+        <name>redwing__Evaluation_Times_Taken__c</name>
+    </fields>
+    <fields>
+        <help>Esta casilla indica que la asignación pertenece a una actividad</help>
+        <label><!-- Is Activity Assignment --></label>
+        <name>redwing__Is_Activity_Assignment__c</name>
+    </fields>
+    <fields>
+        <help>Esta bandera indica que esta asignación ha sido creada para una vista previa del Aprendizaje</help>
+        <label><!-- Is Test Assignment --></label>
+        <name>redwing__Is_Test_Assignment__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Published Learning Version Decision --></label>
+        <name>redwing__Last_Published_Learning_Version_Decision__c</name>
+        <picklistValues>
+            <masterLabel>Keep using old version</masterLabel>
+            <translation>Continuar con la versión anterior</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>New version taken</masterLabel>
+            <translation>Tomar la nueva versión</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Last Published Learning Version --></label>
+        <name>redwing__Last_Published_Learning_Version__c</name>
+        <relationshipLabel><!-- Learning Assignments --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Last Updated --></label>
+        <name>redwing__Last_Updated__c</name>
+    </fields>
+    <fields>
+        <label><!-- Learning Version --></label>
+        <name>redwing__Learning_Version__c</name>
+        <relationshipLabel><!-- Learning Assignments (Learning Version) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Learning --></label>
+        <name>redwing__Learning__c</name>
+        <relationshipLabel><!-- Learning Assignments --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Optional --></label>
+        <name>redwing__Optional__c</name>
+    </fields>
+    <fields>
+        <label><!-- Previous Version Number --></label>
+        <name>redwing__Previous_Version_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Previous Version Progress --></label>
+        <name>redwing__Previous_Version_Progress__c</name>
+        <picklistValues>
+            <masterLabel>Cancelled</masterLabel>
+            <translation>Cancelado</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Completed</masterLabel>
+            <translation>Completo</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>In Progress</masterLabel>
+            <translation>En Proceso</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>In Review</masterLabel>
+            <translation>En Revisión</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Started</masterLabel>
+            <translation>No Iniciado</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Progress % --></label>
+        <name>redwing__Progress_Percentage__c</name>
+    </fields>
+    <fields>
+        <label><!-- Progress Text --></label>
+        <name>redwing__Progress_Text__c</name>
+    </fields>
+    <fields>
+        <label><!-- Progress --></label>
+        <name>redwing__Progress__c</name>
+        <picklistValues>
+            <masterLabel>Cancelled</masterLabel>
+            <translation>Cancelado</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Completed</masterLabel>
+            <translation>Completo</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>In Progress</masterLabel>
+            <translation>En Proceso</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>In Review</masterLabel>
+            <translation>En Revisión</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Started</masterLabel>
+            <translation>No Iniciado</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Shared Learning Assignment --></label>
+        <name>redwing__Shared_Learning_Assignment__c</name>
+        <relationshipLabel><!-- Learning Assignments --></relationshipLabel>
+    </fields>
+    <fields>
+        <help>Veces que el Aprendizaje ligado a esta asignación ha sido iniciado</help>
+        <label><!-- Times Launched --></label>
+        <name>redwing__Times_Launched__c</name>
+    </fields>
+    <fields>
+        <label><!-- Learning Activity --></label>
+        <name>redwing__Training_Activity__c</name>
+        <relationshipLabel><!-- Learning Assignments --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Learning Plan Section Assignment --></label>
+        <name>redwing__Training_Plan_Section_Assignment__c</name>
+        <relationshipLabel><!-- Learning Assignments --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Learning Plan Section Item --></label>
+        <name>redwing__Training_Plan_Section_Item__c</name>
+        <relationshipLabel><!-- Learning Assignments --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Learning Plan Section --></label>
+        <name>redwing__Training_Plan_Section__c</name>
+        <relationshipLabel><!-- Learning Assignments --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Learning Plan --></label>
+        <name>redwing__Training_Plan__c</name>
+        <relationshipLabel><!-- Learning Assignments --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- User Notes --></label>
+        <name>redwing__User_Notes__c</name>
+    </fields>
+    <fields>
+        <label><!-- User --></label>
+        <name>redwing__User__c</name>
+        <relationshipLabel><!-- Learning Assignments (User) --></relationshipLabel>
+    </fields>
+    <gender>Masculine</gender>
+    <nameFieldLabel>ID de Asignación de Aprendizaje</nameFieldLabel>
+    <sharingReasons>
+        <label><!-- LMS Approval Sharing --></label>
+        <name>redwing__LMS_Approval_Sharing</name>
+    </sharingReasons>
+    <sharingReasons>
+        <label><!-- LMS Approval Sharing (Read-Only) --></label>
+        <name>redwing__LMS_Approval_Sharing_ReadOnly</name>
+    </sharingReasons>
+    <webLinks>
+        <label><!-- Approve --></label>
+        <name>redwing__Approve</name>
+    </webLinks>
+</CustomObjectTranslation>

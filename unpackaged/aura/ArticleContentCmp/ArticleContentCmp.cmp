@@ -1,0 +1,151 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes,force:hasRecordId"
+                controller="ArticleContentCmpCtrl"
+                access="global">
+    <aura:attribute name="recordId" default="{!recordId}" type="String" access="global"/>
+    <aura:attribute name="isVotingEnable" type="Boolean" default="false" access="global"/>
+    <aura:attribute name="voteText" type="String" default="{!$Label.c.Article_Vote_Text}" access="global"/>
+    <aura:attribute name="voteConfirmationText" type="String" default="{!$Label.c.Article_Vote_Confirmation_Text}" access="global"/>
+    <aura:attribute name="articleDetails" type="ArticleWrapper"/>
+    <aura:attribute name="isGuest" type="Boolean" default="false"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <div class="slds-card article-card" aura:id="articleDetailDiv">
+        <div aura:id="spinnerArticleDetail" class="loader slds-spinner_container slds-hide">
+            <div class="slds-spinner--inverse slds-spinner slds-spinner--large" role="alert">
+                <span class="slds-assistive-text">{!$Label.c.Loading}</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+
+        <div class="article-feature-list">
+
+        </div>
+
+        <div class="article-item-container">
+            <div class="article-body article-grouping">
+                <h1 class="article-title">
+                    <ui:outputText value="{!v.articleDetails.title}"/>
+                </h1>
+                <p class="article-summary">{!v.articleDetails.summary}</p>
+                <div class="article-meta">
+                    <div class="article-clockIcon">
+                        <lightning:icon iconName="utility:clock" size="xx-small" alternativeText=""/>
+                    </div>
+                    <ui:outputText class="article-date" value="{!v.articleDetails.lastPublishedDate}" />
+                    <span class="article-dot">•</span>
+                    <ui:outputText class="article-type" value="{!v.articleDetails.articleType}" />
+                </div>
+            </div>
+        </div>
+        <aura:if isTrue="{!!v.isGuest}">
+            <aura:iteration items="{!v.articleDetails.customFields}" var="field">
+                <div class="article-body article-grouping">
+                    <span class="article-sub-title">{!field.name}</span>
+                    <div class="article-item-container" >
+                        <aura:if isTrue="{!field.fieldType == 'URL'}">
+                            <a data-record="{!field.value}" onclick="{!c.goToURL}">{!field.value}</a>
+                            <aura:set attribute="else">
+                                <aura:if isTrue="{!field.fieldType == 'EMAIL'}">
+                                    <ui:outputEmail value="{!field.value}" />
+                                    <aura:set attribute="else">
+                                        <aura:if isTrue="{!field.fieldType == 'TEXTAREALONG'}">
+                                            <ui:outputTextArea value="{!field.value}" />
+                                            <aura:set attribute="else">
+                                                <aura:if isTrue="{!field.fieldType == 'BOOLEAN'}">
+                                                    <aura:if isTrue="{!field.value == 'true'}">
+                                                        <ui:outputCheckbox value="true"/>
+                                                        <aura:set attribute="else">
+                                                            <ui:outputCheckbox value="false"/>
+                                                        </aura:set>
+                                                    </aura:if>
+                                                    <aura:set attribute="else">
+                                                        <aura:if isTrue="{!field.fieldType == 'REFERENCE'}">
+                                                            <a data-record="{!field.value}" onclick="{!c.goToURL}">{!field.label}</a>
+                                                            <aura:set attribute="else">
+                                                                <aura:if isTrue="{!field.fieldType == 'FILE'}">
+                                                                    <a data-record="{!field.value}" onclick="{!c.goToURL}">{!field.label}</a>
+                                                                    <aura:set attribute="else">
+                                                                        <div class="slds-rich-text-editor__output">
+                                                                            <aura:unescapedHtml value="{!field.value}"/>
+                                                                        </div>
+                                                                    </aura:set>
+                                                                </aura:if>
+                                                            </aura:set>
+                                                        </aura:if>
+                                                    </aura:set>
+                                                </aura:if>
+                                            </aura:set>
+                                        </aura:if>
+                                    </aura:set>
+                                </aura:if>
+                            </aura:set>
+                        </aura:if>
+                    </div>
+                </div>
+            </aura:iteration>
+        </aura:if>
+        <!--topic-->
+        <div class="slds-pill_container--bare selfServiceArticleTopicList selfServiceArticleLayout article-topic-layout" data-aura-class="selfServiceArticleTopicListselfServiceArticleLayout">
+            <aura:iteration items="{!v.articleDetails.topics}" var="topic">
+                <span class="slds-pill" >
+                    <a class="slds-pill__label forceTopicTopicLink" data-record="{!topic.url}" onclick="{!c.goToURL}" href="javascript:void(0);" data-special-link="true" data-aura-class="forceTopicTopicLink">
+                        <span class="slds-grid slds-wrap">
+                            <span class="slds-col slds-size--4-of-5 slds-truncate" >
+                                <span class="uiOutputText" data-aura-class="uiOutputText">{!topic.name}</span>
+                            </span>
+                            <span class="slds-col slds-size--1-of-5 slds-truncate slds-grid slds-grid--align-end slds-hide">
+                                <span class="uiOutputText" data-aura-class="uiOutputText"></span>
+                            </span>
+                        </span>
+                    </a>
+                </span>
+            </aura:iteration>
+        </div>
+        <!--voting-->
+        <aura:if isTrue="{!!v.isGuest}">
+            <article class="article-voting-layout" data-aura-class="selfServiceArticleLayout">
+                <div class="forceCommunityArticleThumbVote" data-aura-class="forceCommunityArticleThumbVote">
+                    <div class="slds-box--x-small slds-box slds-theme--shade forceKnowledgeArticleThumbVote" data-aura-class="forceKnowledgeArticleThumbVote">
+                    <div class="slds-card__body slds-m-left--xx-small slds-m-top--xx-small slds-m-bottom--xx-small" >
+                        <div class="slds-media__body slds-truncate">{!$Label.c.Article_Vote_Text}</div>
+                    </div>
+                    <div class="slds-card__body slds-text-align--center" >
+                        <div class="slds-clearfix slds-m-bottom--xx-small slds-m-right--large slds-m-left--x-small" >
+                            <div class="slds-float--left slds-m-right--x-small" id="upVoteButton" >
+                                <button class="{!'slds-button slds-button--icon-border uiButton ' + if(v.articleDetails.voteType == 'Up', 'slds-is-selected', 'slds-not-selected')}" aria-live="off" type="button" data-aura-class="uiButton" onclick="{!c.voteUp}">
+                                    <span class="assistiveText">Like</span>
+                                    <span class="slds-icon_container slds-icon-utility-like slds-button__icon forceIcon" data-aura-class="forceIcon">
+                                        <span>
+                                            <lightning:icon iconName="utility:like" size="xx-small" alternativeText=""/>
+                                        </span>
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="slds-float--left slds-m-right--medium slds-p-top--xx-small" aria-live="assertive" id="upVoteCount" >
+                                <span class="uiOutputText" data-aura-class="uiOutputText"></span>
+                                <span class="slds-assistive-text">Likes</span>
+                            </div>
+                            <div class="slds-float--left slds-m-right--x-small" id="downVoteButton" >
+                                <button class="{!'slds-button slds-button--icon-border uiButton ' + if(v.articleDetails.voteType == 'Down', 'slds-is-selected', 'slds-not-selected')}" aria-live="off" type="button" data-aura-class="uiButton" onclick="{!c.voteDown}">
+                                    <span class="assistiveText" >Dislike</span>
+                                    <span class="slds-icon_container slds-icon-utility-dislike slds-button__icon forceIcon" data-aura-class="forceIcon">
+                                        <span>
+                                            <lightning:icon iconName="utility:dislike" size="xx-small" alternativeText=""/>
+                                        </span>
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="slds-float--left slds-p-top--xx-small" aria-live="assertive" id="downVoteCount">
+                                <span class="uiOutputText" data-aura-class="uiOutputText"></span>
+                                <span class="slds-assistive-text">Dislikes</span>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </article>
+        </aura:if>
+    </div>
+</aura:component>

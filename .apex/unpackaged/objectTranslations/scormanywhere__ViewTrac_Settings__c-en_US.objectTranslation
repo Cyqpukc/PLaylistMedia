@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <label><!-- Disable_CreatedById_Sharing --></label>
+        <name>Disable_CreatedById_Sharing__c</name>
+    </fields>
+    <fields>
+        <label><!-- Content Storage --></label>
+        <name>scormanywhere__Content_Storage__c</name>
+    </fields>
+    <fields>
+        <help><!-- Default value for Enable For All External Users field in the Media object --></help>
+        <label><!-- Enable For All External Users --></label>
+        <name>scormanywhere__Enable_For_All_External_Users__c</name>
+    </fields>
+    <fields>
+        <help><!-- Default value for Enable For All Internal Users field in the Media object --></help>
+        <label><!-- Enable For All Internal Users --></label>
+        <name>scormanywhere__Enable_For_All_Internal_Users__c</name>
+    </fields>
+    <fields>
+        <label><!-- External Service --></label>
+        <name>scormanywhere__External_Service__c</name>
+    </fields>
+    <fields>
+        <label><!-- Min PDF Page View Time --></label>
+        <name>scormanywhere__Min_PDF_Page_View_Time__c</name>
+    </fields>
+</CustomObjectTranslation>

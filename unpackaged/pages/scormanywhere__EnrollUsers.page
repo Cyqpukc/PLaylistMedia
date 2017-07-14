@@ -1,0 +1,147 @@
+<apex:page controller="scormanywhere.EnrollUsersExtension" id="enrollPage" readOnly="true" action="{!init}" >
+    <apex:pageMessages id="messages" />
+    
+    <c:LoadingBox />
+    <script>
+	function CheckAll(x) {
+        var state = x.checked;
+        var ele = document.querySelectorAll("input[type=checkbox]");
+		for(var i=0;i<ele.length;i++){
+		    ele[i].checked = state;
+		}
+    }
+    </script>
+    <apex:form id="form" >
+        <apex:pageBlock title="{!$Label.Select_Users_to_Enroll} {!totalItemsLabel} {! totalSize }{! IF(totalSize == 1000, '+', '' )}" rendered="{!showUserBlock}" id="usersBlock">
+            <apex:pageBlockButtons >
+                <apex:outputPanel id="buttons">
+                    <apex:commandButton title="{! $Label.Enroll }" action="{!setEnrollParams}" rerender="messages,jsVar" oncomplete="processEnroll();"
+                            value="{! $Label.Enroll }" status="loadStatus" />
+                    <apex:commandButton action="{! cancelEnroll }" title="{! $Label.Cancel }" 
+                            value="{! $Label.Cancel }" status="loadStatus" />
+                </apex:outputPanel>
+            </apex:pageBlockButtons>
+
+            <apex:selectList value="{! selectedType }" size="1">
+                <apex:selectOptions value="{! userTypes }" />
+                
+                <apex:actionSupport event="onchange" action="{! doSearchUsers }" status="loadStatus" reRender="userList, messages, usersBlock" />
+            </apex:selectList>
+            
+            <apex:outputText value=" {!$Label.scormanywhere__search}: " />
+            <apex:inputText value="{!keyword}" id="search" onkeypress="return runSearchOnEnter(event);" />&nbsp;
+            <apex:commandButton action="{! searchByKeyword }" title="{!$Label.scormanywhere__search}" value="{!$Label.scormanywhere__go}!" status="loadStatus"
+                reRender="userList,paginationButtons,messages,nosearchresults" />&nbsp;
+            <apex:commandButton action="{! clearSearch }" title="{!$Label.scormanywhere__clear_search}" value="{!$Label.scormanywhere__clear}" status="loadStatus"
+                reRender="userList,paginationButtons,messages,nosearchresults" id="clearSearch" onClick="clearSearch()" />
+            
+            <apex:pageBlockTable value="{! pageEntities }" var="e" id="userList" >
+                <apex:column width="25">
+					<apex:facet name="header"> 
+						<apex:inputCheckbox onclick="CheckAll(this)">
+                        </apex:inputCheckbox>
+                    </apex:facet>                
+                    <apex:inputCheckbox value="{! e.checked }" />
+                </apex:column>
+                <apex:column value="{! e.name }">
+					<apex:facet name="header"> 
+						<apex:outputText value="{!$Label.scormanywhere__enrollname}" />
+                    </apex:facet>                
+                </apex:column>
+            </apex:pageBlockTable>
+            
+            <apex:outputText value="{! noSearchResults }" id="nosearchresults" />
+            <apex:pageBlock id="paginationButtons" >
+                <div class="paginator">
+                    <span class="left">
+                        <apex:outputText value="{!pageInfoLabel}" />
+                        &nbsp;
+                        {!$Label.Show}&nbsp;
+                        <apex:selectList value="{!listSize}" size="1" styleClass="waiting_onchange">
+                            <apex:selectOptions value="{!RecPerPageList}"/>
+                            <apex:actionSupport event="onchange" action="{!goToResetPagination}" status="loadStatus" rerender="userList,paginationButtons,messages,nosearchresults"/>
+                        </apex:selectList>
+                        {!$Label.scormanywhere__records_per_page}
+                    </span>
+                    <span class="prevNextLinks">
+                        <span class="prevNext,waiting">
+                            <apex:commandLink styleClass="waiting" action="{!toBegin}" status="loadStatus" onclick="{!IF(disablePrevious, 'return false', '')}" rerender="userList,paginationButtons,messages,nosearchresults"><img class="{!If(disablePrevious,'firstoff','first')}" alt="{!$Label.Begin}" title="{!$Label.Begin}" src="/s.gif"/></apex:commandlink>
+                        </span>
+                        <span class="prevNext,waiting">
+                            <apex:commandLink styleClass="waiting" action="{!goToPrev}" status="loadStatus" onclick="{!IF(disablePrevious, 'return false', '')}" style="{!If(disablePrevious,'color:grey','')}" rerender="userList,paginationButtons,messages,nosearchresults"><img class="{!If(disablePrevious,'prevoff','prev')}" alt="{!$Label.Previous}" title="{!$Label.Previous}" src="/s.gif"/>{!$Label.Previous}</apex:commandlink>
+                        </span>
+                        <span class="prevNext,waiting">
+                            <apex:commandLink styleClass="waiting" action="{!goToNext}" status="loadStatus" onclick="{!IF(disableNext, 'return false', '')}" style="{!If(disableNext,'color:grey','')}" rerender="userList,paginationButtons,messages,nosearchresults">{!$Label.Next}<img class="{!If(disableNext,'nextoff','next')}" alt="{!$Label.Next}" title="{!$Label.Next}" src="/s.gif"/></apex:commandlink>
+                        </span>
+                        <span class="prevNext,waiting">
+                            <apex:commandLink styleClass="waiting" action="{!toEnd}" status="loadStatus" onclick="{!IF(disableNext, 'return false', '')}" rerender="userList,paginationButtons,messages,nosearchresults"><img class="{!If(disableNext,'lastoff','last')}" alt="{!$Label.End}" title="{!$Label.End}" src="/s.gif"/></apex:commandlink>
+                        </span>
+                    </span>
+                    <span class="right">
+                        <apex:outputText value="{!$Label.scormanywhere__go_to_page}:" />
+                        <apex:inputText value="{! currentPageFromInput }" size="1" onkeypress="return goToPageOnEnter(event);"/>
+                        <apex:commandButton action="{! goToPage }" title="{! $Label.Go_to_page }" 
+                                value="{! $Label.Go }" status="loadStatus" 
+                                reRender="userList,paginationButtons,messages,nosearchresults" />
+                    </span>
+                </div>
+            </apex:pageBlock>
+        </apex:pageBlock>
+        <apex:outputPanel id="jsVar" >
+            <script>
+                var enrollParams = "{!enrollParams}";
+                if (enrollParams.length > 0) {
+                    isStop = false;
+                }
+            </script>
+        </apex:outputPanel>
+        <script type='text/javascript' >
+            var jsonExTranscripts = '{!ExTranscripts}';
+            function clearSearch() {
+                document.getElementById('{!$Component.enrollPage:form:usersBlock:search}').value = '';
+                return false;
+                }
+            
+            function runSearchOnEnter(ev) {
+                if (window.event && window.event.keyCode == 13 || ev.which == 13) {
+                    searchFromInput();
+                    return false;
+                } else {
+                return true;
+                }
+            } 
+            
+            function goToPageOnEnter(ev) {
+                if (window.event && window.event.keyCode == 13 || ev.which == 13) {
+                    doRedirectToPage();
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+            
+            function processEnroll() {
+		        Visualforce.remoting.Manager.invokeAction(
+		            '{!$RemoteAction.EnrollUsersExtension.processEnroll}',
+		            '{!objectId}',
+		            enrollParams,
+		            jsonExTranscripts,
+		            function(result, event){
+		                if (event.status) {
+		                	window.top.location = "/{!objectId}?enrolled=success";
+		                } else if (event.type === 'exception') {
+							console.error(event.message);
+		                } else {
+		                    console.error(event.message);
+		                }
+		            },
+		            {escape: true}
+		        );
+            }
+        </script>
+        <apex:actionFunction name="searchFromInput" action="{! searchByKeyword }" 
+                reRender="userList,paginationButtons,messages,nosearchresults"/>
+        <apex:actionFunction name="doRedirectToPage" action="{! goToPage }" 
+                reRender="userList,paginationButtons,messages,nosearchresults,usersBlock"/>
+    </apex:form>
+</apex:page>

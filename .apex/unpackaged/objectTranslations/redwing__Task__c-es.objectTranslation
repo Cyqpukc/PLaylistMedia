@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Tarea</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Tareas</value>
+    </caseValues>
+    <fields>
+        <help>Habilitar esta opción para añadir parametros de contexto a la liga de Recurso Externo (ej. https://algunaliga.com/?aid=ASSIGNMENT_ID&amp;tid=TPLAN_ID)</help>
+        <label><!-- Add training parameters to URL --></label>
+        <name>redwing__Add_training_parameters_to_URL__c</name>
+    </fields>
+    <fields>
+        <help>Descripción Adicional sobre la tarea a completar</help>
+        <label><!-- Additional Description --></label>
+        <name>redwing__Description_RTA__c</name>
+    </fields>
+    <fields>
+        <help>Descripción de la tarea a completar</help>
+        <label><!-- Description --></label>
+        <name>redwing__Description__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción para prevenir que usuarios ingresen comentarios para esta tarea</help>
+        <label><!-- Disable Comments --></label>
+        <name>redwing__Disable_Comments__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción para prevenir que usuarios vuelvan a abrir tareas que ya han sido completadas</help>
+        <label><!-- Disable Undo for Completed Tasks --></label>
+        <name>redwing__Disable_Undo__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción para requerir una imagen para poder completar la tarea</help>
+        <label><!-- Enable Image Upload --></label>
+        <name>redwing__Enable_Image_Upload__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción para requerir un video para poder completar la tarea</help>
+        <label><!-- Enable Video Upload --></label>
+        <name>redwing__Enable_Video_Upload__c</name>
+    </fields>
+    <fields>
+        <help>Nombre &quot;amigable&quot; para la liga de Recurso Externo. Si está vacio, se mostrará la liga en lugar de este texto</help>
+        <label><!-- External Resource Name --></label>
+        <name>redwing__External_Resource_Name__c</name>
+    </fields>
+    <fields>
+        <help>Definir comportamiento para abrir el Recurso Externo en el navegador</help>
+        <label><!-- External Resource Target --></label>
+        <name>redwing__External_Resource_Target__c</name>
+        <picklistValues>
+            <masterLabel>blank</masterLabel>
+            <translation>Abrir en nueva ventana</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>self</masterLabel>
+            <translation>Abrir en la misma ventana</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help>Liga con información adicional para ayudar al usuario a completar esta tarea</help>
+        <label><!-- External Resource URL --></label>
+        <name>redwing__External_Resource_URL__c</name>
+    </fields>
+    <fields>
+        <label><!-- Learning --></label>
+        <name>redwing__Learning__c</name>
+        <relationshipLabel><!-- Tasks --></relationshipLabel>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción para requerir aprobación del Gestor del usuario para completar esta tarea. Esta campo usa el campo &quot;Gestor&quot; del objeto Usuario.</help>
+        <label><!-- Requires Manager Approval to Complete --></label>
+        <name>redwing__Requires_Manager_Approval__c</name>
+    </fields>
+    <gender>Feminine</gender>
+    <nameFieldLabel>Nombre de Tarea</nameFieldLabel>
+</CustomObjectTranslation>

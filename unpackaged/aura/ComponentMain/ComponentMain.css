@@ -1,0 +1,165 @@
+.THIS h1, .THIS h2, .THIS h3, .THIS h4, .THIS h5, .THIS h6 {
+    font-family: Sans-serif;
+    font-weight: bold;
+}
+
+.THIS .results .subTitle{
+    margin-bottom: 10px;
+    margin-top: 20px;
+    font-size: 19px;
+}
+
+.THIS .results .subTitle > span{
+    background: #fff;
+    z-index: 2;
+    position: relative;
+
+}
+.THIS .results .subTitle > span.text{
+    padding-right: 7px;
+}
+.THIS .results .subTitle > span.line{
+    width: 100%;
+    border-bottom: 1px solid #dfdfdf;
+    height: 1px;
+    margin-top: -5px;
+    display: block;
+    z-index: 1;
+}
+
+.THIS.hidden, .THIS .hidden {
+    display: none !important;
+}
+
+.THIS.loader{
+    display: none;
+    background-color: rgba(197,204,214,0.75);
+    height: 100%;
+    position: fixed;
+    z-index: 10000;
+}
+
+.THIS.search-container .results {
+    position: relative;
+    min-height: 200px;
+    margin-top: 20px;
+}
+
+.THIS.search-container .results .panelsContainer {
+    position:relative;
+    margin-top:10px;
+    min-height: 200px;
+}
+
+.THIS.search-container .results .panelsContainer .noresults {
+    font-weight: 300;
+    line-height: 1.25;
+    font-size: 1.5rem;
+    color: #696969;
+    text-align: center;
+    margin-top: 95px;
+    position: relative;
+}
+
+.THIS .searchBox {
+    width: 80%;
+    font-weight: bold;
+}
+
+/* searchbox placeholder */
+.THIS .searchSpan ::-webkit-input-placeholder       {opacity: 1; transition: opacity 0.3s ease; font-style: italic; color: lightgray}
+.THIS .searchSpan ::-moz-placeholder                {opacity: 1; transition: opacity 0.3s ease; font-style: italic; color: lightgray}
+.THIS .searchSpan :-moz-placeholder                 {opacity: 1; transition: opacity 0.3s ease; font-style: italic; color: lightgray}
+.THIS .searchSpan :-ms-input-placeholder            {opacity: 1; transition: opacity 0.3s ease; font-style: italic; color: lightgray}
+.THIS .searchSpan :focus::-webkit-input-placeholder {opacity: 0; transition: opacity 0.3s ease; color: transparent}
+.THIS .searchSpan :focus::-moz-placeholder          {opacity: 0; transition: opacity 0.3s ease; color: transparent}
+.THIS .searchSpan :focus:-moz-placeholder           {opacity: 0; transition: opacity 0.3s ease; color: transparent}
+.THIS .searchSpan :focus:-ms-input-placeholder      {opacity: 0; transition: opacity 0.3s ease; color: transparent}
+
+.THIS .searchBtn {
+    height: 36px;
+    font-weight: bold;
+    align: middle;
+    margin: 0 0 5px 10px;
+}
+
+.THIS .headerTitle {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.THIS.search-container .spanLoadingWrapper {
+    text-align: center;
+}
+
+.THIS.search-container .spanLoadingWrapper .loadingBallsWrapper{
+    padding-top: 30px;
+}
+
+.THIS .subTitle {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.THIS .slds-icon-action-approval {
+    width: 30px;
+    height: 30px;
+    padding: 3px;
+}
+
+.THIS .success-message {
+    margin-left: 10px;
+    font-size: 20px;
+    font-weight: normal;
+}
+
+.THIS.search-container .channels{
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
+.THIS.search-container .channels a{
+    margin: 0 15px 0 15px;
+    font-size: 14px;
+    color: #21507a;
+    display: inline-block;
+}
+.THIS.search-container .channels .manage{
+    margin: 0 5px 0 5px;
+    font-size: 14px;
+    color: #21507a;
+    display: inline-block;
+}
+.THIS.search-container .channels .manageChannel .manage{
+    color: #5e5e5e;
+}
+.THIS.search-container .channels .manageChannel:hover{
+    text-decoration: none;
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.THIS .hide,
+.THIS.hide{
+    display: none !important;
+}
+.THIS .show,
+.THIS.show{
+    display: block !important;
+}
+
+.THIS .slds-modal__close svg{
+     pointer-events: none;
+}
+.THIS .customSpiner{
+    z-index:9999;
+}
+
+@media (max-width: 48em){
+    .THIS .searchBox {
+        width: 70%;
+        font-weight: bold;
+    }
+    .THIS.search-container .channels a{
+        font-size: 11px;
+    }
+}

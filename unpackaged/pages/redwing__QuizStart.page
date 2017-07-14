@@ -1,0 +1,78 @@
+<apex:page controller="redwing.QuizStartCtrl" action="{!doRedirection}" docType="html-5.0" sidebar="false" showHeader="{!showSFHeader}" standardStylesheets="false" cache="false">
+
+    <apex:composition template="redwing__LMSTemplate">
+
+        <apex:define name="head">
+            <apex:outputPanel layout="none" rendered="{!isValid && assignment != null}">
+                <title>{!quiz.Name}</title>
+            </apex:outputPanel>
+        </apex:define>
+
+        <apex:define name="body">
+
+            <apex:form id="theForm">
+
+                <apex:pageMessages id="pMessages"/>
+
+                <apex:outputPanel layout="none" id="resultsPanel">
+                    <apex:inputHidden id="redirectURL" value="{!redirectURL}"/>
+                </apex:outputPanel>
+
+                <apex:actionStatus id="status">
+                    <apex:facet name="start">
+                        <c:LMSStatus statusComponentId="{!$Component.status}"/>
+                    </apex:facet>
+                </apex:actionStatus>
+
+                <apex:outputPanel layout="none" rendered="{!isValid && assignment != null}">
+
+                    <div class="row">
+                        <div class="col-md-12"><h3>{!quiz.Name}</h3></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div style="text-align:center;padding:20px 0;">
+                                <div class="well well-lg">
+                                    <h3>{!$Label.redwing__alms_time_limit_quiz_message}</h3>
+                                    <h4>{!$Label.redwing__alms_time_limit} : {!timeLimit} {!$Label.redwing__alms_minutes_abbreviation}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div style="text-align:center;">
+                                <apex:commandButton value="{!$Label.redwing__alms_time_limit_quiz_start}" action="{!startQuiz}" status="status" rerender="theForm" styleClass="lmscore-success-btn small-btn"/>
+                                <apex:commandButton value="{!$Label.redwing__alms_quiz_cancel}" action="{!cancelQuiz}" status="status" rerender="theForm" styleClass="lmscore-danger-btn small-btn" oncomplete="doRedirection()"  />
+                            </div>
+                        </div>
+                    </div>
+
+                </apex:outputPanel>
+
+                <apex:outputPanel layout="none" rendered="{!!isValid}">
+                    <apex:commandButton value="{!$Label.redwing__alms_quiz_cancel}" action="{!cancelQuiz}" status="status" rerender="theForm" style="margin-top:10px;" styleClass="lmscore-danger-btn small-btn"  oncomplete="doRedirection()" />
+                </apex:outputPanel>
+
+                <script>
+                    function doRedirection(){
+                        var retUrl = document.getElementById('{!$Component.redirectURL}').value;
+                        if({!isLightningContext}){
+                            lmscore.fireLightningEventFromIframe("e.{!JSENCODE(lmsNamespace)}:LearningViewEvent", {type:"close", trainingPlanId: "{!JSENCODE(assignment.redwing__Training_Plan__c)}"});
+                            return true;
+                        }
+                        if(retUrl && retUrl.length > 0){
+                            lmscore.redirectHandlerWithStatus(retUrl,false);
+                        }
+                    }
+                </script>
+
+            </apex:form>
+
+        </apex:define>
+
+    </apex:composition>
+
+</apex:page>

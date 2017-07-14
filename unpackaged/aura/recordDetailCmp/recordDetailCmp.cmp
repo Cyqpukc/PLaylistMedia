@@ -1,0 +1,6 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
+    <aura:attribute name="parentId" type="String"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+	<force:recordView recordId="{!v.parentId}"/>
+</aura:component>

@@ -1,0 +1,384 @@
+.THIS.panelOne {
+    border: 0px;
+    display: inline-block;
+    position: relative;
+    margin: 0 15px 15px 0;
+    cursor: pointer;
+    overflow: visible;
+    vertical-align: top;
+}
+
+.THIS.panelOne .backgroundImage,
+.THIS.panelOne .hoverColor {
+    height: 115px;
+    width: 200px;
+}
+
+.THIS.panelOne .backgroundImage {
+    background-size: cover;
+    position: relative;
+    opacity: 0.5;
+}
+
+.THIS.panelOne:hover .backgroundImage {
+    opacity: 0.8;
+}
+
+.THIS.panelOne .hoverColor {
+    position: absolute;
+    background-color: rgb(0, 0, 0);
+}
+
+.THIS.panelOne .hoverColor.withoutCover {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.THIS.panelOne:hover .hoverColor.withoutCover {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.THIS .panelOne {
+    text-align: center;
+    max-width:200px;
+    font-weight: bold;
+    z-index: 0;
+    color: black;
+    margin-top:5px;
+}
+
+/* send form */
+.THIS.panelOne .sendForm{
+    height: 63px;
+    background: rgba(0,0,0,0.5);
+    position: absolute;
+    text-align: left;
+    z-index: 11;
+    display: none;
+    top: 0;
+    right: 2px;
+    left: 2px;
+    padding: 0!important;
+    border-radius: 2px;
+    margin: 5px;
+}
+.THIS.panelOne .sendForm.show{
+    display: block;
+}
+
+.THIS.panelOne .sendForm .email{
+    border: 0;
+    width: 95%;
+    border-radius: 2px;
+    padding: 2px 5px;
+    float: none;
+    margin: auto;
+    margin-top: 5px;
+    position: relative;
+    font-weight: 300;
+    height: 26px;
+    display: block;
+}
+.THIS.panelOne .sendForm button{
+	border: 0 solid #1c699c;
+    background: #1c699c;
+    height: initial;
+    width: auto;
+    color: #fff;
+    padding: 3px 14px;
+    border-radius: 2px;
+    margin-top: 0;
+    margin-right: 7px;
+    font-size: 12px;
+    font-weight: 300;
+    float: right;
+    margin-top: 5px;
+}
+.THIS.panelOne .sendForm .close{
+	background: none;
+    background-size: 20px;
+    width: initial;
+    height: initial;
+    display: initial;
+    overflow: hidden;
+    line-height: 100%;
+    float: right;
+    cursor: pointer;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 300;
+    padding: 10px 10px;
+    text-decoration: underline;
+}
+
+.THIS.panelOne .success-email-form{
+    width: 190px;
+    height: 50px;
+    background: white;
+    position: absolute;
+    text-align: left;
+    z-index: 11;
+    top: 0;
+    padding: 7px;
+    border-radius: 2px;
+    margin: 5px;
+}
+
+/* layout */
+.THIS.panelOne .play-btn{
+    color: #fff;
+    display: block;
+    width: 40px;
+    height: 40px;
+    margin: auto;
+    visibility: hidden;
+}
+.THIS.panelOne .actions{
+    visibility: hidden;
+    padding: 5px;
+    text-align: right;
+}
+.THIS.panelOne .header{
+    min-height: 40px;
+    background: linear-gradient(to bottom,rgba(0,0,0,0.9), rgba(0,0,0,0));
+}
+.THIS.panelOne:hover .header .actions,
+.THIS.panelOne:hover .play-btn{
+    visibility: visible;
+}
+.THIS.panelOne button
+{
+	border: 0px;
+    display: block;
+    float: right;
+    width: 20px;
+    height: 20px;
+    margin-right: 2px;
+    margin-left: 2px;
+    padding: 0px;
+}
+
+.THIS.panelOne .tooltipMedia {
+    visibility: hidden;
+}
+.THIS.panelOne button#attachLink1.nomobile:hover .tooltipMedia,
+.THIS.panelOne button#attachLink2.nomobile:hover .tooltipMedia,
+.THIS.panelOne button#attachLink3.nomobile:hover .tooltipMedia,
+.THIS.panelOne button#attachLink4.nomobile:hover .tooltipMedia{
+    visibility: visible;
+}
+.THIS.panelOne .tooltipMedia{
+    position: absolute;
+    font-size: 9px;
+    background: rgba(0,0,0,0.5);
+    color: #fff;
+    display: block;
+    width: 70px;
+    margin-left: -50px;
+    margin-top: 10px;
+    padding: 2px 0px 2px 0px;
+}
+.THIS.panelOne button#attachLink4,
+.THIS.panelOne button#attachLink3,
+.THIS.panelOne button#attachLink2,
+.THIS.panelOne button#attachLink1{
+    opacity: 0.9;
+}
+.THIS.panelOne button#attachLink4:hover,
+.THIS.panelOne button#attachLink3:hover,
+.THIS.panelOne button#attachLink2:hover,
+.THIS.panelOne button#attachLink1:hover,
+.THIS.panelOne button#attachLink4.mobile,
+.THIS.panelOne button#attachLink3.mobile,
+.THIS.panelOne button#attachLink2.mobile,
+.THIS.panelOne button#attachLink1.mobile{
+    opacity: 1;
+}
+
+.THIS.panelOne .header .actions.mobile,
+.THIS.panelOne .play-btn.mobile{
+    visibility: visible !important;
+}
+
+.THIS.panelOne  .progress{
+    position: relative;
+    top: -4px;
+    width: 100%;
+}
+
+.THIS.panelOne .progress .bar{
+    height: 5px;
+}
+.THIS.panelOne .progressValue {
+    position: absolute;
+    right: 0;
+}
+.THIS.hide, .THIS .hide, .THIS.hidden, .THIS .hidden {
+    display: none;
+}
+
+.THIS .title {
+    text-align: left;
+    word-wrap: break-word;
+    max-width:200px;
+    font-weight: bold;
+    z-index: 10;
+    color: black;
+    margin-top:5px;
+    display: block;
+}
+
+.THIS .uploadName {
+    padding-top: 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 200px;
+    display: block;
+    text-align: left;
+    color: black;
+}
+
+.THIS .uploadDate {
+    text-align: left;
+    max-width:200px;
+    color: grey;
+    font-size: 9pt;
+    margin-top:5px;
+}
+
+.THIS .slds-news-item .progress,
+.THIS .slds-news-item .progress > .bar {
+    border-radius: 0px !important;
+    height: 4px  !important;
+}
+
+.THIS .slds-news-box h1 {
+    margin-top: 0px;
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+    text-overflow: ellipsis;
+}
+
+/* send form */
+.THIS .slds-video-container .sendForm{
+    width: 93%;
+    height: 63px;
+    background: rgba(0,0,0,0.5);
+    position: absolute;
+    text-align: left;
+    z-index: 3;
+    display: none;
+    top: 0;
+    left: 0;
+    padding: 0!important;
+    border-radius: 2px;
+    margin: 5px;
+}
+.THIS .slds-video-container .sendForm.show{
+    display: block;
+}
+
+.THIS .slds-video-container .sendForm .email{
+    border: 0;
+    margin-top: 0px;
+    width: 96%;
+    border-radius: 2px;
+    padding: 2px 5px;
+    float: none;
+    margin: 5px 5px 0px 5px;
+    position: relative;
+    font-weight: 300;
+    height: 26px;
+}
+.THIS .slds-video-container .sendForm button{
+    border: 0 solid #1c699c;
+    background: #1c699c;
+    height: initial;
+    width: initial;
+    color: #fff;
+    padding: 3px 14px;
+    border-radius: 2px;
+    margin-top: 0;
+    margin-right: 7px;
+    font-size: 12px;
+    font-weight: 300;
+    float: right;
+    margin-top: 5px;
+}
+.THIS .slds-video-container .sendForm .close{
+    background: none;
+    background-size: 20px;
+    width: initial;
+    height: initial;
+    display: initial;
+    overflow: hidden;
+    line-height: 100%;
+    float: right;
+    cursor: pointer;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 300;
+    padding: 10px 10px;
+    text-decoration: underline;
+}
+
+.THIS .slds-video-container .success-email-form{
+    width: 93%;
+    height: 50px;
+    background: white;
+    position: absolute;
+    text-align: left;
+    z-index: 11;
+    top: 0;
+    padding: 7px;
+    border-radius: 2px;
+    margin: 5px;
+}
+
+.THIS .slds-icon-action-approval {
+    width: 30px;
+    height: 30px;
+    padding: 3px;
+}
+
+.THIS .success-message {
+    margin-left: 10px;
+    font-size: 20px;
+    font-weight: normal;
+}
+.THIS .progress,
+.THIS .progress > .bar {
+    border-radius: 0px !important;
+    height: 4px  !important;
+}
+
+.THIS .text-break-word{
+    overflow-x:hidden;
+    word-wrap: break-word;
+}
+
+.THIS .discription{
+    white-space: pre-wrap;
+}
+
+
+.THIS.panelOne.portraitImage .backgroundImage{
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+@media (max-width: 767px){
+    .THIS.panelOne,
+    .THIS.panelOne .backgroundImage,
+    .THIS.panelOne .hoverColor{
+        width: 100%;
+        min-height: 250px;
+    }
+    .THIS.panelOne .play-btn{
+        position: absolute;
+        top: 45%;
+        left: 45%;
+    }
+}

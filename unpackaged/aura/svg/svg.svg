@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+	<!ENTITY ns_extend "http://ns.adobe.com/Extensibility/1.0/">
+	<!ENTITY ns_ai "http://ns.adobe.com/AdobeIllustrator/10.0/">
+	<!ENTITY ns_graphs "http://ns.adobe.com/Graphs/1.0/">
+	<!ENTITY ns_vars "http://ns.adobe.com/Variables/1.0/">
+	<!ENTITY ns_imrep "http://ns.adobe.com/ImageReplacement/1.0/">
+	<!ENTITY ns_sfw "http://ns.adobe.com/SaveForWeb/1.0/">
+	<!ENTITY ns_custom "http://ns.adobe.com/GenericCustomNamespace/1.0/">
+	<!ENTITY ns_adobe_xpath "http://ns.adobe.com/XPath/1.0/">
+]>
+<svg version="1.1"
+	 id="Layer_1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="120px" height="120px"
+	 viewBox="0 0 120 120" enable-background="new 0 0 120 120" xml:space="preserve">
+<title>icon_lightning_component_w_tile</title>
+<desc>Created with Sketch.</desc>
+<g>
+	<path id="Shape" sketch:type="MSShapeGroup" fill="#E0E5EE" d="M120,108c0,6.6-5.4,12-12,12H12c-6.6,0-12-5.4-12-12V12
+		C0,5.4,5.4,0,12,0h96c6.6,0,12,5.4,12,12V108L120,108z"/>
+	<g>
+		<g>
+			<path fill="#B50021" d="M52.342,111.49c-23.684,0-42.95-19.266-42.95-42.948c0-23.684,19.267-42.951,42.95-42.951
+				c23.683,0,42.949,19.268,42.949,42.951C95.291,92.225,76.024,111.49,52.342,111.49z M52.342,28.782
+				c-21.924,0-39.759,17.836-39.759,39.76c0,21.921,17.835,39.755,39.759,39.755c21.921,0,39.756-17.834,39.756-39.755
+				C92.098,46.618,74.263,28.782,52.342,28.782z"/>
+		</g>
+		<g>
+			<path fill="#427AAD" d="M59.986,103.39c-23.682,0-42.949-19.27-42.949-42.948c0-23.684,19.268-42.951,42.949-42.951
+				c23.684,0,42.951,19.268,42.951,42.951C102.938,84.12,83.67,103.39,59.986,103.39z M59.986,20.682
+				c-21.923,0-39.758,17.836-39.758,39.76c0,21.922,17.835,39.757,39.758,39.757c21.926,0,39.761-17.835,39.761-39.757
+				C99.747,38.518,81.912,20.682,59.986,20.682z"/>
+		</g>
+		<g>
+			<path fill="#F7BD17" d="M67.657,94.408c-23.682,0-42.948-19.268-42.948-42.949c0-23.683,19.267-42.949,42.948-42.949
+				c23.686,0,42.951,19.267,42.951,42.949C110.608,75.141,91.343,94.408,67.657,94.408z M67.657,11.7
+				c-21.922,0-39.758,17.836-39.758,39.759c0,21.922,17.836,39.757,39.758,39.757c21.925,0,39.76-17.835,39.76-39.757
+				C107.417,29.536,89.582,11.7,67.657,11.7z"/>
+		</g>
+	</g>
+</g>
+</svg>

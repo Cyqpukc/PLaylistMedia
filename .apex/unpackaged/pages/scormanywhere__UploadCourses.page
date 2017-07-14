@@ -1,0 +1,336 @@
+<apex:page Controller="scormanywhere.UploadCourseExtension" tabStyle="scormanywhere__Course__c" standardStylesheets="true" Extensions="scormanywhere.HeaderExtension" cache="false" action="{!init}">
+	<apex:stylesheet value="{!URLFOR($Resource.scormanywhere__SCORM_Library, 'css/upload-lightbox.css')}"/>
+	<apex:includeScript value="{!URLFOR($Resource.scormanywhere__SCORM_Library, 'js/jquery_2_1_3.js')}"/>
+	<apex:includeScript value="{!URLFOR($Resource.scormanywhere__SCORM_Library, 'js/init.js')}"/>
+	<apex:includeScript value="{!URLFOR($Resource.scormanywhere__SCORM_Library, 'js/functions.js')}"/>
+	<style>
+	html {background: #ffffff !important;}
+	html .brandQuaternaryBgr {background: #ffffff !important;}
+	.activeA {
+		text-decoration:none;
+	}
+	.activeA:hover {
+		text-decoration:none;
+	}
+	/*{!lastUploadedCourseId}*/
+	</style>
+
+	<head>
+		<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" name="viewport"/>
+	</head>
+
+	<apex:pageMessages id="messages"/>
+	<c:LoadingBox />
+	<apex:form >
+		<apex:sectionHeader title="{!$Label.scormanywhere__upload_course}" rendered="{!IF(showOnlyForm, isClientKeyExists, true)}">
+			<apex:outputPanel rendered="{!isReferrerSet}" >
+				<div class="bPageTitle" style="padding:0px;">
+					<div class="ptBreadcrumb"><a href="#" onclick="goBack();" >&lt;&lt;&nbsp;{!$Label.Back}</a></div>
+				</div>
+			</apex:outputPanel>
+			
+		</apex:sectionHeader>
+		<!-- light box -->
+		<div class="b-overlay"></div>
+		<div class="b-lightbox">
+			<div class="b-title-bar">
+				<div class="b-close-btn">
+					<a href="#">{!$Label.Close}</a>
+				</div>
+				<div class="b-title">{!$Label.scormanywhere__upload_course}</div>
+			</div>
+			<div class="b-content">
+			
+				<div class="b-scroller" style="float:both; {!IF(isLocalStorageEnabled==false, 'display:none', '')}">
+					<a href="javascript:" style="float:left" id="internalTab" onclick="showTab('internal', 'external')">{!$Label.Salesforce_Content}</a>&nbsp;
+					<a href="javascript:" id="externalTab" onclick="showTab('external', 'internal')" class="activeA" style="{!IF(isExternalStorageEnabled==false, 'display:none', '')}">{!$Label.External_Content}</a>
+				</div>
+				<div class="b-scroller" id="external">
+					<apex:outputPanel id="upload_frame" rendered="true">
+						<span id="upload_iframe_here"></span>
+					</apex:outputPanel>
+				</div>
+				<div class="b-scroller" id="internal" style="display:none">
+				<br />
+						<apex:pageBlock title="{!$Label.scormanywhere__salesforce_files}">
+							<apex:pageBlockTable value="{!contentVersions}" var="cVersion">
+								<apex:column headerValue="{!$Label.scormanywhere__title}">{!cVersion.title}</apex:column>
+								<apex:column headerValue="{!$Label.scormanywhere__description}">{!cVersion.description}</apex:column>
+								<apex:column headerValue="{!$Label.scormanywhere__filetype}">{!cVersion.FileType}</apex:column>
+								<apex:column headerValue="{!$Label.scormanywhere__action}">
+									<apex:commandLink value="{!$Label.scormanywhere__convert_to_course}" action="{!convertToCourse}" styleClass="btn" rendered="{!!cVersion.converted}">
+										<apex:param name="contentVersionIdToConvert"
+											value="{!cVersion.id}"
+											assignTo="{!contentVersionIdToConvert}" />
+									</apex:commandLink>
+									<apex:outputLink value="/{!cVersion.course}" rendered="{!cVersion.converted}" target="_blank">{!$Label.scormanywhere__view_course}</apex:outputLink>
+								</apex:column>
+							</apex:pageBlockTable>
+						</apex:pageBlock>
+				</div>
+			</div>
+		</div>
+		<!-- Lightbox -->
+		<!-- Action validate is content uploaded and create Course with manifest -->
+		<apex:actionFunction name="createCourse"
+			action="{!callFromPageBuildWBCourseAndManifest}"
+			rerender="messages, AllWBTUploads, redirectIfOk"
+			oncomplete="validateExternalIssues()" />
+		<apex:actionFunction name="GoToTheLastUploadedCourse"
+			action="{!callFromPageGoToTheLastUploadedCourse}" />
+			
+		<apex:outputPanel id="redirectIfOk">
+			<script>
+				function showTab(tabNameOpen, tabNameClose) {
+					var openEl = document.getElementById(tabNameOpen);
+					var closeEl = document.getElementById(tabNameClose);
+					
+					openEl.style.display = 'block';
+					document.getElementById(tabNameOpen+'Tab').className = ' activeA';
+					
+					closeEl.style.display = 'none';
+					document.getElementById(tabNameClose+'Tab').className = '';
+				}
+			
+				function validateExternalIssues() {
+					if ('{!isExternalIssues}' == 'true') {
+						overlay = jQuery('.b-overlay').fadeOut('fast');
+						lightbox = jQuery('.b-lightbox').fadeOut('fast');
+					} else {
+						GoToTheLastUploadedCourse();
+					}
+				}
+			</script>
+		</apex:outputPanel>
+	</apex:form>
+	<!-- custom form -->
+	<apex:form rendered="{!showOnlyForm != false}">
+			<div class="b-scroller" style="float:both; {!IF(isLocalStorageEnabled==false, 'display:none', '')}">
+				<a href="javascript:" style="float:left" id="internal2Tab" onclick="showTab('internal2', 'external2')">{!$Label.Salesforce_Content}</a>&nbsp;
+				<a href="javascript:" id="external2Tab" onclick="showTab('external2', 'internal2')" style="{!IF(isExternalStorageEnabled==false, 'display:none', '')}" class="activeA">{!$Label.External_Content}</a>
+			</div>
+			<div class="b-scroller" id="external2">
+				<apex:outputPanel id="upload_frame2" rendered="true">
+					<span id="upload_iframe_here2"></span>
+				</apex:outputPanel>
+			</div>
+			<div class="b-scroller" id="internal2" style="display:none">
+				<br />
+					<apex:pageBlock title="{!$Label.scormanywhere__salesforce_files}">
+						<apex:pageBlockTable value="{!contentVersions}" var="cVersion">
+							<apex:column headerValue="{!$Label.scormanywhere__title}">{!cVersion.title}</apex:column>
+							<apex:column headerValue="{!$Label.scormanywhere__description}">{!cVersion.description}</apex:column>
+							<apex:column headerValue="{!$Label.scormanywhere__filetype}">{!cVersion.FileType}</apex:column>
+							<apex:column headerValue="{!$Label.scormanywhere__action}">
+								<apex:commandLink value="{!$Label.scormanywhere__convert_to_course}" action="{!convertToCourse}" styleClass="btn" rendered="{!!cVersion.converted}">
+									<apex:param name="contentVersionIdToConvert"
+										value="{!cVersion.id}"
+										assignTo="{!contentVersionIdToConvert}" />
+								</apex:commandLink>
+								<apex:outputLink value="/{!cVersion.course}" rendered="{!cVersion.converted}" target="_blank">{!$Label.scormanywhere__view_course}</apex:outputLink>
+							</apex:column>
+						</apex:pageBlockTable>
+					</apex:pageBlock>
+			</div>
+	</apex:form>
+	<!-- /custom form -->
+	<apex:ListViews type="scormanywhere__Course__c" rendered="{!showOnlyForm == false}" />
+
+	<script>
+		jQuery.noConflict();
+
+		if (!window.cookiesSet) {
+			var button = document.querySelector('[name="new"]');
+			if (button) {
+				button.disabled = true;
+				button.style.opacity = '0.5';
+			}
+		}
+		
+		function goBack() {
+			if ('{!JSENCODE(referrer)}' == 'true') {
+				window.history.go(-1);
+			} else {
+				window.location.href = '{!JSENCODE(referrer)}';
+			}
+		}
+	
+		function callNewUploadButton() {
+			if('{!isClientKeyExists}' == 'true' && ('{!isLocalStorageEnabled}' == 'true' || '{!isExternalStorageEnabled}'=='true')) {
+				jQuery('[name="new"]').attr('onclick', '');
+				jQuery('[name="new"]').attr('title', '{!$Label.New_Upload}');
+				jQuery('[name="new"]').val('{!$Label.New_Upload}');
+				jQuery('[name="new"]').click(function() {
+					showLightboxLayoutNewUpload();
+					createIFrame();
+				});
+			} else {
+				jQuery('[name="new"]').hide();
+			}
+		}
+
+		jQuery(document).ready(function() {
+			callNewUploadButton();
+
+			overlay = jQuery('.b-overlay');
+			lightbox = jQuery('.b-lightbox');
+			closelightbox = jQuery('.b-lightbox .b-close-btn');
+
+			closelightbox.click(function() {
+				lightbox.fadeOut('fast');
+				overlay.fadeOut('fast');
+				clearIFrameOnClosePopup();
+			});
+
+			if (jQuery.urlParam('uploadId') && '{!isCourseExists}' == 'false') {
+				//if uploadId in get params create Courses and manifests
+				createCourse();
+				startLoading();
+				//overlay.show();
+			}
+
+			if ('{!showOnlyForm}' == 'true') {
+				startLoading();
+			}
+			if ('{!isClientKeyExists}' == 'false') {
+				endLoading();
+			}
+		});
+
+		jQuery.urlParam = function(name, url) {
+			if (!url) {
+				url = window.location.href;
+			}
+			var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(url);
+			if (!results) {
+				return 0;
+			}
+			return results[1] || 0;
+		}
+
+		function clearIFrameOnClosePopup() {
+			var createdIFrame = document.getElementById('createdIframe')
+			try {
+				createdIFrame.parentNode.removeChild(createdIFrame);
+			} catch (e) {
+			}
+		}
+
+		function showLightboxLayoutNewUpload() {
+			showFormNewUpload();
+			if (!isMobile()) {
+				Lightbox();
+			}
+		}
+
+		function isMobile() {
+			var isMobile = /Android|iPhone|iPad|iPod|IEMobile|webOS|BlackBerry|Opera Mini/i.test(navigator.userAgent);
+			return isMobile;
+		}
+
+		function showFormNewUpload() {
+			if (isMobile()) {
+				window.open("{!UploadCourseUrl}");
+				return;
+			}
+			jQuery('[id*="upload_frame"]').show();
+		}
+
+		var iframe = document.createElement('iframe');
+
+		function createIFrame(iframeNumberType) {
+			var customHeight = jQuery.urlParam('height');
+			var iframeHeight = '520';
+			console.log('customHeight: '+customHeight); 
+			if (customHeight && customHeight.length <= 4) {
+				iframeHeight = ''+customHeight;
+			}
+			console.log('iframeHeight: '+iframeHeight);
+			
+			var Link = {
+				fullLink : '',
+				addLinkTo : function(linkTo) {
+					this.fullLink = linkTo;
+				},
+				addAttributes : function(attr, delim) {
+					if (attr != '') {
+						delim = typeof delim !== 'undefined' ? delim : '&';
+							if (this.fullLink == '') { 
+								console.log('Error! 1'); 
+							}
+						this.fullLink += delim + attr;
+					}
+				},
+				getFullLink : function () {
+					return this.fullLink;
+				}
+			}
+			var linkTo = '{!JSENCODE(iframeUrlForUploadForm)}';
+			Link.addLinkTo(linkTo);
+			
+			var salesforceOrganizationId = 'OrgID={!JSENCODE(URLENCODE(salesforceUser.organizationId))}';
+			Link.addAttributes(salesforceOrganizationId);
+						 
+			/*var salesforceUserId = 'salesforceUserId={!JSENCODE(salesforceUser.userId)}';
+			Link.addAttributes(salesforceUserId);
+			
+			var salesforceUserName = 'salesforceUserName={!JSENCODE(URLENCODE(salesforceUser.userName))}';
+			Link.addAttributes(salesforceUserName);
+			
+			var salesforceUserType = 'salesforceUserType={!URLENCODE(TEXT($User.UserType))}';
+			Link.addAttributes(salesforceUserType);
+			
+			var salesforceOrganizationId = 'salesforceOrganizationId={!JSENCODE(URLENCODE(salesforceUser.organizationId))}';
+			Link.addAttributes(salesforceOrganizationId);
+			
+			var salesforceOrganizationName = 'salesforceOrganizationName={!JSENCODE(URLENCODE(salesforceUser.organizationName))}';
+			Link.addAttributes(salesforceOrganizationName);
+			
+			var salesforceTimestamp = 'salesforceTimestamp={!JSENCODE(URLENCODE(salesforceUser.timestamp))}';
+			Link.addAttributes(salesforceTimestamp);
+			
+			var sessionSignature = 'sessionSignature={!JSENCODE(URLENCODE(salesforceUser.signature))}';
+			Link.addAttributes(sessionSignature);
+			
+			var salesforceUserLanguage = 'salesforceUserLanguage={!JSENCODE(URLENCODE(salesforceUser.language))}';
+			Link.addAttributes(salesforceUserLanguage);
+			
+			var salesforcePackageVersion = 'salesforcePackageVersion={!JSENCODE(URLENCODE(salesforceUser.packageVersion))}';
+			Link.addAttributes(salesforcePackageVersion);*/
+		
+			if(document.getElementById('createdIframe') == null && '{!isExternalStorageEnabled}' == 'true') {
+				iframe.src = Link.getFullLink();
+				iframe.width = "100%";
+				iframe.id = 'createdIframe';
+				iframe.height=iframeHeight;
+				iframe.scrolling="auto";
+				iframe.frameBorder=0;
+				iframe.setAttribute("frameBorder", "0");
+				iframe.setAttribute("id", "createdIframe");
+				if(iframeNumberType == 'custom') {
+					if ('{!showOnlyForm}' == 'true') {
+						document.getElementById('upload_iframe_here2').appendChild(iframe);
+						endLoading();
+					}
+				} else {
+					document.getElementById('upload_iframe_here').appendChild(iframe);
+				} 
+			} else if ('{!isLocalStorageEnabled}'=='true') {
+				try {
+					document.getElementById('internalTab').className = ' activeA';
+					document.getElementById('internal').style = '';
+				} catch(e) {
+				}
+				try {
+					document.getElementById('internal2tab').className = ' activeA';
+					document.getElementById('internal2').style = '';
+				} catch(ex){
+				}
+			}
+		}
+
+	</script>
+	<!-- DO NOT REMOVE -->
+	<c:SessionStorage page="upload" rendered="{!isClientKeyExists}"/>
+	<!-- DO NOT REMOVE -->
+</apex:page>

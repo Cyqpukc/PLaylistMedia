@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Recurso de Aprendizaje</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Recursos de Aprendizaje</value>
+    </caseValues>
+    <fields>
+        <help>Habilitar esta opción para añadir parametros de contexto a la liga del Recurso (ej. https://algunaliga.com/?aid=ASSIGNMENT_ID&amp;tid=TPLAN_ID)</help>
+        <label><!-- Add training parameters to URL --></label>
+        <name>redwing__Add_training_parameters_to_URL__c</name>
+    </fields>
+    <fields>
+        <label><!-- Description --></label>
+        <name>redwing__Description__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción para desplegar la liga del Recurso en un iFrame en lugar de una nueva ventana</help>
+        <label><!-- Display in Iframe --></label>
+        <name>redwing__Display_in_Iframe__c</name>
+    </fields>
+    <fields>
+        <label><!-- Learning --></label>
+        <name>redwing__Learning__c</name>
+        <relationshipLabel><!-- Training Resources --></relationshipLabel>
+    </fields>
+    <fields>
+        <help>Aprendizajes de tipo &quot;Recurso&quot; son marcados como completos al lanzarlos, habilite esta opción para prevenir este comportamiento</help>
+        <label><!-- Delegate assignment completion --></label>
+        <name>redwing__Prevent_completion_on_launch__c</name>
+    </fields>
+    <fields>
+        <help>Liga para el recurso que desea asociar a este aprendizaje (ej. https://algunaliga.com)</help>
+        <label><!-- Resource URL --></label>
+        <name>redwing__Resource_URL__c</name>
+    </fields>
+    <gender>Masculine</gender>
+    <nameFieldLabel>Recurso de Aprendizaje</nameFieldLabel>
+</CustomObjectTranslation>

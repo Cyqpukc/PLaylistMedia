@@ -1,0 +1,53 @@
+<apex:page standardController="redwing__Training_Track__c" sidebar="false">
+
+    <script src="{!URLFOR($Resource.lmscore_uilib, '/js/jquery.min.js')}" />
+
+    <apex:sectionHeader title="{!$Label.redwing__alms_manage_assignments}" subtitle="{!redwing__Training_Track__c.Name}">
+        <div class="bPageTitle" style="padding:0px;">
+            <div class="ptBreadcrumb">&nbsp;&lt;&lt;&nbsp;<a href="/{!Training_Track__c.Id}">{!$Label.ALMS_Training_Track_Back}</a></div>
+        </div>
+    </apex:sectionHeader>
+
+    <style>
+        .lmsTabActive{
+            background-image:none;
+            background-color:#eee;
+            font-size:12px;
+        }
+        .lmsTabInActive{
+            background-image:none;
+            background-color:#ddd;
+            font-size:12px;
+        }
+    </style>
+    <apex:actionStatus id="status">
+        <apex:facet name="start">
+            <c:LMSStatus />
+        </apex:facet>
+    </apex:actionStatus>
+
+    <apex:tabPanel switchType="client" value="{!IF($CurrentPage.parameters.stab != null,$CurrentPage.parameters.stab,'upsertTab')}" id="theTabPanel" activeTabClass="lmsTabActive" inactiveTabClass="lmsTabInActive">
+        <apex:tab label="{!$Label.redwing__alms_create_assignments}" name="upsertTab" id="tabOne">
+            <apex:include pageName="redwing__TrainingTrackAssignmentNew"/>
+        </apex:tab>
+        <apex:tab label="{!$Label.redwing__alms_single_assignments}" name="singleUpsertTab" id="tabFour">
+            <apex:include pageName="redwing__TrainingTrackAssignmentNewSingle"/>
+        </apex:tab>
+        <apex:tab label="{!$Label.redwing__alms_update_delete_assignments}" name="updatedeleteTab" id="tabTwo">
+            <apex:include pageName="redwing__TrainingTrackAssignmentExisting"/>
+        </apex:tab>
+        <apex:tab label="{!$Label.redwing__alms_assignments_batch_operations}" name="batchTab" id="tabThree">
+            <apex:include pageName="redwing__TrainingTrackAssignmentBatch"/>
+        </apex:tab>
+    </apex:tabPanel>
+
+    <script>
+        $j = jQuery.noConflict();
+        function selectAllCBs(className){
+            $j('.'+className).prop('checked',true);
+        }
+        function unSelectAllCBs(className){
+            $j('.'+className).prop('checked',false);
+        }
+    </script>
+</apex:page>

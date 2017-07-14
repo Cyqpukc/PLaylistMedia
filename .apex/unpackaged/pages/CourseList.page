@@ -1,0 +1,81 @@
+<apex:page tabStyle="scormanywhere__Course__c" showHeader="true" sidebar="true">
+    <style>
+        .customPopup {
+            background-color: #F8F8F8;
+            border-style: solid;
+            border-width: 1px;
+            border-color: #1797c0;
+            border-radius: 3px;
+            left: 35%;
+            padding: 10px;
+            position: fixed;
+            z-index: 102;
+            width: 400px;
+            height: 220px;
+            top: 30%;
+            display: none;
+        }
+        .backgroundPopUp {
+            background-color: rgba(0,0,0,0.2);
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0px;
+            left: 0px;
+            z-index: 100;
+            display: none;
+        }
+        .cancelButton{
+            bottom: 10px;
+            position: absolute;
+            right: 10px;
+        }
+    </style>
+    <apex:includeScript value="{!URLFOR($Resource.scormanywhere__SCORM_Library, 'js/jquery_2_1_3.js')}"/>
+    <apex:ListViews type="scormanywhere__Course__c"/>
+        <div id="popUpBack" class="backgroundPopUp" />
+        <div id="popInnerOutputPnlAp" class="customPopup">
+            <apex:includeLightning />
+            <div id="lightning" />
+            <button class="cancelButton" onclick="hiddenLightboxNewUpload()">
+                Close
+            </button>
+        </div>
+    <script>
+            jQuery.noConflict();
+            console.log(document.querySelector('[name="new"]'));
+
+            function callNewUploadButton() {
+                jQuery('[name="new"]').attr('onclick', '');
+                jQuery('[name="new"]').attr('title', 'New Upload');
+                jQuery('[name="new"]').val('New Upload');
+                jQuery('[name="new"]').click(function() {
+                    console.log('press 1');
+                    showLightboxNewUpload();
+                });
+            }
+
+            function showLightboxNewUpload(){
+                $Lightning.use("vtui:uploaderApp", function() {
+                $Lightning.createComponent("vtui:MediaUploader",{"label" : "Upload"},
+                                   "lightning",
+                                   function(cmp) {
+                                   });
+                });
+                jQuery('#popUpBack').show();
+                jQuery('#popInnerOutputPnlAp').show();
+            }
+
+            function hiddenLightboxNewUpload(){
+                jQuery('#lightning').empty();
+                jQuery('#popUpBack').hide();
+                jQuery('#popInnerOutputPnlAp').hide();
+            }
+
+            jQuery(document).ready(function() {
+                console.log('onload');
+                callNewUploadButton();
+            });
+
+        </script>
+</apex:page>

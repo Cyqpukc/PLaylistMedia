@@ -1,0 +1,53 @@
+.THIS.hidden, .THIS .hidden {
+    display: none !important;
+}
+
+.THIS.search-container .results {
+    position: relative;
+    min-height: 200px;
+    margin-top: 20px;
+}
+.THIS .hide,
+.THIS.hide{
+    display: none !important;
+}
+.THIS .show,
+.THIS.show{
+    display: block !important;
+}
+
+.THIS .slds-icon-action-approval {
+    width: 30px;
+    height: 30px;
+    padding: 3px;
+}
+
+.THIS .success-message {
+    margin-left: 10px;
+    font-size: 20px;
+    font-weight: normal;
+}
+
+.THIS .headerTitle {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.THIS .title {
+    text-align: left;
+    word-wrap: break-word;
+    max-width:200px;
+    font-weight: bold;
+    color: white;
+    z-index: 10;
+    color: black;
+    margin-top:5px;
+}
+
+.THIS.search-container .spanLoadingWrapper {
+    text-align: center;
+}
+
+.THIS.search-container .spanLoadingWrapper .loadingBallsWrapper{
+    padding-top: 30px;
+}

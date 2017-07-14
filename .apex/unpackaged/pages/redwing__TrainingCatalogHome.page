@@ -1,0 +1,100 @@
+<!--
+Copyright (c) 2014, salesforce.com, Inc.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+    * Neither the name of the salesforce.com, Inc. nor the names of its contributors
+    may be used to endorse or promote products derived from this software
+    without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<apex:page controller="redwing.TrainingCatalogHomeCtrl" readOnly="true" docType="html-5.0" sidebar="false" showHeader="{!showSFHeader}" standardStylesheets="false" cache="false">
+
+<apex:composition template="redwing__LMSTemplate">
+
+        <apex:define name="head">
+            <title>{!$Label.redwing__alms_training_catalog}</title>
+        </apex:define>
+
+        <apex:define name="body">
+
+            <style>
+                .lmscore .categoryImage {
+                    background-size: {!IF(resizeToFitBackground, '100% 100%', 'cover')} !important;
+                }
+            </style>
+
+            <c:TrainingPlansSearchBar retainInHistory="true"/>
+
+            <div class="row">
+                <apex:outputPanel layout="none" rendered="{!lcategories != null && lcategories.size > 0}">
+                    <apex:repeat value="{!lcategories}" var="o" id="theRepeat">
+                        <div class="categoryItemWrap">
+                          <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 categoryItem" item-url="{!$Page.redwing__TrainingCatalogDetail}?id={!o.Id}">
+                            <div class="categoryImage {!IF(o.redwing__Background_Image_URL__c != null,'','missingCategoryImage')}" style="{!IF(o.redwing__Background_Image_URL__c != null,'background:url('+JSENCODE(o.redwing__Background_Image_URL__c)+')','')}">
+                                <div class="{!IF(o.redwing__Background_Image_URL__c != null, 'categoryContent','')}">
+                                    <apex:outputPanel rendered="{!o.redwing__Logo__c != null}" layout="none">
+                                        <apex:image value="{!o.redwing__Logo__c}"  />
+                                    </apex:outputPanel>
+                                    <div class="categoryName {!IF(o.redwing__Logo__c == null,'missingCategoryLogo','')}" style="color:{!IF(o.redwing__Text_Color__c != null,JSINHTMLENCODE(o.redwing__Text_Color__c),'#fff')}">
+                                        <span>{!o.Name}</span>
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                    </apex:repeat>
+                </apex:outputPanel>
+                <apex:outputPanel layout="none" rendered="{!lcategories == null || lcategories.size == 0}">
+                    <div style="width:100%;text-align:center;padding:20px;0;">
+                        <h2>{!$Label.redwing__alms_nothing_to_see}</h2>
+                    </div>
+                </apex:outputPanel>
+            </div>
+
+            <apex:actionStatus id="status">
+                <apex:facet name="start">
+                    <apex:outputPanel >
+                        <c:LMSStatus statusComponentId="{!$Component.status}"/>
+                    </apex:outputPanel>
+                </apex:facet>
+            </apex:actionStatus>
+
+            <script>
+                var lmsCatalogDefaultColors = ['#01ABE9','#1B346C','#DA522B','#D8BB7F','#C3CED0','#8DADA3','#373834'];
+                jQuery(document).ready(function($){
+                    $(document.body).delegate('.categoryItem', 'click', function(){
+                        var itemUrl = $(this).attr('item-url');
+                        lmscore.redirectHandlerWithStatus(itemUrl,true); //Retain navigation history
+                    });
+                    var catCounter = 0;
+                    $('.missingCategoryImage').each(function() {
+                        if(catCounter > (lmsCatalogDefaultColors.length - 1)){
+                            catCounter = 0;
+                        }
+                        $(this).css('background-color', lmsCatalogDefaultColors[catCounter]);
+                        catCounter++;
+                    });
+                });
+            </script>
+
+        </apex:define>
+    </apex:composition>
+</apex:page>

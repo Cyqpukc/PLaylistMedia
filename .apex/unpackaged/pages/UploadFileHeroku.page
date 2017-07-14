@@ -1,0 +1,44 @@
+<apex:page cache="false" docType="html-5.0" showHeader="false" sidebar="false" standardStyleSheets="false" action="{!init}" Controller="MediaUploaderCtrl">
+    <apex:slds />
+    <apex:includeScript value="{!URLFOR($Resource.Components_Library, '/vendor/components/jquery/jquery.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.Components_Library, '/js/forcetk.js')}"/>
+    <div id="imgCont"></div>
+    <script type="text/javascript">
+        (function () {
+            var client = new forcetk.Client();
+            client.setSessionToken('{!$Api.Session_ID}');
+            client.instanceUrl = 'https://17spring-dev-ed--c.na35.visual.force.com';
+            client.proxyUrl = null;
+            client.visualforce = false;
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'https://still-beach-78655.herokuapp.com/Desert.jpg', true);
+            xhr.responseType = "blob";
+            xhr.onreadystatechange = function() {
+                 if (xhr.readyState == 4 && xhr.status == 200) {
+                       
+                       console.log(xhr);
+                       
+                        var img = document.createElement("img");
+                          img.src = window.URL.createObjectURL(new Blob([xhr.response]));
+                          img.height = 60;
+                          img.onload = function() {
+                            window.URL.revokeObjectURL(this.src);
+                          }
+                          
+                          document.getElementById('imgCont').appendChild(img);
+                       
+                       client.createBlob('ContentVersion',{
+                            Origin: 'H',
+                            PathOnClient: "Desert.jpg",
+                            Description: 'custom'
+                        }, 'Desert.jpg', 'VersionData', xhr.response, function(response){
+                            console.log(response);
+                        }, function(request, status, response){
+                            console.log(response);
+                        });
+                 }
+            };
+            xhr.send();
+        })();   
+    </script>
+</apex:page>

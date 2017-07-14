@@ -1,0 +1,59 @@
+<apex:page controller="redwing.LMSJobsCtrl" sidebar="false" tabStyle="Start_Here__tab">
+
+    <script src="{!URLFOR($Resource.lmscore_uilib, '/js/jquery.min.js')}" />
+
+    <apex:form id="theForm">
+
+        <apex:actionStatus id="status">
+            <apex:facet name="start">
+                <c:LMSStatus />
+            </apex:facet>
+        </apex:actionStatus>
+
+        <apex:sectionHeader title="{!$Label.redwing__alms_jobs_title}" subtitle="{!$Label.redwing__alms_jobs_subtitle}">
+            <div class="bPageTitle" style="padding:0px;">
+                <div class="ptBreadcrumb">&nbsp;&lt;&lt;&nbsp;<apex:commandLink value="{!$Label.redwing__alms_back_to_previous_page}" action="{!backToStartPage}" /></div>
+            </div>
+        </apex:sectionHeader>
+
+        <apex:pageBlock >
+
+            <apex:pageMessages />
+
+            <apex:pageBlockSection title="{!$Label.redwing__alms_scheduled_jobs}" columns="2" collapsible="false">
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.redwing__alms_community_id}" for="leaderboard__community"/>
+                    <apex:selectList value="{!communityId}" size="1">
+                        <apex:selectOptions value="{!communities}" />
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem >
+                    <apex:commandButton value="{!$Label.redwing__alms_start_lb_refresh_button}" action="{!startLeaderboardScheduler}" rerender="theForm" status="status" styleClass="btnImportant"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+            <apex:outputPanel layout="none" rendered="{!scheduledJobs != null && scheduledJobs.size > 0}">
+                <apex:pageBlockSection title="{!$Label.redwing__alms_current_jobs}" columns="1" collapsible="false">
+                    <apex:pageBlockTable value="{!scheduledJobs}" var="sj">
+                        <apex:column value="{!sj.CronJobDetail.Id}" />
+                        <apex:column value="{!sj.CronJobDetail.Name}" />
+                        <apex:column value="{!sj.CronJobDetail.JobType}" />
+                        <apex:column value="{!sj.NextFireTime}" />
+                        <apex:column value="{!sj.CreatedById}" />
+                        <apex:column headerValue="{!$Label.redwing__alms_action}">
+                            <apex:commandLink value="{!$Label.redwing__alms_abort_job}" action="{!abortScheduledJob}" styleClass="btnImportant" rerender="theForm" status="status">
+                                <apex:param name="selectedJob" value="{!sj.Id}" assignTo="{!selectedJob}" />
+                            </apex:commandLink>
+                        </apex:column>
+                    </apex:pageBlockTable>
+                </apex:pageBlockSection>
+            </apex:outputPanel>
+
+        </apex:pageBlock>
+
+
+    </apex:form>
+
+</apex:page>

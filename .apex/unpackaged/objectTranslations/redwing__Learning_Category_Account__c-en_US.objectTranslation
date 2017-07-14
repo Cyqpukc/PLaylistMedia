@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <label><!-- Account --></label>
+        <name>redwing__Account__c</name>
+        <relationshipLabel><!-- Account Catalogs --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Check this option if you want to enable all Learning Activities associated to this Catalog for the specified Account --></help>
+        <label><!-- Enable Catalog Learning Activities --></label>
+        <name>redwing__Enable_Catalog_Training_Activities__c</name>
+    </fields>
+    <fields>
+        <help><!-- Check this option if you want to enable all Learning Plans associated to this Catalog for the specified Account --></help>
+        <label><!-- Enable Catalog Learning Plans --></label>
+        <name>redwing__Enable_Catalog_Training_Plans__c</name>
+    </fields>
+    <fields>
+        <help><!-- Check this option if you want to enable all Learning Tracs associated to this Catalog for the specified Account --></help>
+        <label><!-- Enable Catalog Learning Tracs --></label>
+        <name>redwing__Enable_Catalog_Training_Tracks__c</name>
+    </fields>
+    <fields>
+        <label><!-- Catalog --></label>
+        <name>redwing__Learning_Category__c</name>
+        <relationshipLabel><!-- Catalog Accounts --></relationshipLabel>
+    </fields>
+</CustomObjectTranslation>

@@ -1,0 +1,4 @@
+<aura:event type="APPLICATION">
+    <aura:attribute name="sourceId" type="String"/>
+    <aura:attribute name="isVisible" type="Boolean"/>
+</aura:event>

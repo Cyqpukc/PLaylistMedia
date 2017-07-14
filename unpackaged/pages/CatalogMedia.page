@@ -1,0 +1,28 @@
+<apex:page controller="CatalogMediaController"> 
+    <apex:form >
+        <apex:pageBlock title="{!catalogName}">
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton action="{!addToCatalog}" value="Add to Catalog" rendered="{!NOT(ISBLANK(catalogId))}"/>
+                <apex:commandButton action="{!cancel}" value="Cancel"/>
+            </apex:pageBlockButtons>
+            <apex:pageMessages />
+
+            <apex:pageBlockSection title="Media Results - Page #{!pageNumber}" columns="1">
+                <apex:pageBlockTable value="{!medias}" var="media">
+                    <apex:column width="25px">
+                        <apex:inputCheckbox value="{!media.isChecked}"/>
+                    </apex:column>
+                    <apex:column value="{!media.name}" headerValue="Name"/>
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+
+        <apex:panelGrid columns="4">
+        <apex:commandLink action="{!first}" rendered="{!hasPrevious}">First</apex:commandlink>
+        <apex:commandLink action="{!previous}" rendered="{!hasPrevious}">Previous</apex:commandlink>
+        <apex:commandLink action="{!next}" rendered="{!hasNext}">Next</apex:commandlink>
+        <apex:commandLink action="{!last}" rendered="{!hasNext}">Last</apex:commandlink>
+        </apex:panelGrid>
+
+    </apex:form>
+</apex:page>

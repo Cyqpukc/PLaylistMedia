@@ -1,0 +1,7 @@
+<aura:event type="COMPONENT">
+    <aura:attribute name="mediaId" type="String"/>
+	<aura:attribute name="showPopup" type="Boolean"/>
+    <aura:attribute name="modalId" type="String"/>
+    <aura:attribute name="channelId" type="String"/>
+    <aura:attribute name="channelName" type="String"/>
+</aura:event>

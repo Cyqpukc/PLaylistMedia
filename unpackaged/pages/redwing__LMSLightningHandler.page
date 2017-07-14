@@ -1,0 +1,7 @@
+<apex:page controller="redwing.LMSBaseCtrl" docType="html-5.0" sidebar="false" showHeader="false" standardStylesheets="false">
+    <apex:includeScript value="{!URLFOR($Resource.redwing__lmscore_uilib, '/js/jquery.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.redwing__lmscore_uilib, '/js/lmscoreutils.min.js')}"/>
+    <script>
+        lmscore.fireLightningEventFromIframe("e.{!JSENCODE(lmsNamespace)}:LearningViewEvent", {type:"close", trainingPlanId: "{!JSENCODE($CurrentPage.parameters.tpid)}"});
+    </script>
+</apex:page>

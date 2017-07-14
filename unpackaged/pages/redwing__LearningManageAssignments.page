@@ -1,0 +1,36 @@
+<apex:page standardController="redwing__Learning__c" extensions="redwing.LearningManageAssignmentsExt" sidebar="false" action="{!checkRedirection}">
+
+    <apex:sectionHeader title="{!$Label.redwing__alms_training_activity_information}" subtitle="{!redwing__Learning__c.Name}" >
+        <div class="bPageTitle" style="padding:0px;">
+            <div class="ptBreadcrumb">&nbsp;&lt;&lt;&nbsp;<a href="/{!Learning__c.Id}">{!$Label.ALMS_Learning_Back}</a></div>
+        </div>
+    </apex:sectionHeader>
+
+    <apex:actionStatus id="status">
+        <apex:facet name="start">
+            <c:LMSStatus />
+        </apex:facet>
+    </apex:actionStatus>
+
+    <apex:form id="learningManageAssignmentsForm">
+        <apex:pageBlock >
+
+            <apex:pageMessages />
+
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton value="{!$Label.redwing__alms_continue}" action="{!saveAndContinue}" rerender="learningManageAssignmentsForm" status="status" rendered="{!enableSave}"/>
+                <apex:commandButton value="{!$Label.redwing__alms_cancel}" action="{!cancel}" />
+            </apex:pageBlockButtons>
+
+            <apex:outputPanel layout="none" rendered="{!enableSave}">
+                <apex:pageMessage severity="info" strength="1" summary="{!$Label.redwing__alms_training_activity_achievement_message}"/>
+            </apex:outputPanel>
+
+            <apex:pageBlockSection rendered="{!enableSave}">
+                <apex:inputField value="{!trainingActivity.redwing__Achievement__c}" />
+            </apex:pageBlockSection>
+
+        </apex:pageBlock>
+    </apex:form>
+
+</apex:page>

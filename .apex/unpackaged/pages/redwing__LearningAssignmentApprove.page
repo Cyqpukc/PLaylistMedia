@@ -1,0 +1,78 @@
+<apex:page docType="html-5.0" standardController="redwing__Learning_Assignment__c" extensions="redwing.LearningAssignmentApproveExt" sidebar="false" showHeader="{!showSFHeader}"  standardStylesheets="false">
+
+    <apex:composition template="redwing__LMSTemplate">
+
+        <apex:define name="head">
+            <title>{!assignment.User__r.Name + ' - ' + assignment.Learning_Version__r.Task__r.Name}</title>
+        </apex:define>
+
+        <apex:define name="body">
+            <apex:form id="aaAssignmentFormBatch">
+
+                <apex:actionStatus id="status">
+                    <apex:facet name="start">
+                        <c:LMSStatus statusComponentId="{!$Component.status}"/>
+                    </apex:facet>
+                </apex:actionStatus>
+
+                <apex:outputPanel id="pmessages" layout="none">
+                    <apex:outputPanel layout="block" styleClass="alert alert-danger" rendered="{!hasMessages}">
+                        <script>
+                            forceHideStatus();
+                        </script>
+                        <apex:pageMessages />
+                    </apex:outputPanel>
+                </apex:outputPanel>
+
+                <apex:outputPanel layout="none" rendered="{!!assignment.redwing__Approved__c}">
+
+                    <apex:outputPanel layout="block" style="margin-top:15px;" rendered="{!assignment.redwing__User_Notes__c != null}">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><b>{!$Label.redwing__alms_approval_user_notes}</b></div>
+                            <div class="panel-body" style="overflow-x: auto;">
+                                <apex:outputField value="{!assignment.redwing__User_Notes__c}"/>
+                            </div>
+                        </div>
+                    </apex:outputPanel>
+
+                    <apex:outputPanel layout="block" style="margin-top:15px;" rendered="{!latestImageAttachment != null}">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><b>{!$Label.redwing__alms_attachment}</b></div>
+                            <div class="panel-body">
+                                <apex:outputLink value="{!URLFOR($Action.Attachment.Download,latestImageAttachment)}" target="_blank">{!$Label.redwing__alms_view_attachment}</apex:outputLink>
+                            </div>
+                        </div>
+                    </apex:outputPanel>
+
+                    <apex:outputPanel layout="block" style="margin-top:15px;">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><b>{!$Label.redwing__alms_additional_information}</b></div>
+                            <div class="panel-body" style="overflow-x: auto;">
+                                <div class="alert alert-warning" role="alert">
+                                    <apex:pageMessage summary="{!$Label.redwing__alms_approver_notes_message}" severity="info" strength="1" />
+                                </div>
+                                <div class="form-group">
+                                    <apex:outputLabel value="{!$Label.redwing__alms_approver_notes_field}" for="appr_notes"/>
+                                    <apex:inputTextArea id="appr_notes" value="{!approverNotes}" rows="6" styleClass="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </apex:outputPanel>
+
+                    <div class="alert alert-info" role="alert">{!$Label.redwing__alms_assignment_approve_message}</div>
+
+                    <apex:commandButton value="{!$Label.redwing__alms_approve}" action="{!approveAssignment}" styleClass="lmscore-success-btn large-btn" onclick="forceShowStatus();" style="width: 49%;"/>
+                    <apex:commandButton value="{!$Label.redwing__alms_reject}" action="{!rejectAssignment}" styleClass="lmscore-danger-btn large-btn" onclick="forceShowStatus();"  style="width: 49%; margin-right: 0px; float: right;"/>
+                    <apex:commandButton value="{!$Label.redwing__alms_cancel}" action="{!cancel}" styleClass="lmscore-warning-btn large-btn" onclick="forceShowStatus();" style="margin-top:15px;"/>
+
+                </apex:outputPanel>
+                <apex:outputPanel layout="none" rendered="{!assignment.redwing__Approved__c}">
+                    <div class="alert alert-success" role="alert">{!$Label.redwing__alms_assignment_already_approved}</div>
+                    <div class="alert alert-success" role="alert">{!$Label.redwing__alms_approved_by} : <b>{!assignment.Approved_By__r.Name}</b></div>
+                    <apex:commandButton value="{!$Label.redwing__alms_back}" action="{!cancel}" styleClass="lmscore-danger-btn large-btn" onclick="forceShowStatus();" style="margin-top:15px;"/>
+                </apex:outputPanel>
+            </apex:form>
+        </apex:define>
+    </apex:composition>
+
+</apex:page>

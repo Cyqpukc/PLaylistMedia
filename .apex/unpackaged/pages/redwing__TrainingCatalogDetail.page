@@ -1,0 +1,129 @@
+<!--
+Copyright (c) 2014, salesforce.com, Inc.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+    * Neither the name of the salesforce.com, Inc. nor the names of its contributors
+    may be used to endorse or promote products derived from this software
+    without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<apex:page controller="redwing.TrainingCatalogDetailCtrl" readOnly="true" docType="html-5.0" sidebar="false" showHeader="{!showSFHeader}" standardStylesheets="false" >
+
+    <apex:composition template="redwing__LMSHeroTemplate">
+
+        <apex:define name="head">
+            <title>{!$Label.redwing__alms_training_catalog}</title>
+        </apex:define>
+
+        <apex:define name="hero-banner-badge">
+            <div id="hb-right" class="col-xs-12 col-sm-12 col-md-12">
+                <div class="banner-title-left" style="color:{!JSINHTMLENCODE(learningcategory.Text_Color__c)}">
+                    <span>{!$Label.ALMS_Category}</span>
+                    <h1>{!learningcategory.Name}</h1>
+                </div>
+           </div>
+        </apex:define>
+
+        <apex:define name="body">
+
+            <c:LMSHeaderOverrides bkImageURL="{!learningcategory.redwing__Background_Image_URL__c}" txtColor="{!learningcategory.redwing__Text_Color__c}"/>
+
+            <apex:actionStatus id="status">
+                <apex:facet name="start">
+                    <c:LMSStatus statusComponentId="{!$Component.status}"/>
+                </apex:facet>
+            </apex:actionStatus>
+
+            <apex:outputPanel layout="none" rendered="{!tTracks != null && tTracks.size > 0}">
+                <h4>{!$Label.redwing__alms_trainingtracks} ({!tTracks.size})</h4>
+                <hr/>
+                <c:TrainingTracksList tracks="{!tTracks}" />
+            </apex:outputPanel>
+
+            <apex:outputPanel layout="none" rendered="{!tPlans != null && tPlans.size > 0}">
+                <h4>{!$Label.redwing__alms_training_plans} ({!tPlans.size})</h4>
+                <hr/>
+                <div class="trainingplan-container row">
+                    <apex:repeat value="{!tPlans}" var="o" id="theRepeat">
+
+                        <apex:variable var="hasBadge" value="{!o.mainAchievement.redwing__Acquired_Image__c != null || o.mainAchievement.redwing__Work_Badge_Image_URL__c != null}" />
+                        <apex:variable var="validAssignment" value="{!o.hasAssignment || o.selfRegistrationEnabled}"/>
+
+                        <div class="col-xs-12 col-sm-6 col-md-4 catalog-plan-item" item-url="{!IF(o.hasAssignment,$Page.redwing__TrainingPlanDetail,$Page.redwing__TrainingPlanAbout)}?id={!o.planId}&preview=1" valid-item="{!validAssignment}">
+                            <div class="tplan_box {!IF(validAssignment,'','tplan_box_disabled')}">
+                                <apex:outputPanel layout="none" rendered="{!o.cost != null}">
+                                    <div class="tplan_box_price">
+                                        <label class="label label-success">
+                                            <c:LMSCurrencyFormat itemCurrencySymbol="{!o.currencySymbol}" itemCurrencyCode="{!o.currencyCode}" itemCost="{!o.cost}" />
+                                        </label>
+                                    </div>
+                                </apex:outputPanel>
+                                <apex:outputPanel layout="none" rendered="{!hasBadge}">
+                                    <div class="tplan_img">
+                                        <apex:outputField value="{!o.mainAchievement.redwing__Acquired_Image__c}"  rendered="{!o.mainAchievement.redwing__Work_Badge_Image_URL__c == null}"/>
+                                        <apex:image url="{!o.mainAchievement.redwing__Work_Badge_Image_URL__c}" rendered="{!o.mainAchievement.redwing__Work_Badge_Image_URL__c != null}"/>
+                                    </div>
+                                </apex:outputPanel>
+                                <div class="{!IF(hasBadge,'tplan_details','tplan_details_no_image')}" >
+                                    <h4>{!o.planName}</h4>
+                                    <apex:outputPanel layout="block" rendered="{!o.assignmentStatus != null}">
+                                        <label class="label {!IF(o.assignmentStatus=='Completed','label-success',IF(o.assignmentStatus=='In Progress','label-primary','label-default'))}">
+                                            {!IF(o.assignmentStatus == 'Completed',$Label.redwing__alms_training_status_completed, IF(o.assignmentStatus == 'In Progress', $Label.redwing__alms_training_status_in_progress, $Label.redwing__alms_training_status_not_started))}
+                                        </label>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="block" rendered="{!validAssignment && !o.hasAssignment}">
+                                        <label class="label label-info">{!$Label.redwing__alms_tplan_not_registered}</label>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="block" rendered="{!!validAssignment}">
+                                        <label class="label label-default">{!$Label.redwing__alms_tplan_requires_assignment}</label>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!o.hideAfterEndDate && o.planEndDate != null}">
+                                        <span class="plan-due-date">{!$Label.redwing__alms_training_plan_due} : {!o.planEndDate}</span>
+                                    </apex:outputPanel>
+                                </div>
+                                <apex:outputPanel rendered="{!o.newUntil != null && TODAY() <= o.newUntil}">
+                                    <div class="ribbon-wrapper-green"><div class="ribbon-green">{!$Label.redwing__alms_new_training_plan}</div></div>
+                                </apex:outputPanel>
+                            </div>
+                        </div>
+                    </apex:repeat>
+                </div>
+            </apex:outputPanel>
+
+            <c:CatalogTrainingActivities catalogId="{!learningcategory.Id}" />
+
+            <script>
+                jQuery(document).ready(function($){
+                    $(document.body).delegate('.catalog-plan-item', 'click', function(){
+                        var planUrl = $(this).attr('item-url');
+                        var validItem = $(this).attr('valid-item');
+                        if(planUrl && validItem == 'true'){
+                            lmscore.redirectHandlerWithStatus(planUrl,true); //Retain navigation history
+                        }
+                    });
+                });
+            </script>
+
+        </apex:define>
+
+    </apex:composition>
+
+</apex:page>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Operación Masiva de Curso</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Operaciones Masivas de Curso</value>
+    </caseValues>
+    <fields>
+        <label><!-- Additional Information --></label>
+        <name>redwing__Additional_Information__c</name>
+    </fields>
+    <fields>
+        <label><!-- Errors --></label>
+        <name>redwing__Errors__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>redwing__Status__c</name>
+        <picklistValues>
+            <masterLabel>Completed</masterLabel>
+            <translation>Completo</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>In Progress</masterLabel>
+            <translation>Procesando</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>New</masterLabel>
+            <translation>Nuevo</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Successes --></label>
+        <name>redwing__Successes__c</name>
+    </fields>
+    <fields>
+        <label><!-- Learning Plan --></label>
+        <name>redwing__Training_Plan__c</name>
+        <relationshipLabel><!-- Learning Plan Batch Operations --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>redwing__Type__c</name>
+        <picklistValues>
+            <masterLabel>Delete Assignments</masterLabel>
+            <translation>Eliminar Asignaciones</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Re-calculate Assignments</masterLabel>
+            <translation>Re-calcular Asignaciones</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Update Assignments</masterLabel>
+            <translation>Actualizar Asignaciones</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Upsert Assignments</masterLabel>
+            <translation>Crear/Actualizar Asignaciones</translation>
+        </picklistValues>
+    </fields>
+    <gender>Feminine</gender>
+    <nameFieldLabel>ID de Operación</nameFieldLabel>
+</CustomObjectTranslation>

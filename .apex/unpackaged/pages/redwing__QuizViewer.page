@@ -1,0 +1,238 @@
+<!--
+Copyright (c) 2014, salesforce.com, Inc.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+    * Neither the name of the salesforce.com, Inc. nor the names of its contributors
+    may be used to endorse or promote products derived from this software
+    without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<apex:page controller="redwing.QuizViewerCtrl" action="{!initializeQuestions}" docType="html-5.0" sidebar="false" showHeader="{!showSFHeader}" standardStylesheets="false" cache="false">
+
+    <apex:form >
+
+        <apex:composition template="redwing__LMSTemplate">
+
+            <apex:define name="head">
+                <title>{!questionLine.Quiz__r.Name}</title>
+                <script src="{!URLFOR($Resource.lmscore_uilib, '/js/jquery.countdown.min.js')}" />
+                <script src="{!URLFOR($Resource.lmscore_uilib, '/js/lmsquizviewer.js')}" />
+            </apex:define>
+
+            <apex:define name="body">
+
+                <apex:outputPanel id="quizBody">
+
+                    <apex:actionStatus id="status">
+                        <apex:facet name="start">
+                            <c:LMSStatus statusComponentId="{!$Component.status}"/>
+                        </apex:facet>
+                    </apex:actionStatus>
+
+                    <apex:outputPanel layout="block" styleClass="alert alert-danger" rendered="{!hasMessages}">
+                        <apex:pageMessages />
+                    </apex:outputPanel>
+
+                    <apex:outputPanel layout="block" styleClass="alert alert-info" rendered="{!showBackNoSaveMessage}">
+                        {!$Label.redwing__alms_click} <apex:commandLink value="{!$Label.redwing__alms_here}" action="{!previousNoSave}" styleClass="alert-link" rendered="{!showPreviousButton}" onclick="return doConfirm('{!JSINHTMLENCODE($Label.redwing__alms_quiz_back_warning)}');"/> {!$Label.redwing__alms_quiz_back_warning_message}
+                    </apex:outputPanel>
+
+                    <style>
+                        table.htmlDetailElementTable td{
+                            border:0 !important;
+                        }
+                    </style>
+
+                    <apex:outputPanel id="mainPanel" rendered="{!assignment.id != null}">
+
+                        <script>
+
+                            function setFocusOnLoad(){}
+
+                            function strcontains(aa,bbb) {
+                                var a = aa.split(';');
+                                for ( var i = 0;i<a.length; i++){
+                                    if (a[i] == bbb){
+                                        return true;
+                                    }
+                                }
+                                return false;
+                            }
+
+                            function getByName(name){
+                                return jQuery('[name="'+name+'"]');
+                            }
+
+                            function multiset( which,selectresponse, ele ) {
+                                var target = getByName(which)[0];
+                                var targetSelectResponse = getByName(selectresponse)[0];
+                                var source = getByName(ele.name); // list of checkboxes
+                                var sourceLabels = getByName(ele.name+'label'); // list of labels
+                                var st ='';
+                                var stLabel = '';
+                                for (var i =0; i < source.length; i++) {
+                                    if (source[i].checked){
+                                        st = st+source[i].value+';';
+                                        stLabel = stLabel+sourceLabels[i].innerHTML+';';
+                                    }
+                                }
+
+                                target.value = st;
+                                targetSelectResponse.value = stLabel;
+                            }
+
+                            function doConfirm(confirmMessage){
+                                if(!confirm(confirmMessage)){return false};
+                            }
+
+                        </script>
+
+                        <apex:outputPanel layout="none" rendered="{!isRenderCountdown}">
+
+                            <div id="quiz-countdown-container">
+                                <h3><span class="label label-primary"><span id="quiz-countdown"></span></span></h3>
+                            </div>
+
+                            <div id="quiz-expire-time-popup">
+                                <div class="quiz-expire-popup">
+                                    <div class="quiz-expire-title"><h4>{!$Label.ALMS_Quiz_Remaining_Time_Header}</h4></div>
+                                    <div class="quiz-expire-message">{!$Label.ALMS_Quiz_Remaining_Time_Message}</div>
+                                    <div class="quiz-expire-button">
+                                        <apex:commandButton value="{!$Label.redwing__alms_quiz_remaining_time_button}" action="{!forceDone}" styleClass="lmscore-success-btn small-btn" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <script type="text/javascript">
+                                //Call method from StaticRes
+                                callRemainingTimeInit(
+                                    "{!JSENCODE(assignmentMaxTime)}",
+                                    '{!JSENCODE($Label.redwing__alms_remaining_time)} : %-D {!JSENCODE($Label.redwing__alms_days)} %H:%M:%S',
+                                    300, //Seconds for ending of quiz notification. Allows from 0 to 86399 (less than 1 day)
+                                    {//Message for quiz notificator
+                                        header: "{!JSENCODE($Label.redwing__alms_quiz_minutes_notification_header)}",
+                                        message: "{!JSENCODE($Label.redwing__alms_quiz_minutes_notification_message)}",
+                                        type: "warning"
+                                    }
+                                );
+                            </script>
+
+                        </apex:outputPanel>
+
+                        <h3 id="quiz-and-qline-names">{!questionLine.Quiz__r.Name} - {!questionLine.Name}</h3>
+
+                        <apex:outputPanel layout="none" rendered="{!questionLine.redwing__Description__c != null}">
+                            <blockquote>
+                                 {!questionLine.redwing__Description__c}
+                            </blockquote>
+                        </apex:outputPanel>
+
+                        <apex:repeat value="{!quizItemList}" var="qi">
+                            <div class="quiz-question-wrapper">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 col-md-12 quiz-question-panel">
+                                        <apex:outputField value="{!qi.question.redwing__Description__c}" rendered="{!qi.question.redwing__Description__c != null}"/>
+                                        <apex:outputPanel layout="block" rendered="{!qi.question.redwing__Description_RTA__c != null}" style="padding: 10px 0;">
+                                            <apex:outputField value="{!qi.question.redwing__Description_RTA__c}" />
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!AND(qi.question.redwing__Type__c == 'SelectMultipleQuestion', AND(qi.question.redwing__Max_Answers__c != null, qi.question.redwing__Max_Answers__c > 0))}"
+                                            styleClass="maxAnswersDesc"
+                                        >
+                                            <apex:outputText value="{!$Label.redwing__alms_max_answers}" />
+                                        </apex:outputPanel>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 quiz-response-panel" data-qtype="{!qi.question.Type__c}" data-maxanswers="{!qi.question.Max_Answers__c}">
+                                        <c:SelectOneQuestion QuizItem="{!qi}" rendered="{!qi.question.redwing__Type__c == 'SelectOneQuestion'}"/>
+                                        <c:SelectMultipleQuestion QuizItem="{!qi}" rendered="{!qi.question.redwing__Type__c == 'SelectMultipleQuestion'}"/>
+                                        <c:SelectBooleanQuestion QuizItem="{!qi}" rendered="{!qi.question.redwing__Type__c == 'True/False'}"/>
+
+                                        <apex:outputPanel layout="block" rendered="{!qi.question.redwing__Type__c == 'Number' || qi.question.redwing__Type__c == 'Text'}" style="padding: 10px 0 0 0;">
+                                            <apex:inputField value="{!qi.response.redwing__Number_Response__c}" rendered="{!qi.question.redwing__Type__c == 'Number'}" style="width:100%;"/>
+                                            <apex:inputField value="{!qi.response.redwing__Response_Text_Long__c}" rendered="{!qi.question.redwing__Type__c == 'Text'}" style="width:100%;"/>
+                                        </apex:outputPanel>
+                                    </div>
+                                </div>
+                            </div>
+                        </apex:repeat>
+
+                        <apex:outputPanel layout="none" rendered="{!isEnableProgressBar && assignment != null && assignment.redwing__Progress_Percentage__c != null}">
+                            <div class="progress" style="margin-top:20px;">
+                                <div class="progress-bar {!IF(assignment.Progress_Percentage__c > 0, 'progress-bar-info', 'progress-bar-empty')}"
+                                    role="progressbar"
+                                    aria-valuemin="0"
+                                    aria-valuenow="{!assignment.redwing__Progress_Percentage__c}"
+                                    aria-valuemax="100"
+                                    style="min-width: 3em; width:{!assignment.redwing__Progress_Percentage__c}%"
+                                >
+                                    <apex:outputText value="{0, number, ###,##0.0}">
+                                        <apex:param value="{!assignment.redwing__Progress_Percentage__c}"/>
+                                    </apex:outputText>%
+                                </div>
+                            </div>
+                        </apex:outputPanel>
+
+                        <div id="quiz-notification-container"></div>
+
+                        <apex:actionFunction name="moveTo" action="{!moveTo}" />
+                        <apex:outputPanel rendered="{!isEnableNavigator}">
+                            <div id="quiz-navigator-container">
+                                <div class="popup-container">
+                                    <div class="popup-title"><h4>{!$Label.redwing__alms_quiz_navigator}</h4></div>
+                                    <div class="popup-questions">
+                                        <apex:inputHidden value="{!selectedQuestionLine}" id="theSelectedQLine"/>
+                                        <apex:repeat value="{!qlOrder}" var="qlId">
+                                            <apex:repeat value="{!questionWrappersByQLineIds[qlId]}" var="qWrapper">
+                                                <div class="{!IF(qWrapper.isResponse,'qst-ans','qst-not-ans')}" onclick="setHiddenInput('{!qlId}');moveTo();">
+                                                    <apex:inputCheckbox disabled="true" selected="{!qWrapper.isResponse}" />
+                                                    <apex:outputLabel value="{!qWrapper.textQuestion}" />
+                                                </div>
+                                            </apex:repeat>
+                                        </apex:repeat>
+                                    </div>
+                                    <div class="popup-button">
+                                        <div class="lmscore-success-btn small-btn div-btn">{!$Label.redwing__alms_quiz_cancel}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </apex:outputPanel>
+
+                        <apex:outputPanel styleClass="lmscore-button-wrap">
+                            <apex:commandButton value="{!$Label.redwing__alms_quiz_reset}" action="{!reset}" rendered="{!showStartButton}" styleClass="lmscore-warning-btn small-btn" style="margin-right: 10px;" onclick="return doConfirm('{!JSINHTMLENCODE($Label.redwing__alms_quiz_reset_warning)}');" />
+                            <apex:commandButton value="{!$Label.redwing__alms_quiz_back}" action="{!previous}" styleClass="lmscore-secondary-btn small-btn" style="margin-right: 10px;" rendered="{!showPreviousButton}" onclick="forceShowStatus()" />
+                            <apex:commandButton value="{!$Label.redwing__alms_quiz_next}" action="{!next}" styleClass="lmscore-secondary-btn small-btn" style="margin-right: 10px;" rendered="{!showNextButton}" onclick="forceShowStatus()"/>
+                            <apex:commandButton value="{!$Label.redwing__alms_quiz_submit}" action="{!done}" styleClass="lmscore-success-btn small-btn" style="margin-right: 10px;" rendered="{!showDoneButton}" onclick="return doConfirm('{!JSINHTMLENCODE($Label.redwing__alms_confirm_alert)}');" />
+                            <apex:commandButton value="{!$Label.redwing__alms_quiz_cancel}" action="{!backToTrainingPlan}" styleClass="lmscore-danger-btn small-btn" />
+                            <apex:outputPanel rendered="{!isEnableNavigator}">
+                                <div id="quiz-navigator-button" class="lmscore-success-btn small-btn div-btn" style="float: right; width: auto !important;">{!$Label.ALMS_Quiz_Navigator_Button}</div>
+                            </apex:outputPanel>
+                        </apex:outputPanel>
+
+                    </apex:outputPanel>
+
+                </apex:outputPanel>
+
+            </apex:define>
+
+        </apex:composition>
+
+    </apex:form>
+
+</apex:page>

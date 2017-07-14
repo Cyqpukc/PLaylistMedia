@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>redwing__About_RTA__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Information displayed in the about section of a Learning Plan</inlineHelpText>
+        <label>About</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>redwing__Background_Color__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>HEX Color code for the header background color (e.g. #dcdcdc, more examples in : http://www.color-hex.com/)</inlineHelpText>
+        <label>Background Color</label>
+        <length>7</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>redwing__Background_Image_URL__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>URL for the image displayed in the Learning Plan detail header</inlineHelpText>
+        <label>Background Image URL</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>redwing__Chatter_Notifications_Enabled__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Disable this option if you don&apos;t want users to receive chatter notifications when they are assigned to this Learning Plan.</inlineHelpText>
+        <label>Chatter Notifications Enabled</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Custom_Notification_Message__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Custom message used for chatter notifications</inlineHelpText>
+        <label>Custom Notification Message</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Description__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Description</label>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Do_Not_Reset_Progress_For_New_Versions__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option to prevent resetting progress for new versions of learning objects</inlineHelpText>
+        <label>Do Not Reset Progress For New Versions</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Enable_Assignment_Management_for_Users__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option to enable users with the &quot;Manage External Assignments&quot; custom permission to assign external users to this Learning Plan</inlineHelpText>
+        <label>Enable Assignment Management for Users</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Enable_Self_Registration__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Check this box if you&apos;d like to make this Learning Plan available to all your company and allow users to create assignments on-the-fly.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check this box if you&apos;d like to make this Learning Plan available to all your company and allow users to create assignments on-the-fly.</inlineHelpText>
+        <label>Enable Self-Registration</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__End_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>End Date</label>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Enforce_Sequence__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option to require users to complete the learning activities in the specified order</inlineHelpText>
+        <label>Enforce Sequence</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Hide_After_End_Date__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Hide this Learning Plan for end-users if the current date is outside of the Start/End Date range</inlineHelpText>
+        <label>Hide After End Date</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Hide_Chatter_Photos__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option to hide chatter photos for the last users that have acquired the Learning Plan achievement</inlineHelpText>
+        <label>Hide Chatter Photos</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Intro_Video_URL__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>URL for the embedded intro video shown in the Learning Plan detail page</inlineHelpText>
+        <label>Intro Video URL</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>redwing__Max_Registrations__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Maximum number of allowed registrations</inlineHelpText>
+        <label>Max Registrations</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>redwing__Min_Items_For_Completion__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Define a minimum # of learning items to complete in order to complete the Learning Plan</inlineHelpText>
+        <label>Min Items for Completion</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>redwing__New_Until__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Display a New ribbon in the Learning Plan until the specified date</inlineHelpText>
+        <label>New Until</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Optional_Feedback_Comments__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option to make feedback comments not required</inlineHelpText>
+        <label>Optional Feedback Comments</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Payment_Required__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option to require payment in order to register to this Learning Plan</inlineHelpText>
+        <label>Payment Required</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Self_Registration_Access__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>&quot;Public&quot; or blank allows users to create assignments &quot;on the fly&quot;. &quot;Requires Approval&quot; logs an approval request that is later handled by the Learning Plan owner.&quot;External&quot; exposes this Learning Plan to all users.</inlineHelpText>
+        <label>Self-Registration Access</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>redwing__Enable_Self_Registration__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Public</fullName>
+                    <default>true</default>
+                    <label>Public</label>
+                </value>
+                <value>
+                    <fullName>External</fullName>
+                    <default>false</default>
+                    <label>External</label>
+                </value>
+                <value>
+                    <fullName>Requires Approval</fullName>
+                    <default>false</default>
+                    <label>Requires Approval</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>checked</controllingFieldValue>
+                <valueName>Public</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>checked</controllingFieldValue>
+                <valueName>External</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>checked</controllingFieldValue>
+                <valueName>Requires Approval</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>redwing__Start_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Start Date</label>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Status__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Only Active Learning Plans will be visible to learners, Draft plans will be visible for Learning Admins</inlineHelpText>
+        <label>Status</label>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Draft</fullName>
+                    <default>true</default>
+                    <label>Draft</label>
+                </value>
+                <value>
+                    <fullName>Archived</fullName>
+                    <default>false</default>
+                    <label>Archived</label>
+                </value>
+                <value>
+                    <fullName>Active</fullName>
+                    <default>false</default>
+                    <label>Active</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>redwing__Text_Color__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>HEX Color code for the header text color (e.g. #333333, more examples in : http://www.color-hex.com/)</inlineHelpText>
+        <label>Text Color</label>
+        <length>7</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>redwing__Total_Ratings_Count__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Total Ratings Count</label>
+        <summaryFilterItems>
+            <field>redwing__Training_Plan_Feedback__c.redwing__Rating__c</field>
+            <operation>greaterThan</operation>
+            <value>0</value>
+        </summaryFilterItems>
+        <summaryForeignKey>redwing__Training_Plan_Feedback__c.redwing__Training_Plan__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Total_Ratings_Sum__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Total Ratings Sum</label>
+        <summarizedField>redwing__Training_Plan_Feedback__c.redwing__Rating__c</summarizedField>
+        <summaryFilterItems>
+            <field>redwing__Training_Plan_Feedback__c.redwing__Rating__c</field>
+            <operation>greaterThan</operation>
+            <value>0</value>
+        </summaryFilterItems>
+        <summaryForeignKey>redwing__Training_Plan_Feedback__c.redwing__Training_Plan__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Total_Section_Items__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Total Section Items</label>
+        <summarizedField>redwing__Training_Plan_Section__c.redwing__Total_Section_Items__c</summarizedField>
+        <summaryForeignKey>redwing__Training_Plan_Section__c.redwing__Training_Plan__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Training_Plan_Rating__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>IF( redwing__Total_Ratings_Count__c &gt; 0 , redwing__Total_Ratings_Sum__c/redwing__Total_Ratings_Count__c, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Learning Plan Rating</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>Learning Plan</label>
+    <listViews>
+        <fullName>redwing__All</fullName>
+        <columns>NAME</columns>
+        <columns>redwing__Description__c</columns>
+        <columns>redwing__Status__c</columns>
+        <columns>redwing__Start_Date__c</columns>
+        <columns>redwing__End_Date__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Learning Plan Name</label>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Learning Plans</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>redwing__Description__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>redwing__Status__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>redwing__Start_Date__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>redwing__End_Date__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CREATEDBY_USER</customTabListAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Private</sharingModel>
+    <sharingReasons>
+        <fullName>redwing__LMS_Sharing__c</fullName>
+        <label>LMS Sharing</label>
+    </sharingReasons>
+    <validationRules>
+        <fullName>redwing__Date_Validation</fullName>
+        <active>true</active>
+        <errorConditionFormula>redwing__Start_Date__c &gt;  redwing__End_Date__c</errorConditionFormula>
+        <errorMessage>Start Date cannot be greater than End Date</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>redwing__Empty_Date_Validation</fullName>
+        <active>true</active>
+        <errorConditionFormula>(!ISBLANK(redwing__Start_Date__c) &amp;&amp; ISBLANK(redwing__End_Date__c)) || (ISBLANK(redwing__Start_Date__c) &amp;&amp; !ISBLANK(redwing__End_Date__c))</errorConditionFormula>
+        <errorMessage>You must set a value for Start and End date or leave both empty</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+    <webLinks>
+        <fullName>redwing__Export_Training_Plan</fullName>
+        <availability>online</availability>
+        <description>Display VF page for exporting a Learning Plan</description>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Export</masterLabel>
+        <openType>noSidebar</openType>
+        <page>redwing__TrainingPlanExport</page>
+        <protected>false</protected>
+    </webLinks>
+    <webLinks>
+        <fullName>redwing__Manage_Assignments</fullName>
+        <availability>online</availability>
+        <description>Display VF page for managing Learning Plan assignments</description>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Manage Assignments</masterLabel>
+        <openType>noSidebar</openType>
+        <page>redwing__TrainingPlanAssignment</page>
+        <protected>false</protected>
+    </webLinks>
+    <webLinks>
+        <fullName>rwscorm__Assign_to_Community_Users</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <height>600</height>
+        <linkType>url</linkType>
+        <masterLabel>Assign to Community Users</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <url>/apex/rwscorm__AssignTPlanToCommunityUsers?id={!redwing__Training_Plan__c.Id}</url>
+    </webLinks>
+</CustomObject>

@@ -1,0 +1,108 @@
+<aura:component controller="AllMediaCmpCtrl" implements="forceCommunity:availableForAllPageTypes" access="global" >
+
+    <aura:attribute name="videoDetail" type="MediaWrapper"/>
+    <aura:attribute name="videos" type="MediaWrapper[]"/>
+    <aura:attribute name="recomendedVideos" type="MediaWrapper[]"/>
+    <aura:attribute name="channel" type="ChannelWrapper[]"/>
+
+    <aura:attribute name="showRecommended" type="Boolean" default="true" access="global"/>
+    <aura:attribute name="hiddenRecomended" type="Boolean" default="false"/>
+    <aura:attribute name="showShared" type="Boolean" access="global"/>
+    <aura:attribute name="showPin" type="Boolean" access="global"/>
+    <aura:attribute name="showChannel" type="Boolean" access="global" default="false"/>
+    <aura:attribute name="isChannelListEmpty" type="Boolean" default="false"/>
+
+    <aura:attribute name="showCatalogDetail" type="Boolean" default="false"/>
+    <aura:attribute name="activeCatalogId" type="String" default=""/>
+    <aura:attribute name="activeCatalogName" type="String" default=""/>
+
+    <aura:attribute name="maxCountRecommendedVideos" access="global" type="Integer" default="3"/>
+    <aura:attribute name="activeChannelId" type="String" default="All"/>
+    <aura:attribute name="activeChannelName" type="String" default=""/>
+    <aura:attribute name="newChannelName" type="String" default=""/>
+    <aura:attribute name="search" type="String"/>
+    <aura:attribute name="shareEmails" type="String"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler event="aura:waiting" action="{!c.showSpinner}"/>
+    <aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}"/>
+    
+    <aura:handler name="getVideoDetailEvent" event="c:EventCmp" action="{!c.getVideoDetailEventHandler}"/>
+    <aura:handler name="setChannelsEvent" event="c:EventCmp" action="{!c.setChannelsEventHandler}"/>
+    <aura:handler name="removeMediaFromChanEvent" event="c:EventCmp" action="{!c.removeMediaFromChanEventHandler}"/>
+    <aura:handler name="addMediaToChannelEvent" event="c:EventCmp" action="{!c.addMediaToChannelEventHandler}"/>
+    <aura:handler name="deleteChannelEvent" event="c:EventCmp" action="{!c.deleteChannelEventHandler}"/>
+    <aura:handler name="renameChannelEvent" event="c:EventCmp" action="{!c.renameChannelEventHandler}"/>
+
+    <ltng:require scripts="{!$Resource.Components_Library + '/vendor/components/svg4everybody.min.js'}" afterScriptsLoaded="{!c.loadSvgScript}" />
+
+    <div aura:id="spinner" class="loader slds-spinner_container">
+        <div class="slds-spinner--inverse slds-spinner slds-spinner--large" role="alert">
+            <span class="slds-assistive-text">Loading</span>
+            <div class="slds-spinner__dot-a"></div>
+            <div class="slds-spinner__dot-b"></div>
+        </div>
+    </div>
+
+    <div class="search-container">
+
+        <aura:renderIf isTrue="{! !v.showCatalogDetail }">
+
+            <div class="headerTitle" >{!(v.activeChannelName == 'All')? 'Media' : ('Media  ' + v.activeChannelName)}</div>
+            <span class="searchSpan">
+                <ui:inputText class="searchBox" placeholder="Please enter the media title" aura:id="filter" label="" value="{!v.search}" keyup="{!c.change}"/>
+                <button class="uiButton--default uiButton--brand uiButton searchBtn" onclick="{!c.filter}" id="button" label="Search">Search</button>
+            </span>
+
+            <aura:set attribute="else">
+                <div class="headerTitle" >{! 'Media  ' + v.activeCatalogName }</div>
+            </aura:set>
+
+        </aura:renderIf>
+
+        <!--List channels-->
+        <aura:renderIf isTrue="{! (v.showChannel) &amp;&amp; (!v.isChannelListEmpty)}">
+            <div class="channels slds-grid slds-wrap">
+                <div class="slds-size--7-of-12 slds-small-size--8-of-12 slds-medium-size--9-of-12">
+                    <a href="javascript:void(0)" data-channel-name="All" class="{! v.activeChannelId == 'All' ? 'channel-link active' : 'channel-link' }" data-channel-id="All" onclick="{!c.setChannel}">View All</a>
+                    <aura:iteration items="{!v.channel}" var="channel">
+                        <a href="javascript:void(0)" data-channel-name="{!channel.name}" class="{! channel.id == v.activeChannelId ? 'channel-link active' : 'channel-link' }" data-channel-id="{!channel.id}" onclick="{!c.setChannel}">{!channel.name}</a>
+                    </aura:iteration>
+                </div>
+                <div class="slds-size--5-of-12 slds-small-size--4-of-12 slds-medium-size--3-of-12 manageChannel" onclick="{!c.channelModalHandler}" data-modal-id="manageVideosModal" >
+                    <img src="{!$Resource.Components_Library + '/img/icon_manage_channels.svg'}" style="height: 22px;"></img>
+                    <span class="manage" >Manage Channels</span>
+                </div>
+            </div>
+        </aura:renderIf>
+        
+        <div class="results">
+            <!--Recommended-->
+            <div class="{!(v.showRecommended &amp;&amp; (v.activeChannelId == 'All') &amp;&amp; !v.hiddenRecomended) ? 'results' : 'hidden'}">
+                <div class="subTitle" ><span class="text">Recommended</span><span class="line"></span></div>
+                <span>
+                    <span class="panelsContainer">
+                        <c:MediaCmp mediaItems="{!v.recomendedVideos}" showShared="{!v.showShared}" showPin="{!v.showPin}" showChannel="{!v.showChannel}" activeChannelId="{!v.activeChannelId}" shareEmails="{!v.shareEmails}" />
+                        <div class="{!(v.recomendedVideos == null || v.recomendedVideos.length le 0) ? 'noresults' : 'hidden'}">No Media</div>
+                    </span>
+                </span>
+            </div>
+
+            <!--Recently Published-->
+            <div class="{!(v.showRecommended  &amp;&amp; (v.activeChannelId == 'All') &amp;&amp; !v.hiddenRecomended) ? 'subTitle' : 'hidden'}">
+                <div class="subTitle" ><span class="text">Recently Published</span><span class="line"></span></div>
+            </div>
+            <span>
+                <span class="panelsContainer">
+                    <c:MediaCmp mediaItems="{!v.videos}" showShared="{!v.showShared}" showPin="{!v.showPin}" showChannel="{!v.showChannel}" activeChannelId="{!v.activeChannelId}" shareEmails="{!v.shareEmails}" />
+                    <div class="{!(v.videos == null || v.videos.length le 0) ? 'noresults' : 'hidden'}">No Media</div>
+                </span>
+            </span>
+        </div>
+    </div>
+
+    <c:ChannelManagementCmp showChannel="{!v.showChannel}" isChannelListEmpty="{!v.isChannelListEmpty}" 
+                      activeChannelId="{!v.activeChannelId}" activeChannelName="{!v.activeChannelName}" channel="{!v.channel}" 
+                      videoDetail="{!v.videoDetail}" />
+    <c:MediaPopupCmp />
+</aura:component>

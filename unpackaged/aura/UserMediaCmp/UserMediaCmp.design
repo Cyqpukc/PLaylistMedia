@@ -1,0 +1,16 @@
+<design:component label="User Media">
+    <design:attribute name="userId" label="User ID" description="Please set '{!recordId}' to pass the user ID for Profile Page"/>
+    <design:attribute name="isForProfilePage" label="Display for profile page" description="Component’s setting for the Profile page that will display three media tiles and a “View All” link below them"/>
+    <design:attribute name="showRecentViewed" label="Show Recently Viewed"/>
+    <design:attribute name="showProgress" label="Show Progress"/>
+    <design:attribute name="showShared" label="Show 'Share' Button"/>
+    <design:attribute name="shareButtonStyle" label="Share button type" datasource="Email,Iframe,Link" default="Email" description="Used to send an email with a link to the media, or to get a link that can be used in an article, or to get a public link"/>
+    <design:attribute name="shareLinkType" label="Share Link Type" datasource="New Window,PopUp" default="New Window" description="By using a public link, video will be opened on a current page in a pop-up or in a new window"/>
+    <design:attribute name="siteId" label="Site Id for Public Link" description="Required attribute for a public link"/>
+    <design:attribute name="isCourseNameLink" label="Show Media Name as a Link" description="If selected, clicking on a media name will redirect to the Media detail page"/>
+    <design:attribute name="isCreatedByLink" label="Show User Name as a Link" description="If selected, clicking on a user name will redirect to user’s profile"/>
+    <design:attribute name="isShowTitle" label="Show Section Title"/>
+    <design:attribute name="isShowViewAllLink" label="Show 'View All' Link"/>
+    <design:attribute name="hideComponent" label="Hide Empty Component" description="Component can be hidden if there are no media records"/>
+    <design:attribute name="countMedia" label="Media Count" description="Number of Media that will be displayed on the page. To see more records, users will need to click on View More button (max 100)"/>
+</design:component>

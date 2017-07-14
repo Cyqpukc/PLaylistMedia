@@ -1,0 +1,5 @@
+<aura:event type="APPLICATION" access="global">
+    <aura:attribute name="trainingPlanId" type="String" access="global"/>
+    <aura:attribute name="itemId" type="String" access="global"/>
+    <aura:attribute name="versionBehavior" type="String" access="global"/>
+</aura:event>

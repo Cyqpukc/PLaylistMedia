@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <label><!-- Enable for all external users --></label>
+        <name>Enable_all_external_users__c</name>
+    </fields>
+    <fields>
+        <label><!-- Enable for all internal users --></label>
+        <name>Enable_all_internal_users__c</name>
+    </fields>
+    <fields>
+        <label><!-- Completion Progress Threshold --></label>
+        <name>scormanywhere__Completion_Progress_Threshold__c</name>
+    </fields>
+    <fields>
+        <label><!-- Media Version --></label>
+        <name>scormanywhere__Course_Version__c</name>
+        <relationshipLabel><!-- Media --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Description --></label>
+        <name>scormanywhere__Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Duration --></label>
+        <name>scormanywhere__Duration__c</name>
+    </fields>
+    <fields>
+        <label><!-- Enable For All External Users --></label>
+        <name>scormanywhere__Enable_All_External_Users__c</name>
+    </fields>
+    <fields>
+        <label><!-- Enable For All Internal Users --></label>
+        <name>scormanywhere__Enable_All_Internal_Users__c</name>
+    </fields>
+    <fields>
+        <label><!-- Public --></label>
+        <name>scormanywhere__Public__c</name>
+    </fields>
+    <fields>
+        <label><!-- SCORM Activity Id --></label>
+        <name>scormanywhere__SCORM_Activity_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- SCORM File Size --></label>
+        <name>scormanywhere__SCORM_File_Size__c</name>
+    </fields>
+    <fields>
+        <label><!-- Keywords --></label>
+        <name>scormanywhere__SCORM_Keywords__c</name>
+    </fields>
+    <fields>
+        <label><!-- Language --></label>
+        <name>scormanywhere__SCORM_Language__c</name>
+        <picklistValues>
+            <masterLabel>en_US</masterLabel>
+            <translation><!-- en_US --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- SCORM Manifest Data --></label>
+        <name>scormanywhere__SCORM_Manifest_Data__c</name>
+    </fields>
+    <fields>
+        <label><!-- SCORM Title --></label>
+        <name>scormanywhere__SCORM_Title__c</name>
+    </fields>
+    <fields>
+        <label><!-- SCORM Training Path --></label>
+        <name>scormanywhere__SCORM_Training_Path__c</name>
+    </fields>
+    <fields>
+        <label><!-- SCORM Training Type --></label>
+        <name>scormanywhere__SCORM_Training_Type__c</name>
+    </fields>
+    <fields>
+        <label><!-- Source --></label>
+        <name>scormanywhere__Source__c</name>
+        <picklistValues>
+            <masterLabel>Chatter</masterLabel>
+            <translation><!-- Chatter --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Community</masterLabel>
+            <translation><!-- Community --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Integration</masterLabel>
+            <translation><!-- Integration --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Original Media</masterLabel>
+            <translation><!-- Original Media --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Related Media</masterLabel>
+            <translation><!-- Related Media --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>scormanywhere__Status__c</name>
+        <picklistValues>
+            <masterLabel>Active</masterLabel>
+            <translation><!-- Active --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Inactive</masterLabel>
+            <translation><!-- Inactive --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Test Progress --></label>
+        <name>scormanywhere__Test_Progress__c</name>
+    </fields>
+    <fields>
+        <label><!-- Test Score --></label>
+        <name>scormanywhere__Test_Score__c</name>
+    </fields>
+    <fields>
+        <label><!-- Test Status --></label>
+        <name>scormanywhere__Test_Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- Test Transcript --></label>
+        <name>scormanywhere__Test_Transcript__c</name>
+        <relationshipLabel><!-- Media --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Tested By --></label>
+        <name>scormanywhere__Tested_By__c</name>
+    </fields>
+    <fields>
+        <label><!-- Tested Date --></label>
+        <name>scormanywhere__Tested_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Thumbnail Path --></label>
+        <name>scormanywhere__Thumbnail_Path__c</name>
+    </fields>
+    <fields>
+        <label><!-- Uploaded Org Id --></label>
+        <name>scormanywhere__Uploaded_Org_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Version --></label>
+        <name>scormanywhere__Version__c</name>
+    </fields>
+    <webLinks>
+        <label><!-- Enroll_Users --></label>
+        <name>scormanywhere__Enroll_Users</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- New_Upload --></label>
+        <name>scormanywhere__New_Upload</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Share --></label>
+        <name>scormanywhere__Share</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Test --></label>
+        <name>scormanywhere__Test</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Upload_New_Version --></label>
+        <name>scormanywhere__Upload_New_Version</name>
+    </webLinks>
+</CustomObjectTranslation>

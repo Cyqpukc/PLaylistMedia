@@ -1,0 +1,102 @@
+<apex:page standardController="scormanywhere__Course__c" extensions="scormanywhere.HeaderExtension,scormanywhere.CourseDetailsExtension" action="{!processEnroll}" >
+	<script>
+		shareCourse_iframeSrc = "{!URLFOR($Page.ShareCourse)}?id={!Course.Id}";
+		shareCourse_resourceLink = "{!URLFOR($Resource.SCORM_Library)}";
+	</script>
+	<apex:includeScript value="{!URLFOR($Resource.scormanywhere__SCORM_Library, '/js/jquery_2_1_3.js')}" />
+	<apex:includeScript value="{!URLFOR($Resource.scormanywhere__SCORM_Library, '/js/shareCourse_popup.js')}" />
+	<link rel="stylesheet" href="{!URLFOR($Resource.SCORM_Library)}/css/upload-lightbox.css" type="text/css" />
+	<apex:pageMessages />
+	<apex:detail subject="{!scormanywhere__Course__c}" />
+	<script>
+		Sfdc.onReady(function() {
+			var CourseStatus = '{!JSENCODE(Course.Status__c)}';
+			var isTested = {!isTested};
+			var isClientKeyExists = {!isClientKeyExists};
+			var isEnrollAllowed = {!isEnrollAllowed};
+            
+			//do not remove the Active constant, do not change to the label
+			if (CourseStatus != 'Active' || isTested == false || isClientKeyExists == false || isEnrollAllowed == false) {
+				allEnrollUsersButtons = getElementByNameStart('enroll_users');
+				for (var i in allEnrollUsersButtons) {
+					allEnrollUsersButtons[i].disabled = true;
+					allEnrollUsersButtons[i].setAttribute('class','btnDisabled');
+				}
+			}
+		});
+
+		function getElementByNameStart(str){
+			var x=document.getElementsByTagName('input')
+			var a=[];
+			for(var i=0;i<x.length;i++){
+				try {
+					if(x[i].getAttribute("name").indexOf(str)>=0){
+						a.push(x[i])
+					}
+				} catch (err) {}
+			}
+			return a;
+		}
+		function el_showLightBoxClone() {
+            el_showFormNewUpload();
+            jQuery('#el_lightboxClone').fadeIn('fast');
+            jQuery('#el_overlay').fadeIn('fast');
+        }
+        
+        function el_hideLightBoxClone() {
+            jQuery('#el_lightboxClone').fadeOut('fast');
+            jQuery('#el_overlay').fadeOut('fast');
+            clearIFrameOnClosePopup();
+        }
+		function clearIFrameOnClosePopup() {
+        	var createdIFrame = document.getElementById('el_createdIFrameClone')
+        	try {
+        		createdIFrame.parentNode.removeChild(createdIFrame);
+        	} catch (e) {}		
+		}
+        function el_createIFrameClone(frameURL) {
+			if(document.getElementById('el_createdIFrameClone') == null) {
+				el_iframe.src = frameURL;
+				el_iframe.id = 'el_createdIFrameClone';
+				el_iframe.scrolling="yes";
+				el_iframe.frameBorder=0;
+				el_iframe.style.position = "fixed";
+                el_iframe.style.left = "0px";
+                el_iframe.style.top = "0px";
+                el_iframe.style.width = "100%";
+                el_iframe.style.height = "100%";
+				el_iframe.setAttribute("id", "el_createdIFrameClone");
+				document.getElementById('el_iframe_here_clone').appendChild(el_iframe);
+			}
+		}
+
+		var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
+        var eventer = window[eventMethod];
+        var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
+        eventer(messageEvent,function(e) {
+            if(e.data){
+                var data = JSON.parse(e.data);
+                if(data.hasOwnProperty('frameHeight')){
+                    document.getElementById('el_lightboxClone').style.height = data.frameHeight + 'px';
+                }
+            }
+        },false);
+	</script>
+	
+	
+	
+	<div id="el_overlay" class="b-overlay" style="display:none;">
+	</div>
+	<div id="el_lightboxClone"  style="position:fixed; overflow:hidden; display:none; width:100%; height: 100%; left:0px; top:0px;z-index:10000">
+		<span id="embeddedLinkIFrame">
+			<span id="el_iframe_here_clone"></span>
+		</span>
+	</div>
+	
+	<!-- DO NOT REMOVE -->
+	<c:SessionStorage page="MyCourse" rendered="{!isClientKeyExists}"/>
+	<!-- DO NOT REMOVE -->
+    <apex:outputPanel id="framePreview">
+        <apex:iframe src="{!publicPreviewLink}" height="0" width="0"/>
+    </apex:outputPanel>    
+</apex:page>

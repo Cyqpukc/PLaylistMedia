@@ -1,0 +1,12 @@
+.THIS.slds-modal--large .slds-modal__container{
+    width: 65%;
+}
+.THIS #CustomAllCreatedIframe {
+    border: 0;
+}
+.THIS.loaderPopUp{
+    background-color: transparent;
+    height: 100%;
+    position: fixed;
+    z-index: 9001;
+}

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Conjunto de Permisos de Regla</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Conjuntos de Permisos de Regla</value>
+    </caseValues>
+    <fields>
+        <label><!-- LMS Permission Rule --></label>
+        <name>redwing__LMS_Permission_Rule__c</name>
+        <relationshipLabel><!-- Permission Sets --></relationshipLabel>
+    </fields>
+    <fields>
+        <help>Nombre de la API de Conjunto de Permisos</help>
+        <label><!-- PermSet API Name --></label>
+        <name>redwing__PermSet_API_Name__c</name>
+    </fields>
+    <gender>Masculine</gender>
+    <nameFieldLabel>Id de Conjunto de Permisos de Regla</nameFieldLabel>
+</CustomObjectTranslation>

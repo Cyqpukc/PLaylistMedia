@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Sección de Evaluación</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Secciones de Evaluación</value>
+    </caseValues>
+    <fields>
+        <label><!-- Description --></label>
+        <name>redwing__Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Order --></label>
+        <name>redwing__Order__c</name>
+    </fields>
+    <fields>
+        <label><!-- Quiz --></label>
+        <name>redwing__Quiz__c</name>
+        <relationshipLabel><!-- Question Lines --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Total Questions --></label>
+        <name>redwing__Total_Questions__c</name>
+    </fields>
+    <gender>Feminine</gender>
+    <nameFieldLabel>ID de Sección</nameFieldLabel>
+    <webLinks>
+        <label><!-- Import_Questions --></label>
+        <name>redwing__Import_Questions</name>
+    </webLinks>
+</CustomObjectTranslation>

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Curso</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Cursos</value>
+    </caseValues>
+    <fields>
+        <help>Texto que será mostrado en la sección de Información de este curso</help>
+        <label><!-- About --></label>
+        <name>redwing__About_RTA__c</name>
+    </fields>
+    <fields>
+        <help>Código de color Hex para el fondo del encabezado (ej. #dcdcdc, más ejemplos en : http://www.color-hex.com/)</help>
+        <label><!-- Background Color --></label>
+        <name>redwing__Background_Color__c</name>
+    </fields>
+    <fields>
+        <help>Liga hacia la imagen que será desplegada en el encabezado del curso</help>
+        <label><!-- Background Image URL --></label>
+        <name>redwing__Background_Image_URL__c</name>
+    </fields>
+    <fields>
+        <help>Deshabilitar esta opción si no desea que los usuarios reciban notificaciones en Chatter al crearles asignaciones</help>
+        <label><!-- Chatter Notifications Enabled --></label>
+        <name>redwing__Chatter_Notifications_Enabled__c</name>
+    </fields>
+    <fields>
+        <help>Mensaje personalizado usado en las notificaciones de Chatter</help>
+        <label><!-- Custom Notification Message --></label>
+        <name>redwing__Custom_Notification_Message__c</name>
+    </fields>
+    <fields>
+        <label><!-- Description --></label>
+        <name>redwing__Description__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción para no reiniciar el progreso de los Aprendizajes cuando se publique una nueva versión</help>
+        <label><!-- Do Not Reset Progress For New Versions --></label>
+        <name>redwing__Do_Not_Reset_Progress_For_New_Versions__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción para que usuarios con el permiso &quot;Manage External Assignments&quot; puedan asignar este curso a usuarios externos</help>
+        <label><!-- Enable Assignment Management for Users --></label>
+        <name>redwing__Enable_Assignment_Management_for_Users__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción si desea que este curso este disponible para toda la empresa y que los usuarios se registren ellos mismos</help>
+        <label><!-- Enable Self-Registration --></label>
+        <name>redwing__Enable_Self_Registration__c</name>
+    </fields>
+    <fields>
+        <label><!-- End Date --></label>
+        <name>redwing__End_Date__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción para asegurarse que los usuarios tomen los aprendizajes del curso en el orden especificado</help>
+        <label><!-- Enforce Sequence --></label>
+        <name>redwing__Enforce_Sequence__c</name>
+    </fields>
+    <fields>
+        <help>Ocultar este curso si la fecha actual está fuera del rango definido por las Fechas de Inicio/Termino</help>
+        <label><!-- Hide After End Date --></label>
+        <name>redwing__Hide_After_End_Date__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción para esconder las imágenes de perfil de Chatter en el encabezado del curso</help>
+        <label><!-- Hide Chatter Photos --></label>
+        <name>redwing__Hide_Chatter_Photos__c</name>
+    </fields>
+    <fields>
+        <help>Liga para el video introductorio que será mostrado en el detalle del curso</help>
+        <label><!-- Intro Video URL --></label>
+        <name>redwing__Intro_Video_URL__c</name>
+    </fields>
+    <fields>
+        <help>Máximo numero de auto-registros permitidos para este curso</help>
+        <label><!-- Max Registrations --></label>
+        <name>redwing__Max_Registrations__c</name>
+    </fields>
+    <fields>
+        <help>Numero minimo de aprendizajes de curso a completar para marcar el curso como completo</help>
+        <label><!-- Min Items for Completion --></label>
+        <name>redwing__Min_Items_For_Completion__c</name>
+    </fields>
+    <fields>
+        <help>Desplegar una etiqueta que indique que el curso es Nuevo hasta la fecha definida</help>
+        <label><!-- New Until --></label>
+        <name>redwing__New_Until__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción para evitar que los comentarios sean requeridos al proveer una calificación</help>
+        <label><!-- Optional Feedback Comments --></label>
+        <name>redwing__Optional_Feedback_Comments__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción para requerir un pago para registrarse a este Curso</help>
+        <label><!-- Payment Required --></label>
+        <name>redwing__Payment_Required__c</name>
+    </fields>
+    <fields>
+        <help> &quot;Público&quot; o sin valor permite que usuarios se auto-registren al curso. &quot;Requiere Aprobación&quot; guarda un registro de Aprobación que debe ser procesado por el propietario del curso. &quot;Externo&quot; expone el curso a todos los usuarios</help>
+        <label><!-- Self-Registration Access --></label>
+        <name>redwing__Self_Registration_Access__c</name>
+        <picklistValues>
+            <masterLabel>External</masterLabel>
+            <translation>Externo (Todos los Usuarios Externos + Internos)</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Public</masterLabel>
+            <translation>Interno (Todos los Usuarios Internos + Cuentas de Curso)</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Requires Approval</masterLabel>
+            <translation>Requiere Aprobación (Usuarios Internos + Cuentas de Curso)</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Start Date --></label>
+        <name>redwing__Start_Date__c</name>
+    </fields>
+    <fields>
+        <help>Solo los cursos Activos serán visibles para los usuarios finales. Cursos en estado Borrador serán visibles para Administradores</help>
+        <label><!-- Status --></label>
+        <name>redwing__Status__c</name>
+        <picklistValues>
+            <masterLabel>Active</masterLabel>
+            <translation>Activo</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Archived</masterLabel>
+            <translation>Archivado</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Draft</masterLabel>
+            <translation>Borrador</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help>Código de color Hex para el texto del encabezado (ej. #333333, más ejemplos en : http://www.color-hex.com/)</help>
+        <label><!-- Text Color --></label>
+        <name>redwing__Text_Color__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Ratings Count --></label>
+        <name>redwing__Total_Ratings_Count__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Ratings Sum --></label>
+        <name>redwing__Total_Ratings_Sum__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Section Items --></label>
+        <name>redwing__Total_Section_Items__c</name>
+    </fields>
+    <fields>
+        <label><!-- Learning Plan Rating --></label>
+        <name>redwing__Training_Plan_Rating__c</name>
+    </fields>
+    <gender>Masculine</gender>
+    <nameFieldLabel>Nombre de Curso</nameFieldLabel>
+    <sharingReasons>
+        <label><!-- LMS Sharing --></label>
+        <name>redwing__LMS_Sharing</name>
+    </sharingReasons>
+    <validationRules>
+        <errorMessage><!-- Start Date cannot be greater than End Date --></errorMessage>
+        <name>redwing__Date_Validation</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You must set a value for Start and End date or leave both empty --></errorMessage>
+        <name>redwing__Empty_Date_Validation</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- Export_Training_Plan --></label>
+        <name>redwing__Export_Training_Plan</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Manage_Assignments --></label>
+        <name>redwing__Manage_Assignments</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Assign_to_Community_Users --></label>
+        <name>rwscorm__Assign_to_Community_Users</name>
+    </webLinks>
+</CustomObjectTranslation>

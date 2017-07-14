@@ -1,0 +1,47 @@
+<apex:page standardController="redwing__Training_Activity__c" extensions="redwing.TrainingActivityAssignmentNewExt" sidebar="false">
+
+    <apex:form id="assignmentFormSingle">
+
+        <apex:pageMessages />
+
+        <apex:outputPanel layout="none" rendered="{!hasEditAccess}">
+            <apex:pageBlock >
+
+                <apex:pageBlockButtons location="top">
+                    <apex:commandButton value="{!$Label.redwing__alms_assign}" action="{!assignSingleUser}" status="status" rerender="assignmentFormSingle" onclick="if(!confirm('{!JSINHTMLENCODE($Label.redwing__alms_confirm_alert)}')){return};" />
+                    <apex:commandButton value="{!$Label.redwing__alms_cancel}" action="{!cancel}" />
+                </apex:pageBlockButtons>
+
+                <apex:pageBlockSection columns="2">
+                    <apex:inputField value="{!dummySingleAssignment.redwing__User__c}" styleClass="noEnter"/>
+                    <apex:inputField value="{!dummySingleAssignment.redwing__Due_Date__c}" />
+                </apex:pageBlockSection>
+
+                <apex:pageBlockSection columns="1" rendered="{!hasCommunities}" title="{!$Label.redwing__alms_additional_options}">
+
+                    <apex:pageMessage summary="{!$Label.redwing__alms_single_assignments_info_message}" severity="info" strength="2" />
+
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.redwing__alms_community_id}" for="assignment__community"/>
+                        <apex:selectList value="{!communityId}" size="1">
+                            <apex:selectOptions value="{!communities}" />
+                        </apex:selectList>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+
+            </apex:pageBlock>
+        </apex:outputPanel>
+    </apex:form>
+
+    <script>
+        jQuery(document).ready(function($){
+            $('.noEnter').keydown(function(event) {
+                if(event.which == 13) {
+                    event.preventDefault();
+                    return false;
+                }
+            });
+        });
+    </script>
+
+</apex:page>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Regla de Permisos LMS</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Reglas de Permisos LMS</value>
+    </caseValues>
+    <fields>
+        <help>Descripción opcional sobre esta regla</help>
+        <label><!-- Description --></label>
+        <name>redwing__Description__c</name>
+    </fields>
+    <fields>
+        <help>Nombre de la API de Campo en el Objeto Usuario</help>
+        <label><!-- Field API Name --></label>
+        <name>redwing__Field_API_Name__c</name>
+    </fields>
+    <fields>
+        <help>Valor de Campo esperado en el objeto Usuario. Expresiones regulares pueden ser probadas en https://regex101.com/</help>
+        <label><!-- Field Value --></label>
+        <name>redwing__Field_Value__c</name>
+    </fields>
+    <fields>
+        <help>Activar/Desactivar la ejecución de esta regla</help>
+        <label><!-- Is Active --></label>
+        <name>redwing__IsActive__c</name>
+    </fields>
+    <fields>
+        <help>Operador usado en esta regla. Dentro De y No Dentro De esperan una lista de valores separados por coma</help>
+        <label><!-- Operator --></label>
+        <name>redwing__Operator__c</name>
+        <picklistValues>
+            <masterLabel>contains</masterLabel>
+            <translation>contiene</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>ends with</masterLabel>
+            <translation>termina con</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>equals</masterLabel>
+            <translation>igual</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>in</masterLabel>
+            <translation>dentro de</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>not in</masterLabel>
+            <translation>no dentro de</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>regex</masterLabel>
+            <translation>expresion regular</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>starts with</masterLabel>
+            <translation>comienza con</translation>
+        </picklistValues>
+    </fields>
+    <gender>Feminine</gender>
+    <nameFieldLabel>Nombre de Permiso de Regla</nameFieldLabel>
+</CustomObjectTranslation>

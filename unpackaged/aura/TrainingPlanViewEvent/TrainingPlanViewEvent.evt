@@ -1,0 +1,4 @@
+<aura:event type="APPLICATION" access="global">
+    <aura:attribute name="id" type="String" access="global" />
+    <aura:attribute name="autoRegister" type="Boolean" access="global" />
+</aura:event>

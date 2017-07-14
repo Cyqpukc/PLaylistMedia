@@ -1,0 +1,72 @@
+<!--
+Copyright (c) 2014, salesforce.com, Inc.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+    * Neither the name of the salesforce.com, Inc. nor the names of its contributors
+    may be used to endorse or promote products derived from this software
+    without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<apex:page controller="redwing.MyTrainingCtrl" readOnly="true" docType="html-5.0" sidebar="false" showHeader="{!showSFHeader}" standardStylesheets="false">
+
+    <apex:composition template="redwing__LMSTemplate">
+
+        <apex:define name="head">
+            <title>{!$Label.redwing__alms_my_training}</title>
+        </apex:define>
+
+        <apex:define name="container-header">
+            <div class="row lmscore-nav row-centered" >
+                <a class="col-centered col-xs-4 col-sm-3 col-md-3 lmscore-nav-item {!IF(selectedType=='Not Started','lmscore-nav-active','')}" href="javascript:void(0)" onclick="lmscore.myTrainingMenuHandler(this,'{!$Page.MyTraining}');" lms-status-id="Not Started">{!$Label.ALMS_NotStarted}</a>
+                <a class="col-centered col-xs-4 col-sm-3 col-md-3 lmscore-nav-item {!IF(selectedType=='In Progress','lmscore-nav-active','')}" href="javascript:void(0)" onclick="lmscore.myTrainingMenuHandler(this,'{!$Page.MyTraining}');" lms-status-id="In Progress">{!$Label.ALMS_InProgress}</a>
+                <a class="col-centered col-xs-4 col-sm-3 col-md-3 lmscore-nav-item lmscore-last-nav-item {!IF(selectedType=='Completed','lmscore-nav-active','')}" href="javascript:void(0)" onclick="lmscore.myTrainingMenuHandler(this,'{!$Page.MyTraining}');" lms-status-id="Completed">{!$Label.ALMS_Completed}</a>
+            </div>
+        </apex:define>
+
+        <apex:define name="body">
+
+            <apex:outputPanel layout="none" rendered="{!showTrainingTracks}">
+                <c:MyTrainingTracks status="{!selectedType}" />
+            </apex:outputPanel>
+
+            <apex:outputPanel layout="none" rendered="{!tPlans != null}">
+                <h4>{!$Label.ALMS_Training_Plans} ({!tPlans.size}) </h4>
+                <hr />
+            </apex:outputPanel>
+
+            <c:TrainingPlanInfo tplanObj="{!tPlans}" showProgress="{!showPlanProgress}" id="body_comp"/>
+
+            <c:MyTrainingActivities status="{!selectedType}" />
+
+            <apex:actionStatus id="status">
+                <apex:facet name="start">
+                    <apex:outputPanel >
+                        <c:LMSStatus statusComponentId="{!$Component.status}"/>
+                    </apex:outputPanel>
+                </apex:facet>
+            </apex:actionStatus>
+
+
+        </apex:define>
+
+    </apex:composition>
+
+</apex:page>

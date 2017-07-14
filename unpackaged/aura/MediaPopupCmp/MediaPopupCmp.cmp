@@ -1,0 +1,58 @@
+<aura:component >
+    <ltng:require styles="/resource/ViewTracCustomCss"/>
+    <aura:attribute name="showPopup" type="Boolean" default="false"/>
+    <aura:attribute name="showPopupBackground" type="Boolean" default="false"/>
+    <aura:attribute name="mediaSrc" type="String" default=""/>
+    <aura:attribute name="frmWidth" type="String" default=""/>
+
+    <aura:attribute name="frameHeight" type="String" default="0"/>
+    <aura:attribute name="frameStyleHeight" type="String" default="height: auto;"/>
+
+    <!-- video player -->
+    <aura:renderIf isTrue="{!v.showPopup}">
+        <div role="dialog" tabindex="-1" class="slds-modal slds-modal--large" aria-labelledby="header43" id="VideoPopUp" aura:id="VideoPopUp">
+            <div aura:id="VideoModalContainer" class="slds-modal__container" >
+                <div class="slds-modal__header">
+                    <button class="slds-button slds-button--icon-inverse slds-modal__close" onclick="{!c.closeModalBox}">
+                        <c:svg class="slds-button__icon slds-button__icon--large"
+                               xlinkHref="{!$Resource.slds + '/assets/icons/action-sprite/svg/symbols.svg#close'}"
+                               ariaHidden="true"
+                               />
+                        <span class="slds-assistive-text">{!$Label.c.Close}</span>
+                    </button>
+                </div>
+                <div class="slds-modal__content slds-p-around--medium">
+                    <div aura:id="VideoContainer" id="videoContainer">
+                        <iframe aura:id="VideoFrame" id="CustomAllCreatedIframe"
+                            scrolling="auto"
+                            frameborder="0"
+                            allowfullscreen="true"
+                            mozallowfullscreen="true"
+                            msallowfullscreen="true"
+                            oallowfullscreen="true"
+                            webkitallowfullscreen="true"
+                            onload="{!c.setFrameSize}"
+                            width="100%"
+                            height="{!v.frameHeight}"
+                            style="{!v.frameStyleHeight}"
+                            src="{!v.mediaSrc}"
+                        />
+                    </div>
+                </div>
+                <div class="slds-modal__footer">
+                    <button class="slds-button slds-button--neutral" onclick="{!c.closeModalBox}">{!$Label.c.Close}</button>
+                </div>
+            </div>
+        </div>
+    </aura:renderIf>
+    <aura:renderIf isTrue="{!v.showPopupBackground}">
+        <div aura:id="spinnerPopUp" class="loaderPopUp slds-spinner_container">
+            <div class="slds-spinner--inverse slds-spinner slds-spinner--large" role="alert">
+                <span class="slds-assistive-text">{!$Label.c.Loading}</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop--open" id="BackgroundVideoPopUp" aura:id="BackgroundVideoPopUp"></div>
+    </aura:renderIf>
+</aura:component>

@@ -1,0 +1,8 @@
+.THIS .slds-modal--large .slds-modal__container{
+    min-width: 400px;
+}
+
+.THIS .slds-modal__header .close-viewer-button{
+    background-color:transparent;
+    border:none;
+}

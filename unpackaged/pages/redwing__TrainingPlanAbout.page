@@ -1,0 +1,247 @@
+<apex:page controller="redwing.TrainingPlanAboutCtrl" docType="html-5.0" sidebar="false" showHeader="{!showSFHeader}" standardStylesheets="false">
+
+    <apex:outputPanel layout="none" rendered="{!tPlan != null}">
+
+        <apex:composition template="redwing__LMSHeroTemplate">
+
+            <apex:define name="head">
+                <title>{!tPlan.trainingPlan.Name}</title>
+            </apex:define>
+
+            <apex:define name="hero-banner">
+                <c:TrainingPlanBannerInfo trainingPlanName="{!tPlan.trainingPlan.Name}" description="{!tPlan.trainingPlan.redwing__Description__c}" hideChatterPhotos="{!tPlan.trainingPlan.redwing__Hide_Chatter_Photos__c}" usersWithAchievements="{!lUsersWithAchievement}"/>
+            </apex:define>
+
+            <apex:define name="hero-banner-badge">
+                <c:TrainingPlanBannerAchievement achievement="{!tPlan.mainAchievement}" />
+            </apex:define>
+
+            <apex:define name="hero-banner-footer">
+                <apex:outputPanel layout="none" rendered="{!tPlan.trainingPlan != null && tplan.trainingPlan.redwing__Hide_After_End_Date__c && tplan.trainingPlan.redwing__End_Date__c != null}">
+                    <span><b>{!$Label.ALMS_Training_Plan_Due}</b> :&nbsp;<apex:outputField value="{!tPlan.trainingPlan.redwing__End_Date__c}" /> /</span>
+                </apex:outputPanel>
+                <apex:outputPanel layout="none" rendered="{!tPlan.totalMins != null && tPlan.totalMins > 0}">
+                    <span><b>{!$Label.redwing__alms_duration}</b> : {!tPlan.TotalDuration} /</span>
+                </apex:outputPanel>
+                <apex:outputPanel layout="none" rendered="{!tPlanAssignmentStatus != null}">
+                    <span><b>{!$Label.redwing__alms_training_plan_assignment_status}</b> : {!IF(tPlanAssignmentStatus == 'Completed',$Label.redwing__alms_training_status_completed, IF(tPlanAssignmentStatus == 'In Progress', $Label.redwing__alms_training_status_in_progress, $Label.redwing__alms_training_status_not_started))}</span>
+                </apex:outputPanel>
+                <apex:outputPanel layout="none" rendered="{!tPlanAssignmentStatus == null}">
+                    <span><b>{!$Label.redwing__alms_training_plan_assignment_status}</b> : {!$Label.redwing__alms_tplan_not_registered}</span>
+                </apex:outputPanel>
+            </apex:define>
+
+            <apex:define name="container-header">
+                <c:TrainingPlanSections trainingPlanId="{!tplan.trainingPlan.Id}" currentSection="info" isPreview="{!isPreview}"/>
+            </apex:define>
+
+            <apex:define name="body">
+
+                <apex:outputPanel layout="none" rendered="{!tPlan.trainingPlan != null}">
+                    <c:LMSHeaderOverrides bkImageURL="{!tPlan.trainingPlan.redwing__Background_Image_URL__c}" bkColor="{!tPlan.trainingPlan.redwing__Background_Color__c}" txtColor="{!tPlan.trainingPlan.redwing__Text_Color__c}"/>
+                </apex:outputPanel>
+
+                <apex:form styleClass="tplan-form">
+
+                    <apex:outputPanel layout="none" id="pageMessages">
+                        <apex:outputPanel layout="block" styleClass="alert alert-info" rendered="{!hasMessages}">
+                            <apex:pageMessages />
+                        </apex:outputPanel>
+                    </apex:outputPanel>
+
+                    <apex:outputPanel layout="none" id="resultsPanel">
+                        <apex:inputHidden id="redirectURL" value="{!redirectURL}"/>
+                    </apex:outputPanel>
+
+                    <apex:actionFunction name="registerForTraining" action="{!registerForTrainingPlan}" rerender="pageMessages,resultsPanel" status="status" oncomplete="doRedirection()"/>
+                    <apex:actionFunction name="fetchPlanInfo" action="{!fetchTrainingPlanInfo}" status="status" rerender="itemModalPanel" oncomplete="showModal()"/>
+
+                    <div class="row">
+
+                        <div class="col-xs-12 col-sm-12 col-md-8">
+                            <p><apex:outputField value="{!tPlan.trainingPlan.redwing__About_RTA__c}"/></p>
+
+                            <apex:outputPanel layout="none" rendered="{!tPlan.trainingPlan.redwing__About_RTA__c == null}">
+                                <div class="alert alert-info" role="alert" style="text-align:center;">{!$Label.redwing__alms_no_information_available}</div>
+                            </apex:outputPanel>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-4">
+
+                            <div class="row">
+
+                                <apex:outputPanel layout="none" rendered="{!introVideoURL != null}">
+                                    <div class="col-sm-8 col-md-12 about-sidebar-widget">
+                                        <iframe src="{!introVideoURL}" width="100%" height="250px" id="intoVideoIframe" />
+                                    </div>
+                                </apex:outputPanel>
+
+                                <div class="col-md-12 about-sidebar-widget">
+
+                                    <apex:outputPanel layout="none" rendered="{!isAvailableForRegistration && paymentRequired && tPlan.cost != null}">
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-12 col-md-12" style="padding:10px 15px;">
+                                                <div class="well" style="margin-bottom:10px;">
+                                                    <apex:outputPanel layout="none" rendered="{!tPlan.appliedDiscount != null && tPlan.appliedDiscount > 0}">
+                                                        <div>
+                                                            <b>{!$Label.redwing__alms_original_price} : </b>
+                                                            <span style="text-decoration: line-through;">
+                                                                <c:LMSCurrencyFormat itemCurrencySymbol="{!tPlan.currencySymbol}" itemCurrencyCode="{!tPlan.currencyCode}" itemCost="{!tPlan.cost + tPlan.appliedDiscount}" />
+                                                            </span>
+                                                        </div>
+                                                    </apex:outputPanel>
+                                                    <h3 style="margin-top:10px;">
+                                                        <span class="label label-success">
+                                                            <c:LMSCurrencyFormat itemCurrencySymbol="{!tPlan.currencySymbol}" itemCurrencyCode="{!tPlan.currencyCode}" itemCost="{!tPlan.cost}" />
+                                                        </span>
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </apex:outputPanel>
+
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 col-md-12" style="text-align:center;padding:10px 15px;">
+                                            <apex:outputPanel layout="none" rendered="{!tPlanAssignmentStatus == null}">
+                                                <apex:outputPanel layout="none" rendered="{!isAvailableForRegistration && !paymentRequired}">
+                                                    <button type="button" class="lmscore-success-btn large-btn" style="width:100%;" onclick="doRegistration()">{!$Label.ALMS_Register_Button}</button>
+                                                </apex:outputPanel>
+                                                <apex:outputPanel layout="none" rendered="{!isAvailableForRegistration && paymentRequired}">
+                                                    <button type="button" class="lmscore-success-btn large-btn" style="width:100%;" onclick="doRegistration()">{!$Label.ALMS_Buy}</button>
+                                                </apex:outputPanel>
+                                                <apex:outputPanel layout="none" rendered="{!!isAvailableForRegistration}">
+                                                    <button type="button" class="lmscore-default-btn large-btn" style="width:100%;" disabled="disabled">{!$Label.ALMS_Registration_Closed}</button>
+                                                </apex:outputPanel>
+                                            </apex:outputPanel>
+                                            <apex:outputPanel layout="none" rendered="{!tPlanAssignmentStatus != null}">
+                                                <a href="javascript:lmscore.redirectHandlerWithStatus('{!$Page.TrainingPlanDetail}?id={!tplan.trainingPlan.Id}')" class="lmscore-primary-btn large-btn" style="width:100%;">{!$Label.ALMS_Go_To_Activities}</a>
+                                            </apex:outputPanel>
+                                            <apex:outputPanel layout="none" rendered="{!allowAssignmentManagement}">
+                                                <a href="javascript:lmscore.redirectHandlerWithStatus('{!$Page.TrainingPlanUserAssignment}?id={!tplan.trainingPlan.Id}')" class="lmscore-warning-btn large-btn" style="width:100%;">{!$Label.ALMS_Manage_Assignments}</a>
+                                            </apex:outputPanel>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <apex:outputPanel layout="none" rendered="{!tPlanCategories != null && tPlanCategories.size > 0}">
+                                    <div class="col-md-12 about-sidebar-widget" style="text-align:left;padding:0 10px;">
+                                        <h3>{!$Label.redwing__alms_categories}</h3>
+                                        <apex:repeat value="{!tPlanCategories}" var="tpc">
+                                            <div class="tplan-category"><a href="javascript:lmscore.redirectHandlerWithStatus('{!$Page.redwing__TrainingCatalogDetail}?id={!tpc.redwing__Learning_Category__c}', true)">{!tpc.Learning_Category__r.Name}</a></div>
+                                        </apex:repeat>
+                                    </div>
+                                </apex:outputPanel>
+
+                                <apex:outputPanel layout="none" rendered="{!tPlanInstructors != null && tPlanInstructors.size > 0}">
+                                    <div class="col-md-12 about-sidebar-widget" style="text-align:left;padding:0 10px;">
+                                        <h3>Instructors</h3>
+                                        <apex:repeat value="{!tPlanInstructors}" var="tpi">
+                                            <div class="tplan-instructor">
+                                                <a href="javascript:lmscore.redirectHandlerWithStatus('{!$Page.MyProfile}?id={!tpi.Instructor__r.User__c}',true)" class="user-carousel-img">
+                                                    <apex:image value="{!tpi.Instructor__r.User__r.SmallPhotoUrl}" />
+                                                </a>
+                                                <span>{!tpi.Instructor__r.User__r.Name}</span>
+                                            </div>
+                                        </apex:repeat>
+                                    </div>
+                                </apex:outputPanel>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                    <!-- Modal -->
+                    <apex:outputPanel id="itemModalPanel">
+
+                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h3 class="modal-title" style="display:inline-block;">{!tPlan.trainingPlan.Name}</h3>
+                                </div>
+
+                                <div class="modal-body">
+
+                                    <apex:outputPanel layout="none" rendered="{!existingRequest == null}">
+                                        <p>{!tPlan.trainingPlan.redwing__Description__c}</p>
+
+                                        <div class="form-group">
+                                            <label for="commentsField">{!$Label.redwing__alms_tplan_request_comments}</label>
+                                            <apex:inputField value="{!dummyRequest.redwing__Comments__c}" styleClass="form-control"/>
+                                        </div>
+
+                                        <div class="well">
+                                             <apex:commandLink value="{!$Label.redwing__alms_tplan_request_access_button}" action="{!requestAccessForTrainingPlan}" styleClass="btn btn-success btn-lg btn-block" status="status" rerender="pageMessages" oncomplete="hideModal()"/>
+                                        </div>
+
+                                    </apex:outputPanel>
+
+                                    <apex:outputPanel layout="none" rendered="{!existingRequest != null}">
+                                        <div class="alert alert-info">{!$Label.redwing__alms_tplan_request_submitted_message}</div>
+                                        <b>{!$Label.redwing__alms_tplan_access_request_status}</b> : {!existingRequest.redwing__Status__c}
+                                    </apex:outputPanel>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">{!$Label.ALMS_Close}</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        </div>
+
+                    </apex:outputPanel>
+
+                    <script>
+                        var $jk = jQuery.noConflict();
+
+                        function doRedirection(){
+                            var retUrl = document.getElementById('{!$Component.redirectURL}').value;
+                            if(retUrl && retUrl.length > 0){
+                                lmscore.redirectHandlerWithStatus(retUrl,false);
+                            }
+                        }
+
+                        function showModal(){
+                            $jk(".modal-backdrop").appendTo("#lms-template-wrapper");
+                            $jk('#myModal').modal('show');
+                        }
+                        function hideModal(){
+                            $jk('#myModal').modal('hide');
+                        }
+
+                        function doRegistration(){
+                            if({!isApprovalRequired}){
+                                fetchPlanInfo();
+                            }else{
+                                registerForTraining();
+                            }
+                        }
+                    </script>
+
+                    <apex:actionStatus id="status">
+                        <apex:facet name="start">
+                            <apex:outputPanel >
+                                <c:LMSStatus statusComponentId="{!$Component.status}"/>
+                            </apex:outputPanel>
+                        </apex:facet>
+                    </apex:actionStatus>
+
+                </apex:form>
+            </apex:define>
+
+        </apex:composition>
+
+    </apex:outputPanel>
+
+    <apex:outputPanel layout="none" rendered="{!tPlan == null}">
+        <apex:pageMessages />
+    </apex:outputPanel>
+
+</apex:page>

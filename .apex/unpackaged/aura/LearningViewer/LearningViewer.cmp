@@ -1,0 +1,47 @@
+<aura:component >
+
+    <aura:attribute name="trainingPlanId" type="String"/>
+    <aura:attribute name="launchURL" type="String"/>
+    <aura:attribute name="itemId" type="String" />
+    <aura:attribute name="launchBehavior" type="String" />
+    <aura:attribute name="hasPreRequisite" type="Boolean" default="false"/>
+
+    <aura:registerEvent name="tPlanLearningItemViewEvent" type="redwing:TrainingPlanItemViewEvent"/>
+    <aura:registerEvent name="learningViewEvent" type="redwing:LearningViewEvent"/>
+
+    <div>
+        <div aria-hidden="false" role="dialog" class="slds-modal slds-modal--large slds-fade-in-open">
+            <div class="slds-modal__container">
+                <div class="slds-modal__header">
+                    <ui:button class="slds-button slds-button--icon-inverse slds-modal__close close-viewer-button" press="{!c.closeViewer}">
+                        X
+                    </ui:button>
+                </div>
+
+                <div class="slds-modal__content">
+                    <aura:if isTrue="{!v.hasPreRequisite == false}" >
+                        <aura:if isTrue="{!v.launchBehavior == 'ask_user'}">
+                            <ui:button class="slds-button slds-button--neutral" press="{!c.updateVersion}">Take New Version</ui:button>
+                            <ui:button class="slds-button slds-button--neutral" press="{!c.keepOldVersion}">Continue with old version</ui:button>
+                        </aura:if>
+                        <aura:if isTrue="{!v.launchBehavior == 'update_version'}">
+                            <ui:button class="slds-button slds-button--neutral" press="{!c.updateVersion}">Continue</ui:button>
+                        </aura:if>
+                        <aura:if isTrue="{!v.launchBehavior == null}">
+                            <iframe src="{!v.launchURL}" width="100%" height="600px}" style="border:0;" />
+                        </aura:if>
+                    </aura:if>
+                    <aura:if isTrue="{!v.hasPreRequisite == true}">
+                        You must complete all previous activities in order to continue.
+                    </aura:if>
+                </div>
+
+                <div class="slds-modal__footer">
+                    <ui:button class="slds-button slds-button--neutral" press="{!c.closeViewer}">Cancel</ui:button>
+                </div>
+            </div>
+        </div>
+        <div class="slds-modal-backdrop slds-modal-backdrop--open"></div>
+    </div>
+
+</aura:component>

@@ -1,0 +1,378 @@
+<apex:page cache="false" docType="html-5.0" showHeader="false" sidebar="false" standardStyleSheets="false" action="{!init}" Controller="MediaUploaderCtrl">
+    <apex:includeScript value="{!URLFOR($Resource.Components_Library, '/vendor/components/jquery/jquery.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.Components_Library, '/vendor/components/svg4everybody.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.Components_Library, '/js/forcetk.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.Components_Library, '/js/forcetk.path.js')}"/>
+    <script type="text/javascript">
+        var myOrgId = '{!orgId}';
+        var salesforceOrganizationId = 'OrgID='+myOrgId;
+        var uploadLink = '{!JSENCODE(urlForUpload)}'+'&'+salesforceOrganizationId;
+        var parseFileLink = '{!JSENCODE(urlForGetStatus)}'+'&'+salesforceOrganizationId;
+        var progressLink = '{!JSENCODE(urlForGetProgress)}'+'&'+salesforceOrganizationId;
+        var checkFileLink = '{!JSENCODE(urlForCheckFile )}'+'&'+salesforceOrganizationId;
+        var uploaderId = '{!guid}';
+        var sessionId = '{!$Api.Session_ID}';
+        var labelUploading = '{!$Label.Uploading}';
+        var isAsyncUpload = {!isAsyncUpload};
+        var visualforceRemoteActionUrl = '{!$RemoteAction.MediaUploaderCtrl.getCoursesFromBackend}';
+        var remoteActionConvertToMedia = '{!$RemoteAction.MediaUploaderCtrl.convertToMedia}';
+        var sitePrefix = '{!$Site.prefix}';
+        var pDomain;
+        try {
+            pDomain = window.parent.location.href;
+        } catch (e) {
+            console.log(e.message);
+            console.log('Try to get alternative domain');
+            pDomain = decodeURIComponent(getUrlParameter('originalDomain'));
+        }
+        window.parent.postMessage(JSON.stringify({'onload':"1"}), pDomain);
+        console.log([uploadLink,  parseFileLink, progressLink, uploaderId, sessionId, sitePrefix, pDomain]);
+    </script>
+    <script>
+        function getRelativeCoords(percentage) {
+            var exprBase = ( ( -percentage ) * 2 * Math.PI ) + 0.5 * Math.PI
+                , coordX = Math.cos(exprBase)
+                , coordY = -Math.sin(exprBase)
+                ;
+            return [coordX, coordY];
+        }
+        function getArcCoords(initCoords, radius, percentage) {
+            var relativeCoords = getRelativeCoords(percentage)
+                , coordX = Math.round((relativeCoords[0] * radius + initCoords[0]) * 100) / 100
+                , coordY = Math.round((relativeCoords[1] * radius + initCoords[1]) * 100) / 100
+                ;
+            return [coordX, coordY];
+        }
+        var progressBarInit = function (val) {
+            var percentage = val / 100
+                , coordsArc1 = getArcCoords([50, 50], 49, percentage)
+                , coordsArc2 = getArcCoords([50, 50], 35, percentage)
+                , humanPercentage = Math.round(percentage * 100)
+                , revertArc = humanPercentage > 50 ? '1' : '0'
+                , path1Str = $('#arc1').attr('d-mask').split(',')
+                , path2Str = $('#arc2').attr('d-mask').split(',')
+                , useArcs = humanPercentage > 0 && humanPercentage < 100
+                , arcs = $('.arcs')
+                , circles = $('.circles')
+                ;
+    
+            arcs.toggle(useArcs);
+            circles.toggle(!useArcs);
+            if (useArcs) {
+                path2Str[2] = path1Str[2] = revertArc;
+                path1Str[4] = coordsArc1.join(' ');
+                path2Str[4] = coordsArc2.join(' ');
+                $('#arc1').attr('d', path1Str.join(','));
+                $('#arc2').attr('d', path2Str.join(','));
+                $('#arc1').attr('d-mask', path1Str.join(','));
+                $('#arc2').attr('d-mask', path2Str.join(','));
+            } else {
+                var elClass = circles.attr('class');
+                if (humanPercentage && ~elClass.indexOf('empty-circles')) {
+                    circles.attr('class', elClass.replace(' empty-circles', ''));
+                } else if (!humanPercentage && !~elClass.indexOf('empty-circles')) {
+                    circles.attr('class', elClass + ' empty-circles');
+                }
+            }
+            $('#percentage-label').text(val.toFixed(0)  + '%');
+        }
+        
+        var labelSwitcher = function (label1, label2, bool, elementId){        	
+        	document.getElementById(elementId).innerHTML = bool==true?label1:label2; 
+        }
+    </script>   
+    <script src="https://localhost/vfpUploader/src/FileUploader.js"></script>
+    <script src="https://localhost/vfpUploader/src/progress.js"></script>
+    <script src="https://localhost/vfpUploader/src/main.js"></script>
+    <script>svg4everybody(); // run it now or whenever you are ready</script>
+    <style>
+        .circular-bar {
+            float: right;
+            height: 45px;
+            width: 45px;
+        }
+        .arcs .outer-circle {
+            fill: #e3e4e9;
+            stroke: #e3e4e9;
+            stroke-width: 0;
+        }
+        .arcs .outer-arc {
+            fill: #54698d;
+            stroke: #54698d;
+            stroke-width: 0;
+        }
+        .arcs .inner-circle {
+            fill: #fff;
+            stroke: #e3e4e9;
+            stroke-fill: 0;
+        }
+        .arcs .inner-arc {
+            fill: none;
+            stroke: #54698d;
+            stroke-width: 0;
+        }
+        .circles {
+            display: none;
+        }
+        .circles .outer-circle {
+            fill: #54698d;
+            stroke: #54698d;
+            stroke-width: 0;
+        }
+        .circles .inner-circle {
+            fill: #fff;
+            stroke: #54698d;
+            stroke-width: 0;
+        }
+        .circles.empty-circles .outer-circle {
+            fill: #e3e4e9;
+            stroke: #e3e4e9;
+        }
+        .circles.empty-circles .inner-circle {
+            stroke: #e3e4e9;
+        }
+        #percentage-label {
+            fill: #54698d;
+            text-anchor: middle;
+            font-size: 170%;
+
+        }
+        a,a:hover,a:focus,a:active{
+            color: #2574a9;
+            text-decoration:none;
+        }
+        .slds-button {
+            position: relative;
+            display: inline-block;
+            padding: 0;
+            background: transparent;
+            background-clip: border-box;
+            border: 1px solid transparent;
+            border-radius: .25rem;
+            font-size: .875rem;
+            line-height: 1.875rem;
+            text-decoration: none;
+            color: #2574a9;
+            -webkit-appearance: none;
+            white-space: normal;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-transition: color .05s linear,background-color .05s linear;
+            transition: color .05s linear,background-color .05s linear;
+        }
+        .slds-button--neutral {
+            padding-left: 1rem;
+            padding-right: 1rem;
+            text-align: center;
+            vertical-align: middle;
+            border: 1px solid #d4d4d4;
+            background-color: rgb(255, 255, 255);
+            cursor:pointer;
+        }
+        .slds-button:hover, .slds-button:focus, .slds-button:active, .slds-button:visited {text-decoration:none}
+        .slds-button:hover, .slds-button:focus {color:#135f90}
+        .slds-button--neutral {padding-left:1rem; padding-right:1rem; text-align:center; vertical-align:middle; border:1px solid #d4d4d4; background-color:rgb(255, 255, 255)}
+        .slds-button--neutral:hover, .slds-button--neutral:focus {background-color:rgba(25, 124, 190, 0.1)}
+        .slds-button--neutral:active {background-color:rgb(238, 241, 246)}
+        .slds-button--neutral[disabled] {background-color:rgb(255, 255, 255); cursor:default}
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        body * {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+        .form_upload,
+        .btn_upload,
+        .preview {
+            font-family: sans-serif  !important;
+            font-size: 14px;
+        }
+        .form_upload {
+            position: relative;
+        }
+        .btn_upload {
+            width: 125px;
+            margin-top: 12px;
+                        z-index: 1;
+            position: relative;
+        }
+        .btn_upload.hidden {
+            display: none;
+        }
+        .input_hidden {
+            visibility: hidden;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 1px;
+            height: 1px;
+        }
+        .preview {
+            padding: 10px;
+            outline: solid 1px #ddd;
+            color: #333;
+            display: none;
+            margin-top: -32px;
+            z-index: 2;
+            position: relative;
+            background: #fff;
+        }
+        .preview.active {display: block; }
+        .preview:after,
+        .preview:before {
+            content: " ";
+            visibility: hidden;
+            display: table;
+            height: 1%;
+            clear: both;
+        }
+        .preview__col {
+            min-height: 70px;
+        }
+        .preview__col.left {
+            text-align: left;
+            float: left;
+            width: 78%;
+        }
+        .preview__col.right {
+            float: right;
+            width: 60px;
+            text-align: center;
+        }
+        .title {
+            font-weight: bold;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+        .info {
+            line-height: 1.6;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            display: block;
+        }
+        .size {
+            color: #aaa;
+            font-size: 14px;
+            line-height: 1.4;
+            text-transform: uppercase;
+        }
+        .link_abort {
+            margin-top: 10px;
+            line-height: 20px;
+            display: block;
+        }
+        #sent_ok{
+            display: none;
+            margin-top: 28px;
+        }
+        .error_icon{
+            display: none;
+            margin-top: 10px;
+            width: 30px;
+            margin: auto;
+        }
+        .error_icon img{
+            width: 100%;
+        }
+        .warning_icon{
+            margin-top: 33px;
+            width: 30px;
+        }
+        .warning_icon img{
+            width: 100%;
+        }
+        .warning__col {
+            min-height: 70px;
+        }
+        .warning__col.right {
+            text-align: left;
+            float: left;
+            width: 80%;
+            margin-left: 10px;
+        }
+        .warning__col.left {
+            float: left;
+            width: 30px;
+            text-align: center;
+        }
+        #preview_upload .preview__head .process,
+        #preview_upload .preview__head .completed{
+        	display: none;
+        }
+        .hidden,.hide{
+        display: none !important;
+        }
+        .active{
+            display: block !important;
+        }
+       
+    </style>
+    <form class="form_upload" id="uploadForm1" action="{!JSENCODE(urlForUpload)}&OrgID={!orgId}" method="POST" enctype="multipart/form-data">
+        <div class="form-item">
+            <input type="file" name="files[]" id="myFileInput" class="input_hidden"/>
+            <apex:outputPanel rendered="{!NOT(isUploadMediaAccessible)}">
+                <div class="warning__col left">
+                    <div class="warning_icon">
+                        <img src="{!$Resource.Components_Library + '/img/warning.png'}" />
+                    </div>
+                </div>
+                <div class="warning__col right">
+                    <div class="warning__head title">You don't have needed permissions to create new Media. Please contact your system administrator</div>
+                </div>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!isUploadMediaAccessible}">
+                <label for="myFileInput" id="btn_upload" class="btn_upload slds-button--neutral slds-button active">{!$Label.Upload}</label>
+                <div id="preview_upload" class="preview">
+                    <div class="preview__col left">
+                        <div class="preview__head title" id="preview01head">
+                        	<span class="process" id="preview01headProcess"></span>
+                        	<span class="completed" id="preview01headComplete"></span>
+                        	<script type="text/javascript">
+                        		(function () {
+                        			labelSwitcher("{!$Label.Uploading_SF}", "{!$Label.Uploading}", isAsyncUpload, "preview01headProcess");
+                        			labelSwitcher("{!$Label.Upload_SF_Completed}", "{!$Label.Upload_Completed}", isAsyncUpload, "preview01headComplete");
+                        		})();
+                        	</script>
+                        </div>
+                        <div id="file_info" class="preview__body info"></div>
+                        <div id="file_size" class="preview__foot size"></div>
+                    </div>
+                    <div class="preview__col right loader">
+                        <div id="loader01" class="loader__img circular-bar slds-x-small-show-only" data-progress="0" style="width:45px;height:45px;float: right;">
+                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                                <g class="arcs">
+                                    <circle cx="50" cy="50" r="49" class="outer-circle" />
+                                    <path d="M50 1 A 49 49, 0, 1, 1, 7.06 73.61, L 50 50 z" d-mask="M50 1 A 49 49, 0, 1, 1, 7.06 73.61, L 50 50 z" class="outer-arc" id="arc1" />
+                                    <circle cx="50" cy="50" r="38" class="inner-circle"  />
+                                    <path d="M50 15 A 35 35, 0, 1, 1, 19.33 66.86" d-mask="M50 15 A 35 35, 0, 1, 1, 19.33 66.86" class="inner-arc" id="arc2" />
+                                </g>
+                                <g class="circles">
+                                    <circle cx="50" cy="50" r="49" class="outer-circle" />
+                                    <circle cx="50" cy="50" r="38" class="inner-circle" />
+                                </g>
+                                <text x="50" y="58" id="percentage-label"></text>
+                            </svg>
+                        </div>
+                        <div class="error_icon" id="error01">
+                            <img src="{!$Resource.Components_Library + '/img/warning.png'}" />
+                        </div>
+                        <a href="javascript:void(0);" id="ajax_abort" class="link link_abort">{!$Label.Cancel}</a>
+                        <a href="javascript:void(0);" id="sent_ok" class="link">{!$Label.Ok}</a>
+                    </div>
+                </div>
+            </apex:outputPanel>
+        </div>
+    </form>
+    <script type="text/javascript">
+        (function () {
+            progressBarInit(0);
+        })();
+    </script>
+</apex:page>

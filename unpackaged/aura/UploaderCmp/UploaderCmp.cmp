@@ -1,0 +1,76 @@
+<aura:component Controller="UploaderCtrl" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" >
+    <ltng:require scripts="{!join(',',$Resource.Components_Library + '/vendor/components/jquery/jquery.min.js',$Resource.Components_Library + '/js/forcetk.js')}" afterScriptsLoaded="{!c.initUploader}" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler name="change" value="{!v.courseId}" action="{!c.getTitle}"/>
+
+    <aura:attribute name="sessionId" type="String" />
+    <aura:attribute name="courseId" type="String" />
+    <aura:attribute name="isShowUploader" type="Boolean" default="true"/>
+    <aura:attribute name="course" type="scormanywhere__Course__c"/>
+    <aura:attribute name="showErrorModal" type="Boolean" default="false"/>
+    <aura:attribute name="errorText" type="String" default=""/>
+
+    <aura:renderIf isTrue="{!v.isShowUploader}">
+        <div id="uploaderButton" class="slds-form-element">
+            <div class="slds-form-element__control">
+                <div class="slds-group-container">
+                    <div class="slds-file-selector slds-file-selector--files">
+                        <input type="file" class="slds-file-selector__input slds-assistive-text" id="file" aria-describedby="file-selector-id" onchange="{!c.sendFile}" data-session-id="{!$Api.Session_ID}" multiple="true" webkitdirectory="" />
+                        <label class="slds-file-selector__body" for="file">
+                            <span class="slds-file-selector__button slds-button slds-button--neutral uiButton--brand">
+                                UPLOAD FILES
+                            </span>
+                        </label>
+                    </div>
+                    <div class="slds-progress-bar slds-hide" id="fileProgress">
+                        <div class="status"></div>
+                    </div>
+                    <div id="message"></div>
+                </div>
+            </div>
+        </div>
+        <aura:set attribute="else">
+            <div role="dialog" tabindex="-1" class="slds-modal slds-modal--large" aria-labelledby="header43" id="modalBox">
+            <div class="slds-modal__container">
+                <div class="slds-modal__header">
+                    UPDATE TITLE
+                </div>
+                <div class="slds-modal__content slds-p-around--medium">
+                    <div >
+                        <input maxlength="80">
+                            {!v.course.Name}
+                        </input>
+                    </div>
+                    <div >
+                        <input maxlength="10000">
+                            {!v.course.scormanywhere__Description__c}
+                        </input>
+                    </div>
+                </div>
+                <div class="slds-modal__footer">
+                    <button class="slds-button slds-button--neutral" onclick="{!c.showModalBox}">DONE</button>
+                </div>
+            </div>
+        </div>
+        <div class="slds-backdrop" id="BackgroundVideoPopUp"></div>
+        </aura:set>
+    </aura:renderIf>
+    <aura:renderIf isTrue="{!v.showErrorModal}">
+        <div role="dialog" tabindex="-1" class="slds-modal slds-modal slds-fade-in-open" aria-labelledby="header43" id="modalErrorBox">
+            <div class="slds-modal__container">
+                <div class="slds-modal__header">
+                    ERROR
+                </div>
+                <div class="slds-modal__content slds-p-around--medium">
+					{!v.errorText}
+                </div>
+                <div class="slds-modal__footer">
+                    <button class="slds-button slds-button--neutral" onclick="{!c.hiddenErrorModalBox}">OK</button>
+                </div>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop--open" id="BackgroundErrorPopUp"></div>
+    </aura:renderIf>
+	<video id="videoHelper" style="display:none;" controls="true"></video>
+    <canvas id="thumbHelper" style="display:none;"/>
+</aura:component>

@@ -1,0 +1,94 @@
+<aura:component Controller="MediaUploaderCtrl" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" >
+
+    <ltng:require scripts="{!join(',',$Resource.Components_Library + '/vendor/components/jquery/jquery.min.js',$Resource.forcetk)}" />
+    <ltng:require styles="/resource/ViewTracCustomCss"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <aura:attribute name="prefix" type="String"/>
+    <aura:attribute name="domain" type="String"/>
+    <aura:attribute name="originalDomain" type="String"/>
+    <aura:attribute name="recordId" type="String" access="global" default=""/>
+    <aura:attribute name="isCreateMediaContent" type="Boolean" access="global" default="false"/>
+
+    <aura:attribute name="course" type="scormanywhere__Course__c"/>
+    <aura:attribute name="courseId" type="String" default=""/>
+    <aura:attribute name="sessionId" type="String"/>
+    <aura:attribute name="showErrorModal" type="Boolean" default="false"/>
+    <aura:attribute name="showModal" type="Boolean" default="false"/>
+    <aura:attribute name="isUploadSFContent" type="Boolean" default="false"/>
+    <aura:attribute name="isLoaded" type="Boolean" default="false"/>
+
+    <aura:attribute name="uploaderIframeSrc" type="String" default=""/>
+
+    <div aura:id="spinnerUpload" id="spinnerUpload" class="loader slds-spinner_container slds-hide">
+        <div class="slds-spinner--inverse slds-spinner slds-spinner--large">
+            <span class="slds-assistive-text">{!$Label.c.Loading}</span>
+            <div class="slds-spinner__dot-a"></div>
+            <div class="slds-spinner__dot-b"></div>
+        </div>
+    </div>
+
+    <aura:renderIf isTrue="{!v.isLoaded}">
+        <aura:renderIf isTrue="{!v.isUploadSFContent}">
+            <iframe class="upload_wrapper" src="{! v.uploaderIframeSrc}"
+                    aura:id="uploaderIframeSF"
+                    id="uploaderIframeSF"
+                    style="border: none; background:transparent;"
+                    height="60px"
+                    width="100%"
+                    ></iframe>
+            <aura:set attribute="else">
+                <iframe class="upload_wrapper" src="{! 'https://' + v.domain + v.prefix + '/apex/vtui__mediauploader'+'?originalDomain='+v.originalDomain}"
+                        aura:id="uploaderIframe"
+                        id="uploaderIframe"
+                        style="border: none; background:transparent;"
+                        height="60px"
+                        ></iframe>
+            </aura:set>
+        </aura:renderIf>
+    </aura:renderIf>
+
+    <div role="dialog" tabindex="-1" class="slds-modal slds-modal" aria-labelledby="header43" id="modalBoxUpdateDetails" aura:id="modalBoxUpdateDetails">
+        <div class="slds-modal__container" aura:id="uploadModalContainer">
+            <div class="slds-modal__header">
+                {!$Label.c.Update_Details}
+            </div>
+            <div class="slds-modal__content slds-p-around--medium">
+                <div>
+                    {!$Label.c.Title}
+                </div>
+                <div>
+                    <ui:inputText class="inputDetail" placeholder="Enter the Title" maxlength="80" value="{!v.course.Name}" updateOn="keyup" />
+                </div>
+                <div>
+                    {!$Label.c.Description}
+                </div>
+                <div >
+                    <ui:inputText class="inputDetail" maxlength="10000" value="{!v.course.scormanywhere__Description__c}" updateOn="keyup"/>
+                </div>
+            </div>
+            <div class="slds-modal__footer">
+                <button class="slds-button slds-button--neutral" onclick="{!c.hiddenModalBox}">{!$Label.c.Done}</button>
+            </div>
+        </div>
+    </div>
+    <div class="slds-backdrop" id="BackgroundModalBox" aura:id="BackgroundModalBox"></div>
+
+    <aura:renderIf isTrue="{!v.showErrorModal}">
+        <div role="dialog" tabindex="-1" class="slds-modal slds-modal slds-fade-in-open" aria-labelledby="header43" id="modalErrorBox" aura:id="modalErrorBox">
+            <div class="slds-modal__container">
+                <div class="slds-modal__header">
+                    {!$Label.c.Error}
+                </div>
+                <div class="slds-modal__content slds-p-around--medium">
+                    {!v.errorText}
+                </div>
+                <div class="slds-modal__footer">
+                    <button class="slds-button slds-button--neutral" onclick="{!c.hiddenErrorModalBox}">{!$Label.c.Ok}</button>
+                </div>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop--open" id="BackgroundErrorPopUp" aura:id="BackgroundErrorPopUp"></div>
+    </aura:renderIf>
+</aura:component>

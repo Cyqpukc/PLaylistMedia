@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <help><!-- Information displayed in the about section of a Learning Plan --></help>
+        <label><!-- About --></label>
+        <name>redwing__About_RTA__c</name>
+    </fields>
+    <fields>
+        <help><!-- HEX Color code for the header background color (e.g. #dcdcdc, more examples in : http://www.color-hex.com/) --></help>
+        <label><!-- Background Color --></label>
+        <name>redwing__Background_Color__c</name>
+    </fields>
+    <fields>
+        <help><!-- URL for the image displayed in the Learning Plan detail header --></help>
+        <label><!-- Background Image URL --></label>
+        <name>redwing__Background_Image_URL__c</name>
+    </fields>
+    <fields>
+        <help><!-- Disable this option if you don&apos;t want users to receive chatter notifications when they are assigned to this Learning Plan. --></help>
+        <label><!-- Chatter Notifications Enabled --></label>
+        <name>redwing__Chatter_Notifications_Enabled__c</name>
+    </fields>
+    <fields>
+        <help><!-- Custom message used for chatter notifications --></help>
+        <label><!-- Custom Notification Message --></label>
+        <name>redwing__Custom_Notification_Message__c</name>
+    </fields>
+    <fields>
+        <label><!-- Description --></label>
+        <name>redwing__Description__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enable this option to prevent resetting progress for new versions of learning objects --></help>
+        <label><!-- Do Not Reset Progress For New Versions --></label>
+        <name>redwing__Do_Not_Reset_Progress_For_New_Versions__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enable this option to enable users with the &quot;Manage External Assignments&quot; custom permission to assign external users to this Learning Plan --></help>
+        <label><!-- Enable Assignment Management for Users --></label>
+        <name>redwing__Enable_Assignment_Management_for_Users__c</name>
+    </fields>
+    <fields>
+        <help><!-- Check this box if you&apos;d like to make this Learning Plan available to all your company and allow users to create assignments on-the-fly. --></help>
+        <label><!-- Enable Self-Registration --></label>
+        <name>redwing__Enable_Self_Registration__c</name>
+    </fields>
+    <fields>
+        <label><!-- End Date --></label>
+        <name>redwing__End_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enable this option to require users to complete the learning activities in the specified order --></help>
+        <label><!-- Enforce Sequence --></label>
+        <name>redwing__Enforce_Sequence__c</name>
+    </fields>
+    <fields>
+        <help><!-- Hide this Learning Plan for end-users if the current date is outside of the Start/End Date range --></help>
+        <label><!-- Hide After End Date --></label>
+        <name>redwing__Hide_After_End_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enable this option to hide chatter photos for the last users that have acquired the Learning Plan achievement --></help>
+        <label><!-- Hide Chatter Photos --></label>
+        <name>redwing__Hide_Chatter_Photos__c</name>
+    </fields>
+    <fields>
+        <help><!-- URL for the embedded intro video shown in the Learning Plan detail page --></help>
+        <label><!-- Intro Video URL --></label>
+        <name>redwing__Intro_Video_URL__c</name>
+    </fields>
+    <fields>
+        <help><!-- Maximum number of allowed registrations --></help>
+        <label><!-- Max Registrations --></label>
+        <name>redwing__Max_Registrations__c</name>
+    </fields>
+    <fields>
+        <help><!-- Define a minimum # of learning items to complete in order to complete the Learning Plan --></help>
+        <label><!-- Min Items for Completion --></label>
+        <name>redwing__Min_Items_For_Completion__c</name>
+    </fields>
+    <fields>
+        <help><!-- Display a New ribbon in the Learning Plan until the specified date --></help>
+        <label><!-- New Until --></label>
+        <name>redwing__New_Until__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enable this option to make feedback comments not required --></help>
+        <label><!-- Optional Feedback Comments --></label>
+        <name>redwing__Optional_Feedback_Comments__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enable this option to require payment in order to register to this Learning Plan --></help>
+        <label><!-- Payment Required --></label>
+        <name>redwing__Payment_Required__c</name>
+    </fields>
+    <fields>
+        <help><!-- &quot;Public&quot; or blank allows users to create assignments &quot;on the fly&quot;. &quot;Requires Approval&quot; logs an approval request that is later handled by the Learning Plan owner.&quot;External&quot; exposes this Learning Plan to all users. --></help>
+        <label><!-- Self-Registration Access --></label>
+        <name>redwing__Self_Registration_Access__c</name>
+        <picklistValues>
+            <masterLabel>External</masterLabel>
+            <translation>External (All External + Internal Users)</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Public</masterLabel>
+            <translation>Internal (All Internal Users + Learning Plan Accounts)</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Requires Approval</masterLabel>
+            <translation>Requires Approval (Internal + Learning Plan Accounts)</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Start Date --></label>
+        <name>redwing__Start_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- Only Active Learning Plans will be visible to learners, Draft plans will be visible for Learning Admins --></help>
+        <label><!-- Status --></label>
+        <name>redwing__Status__c</name>
+        <picklistValues>
+            <masterLabel>Active</masterLabel>
+            <translation><!-- Active --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Archived</masterLabel>
+            <translation><!-- Archived --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Draft</masterLabel>
+            <translation><!-- Draft --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- HEX Color code for the header text color (e.g. #333333, more examples in : http://www.color-hex.com/) --></help>
+        <label><!-- Text Color --></label>
+        <name>redwing__Text_Color__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Ratings Count --></label>
+        <name>redwing__Total_Ratings_Count__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Ratings Sum --></label>
+        <name>redwing__Total_Ratings_Sum__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Section Items --></label>
+        <name>redwing__Total_Section_Items__c</name>
+    </fields>
+    <fields>
+        <label><!-- Learning Plan Rating --></label>
+        <name>redwing__Training_Plan_Rating__c</name>
+    </fields>
+    <sharingReasons>
+        <label><!-- LMS Sharing --></label>
+        <name>redwing__LMS_Sharing</name>
+    </sharingReasons>
+    <validationRules>
+        <errorMessage><!-- Start Date cannot be greater than End Date --></errorMessage>
+        <name>redwing__Date_Validation</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You must set a value for Start and End date or leave both empty --></errorMessage>
+        <name>redwing__Empty_Date_Validation</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- Export_Training_Plan --></label>
+        <name>redwing__Export_Training_Plan</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Manage_Assignments --></label>
+        <name>redwing__Manage_Assignments</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Assign_to_Community_Users --></label>
+        <name>rwscorm__Assign_to_Community_Users</name>
+    </webLinks>
+</CustomObjectTranslation>

@@ -1,0 +1,72 @@
+.THIS #sendEmailModal .selectTemplateBlock {
+    position: relative;
+}
+
+.THIS #sendEmailModal .previewBlock {
+    position: relative;
+}
+
+.THIS .ql-linkToMedia:after {
+    content: "Media";
+    color: #0000ff;
+    font-weight: bold;
+}
+
+.THIS .ql-linkToMedia{
+    width: 60px !important;
+}
+
+.THIS .text-editor {
+    height: 240px;
+}
+
+.THIS .sent-email-icon{
+    width: 0.9rem;
+    height: 0.9rem;
+    line-height: 1;
+    margin-top: -10px;
+    margin-left: -3px;
+}
+
+.THIS .mail-sent_body {
+    margin-top: 250px;
+    background-color: transparent;
+}
+
+.THIS .mail-sent_footer {
+    margin-top: 283px;
+    margin-left: 5px;
+    width: 100%;
+    height: 57px;
+}
+
+.THIS .error-toast {
+    min-width: 3rem;
+    width: 100%;
+}
+
+.THIS.show {
+	display: block;
+}
+
+.THIS.hide {
+	display: none;
+}
+
+.THIS.slds-dynamic-modal__container {
+	margin: 0px;
+	width: 100%;
+    padding: 0px;
+}
+
+.THIS .addresses {
+    white-space: normal;
+    word-wrap: break-word;
+}
+.THIS .previewBody {
+    height: 320px
+}
+
+.THIS .slds-dropdown {
+    min-width: 13rem;
+}

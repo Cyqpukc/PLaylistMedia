@@ -1,0 +1,142 @@
+<apex:page controller="rwscorm.CourseLaunchCtrl" sidebar="false" showHeader="false" standardStylesheets="false" cache="false" action="{!init}" docType="html-5.0" >
+    <style>
+        .bodyDiv{
+            position: inherit !important;
+        }
+        html {
+            height :100%;
+        }
+    </style>
+    <style>
+        .lmscore #container-header {
+            margin-top: 50px !important;
+        }
+        #returnLink {
+            text-align: center;
+            position: absolute;
+            margin-top:-40px;
+            left:50%;
+        }
+    </style>
+
+    <script>
+        function setFrameAttributes(iFrameObj) {
+            iFrameObj.setAttribute("allowfullscreen", "true");
+            iFrameObj.setAttribute("mozallowfullscreen", "true");
+            iFrameObj.setAttribute("msallowfullscreen", "true");
+            iFrameObj.setAttribute("oallowfullscreen", "true");
+            iFrameObj.setAttribute("webkitallowfullscreen", "true");
+        }    
+    </script>
+    <apex:composition template="redwing__LMSTemplate">
+        <apex:define name="body">
+        <!--<div onClick="doCancel('{!assignment.Id}')" style="float:right; position: absolute; margin-top:-18px; right: 20px; padding: 0px 5px 0px 5px; cursor:pointer">{!$Label.Back_to_RedWing}</div> -->
+        <div id="returnLink" class="btn btn-primary" onClick="doCancel();">{!$Label.Back_to_RedWing}</div>
+        <apex:outputPanel layout="none" rendered="{!!isRedirect}">
+        	<iframe onload="setFrameAttributes(this)" frameborder="0" allowfullscreen="true" mozallowfullscreen="true" msallowfullscreen="true" oallowfullscreen="true" webkitallowfullscreen="true" id="iFramePlayer" />
+        </apex:outputPanel>
+        
+        <apex:form >
+            <apex:actionFunction action="{!doCancel}" name="doCancel" />
+        </apex:form>
+        
+        <apex:outputPanel layout="none" rendered="{!!isRedirect}">
+	        <script>
+	            $(document).ready(function(){
+	                $("#returnLink").css("margin-left", "-" + ($("#returnLink").width()/2) + "px");
+	            });
+	            
+	            var fullSrc = '{!$Site.prefix}{!launchURL}{!redirectParamsUrl}';
+	            if (fullSrc.indexOf('?') == -1) {
+	                fullSrc += '?';
+	            } else {
+	                fullSrc += '&';
+	            }
+	            /*
+	            {!course}
+	            */
+	            if ('{!courseType}' == 'html' || '{!courseType}' == 'scorm12') {
+	            	fullSrc += 'parentUrl=' + encodeURIComponent(window.location.href);
+	            }
+	            document.getElementById('iFramePlayer').src = fullSrc;
+	            
+	            function frameSize() {
+	                var height = getURLParameter('height');
+	                var el = document.getElementById('iFramePlayer');
+	                var headerContentEl = document.getElementById('container-header');
+	                var headerEl = document.getElementsByClassName('navbar-header');
+	                headerContentMarginTop = parseInt(window.getComputedStyle(headerContentEl).marginTop);
+	                if (headerEl.length > 0) {
+	                    headerEl = headerEl[0];
+	                    el.style.height = ((document.documentElement.clientHeight || window.innerHeight) - headerEl.clientHeight - headerContentMarginTop) + 'px';
+	                } else {
+	                    el.style.height = ((document.documentElement.clientHeight || window.innerHeight) - headerContentMarginTop) + 'px';
+	                }
+	                el.style.width = '100%';
+	            };
+	            
+	            function getURLParameter(name) {
+	                return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20')) || '';
+	            };
+	            frameSize();
+	            window.removeEventListener('resize', frameSize, false);
+	            window.addEventListener('resize', frameSize, false);
+	            /**************************/
+	        </script>
+		</apex:outputPanel>
+        </apex:define>
+    </apex:composition>
+            <script>
+		        if ('{!isRedirect}' == 'true') {
+					var isMobile = {
+					            Android: function() {
+					                return navigator.userAgent.match(/Android/i);
+					            },
+					            BlackBerry: function() {
+					                return navigator.userAgent.match(/BlackBerry/i);
+					            },
+					            iOS: function() {
+					                return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+					            },
+					            Opera: function() {
+					                return navigator.userAgent.match(/Opera Mini/i);
+					            },
+					            Windows: function() {
+					                return navigator.userAgent.match(/IEMobile/i);
+					            },
+					            any: function() {
+					                return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+					            }
+					        }; 		        
+		            var playerUrl = '{!$Site.prefix}{!launchURL}';
+		            if (typeof sforce !== 'undefined' && isMobile.iOS()) {
+		            	playerUrl=decodeURIComponent(playerUrl)+'{!redirectParamsUrl}';
+		            } else if(typeof sforce !== 'undefined') {
+		            	playerUrl=decodeURIComponent(playerUrl)+'{!redirectParamsUrl}';
+		            } 
+		            if (playerUrl.indexOf('?') == -1) {
+		                playerUrl += '?';
+		            } else {
+		                playerUrl += '&';
+		            }
+		            //if ('{!course.scormanywhere__SCORM_Training_Type__c}' == 'html' || '{!course.scormanywhere__SCORM_Training_Type__c}' == 'scorm12') {
+		            	playerUrl += 'parentUrl=' + encodeURIComponent(window.location.protocol + window.location.hostname + playerUrl);
+		            //}
+		            
+                    	if ('{!isOpenInNewWindow}' == 'true') {
+                        	playerUrl += '&newWindow=true';
+                        }
+                       
+                        
+                    	if (typeof sforce !== 'undefined') {
+                            if (isMobile.iOS()) {
+                            	sforce.one.navigateToURL(playerUrl);
+                            } else {
+                            	sforce.one.navigateToURL(encodeURIComponent(playerUrl));
+                            }
+                        } else {
+                            window.location.href = playerUrl;
+                        }
+		        }	
+            </script>
+</apex:page>

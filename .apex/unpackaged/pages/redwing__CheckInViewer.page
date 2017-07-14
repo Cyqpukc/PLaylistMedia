@@ -1,0 +1,208 @@
+<apex:page controller="redwing.CheckInViewerCtrl" docType="html-5.0" sidebar="false" showHeader="{!showSFHeader}" standardStylesheets="false" cache="false">
+
+    <apex:composition template="redwing__LMSTemplate">
+        <apex:define name="head">
+            <title>{!learning.Name}</title>
+            <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+            <meta charset="utf-8"/>
+
+            <style>
+                html, body, #map-canvas {
+                    height: 600px;
+                    margin: 0px;
+                    padding: 0px
+                }
+                #map-canvas {
+                    margin-top:20px;
+                }
+            </style>
+
+            <apex:outputPanel layout="none" rendered="{!checkin != null}">
+                <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key={!URLENCODE(googleMapsAPIKey)}"></script>
+                <script>
+
+                    var map;
+                    var current_position;
+
+                    function initialize() {
+
+                        var mapOptions = {
+                          zoom: 13
+                        };
+
+                        map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
+
+                        // Try HTML5 geolocation
+                        if(navigator.geolocation) {
+                              navigator.geolocation.getCurrentPosition(function(position) {
+                                  var pos = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+
+                                  current_position = pos;
+
+                                  var checkin_lat = {!JSENCODE(checkInLatitude)};
+                                  var checkin_lng = {!JSENCODE(checkInLongitude)};
+                                  var checkin_radius = {!JSENCODE(checkInMileRadius)};
+
+                                  var checkin_pos = new google.maps.LatLng(checkin_lat, checkin_lng);
+
+                                  var marker = marker = new google.maps.Marker({
+                                        position: checkin_pos,
+                                        map: map,
+                                        title: '{!JSENCODE($Label.ALMS_Check_In_Here)}'
+                                  });
+
+                                  // Add circle overlay and bind to marker
+                                  var circle = new google.maps.Circle({
+                                      map: map,
+                                      radius: checkin_radius*1609.34,
+                                      fillColor: '#AA0000'
+                                  });
+
+                                  circle.bindTo('center', marker, 'position');
+
+                                  var infowindow = new google.maps.InfoWindow({
+                                    map: map,
+                                    position: pos,
+                                    content: '{!JSENCODE($Label.ALMS_You_Are_Here)}'
+                                  });
+
+                                  map.setCenter(pos);
+                              },
+                              function(){
+                                handleNoGeolocation(true);
+                              });
+                        }else{
+                            // Browser doesn't support Geolocation
+                            handleNoGeolocation(false);
+                        }
+                    }
+
+                    function handleNoGeolocation(errorFlag) {
+                        if(errorFlag) {
+                            var content = '{!JSENCODE($Label.ALMS_Error_GeoLocation_Failed)}';
+                        }else{
+                            var content = '{!JSENCODE($Label.ALMS_Error_Browser_GeoLocation)}';
+                        }
+
+                        var options = {
+                            map: map,
+                            position: new google.maps.LatLng(60, 105),
+                            content: content
+                        };
+
+                        var infowindow = new google.maps.InfoWindow(options);
+                        map.setCenter(options.position);
+                    }
+
+                    google.maps.event.addDomListener(window, 'load', initialize);
+
+                    function doCheckIn(assignmentId){
+                        if (typeof current_position != 'undefined'){
+                            forceShowStatus();
+                            Visualforce.remoting.Manager.invokeAction(
+                                '{!$RemoteAction.CheckInViewerCtrl.doCheckIn}',
+                                assignmentId,
+                                current_position.lat(),
+                                current_position.lng(),
+                                function(result, event){
+                                    if (event.status) {
+                                        if({!isLightningContext}){
+                                            lmscore.fireLightningEventFromIframe("e.{!JSENCODE(lmsNamespace)}:LearningViewEvent", {type:"close", trainingPlanId: "{!JSENCODE(assignment.Training_Plan__c)}"});
+                                            return true;
+                                        }
+                                        var decodedURL = result.replace(/&amp\;/g, '&');
+                                        lmscore.redirectHandlerWithStatus(decodedURL,false);
+                                    } else{
+                                        forceHideStatus();
+                                        alert(event.message);
+                                    }
+                                }
+                            );
+                        }
+                    }
+
+                </script>
+            </apex:outputPanel>
+
+            <script>
+                function doCancel(assignmentId){
+                    Visualforce.remoting.Manager.invokeAction(
+                        '{!$RemoteAction.CheckInViewerCtrl.doCancel}',
+                        assignmentId,
+                        function(result, event){
+                            if (event.status) {
+                                if({!isLightningContext}){
+                                    lmscore.fireLightningEventFromIframe("e.{!JSENCODE(lmsNamespace)}:LearningViewEvent", {type:"close"});
+                                    return true;
+                                }
+                                var decodedURL = result.replace(/&amp\;/g, '&');
+                                lmscore.redirectHandlerWithStatus(decodedURL,false);
+                            } else if (event.type === 'exception') {
+                                alert(event.message);
+                            } else {
+                                alert(event.message);
+                            }
+                        }
+                    );
+                }
+            </script>
+        </apex:define>
+
+        <apex:define name="body">
+
+            <apex:actionStatus id="status">
+                <apex:facet name="start">
+                    <c:LMSStatus statusComponentId="{!$Component.status}"/>
+                </apex:facet>
+            </apex:actionStatus>
+
+
+            <div class="row">
+                <div class="col-md-12"><h3>{!learning.Name}</h3></div>
+            </div>
+            <div class="row">
+                <div class="col-md-12"><p>{!learning.redwing__Description__c}</p></div>
+            </div>
+
+            <apex:pageMessages />
+            
+            <apex:outputPanel layout="none" rendered="{!checkin != null}">
+                <apex:outputPanel layout="none" rendered="{!checkin.redwing__Description_RTA__c != null}">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <apex:outputField value="{!checkin.redwing__Description_RTA__c}" />
+                        </div>
+                    </div>
+                </apex:outputPanel>
+
+                <div class="row">
+                    <apex:outputPanel layout="none" rendered="{!assignment.redwing__Progress__c != 'Completed'}">
+                        <div class="col-md-6">
+                            <div id="checkin-button" class="lmscore-success-btn large-btn" onclick="doCheckIn('{!JSINHTMLENCODE($CurrentPage.parameters.aid)}');" style="margin-top:15px;">{!$Label.ALMS_Check_In_Button}</div>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="checkin-button" class="lmscore-danger-btn large-btn" onclick="doCancel('{!JSINHTMLENCODE($CurrentPage.parameters.aid)}');" style="margin-top:15px;">{!$Label.ALMS_Cancel}</div>
+                        </div>
+                    </apex:outputPanel>
+                    <apex:outputPanel layout="none" rendered="{!assignment.redwing__Progress__c == 'Completed'}">
+                        <div class="col-md-12">
+                            <div id="checkin-button" class="lmscore-primary-btn large-btn" onclick="doCancel('{!JSINHTMLENCODE($CurrentPage.parameters.aid)}');" style="margin-top:15px;">{!$Label.ALMS_Back}</div>
+                        </div>
+                    </apex:outputPanel>
+                </div>
+            </apex:outputPanel>
+            <apex:outputPanel layout="none" rendered="{!checkin == null}">
+                <div id="checkin-button" class="lmscore-danger-btn large-btn" onclick="doCancel('{!JSINHTMLENCODE($CurrentPage.parameters.aid)}');" style="margin-top:15px;">{!$Label.ALMS_Cancel}</div>
+            </apex:outputPanel>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="map-canvas"></div>
+                </div>
+            </div>
+
+        </apex:define>
+
+    </apex:composition>
+
+</apex:page>

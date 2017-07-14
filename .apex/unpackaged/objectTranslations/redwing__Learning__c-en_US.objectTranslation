@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <label><!-- Current Published Version --></label>
+        <name>redwing__Current_Published_Version_Formula__c</name>
+    </fields>
+    <fields>
+        <label><!-- Current Published Version --></label>
+        <name>redwing__Current_Published_Version__c</name>
+        <relationshipLabel><!-- Learning Objects --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Custom Preview URL --></label>
+        <name>redwing__Custom_Preview_URL__c</name>
+    </fields>
+    <fields>
+        <label><!-- Description --></label>
+        <name>redwing__Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Duration (minutes) --></label>
+        <name>redwing__Duration__c</name>
+    </fields>
+    <fields>
+        <label><!-- Duration (hours) --></label>
+        <name>redwing__Duration_hours__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is Published --></label>
+        <name>redwing__Is_Published_Formula__c</name>
+    </fields>
+    <fields>
+        <label><!-- Published --></label>
+        <name>redwing__Published__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enable this checkbox if you plan to add this learning to multiple Learning Plans and you would like to keep progress in sync between plans --></help>
+        <label><!-- Sync progress across assignments --></label>
+        <name>redwing__Sync_progress__c</name>
+    </fields>
+    <recordTypes>
+        <label><!-- Check-In --></label>
+        <name>CheckIn</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Media --></label>
+        <name>Course</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Quiz --></label>
+        <name>Quiz</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Resource --></label>
+        <name>Resource</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Rich Text --></label>
+        <name>RichText</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Task --></label>
+        <name>Task</name>
+    </recordTypes>
+    <sharingReasons>
+        <label><!-- LMS Approval Sharing --></label>
+        <name>redwing__LMS_Approval_Sharing</name>
+    </sharingReasons>
+    <sharingReasons>
+        <label><!-- LMS Sharing --></label>
+        <name>redwing__LMS_Sharing</name>
+    </sharingReasons>
+    <webLinks>
+        <label><!-- Delete_Shared_Assignments --></label>
+        <name>redwing__Delete_Shared_Assignments</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Manage_Assignments --></label>
+        <name>redwing__Manage_Assignments</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Preview --></label>
+        <name>redwing__Preview</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Publish --></label>
+        <name>redwing__Publish</name>
+    </webLinks>
+</CustomObjectTranslation>

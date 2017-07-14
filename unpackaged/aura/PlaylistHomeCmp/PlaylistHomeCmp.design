@@ -1,0 +1,9 @@
+<design:component label="Media Catalogs">
+    <design:attribute name="panelColor" label="Color of panels" description="Background color when hover over the catalog"/>
+    <design:attribute name="showShared" label="Show Shared"/>
+    <design:attribute name="shareButtonStyle" label="Share button type" datasource="Email,Iframe,Link" default="Email" description="Used to send an email with a link to the media, or to get a link that can be used in an article, or to get a public link"/>
+    <design:attribute name="shareLinkType" label="Share Link Type" datasource="New Window,PopUp" default="New Window" description="By using a public link, video will be opened on a current page in a pop-up or in a new window"/>
+    <design:attribute name="siteId" label="Site Id for Public Link" description="Required attribute for a public link"/>
+    <design:attribute name="showPin" label="Show Pin"/>
+    <design:attribute name="showProgress" label="Show Progress" description="If selected, progress will be displayed for each media on the page"/>
+</design:component>

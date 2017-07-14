@@ -1,0 +1,116 @@
+.THIS #videoPlayer{
+    position: relative;
+    min-height: 180px;
+}
+.THIS #attachLink{
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    right: 5px;
+    top: 5px;
+}
+.THIS .active{
+    background-color: rgba(0,0,0,0.2);
+    position: absolute;
+    width: 33px;
+    height: 33px;
+    right: 2px;
+    top: 5px;
+}
+.THIS #attachLink:hover:after{
+    content: "Embed video";
+    position: absolute;
+    font-size: 11px;
+    background: rgba(0,0,0,0.5);
+    color: #fff;
+    display: block;
+    width: 80px;
+    margin-left: -60px;
+    margin-top: 23px;
+    padding: 2px 0px 2px 11px;
+    cursor: pointer;
+}
+.THIS #attachLink{
+    opacity: 0.9;
+}
+.THIS #attachLink:hover{
+    cursor: pointer;
+    opacity: 1;
+}
+@media (max-width: 768px){
+    .THIS #videoPlayer{
+        min-height: 100px;
+    }
+}
+/* send form */
+.THIS  .sendForm{
+    height: 63px;
+    background: rgba(0,0,0,0.5);
+    position: absolute;
+    text-align: left;
+    z-index: 11;
+    top: 0;
+    right: 2px;
+    left: 2px;
+    padding: 0!important;
+    border-radius: 2px;
+    margin: 5px;
+}
+
+.THIS .sendForm .email{
+    border: 0;
+    width: 95%;
+    border-radius: 2px;
+    padding: 2px 5px;
+    float: none;
+    margin: auto;
+    margin-top: 5px;
+    position: relative;
+    font-weight: 300;
+    height: 26px;
+    display: block;
+}
+.THIS .sendForm button{
+    border: 0 solid #1c699c;
+    background: #1c699c;
+    height: initial;
+    width: auto;
+    color: #fff;
+    padding: 3px 14px;
+    border-radius: 2px;
+    margin-top: 0;
+    margin-right: 7px;
+    font-size: 12px;
+    font-weight: 300;
+    float: right;
+    margin-top: 5px;
+}
+.THIS .sendForm .close{
+    background: none;
+    background-size: 20px;
+    width: initial;
+    height: initial;
+    display: initial;
+    overflow: hidden;
+    line-height: 100%;
+    float: right;
+    cursor: pointer;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 300;
+    padding: 10px 10px;
+    text-decoration: underline;
+}
+
+.THIS .success-email-form{
+    width: 190px;
+    height: 50px;
+    background: white;
+    position: absolute;
+    text-align: left;
+    z-index: 11;
+    top: 0;
+    padding: 7px;
+    border-radius: 2px;
+    margin: 5px;
+}

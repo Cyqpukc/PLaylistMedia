@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <label><!-- Comments --></label>
+        <name>redwing__Comments__c</name>
+    </fields>
+    <fields>
+        <label><!-- Rating --></label>
+        <name>redwing__Rating__c</name>
+    </fields>
+    <fields>
+        <label><!-- Learning Plan --></label>
+        <name>redwing__Training_Plan__c</name>
+        <relationshipLabel><!-- Learning Plan Feedback --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- User --></label>
+        <name>redwing__User__c</name>
+        <relationshipLabel><!-- Learning Plan Feedbacks --></relationshipLabel>
+    </fields>
+</CustomObjectTranslation>

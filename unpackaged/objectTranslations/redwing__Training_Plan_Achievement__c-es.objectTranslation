@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Logro de Curso</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Logros de Curso</value>
+    </caseValues>
+    <fields>
+        <label><!-- Achievement --></label>
+        <name>redwing__Achievement__c</name>
+        <relationshipLabel><!-- Learning Plan Achievements --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Main Achievement --></label>
+        <name>redwing__Main_Achievement__c</name>
+    </fields>
+    <fields>
+        <label><!-- Learning Plan Section --></label>
+        <lookupFilter>
+            <errorMessage><!-- Only sections from the parent Learning Plan can be selected --></errorMessage>
+        </lookupFilter>
+        <name>redwing__Training_Plan_Section__c</name>
+        <relationshipLabel><!-- Learning Plan Achievements --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Learning Plan --></label>
+        <name>redwing__Training_Plan__c</name>
+        <relationshipLabel><!-- Learning Plan Achievements --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>redwing__Type__c</name>
+        <picklistValues>
+            <masterLabel>Plan</masterLabel>
+            <translation>Curso</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Section</masterLabel>
+            <translation>Sección</translation>
+        </picklistValues>
+    </fields>
+    <gender>Masculine</gender>
+    <nameFieldLabel>ID de Logro de Curso</nameFieldLabel>
+</CustomObjectTranslation>

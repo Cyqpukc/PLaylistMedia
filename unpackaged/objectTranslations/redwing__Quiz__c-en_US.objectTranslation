@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <help><!-- Delete quiz response records after quiz submission --></help>
+        <label><!-- Delete Responses on Submission --></label>
+        <name>redwing__Delete_Responses_On_Submission__c</name>
+    </fields>
+    <fields>
+        <label><!-- Display Progress Bar --></label>
+        <name>redwing__Display_Progress_Bar__c</name>
+    </fields>
+    <fields>
+        <label><!-- Display Quiz Navigator --></label>
+        <name>redwing__Display_Quiz_Navigator__c</name>
+    </fields>
+    <fields>
+        <help><!-- Display a summary on quiz submission that shows correct/incorrect questions --></help>
+        <label><!-- Display Response Summary --></label>
+        <name>redwing__Display_Results_Summary__c</name>
+    </fields>
+    <fields>
+        <help><!-- Display a summary on quiz submission that shows correct/incorrect topics --></help>
+        <label><!-- Display Topics Summary --></label>
+        <name>redwing__Display_Topics_Summary__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enabling Survey Mode prevents deleting responses on completion and scoring is disabled --></help>
+        <label><!-- Survey Mode --></label>
+        <name>redwing__Enable_Survey_Mode__c</name>
+    </fields>
+    <fields>
+        <label><!-- Learning --></label>
+        <name>redwing__Learning__c</name>
+        <relationshipLabel><!-- Quizzes --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Maximum number of attempts to reach the passing score --></help>
+        <label><!-- Max Attempts --></label>
+        <name>redwing__Max_Attempts__c</name>
+    </fields>
+    <fields>
+        <help><!-- Number between 0 and 100 that will determine the minimum percentage of correct answers to get a passing score --></help>
+        <label><!-- Passing Score --></label>
+        <name>redwing__Passing_Score__c</name>
+    </fields>
+    <fields>
+        <label><!-- Randomize Question Lines --></label>
+        <name>redwing__Randomize_Question_Lines__c</name>
+    </fields>
+    <fields>
+        <label><!-- Randomize Questions --></label>
+        <name>redwing__Randomize__c</name>
+    </fields>
+    <fields>
+        <label><!-- Round Score --></label>
+        <name>redwing__Round_Score__c</name>
+    </fields>
+    <fields>
+        <help><!-- Number of minutes to complete the evaluation --></help>
+        <label><!-- Time Limit (mins) --></label>
+        <name>redwing__Time_Limit__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Questions --></label>
+        <name>redwing__Total_Questions__c</name>
+    </fields>
+    <validationRules>
+        <errorMessage><!-- Number of attempts must be greater than zero --></errorMessage>
+        <name>redwing__Checking_Positive_Number</name>
+    </validationRules>
+</CustomObjectTranslation>

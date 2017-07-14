@@ -1,0 +1,11 @@
+@media (max-width: 748px){
+    .THIS .mobileHide {
+        display: none;
+    }
+}
+.THIS.loader{
+    background-color: rgba(197,204,214,0.75);
+    height: 100%;
+    position: fixed;
+    z-index: 10000;
+}

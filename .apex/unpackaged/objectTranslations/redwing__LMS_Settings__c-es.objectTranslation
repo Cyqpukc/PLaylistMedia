@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value><!-- Configuración de LMS --></value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value><!-- Configuraciones de LMS --></value>
+    </caseValues>
+    <fields>
+        <help>URL de VF usado para imprimir logors (ej. /apex/ImprimirLogro)</help>
+        <label><!-- Achievement Print URL --></label>
+        <name>redwing__Achievement_Print_URL__c</name>
+    </fields>
+    <fields>
+        <help>Debe ser una URL relativa (e.g. /home/home.jsp)</help>
+        <label><!-- Back to SF URL --></label>
+        <name>redwing__Back_to_SF_URL__c</name>
+    </fields>
+    <fields>
+        <help>Nombre del plug-in para habilitar compras</help>
+        <label><!-- Checkout Plugin --></label>
+        <name>redwing__Checkout_Plugin__c</name>
+    </fields>
+    <fields>
+        <help>URL para la pagina de aprendizaje en su comunidad (ej. /s/learning)</help>
+        <label><!-- Communities Page URL --></label>
+        <name>redwing__Communities_Page_URL__c</name>
+    </fields>
+    <fields>
+        <help>Dominio de Sitio de Comunidad usado al construir enlaces a la comunidad</help>
+        <label><!-- Community Custom Domain --></label>
+        <name>redwing__Community_Custom_Domain__c</name>
+    </fields>
+    <fields>
+        <help>Liga a imagen del logo de su Compañía</help>
+        <label><!-- Company Logo --></label>
+        <name>redwing__Company_Logo__c</name>
+    </fields>
+    <fields>
+        <help>Nombre de reporte personalizado que sera usado para la tabla de posiciones</help>
+        <label><!-- Custom Leader Board Report --></label>
+        <name>redwing__Custom_Leader_Board_Report__c</name>
+    </fields>
+    <fields>
+        <help>Enlace de fin de sesión usado en el encabezado de la aplicación (ej. /secur/logout.jsp)</help>
+        <label><!-- Custom Logout URL --></label>
+        <name>redwing__Custom_Logout_URL__c</name>
+    </fields>
+    <fields>
+        <help>Nombre de sección que sera desplegado en el encabezado</help>
+        <label><!-- Custom Section Name --></label>
+        <name>redwing__Custom_Section_Name__c</name>
+    </fields>
+    <fields>
+        <help>URL para su pagina personalizada (e.j. https://instance.salesforce.com/apex/myhomepage)</help>
+        <label><!-- Custom Section URL --></label>
+        <name>redwing__Custom_Section_URL__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción para no guardar respaldos de las asignaciones con nuevas versiones</help>
+        <label><!-- Disable Assignments Version Backup --></label>
+        <name>redwing__Disable_Assignments_Version_Backup__c</name>
+    </fields>
+    <fields>
+        <help>Habiltiar esta opción para que las reglas de permiso se ejecuten inmediatamente y no asincrónicamente</help>
+        <label><!-- Disable Async Permission Rules --></label>
+        <name>redwing__Disable_Async_Permission_Rules__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción para deshabilitar la casilla que indica si una respuesta es correcta</help>
+        <label><!-- Disable Correct Response Checkbox --></label>
+        <name>redwing__Disable_Correct_Response_Checkbox__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción para deshabilitar asignar valores a campos de auditoria en objetos de Chatter</help>
+        <label><!-- Disable Audit Fields for Feed Items --></label>
+        <name>redwing__Disable_Feed_Item_Audit_Fields__c</name>
+    </fields>
+    <fields>
+        <help>Habilite esta opción para forzar que el calculo de progreso de Curso se realiza en una sola transacción</help>
+        <label><!-- Disable Future Progress Calculation --></label>
+        <name>redwing__Disable_Future_Progress_Calculation__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción para deshabilitar la actualización de la Tabla de Posiciones al cargar</help>
+        <label><!-- Disable Leaderboard Refresh On Load --></label>
+        <name>redwing__Disable_Leaderboard_Refresh_On_Load__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción para deshabilitar la Tabla de Posiciones</help>
+        <label><!-- Disable Leaderboard --></label>
+        <name>redwing__Disable_Leaderboard__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción para evitar la redirección automática con vista previa de aprendizajes</help>
+        <label><!-- Disable Learning Preview Redirection --></label>
+        <name>redwing__Disable_Learning_Preview_Redirection__c</name>
+    </fields>
+    <fields>
+        <help>Deshabilitar esta opción para prevenir asignaciones de Logros para Trayectorias</help>
+        <label><!-- Disable Track Achievements --></label>
+        <name>redwing__Disable_Track_Achievements__c</name>
+    </fields>
+    <fields>
+        <help>Deshabilitar el cálculo de progreso para asignaciones de Trayectoria</help>
+        <label><!-- Disable Track Progress Calculation --></label>
+        <name>redwing__Disable_Track_Progress_Calculation__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción para desactivar el calculo de progreso de Trayectorias</help>
+        <label><!-- Disable Tracs Progress Calculation --></label>
+        <name>redwing__Disable_Tracks_Progress_Calculation__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción si no desea que los usuarios carguen certificaciones</help>
+        <label><!-- Disable User Certification Uploads --></label>
+        <name>redwing__Disable_User_Certification_Uploads__c</name>
+    </fields>
+    <fields>
+        <help>Habiltiar esta opción para deshabilitar el desencadenador de Apex en el objeto Usuario</help>
+        <label><!-- Disable User Trigger --></label>
+        <name>redwing__Disable_User_Trigger__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción para compartir aprendizajes con usuarios</help>
+        <label><!-- Enable Learning Object Sharing --></label>
+        <name>redwing__Enable_Learning_Object_Sharing__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción para permitir que asignaciones compartidas sean actualizadas a versiones anteriores</help>
+        <label><!-- Enable Previous Version Shared Updates --></label>
+        <name>redwing__Enable_Previous_Version_Shared_Updates__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción para hacer privados los Archivos Adjuntos relacionados a Tareas</help>
+        <label><!-- Enable Private Attachments --></label>
+        <name>redwing__Enable_Private_Attachments__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción esta teniendo problemas de navegación con Salesforce1 + i08</help>
+        <label><!-- Enable iOS Tap Fix --></label>
+        <name>redwing__Enable_iOS_Tap_Fix__c</name>
+    </fields>
+    <fields>
+        <help>Remplazar este valor con su propia llave API para Google Maps (https://console.developers.google.com)</help>
+        <label><!-- Google Maps API Key --></label>
+        <name>redwing__Google_Maps_API_Key__c</name>
+    </fields>
+    <fields>
+        <help>Valor hexadecimal para el color de fondo (ej. #EEEEEE)</help>
+        <label><!-- Header Background Color --></label>
+        <name>redwing__Header_Background_Color__c</name>
+    </fields>
+    <fields>
+        <help>Valor hexadecimal para el color de texto (ej. #EEEEEE)</help>
+        <label><!-- Header Text Color --></label>
+        <name>redwing__Header_Text_Color__c</name>
+    </fields>
+    <fields>
+        <help>Valor hexadecimal para el color de texto (hover) (ej. #EEEEEE)</help>
+        <label><!-- Header Text Hover Color --></label>
+        <name>redwing__Header_Text_Hover_Color__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción para esconder el botón de regreso a SF del encabezado</help>
+        <label><!-- Hide Back to SF Button --></label>
+        <name>redwing__Hide_Back_to_SF_Button__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción para esconder la sección de certificaciones en la pagina de logros</help>
+        <label><!-- Hide Certifications Section --></label>
+        <name>redwing__Hide_Certifications_Section__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción para siempre esconder el encabezado de SF en comunidades y portales</help>
+        <label><!-- Hide Salesforce Header in Communities --></label>
+        <name>redwing__Hide_Community_Salesforce_Header__c</name>
+    </fields>
+    <fields>
+        <help>Habiltiar esta opción para esconder el logo de Compañía en el encabezado</help>
+        <label><!-- Hide Company Logo --></label>
+        <name>redwing__Hide_Company_Logo__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción para esconder en la pagina de publicación contenido que ha sido publicado</help>
+        <label><!-- Hide Published Content --></label>
+        <name>redwing__Hide_Published_Content__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción para esconder trayectorias de Mis Cursos</help>
+        <label><!-- Hide Tracs from My Learning --></label>
+        <name>redwing__Hide_Tracks_from_My_Training__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción para esconder la sección de catalogo</help>
+        <label><!-- Hide Training Catalog Section --></label>
+        <name>redwing__Hide_Training_Catalog_Section__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción para mostrar información de progreso en la pagina de Mis Cursos</help>
+        <label><!-- Hide Learning Plans Progress Info --></label>
+        <name>redwing__Hide_Training_Plans_Progress_Info__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción para esconder la sección de trayectorias</help>
+        <label><!-- Hide Learning Tracs Section --></label>
+        <name>redwing__Hide_Training_Tracks_Section__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opcion para esconder el menu de usuario del encabezado de la app</help>
+        <label><!-- Hide User Menu --></label>
+        <name>redwing__Hide_User_Menu__c</name>
+    </fields>
+    <fields>
+        <help>Habiltiar esta opción si el dominio de su org es cloudforce.com</help>
+        <label><!-- Is Cloudforce Domain --></label>
+        <name>redwing__Is_Cloudforce_Domain__c</name>
+    </fields>
+    <fields>
+        <help>Habiltiar esta opción para ajustar el tamaño de las imagenes de fondo en la aplicación</help>
+        <label><!-- Resize To Fit Images --></label>
+        <name>redwing__Resize_To_Fit_Images__c</name>
+    </fields>
+    <fields>
+        <help>Habiltiar esta opción para mostrar encabezado de Salesforce en dispositivos móviles</help>
+        <label><!-- Show SF Header in Mobile --></label>
+        <name>redwing__Show_SF_Header_In_Mobile__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción para mostrar el encabezado de Salesforce en las paginas</help>
+        <label><!-- Show Salesforce Header --></label>
+        <name>redwing__Show_Salesforce_Header__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción para registrar cada vez que un aprendizaje es iniciado</help>
+        <label><!-- Track Learning Object Launch Attempts --></label>
+        <name>redwing__Track_Learning_Object_Launch_Attempts__c</name>
+    </fields>
+    <fields>
+        <help>URL usada para procesar pagos para Cursos que tienen pagos habilitados</help>
+        <label><!-- Training Payment URL --></label>
+        <name>redwing__Training_Payment_URL__c</name>
+    </fields>
+    <fields>
+        <help>Namespace usado por componentes de video</help>
+        <label><!-- Video Components Namespace --></label>
+        <name>redwing__Video_Components_Namespace__c</name>
+    </fields>
+    <gender><!-- Feminine --></gender>
+</CustomObjectTranslation>

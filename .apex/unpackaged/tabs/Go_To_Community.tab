@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomTab xmlns="http://soap.sforce.com/2006/04/metadata">
+    <auraComponent>AEXP_GCP_GoToCommunity_Salesforce1</auraComponent>
+    <description>Go to community in salesforce1</description>
+    <label>Go To Community</label>
+    <mobileReady>false</mobileReady>
+    <motif>Custom19: Wrench</motif>
+</CustomTab>

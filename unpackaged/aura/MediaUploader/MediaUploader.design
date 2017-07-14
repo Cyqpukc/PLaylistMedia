@@ -1,0 +1,4 @@
+<design:component label="Media Uploader">
+    <design:attribute name="recordId" label="Object Name Record ID" description="Please set '{!recordId}' "/>
+    <design:attribute name="isCreateMediaContent" label="Create Media Content" description="If selected, uploaded media will be created in the Related Media list"/>
+</design:component>

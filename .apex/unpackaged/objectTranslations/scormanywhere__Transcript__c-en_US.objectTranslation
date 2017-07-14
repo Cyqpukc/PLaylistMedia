@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <label><!-- Learning Assignment --></label>
+        <name>rwscorm__Learning_Assignment__c</name>
+        <relationshipLabel><!-- Transcripts --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Attempts --></label>
+        <name>scormanywhere__Attempts__c</name>
+    </fields>
+    <fields>
+        <label><!-- Completion Date --></label>
+        <name>scormanywhere__Completion_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Media --></label>
+        <name>scormanywhere__Course__c</name>
+        <relationshipLabel><!-- Transcripts --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Launch Date --></label>
+        <name>scormanywhere__Launch_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Object API Name --></label>
+        <name>scormanywhere__Object_API_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Object Id --></label>
+        <name>scormanywhere__Object_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Progress --></label>
+        <name>scormanywhere__Progress__c</name>
+    </fields>
+    <fields>
+        <label><!-- SCORM Attempt Completion Status --></label>
+        <name>scormanywhere__SCORM_Attempt_Completion_Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- SCORM Attempt Progress Status --></label>
+        <name>scormanywhere__SCORM_Attempt_Progress_Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- SCORM Progress Measure --></label>
+        <name>scormanywhere__SCORM_Progress_Measure__c</name>
+    </fields>
+    <fields>
+        <label><!-- SCORM Progress Status --></label>
+        <name>scormanywhere__SCORM_Progress_Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- SCORM Satisfied Status --></label>
+        <name>scormanywhere__SCORM_Satisfied_Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- SCORM Scaled --></label>
+        <name>scormanywhere__SCORM_Scaled__c</name>
+    </fields>
+    <fields>
+        <label><!-- SCORM Session Data Part 1 --></label>
+        <name>scormanywhere__SCORM_Session_Data_Part_1__c</name>
+    </fields>
+    <fields>
+        <label><!-- SCORM Session Data Part 2 --></label>
+        <name>scormanywhere__SCORM_Session_Data_Part_2__c</name>
+    </fields>
+    <fields>
+        <label><!-- SCORM Session Data Part 3 --></label>
+        <name>scormanywhere__SCORM_Session_Data_Part_3__c</name>
+    </fields>
+    <fields>
+        <label><!-- SCORM Session Data Part 4 --></label>
+        <name>scormanywhere__SCORM_Session_Data_Part_4__c</name>
+    </fields>
+    <fields>
+        <label><!-- SCORM Session Data Part 5 --></label>
+        <name>scormanywhere__SCORM_Session_Data_Part_5__c</name>
+    </fields>
+    <fields>
+        <label><!-- SCORM Session Time Stamp --></label>
+        <name>scormanywhere__SCORM_Session_Time_Stamp__c</name>
+    </fields>
+    <fields>
+        <label><!-- Score --></label>
+        <name>scormanywhere__Score__c</name>
+    </fields>
+    <fields>
+        <label><!-- Session Time Seconds --></label>
+        <name>scormanywhere__Session_Time_Seconds__c</name>
+    </fields>
+    <fields>
+        <label><!-- Session Time --></label>
+        <name>scormanywhere__Session_Time__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>scormanywhere__Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- Test Launch --></label>
+        <name>scormanywhere__Test_Launch__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Time Seconds --></label>
+        <name>scormanywhere__Total_Time_Seconds__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Time --></label>
+        <name>scormanywhere__Total_Time__c</name>
+    </fields>
+    <fields>
+        <label><!-- User --></label>
+        <name>scormanywhere__User__c</name>
+        <relationshipLabel><!-- Transcripts --></relationshipLabel>
+    </fields>
+</CustomObjectTranslation>

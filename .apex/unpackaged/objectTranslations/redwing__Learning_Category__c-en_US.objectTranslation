@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <help><!-- URL for the image displayed in the catalog detail header --></help>
+        <label><!-- Background Image URL --></label>
+        <name>redwing__Background_Image_URL__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enabling this checkbox will expose this catalog to all external (Community/Portal) users --></help>
+        <label><!-- Enable for all external users --></label>
+        <name>redwing__Enable_all_external_accounts__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enable this option if you do not want to display this catalog in the catalog home page --></help>
+        <label><!-- Hide from Catalog Home --></label>
+        <name>redwing__Hide_From_Catalog_Home__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enable this option if you do not want to display this catalog to external users --></help>
+        <label><!-- Is Internal --></label>
+        <name>redwing__Is_Internal__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enable this option to limit visibility in Catalog Homepage to specific Profiles/Groups defined in the Catalog --></help>
+        <label><!-- Limit Internal Visibility --></label>
+        <name>redwing__Limit_Internal_Visibility__c</name>
+    </fields>
+    <fields>
+        <help><!-- URL for the image displayed for this catalog in the catalog page --></help>
+        <label><!-- Logo --></label>
+        <name>redwing__Logo__c</name>
+    </fields>
+    <fields>
+        <help><!-- Number that defines the position in which this catalog will appear in the catalog page --></help>
+        <label><!-- Order --></label>
+        <name>redwing__Order__c</name>
+    </fields>
+    <fields>
+        <help><!-- HEX Color code for the header text color (e.g. #333333, more examples in : http://www.color-hex.com/) --></help>
+        <label><!-- Text Color --></label>
+        <name>redwing__Text_Color__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Learning Plans --></label>
+        <name>redwing__Total_Training_Plans__c</name>
+    </fields>
+</CustomObjectTranslation>

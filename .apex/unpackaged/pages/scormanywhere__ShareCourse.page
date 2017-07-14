@@ -1,0 +1,484 @@
+<apex:page showHeader="false" sidebar="false" cache="false" Controller="scormanywhere.ShareCourseController" id="elPage">
+
+<html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
+
+    <head>
+        <meta charset="UTF-8" />
+        <apex:stylesheet value="{!URLFOR($Resource.scormanywhere__SCORM_Library, '/css/slds.css')}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.scormanywhere__SCORM_Library, '/css/upload-lightbox.css')}"/>
+        <style>
+            .slds-modal__header{
+                background: #12345a;
+                color: #fff;
+                border-bottom: 2px solid #12345a;
+            }
+            html{
+                background-color: transparent;
+            }
+            .spiner{
+                position: absolute;
+                background-color: grey;
+                opacity: 0.3;
+                width: 100%;
+                height: 100%;
+                display: none;
+                top: 0;
+            }            
+            #linkOverlay {
+                position:absolute;
+                width: 100%;
+                height: 100%;
+                left: 0px;
+                top: 0px;
+                background-color: rgba(0,0,0,0.4);
+                display: none;
+                cursor: wait;
+            }           
+        </style>
+    </head>
+    <script>
+        embeddedDefaultWidth = '{!defaultWidth}';
+        embeddedDefaultHeight = '{!defaultHeight}';
+        publicDefaultWidth = '';
+        publicDefaultHeight = '';
+    </script>
+    <apex:includeScript value="{!URLFOR($Resource.scormanywhere__SCORM_Library, '/js/shareCourse_ui.js')}"/>
+    <apex:form id="linksForm">
+    <div id="shareForm">
+        <apex:outputPanel id="linksBlock" rendered="{!isActive}">
+            <div role="dialog" tabindex="-1" aria-labelledby="header43" class="lgh-share-large slds-modal slds-modal--large slds-fade-in-open" style="margin:-10px">
+                <div class="slds-modal__container" style="max-width: 910px">
+                    <span style="position: relative;">
+                    <div class="slds-modal__header">
+                        <button class="slds-button slds-modal__close slds-button--icon-inverse" title="Close" onclick="window.parent.el_hideLightBoxClone()" id="topClose">
+                            <svg aria-hidden="true" class="slds-button__icon slds-button__icon--large">
+                                <use xlink:href="{!URLFOR($Resource.SCORM_Library, '/slds/assets/icons/action-sprite/svg/symbols.svg#close')}"></use>
+                            </svg>
+                            <span class="slds-assistive-text">{!$Label.Close}</span>
+                        </button>
+                        <h2 id="header43" class="slds-text-heading--medium">{!$Label.Share_Media}</h2>
+                    </div>
+                    <div class="slds-modal__content slds-p-around--medium">
+<!-- select player -->
+                        <div class="slds-grid slds-p-top--small slds-p-bottom--small">
+                            <div class="slds-col slds-size--6-of-12 ">
+                                <div class="slds-form-element slds-p-right--small">
+                                    <label class="slds-form-element__label">{!$Label.LinkType}</label>
+                                    <div class="slds-select_container">
+                                        <apex:selectList id="selectTypeLinks" styleClass="slds-select" value="{!selectTypeLinks}" multiselect="false" size="1" rendered="{!isVisiblePicklistTypeLinks}">
+                                            <apex:selectOptions value="{!picklistTypeLinks}"/>
+                                            <apex:actionSupport event="onchange" onsubmit="showOverlay()" oncomplete="console.log('start 1');defaultSize(); setSize(); hideOverlay(); checkboxTrigger('{!displayCustomTags}', 'checkbox1content'); addCloseImg();console.log('end 1');" action="{!selectLink}" reRender="linksForm"/>
+                                        </apex:selectList>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size--6-of-12">
+                                <div class="slds-form-element slds-p-left--small">
+                                    <label class="slds-form-element__label">{!$Label.scormanywhere__Audience}</label>
+                                    <div class="slds-select_container">
+                                        <apex:selectList styleClass="slds-select" value="{!selectEmbeddedLink}" multiselect="false" size="1" rendered="{!isVisiblePicklistEmbeddedLinks}">
+                                            <apex:selectOptions value="{!picklistEmbeddedLinks}"/>
+                                            <apex:actionSupport event="onchange" onsubmit="showOverlay()" oncomplete="console.log('start 2');setSize(); hideOverlay();checkboxTrigger('{!displayCustomTags}', 'checkbox1content'); addCloseImg(); console.log('end 2');" action="{!selectLinkAudience}" reRender="mediaLinkReadOnly"/>
+                                        </apex:selectList>
+                                        <apex:selectList styleClass="slds-select" value="{!selectPublicLink}" multiselect="false" size="1" rendered="{!isVisiblePicklistPublicLinks}">
+                                            <apex:selectOptions value="{!picklistPublicLinks}"/>
+                                            <apex:actionSupport event="onchange" onsubmit="showOverlay()" oncomplete="console.log('start 3');setSize(); hideOverlay();checkboxTrigger('{!displayCustomTags}', 'checkbox1content'); addCloseImg(); console.log('end 3');" action="{!selectLinkAudience}" reRender="mediaLinkReadOnly"/>
+                                        </apex:selectList>
+                                        <apex:selectList styleClass="slds-select" value="{!selectChatterLink}" multiselect="false" size="1" rendered="{!isVisiblePicklistChatterLinks}">
+                                            <apex:selectOptions value="{!picklistChatterLinks}"/>
+                                            <apex:actionSupport event="onchange" onsubmit="showOverlay()" oncomplete="console.log('start 4');setSize(); hideOverlay();checkboxTrigger('{!displayCustomTags}', 'checkbox1content'); addCloseImg();console.log('end 4');" action="{!selectLinkAudience}" reRender="mediaLinkReadOnly"/>
+                                        </apex:selectList>
+                                    </div>
+                                </div>
+                             </div>
+                        </div>
+<!-- bookmark and size -->
+                        <div class="slds-grid slds-form--inline slds-p-top--medium">
+                            <!-- <div class="slds-col slds-size--4-of-12"> -->
+                            <apex:outputPanel rendered="{!isVisibilityResetProgressCheckBox}">
+                                <div class="slds-form-element">
+                                    <div class="slds-form-element__control lgh-full">
+                                        <label class="slds-checkbox" style="line-height:29px;">
+                                            <apex:inputCheckbox styleclass="slds-input" value="{!isResetProgress}">
+                                                <apex:actionSupport event="onchange" onsubmit="showOverlay()" action="{!addParameterToLink}" oncomplete="console.log('start 5');setSize(); hideOverlay();; addCloseImg();console.log('end 5');" reRender="mediaLinkReadOnly"/>
+                                            </apex:inputCheckbox>
+                                            <span class="slds-checkbox--faux"></span>
+                                            <span class="slds-form-element__label">{!$Label.Do_Not_Bookmark}</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </apex:outputPanel>
+                            <!-- </div> -->
+                            <!-- <div class="slds-col slds-size--4-of-12"> -->
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label">{!$Label.Width}</label>
+                                    <div class="slds-form-element__control">
+                                        <input id="widthInput" 
+                                            onkeypress="checkNumbers(event)" 
+                                            onkeyup="setSize()" 
+                                            class="slds-input" 
+                                            type="text" 
+                                            value="{!defaultWidth}"
+                                            maxlength="4"
+                                            style="width: 82px"
+                                        />
+                                    </div>
+                                </div>
+                            <!-- </div>
+                            <div class="slds-col slds-size--4-of-12"> -->
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label">{!$Label.Height}</label>
+                                    <div class="slds-form-element__control">
+                                        <input id="heightInput" 
+                                            onkeypress="checkNumbers(event)" 
+                                            onkeyup="setSize()" 
+                                            class="slds-input" 
+                                            type="text" 
+                                            value="{!defaultHeight}"
+                                            maxlength="4"
+                                            style="width: 82px"
+                                        />
+                                    </div>
+                                </div>
+                            <!-- </div> -->
+                        </div>
+<!-- Lead Gen -->
+                        <apex:outputPanel rendered="{!isVisiblePicklistPublicLinks}" id="leadGenPanel">
+                            <div class="slds-grid slds-form--inline slds-p-top--medium">
+                                <div class="slds-col slds-size--12-of-12">
+                                    <div class="slds-form-element">
+                                        <div class="slds-form-element__control">
+
+                                            <label class="slds-checkbox">
+                                                <apex:inputCheckbox styleclass="slds-input" value="{!displayLGF}">
+                                                    <apex:actionSupport event="onchange" onsubmit="showOverlay()" action="{!addParameterToLink}" oncomplete="console.log('start 6');setSize(); hideOverlay();; addCloseImg(); console.log('end 6');" reRender="leadGenPanel, mediaLinkReadOnly"/>
+                                                </apex:inputCheckbox>
+                                                <span class="slds-checkbox--faux"></span>
+                                                <span class="slds-form-element__label">{!$Label.Display_Lead_Gen_Form}</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <apex:outputPanel rendered="{!displayLGF}">
+                                    <div class="slds-p-top--small">
+                                         <div class="slds-box slds-theme--shade">
+                                            <div class="slds-grid slds-form--inline">
+                                                <div class="slds-col slds-size--4-of-12">
+                                                    <div class="slds-form-element">
+                                                        <label class="slds-form-element__label">Form Type</label>
+                                                        <div class="slds-form-element__control">
+                                                                <apex:inputText styleClass="slds-input" value="{!nameLGF}" style="width:130px">
+                                                                    <apex:actionSupport event="onchange" onsubmit="showOverlay()" action="{!addParameterToLink}" oncomplete="console.log('start 7');setSize(); hideOverlay();; addCloseImg()console.log('end 7');" reRender="mediaLinkReadOnly"/>
+                                                                </apex:inputText>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="slds-col slds-size--4-of-12">
+                                                    <div class="slds-form-element">
+                                                        <label class="slds-form-element__label">Display Form after</label>
+                                                        <div class="slds-form-element__control">
+                                                                <apex:inputText styleClass="slds-input" value="{!secondsLGF}" style="width:50px">
+                                                                    <apex:actionSupport event="onchange" onsubmit="showOverlay()" action="{!addParameterToLink}" oncomplete="console.log('start 8');setSize(); hideOverlay();; addCloseImg();console.log('end 8');" reRender="mediaLinkReadOnly"/>
+                                                                </apex:inputText>
+                                                        </div>
+                                                        <label class="slds-form-element__label" style="padding-left: 10px;">seconds</label>
+                                                    </div>
+                                                </div>
+                                                <div class="slds-col slds-size--4-of-12">
+                                                    <div class="slds-form-element">
+                                                        <label class="slds-form-element__label">Submit Form data to</label>
+                                                        <div class="slds-form-element__control">
+                                                                <apex:inputText styleClass="slds-input" value="{!emailLGF}" style="width:130px">
+                                                                    <apex:actionSupport event="onchange" onsubmit="showOverlay()" action="{!addParameterToLink}" oncomplete="console.log('start 9');setSize(); hideOverlay();; addCloseImg();console.log('end 9');" reRender="mediaLinkReadOnly"/>
+                                                                </apex:inputText>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </apex:outputPanel>
+                                </div>
+                            </div>
+                        </apex:outputPanel>
+<!-- new paramet -->
+                        <div class="slds-grid slds-p-top--medium ">
+                            <div class="slds-col slds-size--12-of-12">
+                                <div class="slds-form-element">
+                                    <div class="slds-form-element__control">
+                                        <label class="slds-checkbox" style="max-width: 200px">
+                                            <apex:inputCheckbox styleclass="slds-input" value="{!displayCustomTags}" id="customTagsInput">
+                                                <apex:actionSupport event="onchange" onsubmit="showOverlay()" action="{!addParameterToLink}" oncomplete="console.log('start 10'); setCopyLabelOther({!displayCustomTags}); setSize(); hideOverlay(); checkboxTrigger('{!displayCustomTags}', 'checkbox1content'); addCloseImg(); console.log('end 10');" id="checkbox1" reRender="leadGenPanel, mediaLinkReadOnly, customTagsInput"/>
+                                            </apex:inputCheckbox>                                            
+                                            <span class="slds-checkbox--faux"></span>
+                                            <span class="slds-form-element__label">{!$Label.Enable_Custom_Tags}</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="slds-p-top--small">
+                                    <div class="slds-box slds-theme--shade  dynamic-options"  id="checkbox1content" style="max-height: 155px; overflow-y: auto; display: none;">
+                                        <div class="slds-grid slds-form--horizontal slds-p-bottom--small option-element">
+                                            <div class="slds-col slds-size--4-of-12">
+                                                <div class="slds-form-element">
+                                                    <div class="slds-select_container">
+                                                        <select class="slds-select" onchange="selectDynamicParam('checkbox1content', this)">
+                                                            <option value="0" selected="true" disabled="disabled">{!$Label.Select}</option>
+                                                            <apex:repeat value="{!fieldsName}" var="fName">
+                                                                <option value="{!fName}">{!fName_fValue[fName]} ({!fName})</option>
+                                                            </apex:repeat>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="slds-col slds-size--8-of-12">
+                                                <div class="slds-form-element">
+                                                    <input class="slds-input param-input" type="text" style="width: 90%;"/>
+                                                    <a href="javascript:void(0)" class="slds-button remove-elem">
+                                                        <svg class="slds-button__icon slds-button__icon--medium">
+                                                            <use xlink:href="{!URLFOR($Resource.SCORM_Library, '/slds/assets/icons/action-sprite/svg/symbols.svg#close')}"></use>
+                                                        </svg>
+                                                    </a>
+                                                    <script>
+                                                        document.querySelector('.remove-elem').style.display = 'none';
+                                                        document.querySelector('.param-input').style.marginRight = '20px';
+                                                        document.querySelector('.param-input').addEventListener('blur', function () {
+                                                        	setOldValue(this);
+                                                        });
+														document.querySelector('.param-input').addEventListener('keyup', function () {
+															console.log(getOldValue(this));
+															compareValues(this);
+                                                        });
+                                                        
+                                                    </script>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                                    </div>
+                                <apex:inputHidden value="{!additionalTagParams}" id="additionalTagParams"/>
+                                            </div>
+                        </div>
+<!-- share link -->
+                        <div class="slds-grid slds-p-top--medium ">
+                            <div class="slds-col slds-size--12-of-12">
+                                <div class="slds-form--stacked">
+                                    <div class="slds-form-element">
+                                        <label class="slds-form-element__label">{!$Label.Media_Link}</label>
+                                        <div class="slds-form-element__control">
+                                            <apex:outputPanel id="mediaLinkReadOnly">
+                                            <textarea class="slds-textarea" id="linkText" readonly="true" style="height: 110px;">{!cursorLink.link}</textarea>
+                                            </apex:outputPanel>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+<!-- buttons -->
+                    <div class="slds-modal__footer">
+                        <button class="slds-button" onclick="window.parent.el_hideLightBoxClone()">{!$Label.Cancel}</button>
+                        <input type="button" onclick="toClipboard('linkText'); return false;" 
+                                id="linkCopyButton"
+                                class="slds-button slds-button--brand"
+                                value="{!$Label.Copy_to_clipboard}"
+                            />
+                        <input type="button" onclick="showOverlay(); addParameterToLink(getTagsParams('checkbox1content')); globalStateChenged = false;"
+                        		style="display:none" 
+                                id="refreshButton"
+                                class="slds-button slds-button--brand"
+                                value="{!$Label.Refresh_Media_Link}"
+                            />
+                        <!-- <button class="slds-button slds-button--brand">Copy to clipboard</button> -->
+                    </div>
+                    <div id="linkOverlay" class="spiner"></div>
+                    </span>
+        
+                </div>
+            </div>
+        <div class="slds-backdrop slds-backdrop--open" style="opacity: 0.4"></div>
+        </apex:outputPanel>
+        <apex:outputPanel id="courseInactive" rendered="{!NOT(isActive)}">
+            <img src="{!URLFOR($Resource.SCORM_Library, 'img/servlet.png')}" id="frameLogo"/> 
+            <div class="courseInactive"><b><apex:outputText value="{!$Label.scormanywhere__You_must_test_the_course_first}"></apex:outputText></b></div>
+        </apex:outputPanel>
+    </div>
+
+    <apex:actionFunction action="{!addParameterToLink}" oncomplete="console.log('start 11'); setSize(); hideOverlay();; addCloseImg(); setCopyLabel(); console.log('end 11');" reRender="mediaLinkReadOnly" name="addParameterToLink">
+        <apex:param name="additionalTagParams" assignTo="{!additionalTagParams}" value="" />
+    </apex:actionFunction>
+
+    </apex:form>
+    
+    <script>
+        
+        //hack after render svg disappear
+        var oldValue = {};
+        function addCloseImg() {
+            topCloseEl = document.getElementById('topClose');
+            topCloseEl.innerHTML = '<svg aria-hidden="true" class="slds-button__icon slds-button__icon--large"><use xlink:href="{!URLFOR($Resource.SCORM_Library, '/slds/assets/icons/action-sprite/svg/symbols.svg#close')}"></use></svg>';
+        }
+        function checkboxTrigger(checkboxBool, checkboxcontentID) {
+            console.log('checkboxBool: '+checkboxBool);
+            var triggers = [];
+                var content  = document.getElementById(checkboxcontentID);
+                if(checkboxBool == 'true'){
+                    content.style.display = 'block';
+                }else{
+                    content.style.display = 'none';
+                }
+        }
+        function getTagsParams(dynamicId) {
+            var option = document.getElementById(dynamicId);
+            var defElement = option.querySelectorAll('.option-element');
+            var paramString = '';
+            for (var i = 0; i < defElement.length; i++) {
+                if (defElement[i].querySelector('select').value != 0 && defElement[i].querySelector('.param-input').value.length > 0) {
+                    paramString += '&' + defElement[i].querySelector('select').value + '=' + encodeURIComponent( defElement[i].querySelector('.param-input').value );
+                }
+            }
+            option.parentNode.parentNode.querySelector('input[type="hidden"]').value = paramString;
+            return paramString;
+        }
+        
+        var globalStateChenged = false;
+        var oldValueForTextArea = '';
+        
+        
+        function setOldValue(obj) {
+        	if (obj.oldValue !== obj.value) {
+        		globalStateChenged = true;
+        	}
+        	obj.oldValue = obj.value;
+        }
+        function getOldValue(obj) {
+        	return obj.oldValue;
+        }
+        function compareValues(obj) {
+        	if (obj.oldValue == undefined) {
+        		obj.oldValue = '';
+        	}
+        	console.log('obj.oldValue: '+obj.oldValue);
+        	console.log('obj.value: '+obj.value);
+        	console.log('globalStateChenged: '+globalStateChenged);
+
+        		console.log('UNblock -------> '+oldValueForTextArea);
+        	
+        	
+        	if (globalStateChenged == true) {
+        		//here block copy
+        		changeButtonLabel(2);
+        		console.log('block');
+        	} else if (obj.oldValue !== obj.value) {
+        		changeButtonLabel(2);
+        		//here block copy
+        		console.log('block');
+        	} else {
+        		changeButtonLabel(1);
+        		console.log('UNblock -------> '+oldValueForTextArea);
+        		//here unblock copy
+        		console.log('UNblock');
+        	}
+        } 
+        
+        function setCopyLabel() {
+        		document.getElementById('linkCopyButton').style.display = 'inline-block';
+        		document.getElementById('refreshButton').style.display = 'none';
+				globalStateChenged = false;
+        }        
+        function setCopyLabelOther(val) {
+        		if (val == false) {
+        			changeButtonLabel(1);
+        		} else {
+        			if (globalStateChenged == true) {
+        				changeButtonLabel(2);
+        			}
+        		}
+        		/*if (val == false) {
+	        		document.getElementById('linkCopyButton').style.display = 'inline-block';
+	        		document.getElementById('refreshButton').style.display = 'none';
+					globalStateChenged = false;
+				}*/
+        }        
+        
+        function changeButtonLabel(state) {
+        	console.log('changeButtonLabel: state:'+state);
+        	if (state == 2) {
+        		if (document.getElementById('linkText').value.startsWith('{!$Label.Share_Media_changed}') == false) {
+        			oldValueForTextArea = document.getElementById('linkText').value;
+        		}
+        		document.getElementById('linkCopyButton').style.display = 'none';
+        		document.getElementById('refreshButton').style.display = 'inline-block';
+        		document.getElementById('linkText').value="{!$Label.Share_Media_changed}";
+				/*document.getElementById('linkCopyButton').addEventListener('click', function () {
+                    showOverlay();
+					addParameterToLink(getTagsParams('checkbox1content'));
+					globalStateChenged = false;
+					document.getElementById('linkCopyButton').value="{!$Label.Copy_to_clipboard}";
+                });        		*/
+        	} else {
+        		if (oldValueForTextArea != '') {
+        			document.getElementById('linkText').value = oldValueForTextArea;
+        		}
+        		document.getElementById('linkCopyButton').style.display = 'inline-block';
+        		document.getElementById('refreshButton').style.display = 'none';
+        	}
+        }
+        
+        function selectDynamicParam(dynamicId, obj) {
+        	if (obj.parentNode.parentNode.parentNode.parentNode.querySelector('.param-input').value != '') {
+        		changeButtonLabel(2);
+        	}
+        	
+            var option = document.getElementById(dynamicId);
+            var defElement = option.querySelectorAll('.option-element');
+            var paramString = getTagsParams(dynamicId);
+            var lastElement = defElement[defElement.length-1];
+            if (lastElement.querySelector('select').value != 0) {
+                var needRemoveFromClone = lastElement.querySelector('select').value;
+                var nElem = lastElement.cloneNode(true);
+                
+                var nSelect = nElem.querySelector('select');
+                var nOptions = nSelect.querySelectorAll('option');
+                /*for (var i = 0; i < nOptions.length; i++) {
+                    if (needRemoveFromClone.localeCompare(nOptions[i].value) == 0) {
+                        nSelect.removeChild(nOptions[i]);
+                        break;
+                    }
+                }*/
+                    
+                /*lastElement.querySelector('.remove-elem').style.display = 'none';
+                lastElement.querySelector('.param-input').style.marginRight = '20px';
+                lastElement.querySelector('select').disabled = true;*/
+                
+                nElem.querySelector('.param-input').value = '';
+                nElem.querySelector('.param-input').addEventListener('blur', function () {
+                	setOldValue(this);
+                });
+				nElem.querySelector('.param-input').addEventListener('keyup', function () {
+					console.log(getOldValue(this));
+					compareValues(this);
+                });                
+                nElem.querySelector('.remove-elem').innerHTML = '<svg class="slds-button__icon slds-button__icon--medium"><use xlink:href="{!URLFOR($Resource.SCORM_Library, '/slds/assets/icons/action-sprite/svg/symbols.svg#close')}"></use></svg>';
+                nElem.querySelector('.remove-elem').style.display = 'inline-block';
+                nElem.querySelector('.param-input').style.marginRight = '0px';
+                nElem.querySelector('.remove-elem').addEventListener('click', function () {
+                	changeButtonLabel(2);
+                    option.removeChild(nElem);
+                    console.log(lastElement);
+                    console.dir(lastElement);
+                    console.log(defElement.length);
+                    if (defElement.length > 1) {
+                        lastElement.querySelector('.remove-elem').innerHTML = '<svg class="slds-button__icon slds-button__icon--medium"><use xlink:href="{!URLFOR($Resource.SCORM_Library, '/slds/assets/icons/action-sprite/svg/symbols.svg#close')}"></use></svg>';
+                        lastElement.querySelector('.remove-elem').style.display = 'inline-block';
+                        lastElement.querySelector('.param-input').style.marginRight = '0px';
+                    }
+                    lastElement.querySelector('select').disabled = false;
+                    selectDynamicParam(dynamicId, obj);
+                });
+                
+                option.appendChild(nElem);
+            }
+        }
+    </script>
+</html>
+</apex:page>

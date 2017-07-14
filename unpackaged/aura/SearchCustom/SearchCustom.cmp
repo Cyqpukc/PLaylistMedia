@@ -1,0 +1,128 @@
+<aura:component access="global" controller="SearchCustomController" implements="forceCommunity:availableForAllPageTypes">
+    <aura:attribute name="videosTabName" access="global" type="String" default="Videos" />
+    <aura:attribute name="discussionsTabName" access="global" type="String" default="Discussions" />
+    <aura:attribute name="articlesTabName" access="global" type="String" default="Articles" />
+    <aura:attribute name="searchString" access="global" type="String" default="searchString" />
+    <aura:attribute name="topicId" access="global" type="String" default="topicId" />
+    <aura:attribute name="showShared" access="global" type="Boolean" default="false" />
+
+    <aura:attribute name="shareButtonStyle" type="String" access="global"/>
+    <aura:attribute name="shareLinkType" type="String" access="global"/>
+    <aura:attribute name="siteId" type="String" access="global"/>
+
+    <aura:attribute name="isShow" type="Boolean" default="true"/>
+    <aura:attribute name="isLargeSearch" type="Boolean" default="false"/>
+    <aura:attribute name="activeTab" type="String" default="articles"/>
+
+    <aura:attribute name="videos" type="MediaWrapper[]"/>
+    <aura:attribute name="articles" type="ArticleWrapper[]"/>
+    <aura:attribute name="articlesExist" type="Boolean" default="true"/>
+
+    <aura:attribute name="stdSearch" type="Aura.Component[]" />
+
+    <!-- MediaPopupCmp params-->
+    <aura:attribute name="showMediaPopup" type="Boolean" default="false"/>
+    <aura:attribute name="showMediaPopupBackground" type="Boolean" default="false"/>
+    <aura:attribute name="currentMediaSrc" type="String" default=""/>
+
+    <aura:handler name="showPopupBackgroundEvent" event="c:EventCmp" action="{!c.showPopupBackgroundHandler}"/>
+    <aura:handler name="openVideoModalEvent" event="c:EventCmp" action="{!c.openVideoModalHandler}"/>
+
+    <ltng:require styles="/resource/ViewTracCustomCss.css"/>
+
+    <div class="search-container ui-widget">
+        <div class="listTab uiTabset--base uiTabset--default uiTabset forceCommunityResultsList">
+            <div class="uiTabBar">
+                <ul class="tabs__nav">
+                    <li aura:id="search-tab" class="{!v.articlesExist ? 'tabs__item uiTabItem' + (v.activeTab == 'articles' ? ' active' : '') : 'hidden'}"  data-tab="articles" onclick="{!c.setActive}">
+                        <a class="tabHeader">
+                            <span class="title" >{! v.articlesTabName }</span>
+                        </a>
+                    </li>
+                    <li aura:id="search-tab" class="tabs__item uiTabItem" data-tab="videos" onclick="{!c.setActive}">
+                        <a class="tabHeader">
+                            <span class="title" >{! v.videosTabName }</span>
+                        </a>
+                    </li>
+                    <li aura:id="search-tab" class="tabs__item uiTabItem" data-tab="discussions" onclick="{!c.setActive}">
+                        <a class="tabHeader">
+                            <span class="title" >{! v.discussionsTabName }</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="results">
+
+            <aura:renderIf isTrue="{!v.isShow}">
+                <span>
+                    <aura:renderIf isTrue="{!v.activeTab == 'videos'}">
+                        <span class="panelsContainer">
+                            <c:MediaCmp mediaItems="{!v.videos}"
+                                showShared="{!v.showShared}"
+                                showPin="false"
+                                showChannel="false"
+                                shareButtonStyle="{!v.shareButtonStyle}"
+                                shareLinkType="{!v.shareLinkType}"
+                                siteId="{!v.siteId}"
+                            />
+                            <div class="{!(!v.isLargeSearch &amp;&amp; (v.videos == null || v.videos.length le 0)) ? 'noresults' : 'hidden'}">{!$Label.c.No_Media_Found}</div>
+                            <div class="{!(v.isLargeSearch) ? 'noresults' : 'hidden'}">{!$Label.c.Error_Search_Term}</div>
+                        </span>
+                    </aura:renderIf>
+                    <aura:renderIf isTrue="{!v.activeTab == 'articles'}">
+                        <span class="panelsContainer selfServiceTopicArticleList">
+                            <ul class=" article-list clean">
+                                <aura:iteration items="{!v.articles}" var="w">
+                                    <li class="article-item selfServiceArticleListItem">
+                                        <article class="summary">
+                                            <a class="article-link selfServiceArticleHeaderDetail" data-id="{! w.id }" href="{! w.url }" data-aura-class="selfServiceArticleHeaderDetail">
+                                                <h3 class="article-head">{! w.title }</h3>
+                                            </a>
+                                            <p class="article-summary selfServiceArticleHeaderDetail" data-aura-class="selfServiceArticleHeaderDetail">{! w.summary }</p>
+                                            <div class="footer">
+                                                <span class="view-count">{! w.viewCount + ' ' + $Label.c.Views}</span>
+                                                <span class="dot">•</span>
+                                                <span class="date">
+                                                    <span class="uiOutputDate" data-aura-class="uiOutputDate">{! w.lastPublishedDate }</span>
+                                                </span>
+                                                <span class="dot">•</span>
+                                                <span class="article-type">{! w.articleType }</span>
+                                            </div>
+                                        </article>
+                                    </li>
+                                </aura:iteration>
+                            </ul>
+                            <div class="{!(!v.isLargeSearch &amp;&amp; (v.videos == null || v.articles.length le 0)) ? 'noresults' : 'hidden'}">{!$Label.c.No_Articles_Found}</div>
+                            <div class="{!(v.isLargeSearch) ? 'noresults' : 'hidden'}">{!$Label.c.Error_Search_Term}</div>
+                        </span>
+                    </aura:renderIf>
+                </span>
+                <aura:set attribute="else">
+                    <span class="spanLoadingWrapper">
+                        <div class="loadingBallsWrapper">
+                            <div class="loadingCon siteforceLoadingBalls">
+                                <span class="loadingBall first">&nbsp;</span>
+                                <span class="loadingBall second">&nbsp;</span>
+                                <span class="loadingBall third">&nbsp;</span>
+                            </div>
+                        </div>
+                    </span>
+                </aura:set>
+                <c:MediaPopupCmp aura:id="mediaPopupInst"
+                            showPopup="{!v.showMediaPopup}"
+                            showPopupBackground="{!v.showMediaPopupBackground}"
+                            mediaSrc="{!v.currentMediaSrc}"
+                        />
+            </aura:renderIf>
+
+            <!--<span class="{! (v.activeTab == 'discussions' || v.activeTab == 'articles' ) ? '' : 'hidden' }">-->
+            <span class="{! (v.activeTab == 'discussions') ? '' : 'hidden' }">
+            	{! v.stdSearch }
+            </span>
+        </div>
+    </div>
+
+    <aura:handler name="init" value="{! this }" action="{! c.doInit }" />
+
+</aura:component>

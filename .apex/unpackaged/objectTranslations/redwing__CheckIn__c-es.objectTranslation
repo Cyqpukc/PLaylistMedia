@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Check-In</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Check-Ins</value>
+    </caseValues>
+    <fields>
+        <help>Latitud y Longitud en la cual los usuarios deben hacer check-in</help>
+        <label><!-- CheckIn Location --></label>
+        <name>redwing__CheckIn_Location__c</name>
+    </fields>
+    <fields>
+        <label><!-- Additional Description --></label>
+        <name>redwing__Description_RTA__c</name>
+    </fields>
+    <fields>
+        <label><!-- Learning --></label>
+        <name>redwing__Learning__c</name>
+        <relationshipLabel><!-- Check-Ins --></relationshipLabel>
+    </fields>
+    <fields>
+        <help>Radio alrededor de la latitud y longitud definida en la cual se considera un check-in como valido</help>
+        <label><!-- Mile Radius --></label>
+        <name>redwing__Mile_Radius__c</name>
+    </fields>
+    <gender>Masculine</gender>
+    <nameFieldLabel>Id de Check-In</nameFieldLabel>
+</CustomObjectTranslation>

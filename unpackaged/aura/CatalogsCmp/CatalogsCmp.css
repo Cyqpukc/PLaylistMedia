@@ -1,0 +1,179 @@
+.THIS.hidden, .THIS .hidden {
+    display: none !important;
+}
+
+.THIS.search-container .tabs {
+    border-bottom: 4px solid #f4f4f4;
+}
+
+.THIS.search-container .tabs .tab {
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: Montserrat;
+    cursor: pointer;
+    color: #696969;
+    padding-bottom: 8px;
+    margin: 0 14px;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* IE/Edge */
+    user-select: none;
+}
+
+.THIS.search-container .tabs .tab:first-child {
+	margin-left: 0px !important;
+}
+
+.THIS.search-container .tabs .tab.active {
+    color: #333;
+    border-bottom-width: 4px;
+    border-bottom-style: solid;
+    margin-bottom: -4px;
+}
+
+.THIS.search-container .tabs .tab:hover {
+    color: #898989;
+}
+
+.THIS.search-container .results {
+    position: relative;
+    min-height: 200px;
+    margin-top: 20px;
+}
+
+.THIS.search-container .results .panelsContainer {
+    position:relative;
+    margin-top:10px;
+    min-height: 200px;
+}
+
+.THIS.search-container .results .panelsContainer .noresults {
+    font-weight: 300;
+    line-height: 1.25;
+    font-size: 1.5rem;
+    color: #696969;
+    text-align: center;
+    margin-top: 95px;
+    position: relative;
+}
+
+.THIS.search-container .results .panelsContainer .catalogPanelOne {
+    border: 0px;
+    display: inline-block;
+    position: relative;
+    margin: 0 30px 35px 0;
+    cursor: pointer;
+    overflow: visible;
+    vertical-align: top;
+    width: 225px;
+    min-height: 160px;
+}
+
+.THIS.search-container .results .panelsContainer .catalogPanelOne .backgroundImage,
+.THIS.search-container .results .panelsContainer .catalogPanelOne .hoverColor {
+    height: 180px;
+    width: 225px;
+    position: absolute;
+}
+
+.THIS.search-container .results .panelsContainer .catalogPanelOne .backgroundImage {
+    background-size: cover;
+    opacity: 0.5;
+}
+
+.THIS.search-container .results .panelsContainer .catalogPanelOne:hover .backgroundImage {
+    opacity: 0.85;
+}
+
+.THIS.search-container .results .panelsContainer .catalogPanelOne .hoverColor {
+    opacity: 1;
+}
+
+.THIS.search-container .results .panelsContainer .catalogPanelOne .hoverColor.withoutCover {
+    opacity: 0.5;
+}
+
+.THIS.search-container .results .panelsContainer .catalogPanelOne:hover .hoverColor.withoutCover {
+    opacity: 1;
+}
+
+.THIS.search-container .results .panelsContainer .catalogPanelOne {
+    text-align: center;
+    max-width:225px;
+    font-weight: bold;
+    color: white;
+    color: black;
+    margin-top:5px;
+}
+
+.THIS .searchBox {
+    width: 80%;
+    font-weight: bold;
+    align: middle;
+}
+
+/* searchbox placeholder */
+.THIS .searchSpan ::-webkit-input-placeholder       {opacity: 1; transition: opacity 0.3s ease; font-style: italic; color: lightgray}
+.THIS .searchSpan ::-moz-placeholder                {opacity: 1; transition: opacity 0.3s ease; font-style: italic; color: lightgray}
+.THIS .searchSpan :-moz-placeholder                 {opacity: 1; transition: opacity 0.3s ease; font-style: italic; color: lightgray}
+.THIS .searchSpan :-ms-input-placeholder            {opacity: 1; transition: opacity 0.3s ease; font-style: italic; color: lightgray}
+.THIS .searchSpan :focus::-webkit-input-placeholder {opacity: 0; transition: opacity 0.3s ease; color: transparent}
+.THIS .searchSpan :focus::-moz-placeholder          {opacity: 0; transition: opacity 0.3s ease; color: transparent}
+.THIS .searchSpan :focus:-moz-placeholder           {opacity: 0; transition: opacity 0.3s ease; color: transparent}
+.THIS .searchSpan :focus:-ms-input-placeholder      {opacity: 0; transition: opacity 0.3s ease; color: transparent}
+
+.THIS .searchBtn {
+    height: 36px;
+    font-weight: bold;
+    align: middle;
+    margin: 0 0 5px 10px;
+}
+
+.THIS .titleCatalog {
+    text-align: left;
+    word-wrap: break-word;
+    max-width:225px;
+    font-weight: normal;
+    color: white;
+    text-align: center;
+    text-transform: uppercase;
+    display: table;
+    width: 225px;
+    height:180px;
+    position: absolute;
+}
+
+.THIS .titleCatalog .title-inner {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.THIS.search-container .results .uiTabset .uiTabBar {
+    display: none !important;
+}
+
+.THIS.search-container .spanLoadingWrapper {
+    text-align: center;
+}
+
+.THIS.search-container .spanLoadingWrapper .loadingBallsWrapper{
+    padding-top: 30px;
+}
+
+.THIS.search-container .channels{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.THIS.search-container .channels a{
+    margin: 0 30px 0 0px;
+    font-size: 14px;
+    color: #21507a;
+    display: inline-block;
+}
+.THIS.search-container .channels a:hover{
+    text-decoration: underline;
+}

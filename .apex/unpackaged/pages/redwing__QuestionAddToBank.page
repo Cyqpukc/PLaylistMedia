@@ -1,0 +1,34 @@
+<apex:page standardController="redwing__Question__c" extensions="redwing.QuestionAddToBankCtrl">
+
+    <apex:actionStatus id="status">
+        <apex:facet name="start">
+            <c:LMSStatus />
+        </apex:facet>
+    </apex:actionStatus>
+
+    <apex:form id="theForm">
+
+        <apex:sectionHeader title="{!$Label.redwing__alms_add_to_question_bank}" subtitle="{!redwing__Question__c.Name}"/>
+
+        <apex:pageBlock >
+
+            <apex:pageMessages id="pMessages"/>
+
+            <apex:pageBlockButtons location="top" >
+                <apex:commandButton action="{!cancel}" value="{!$Label.redwing__alms_back}" id="cancelbtn"/>
+                <apex:commandButton action="{!addToQuestionBank}" value="{!$Label.redwing__alms_add_to_question_bank}" id="importbtn" styleClass="btnImportant" rerender="pMessages" status="status"/>
+            </apex:pageBlockButtons>
+
+            <apex:pageBlockSection columns="2" collapsible="false" title="{!$Label.redwing__alms_question_bank}">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.redwing__alms_question_bank}" for="import_questionbank"/>
+                    <apex:selectList value="{!selectedQuestionBank}" size="1">
+                        <apex:selectOptions value="{!questionBanks}" />
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+        </apex:pageBlock>
+    </apex:form>
+
+</apex:page>

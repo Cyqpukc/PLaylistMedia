@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <description>Settings used by the LMS Core app</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>redwing__Achievement_Print_URL__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>VF page url (e.g. /apex/PrintCertificate) to be used for printing Achievements</inlineHelpText>
+        <label>Achievement Print URL</label>
+        <length>60</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>redwing__Back_to_SF_URL__c</fullName>
+        <deprecated>false</deprecated>
+        <description>URL used by the back to SF button</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Must be a relative url path (e.g. /home/home.jsp)</inlineHelpText>
+        <label>Back to SF URL</label>
+        <length>150</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>redwing__Checkout_Plugin__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of the checkout plugin used by the LMS</inlineHelpText>
+        <label>Checkout Plugin</label>
+        <length>60</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>redwing__Communities_Page_URL__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>URL for the learning page in your Community (e.g. /s/learning)</inlineHelpText>
+        <label>Communities Page URL</label>
+        <length>60</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>redwing__Community_Custom_Domain__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Custom Domain to be used when building community URLs</inlineHelpText>
+        <label>Community Custom Domain</label>
+        <length>60</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>redwing__Company_Logo__c</fullName>
+        <deprecated>false</deprecated>
+        <description>URL for your company logo</description>
+        <externalId>false</externalId>
+        <inlineHelpText>URL for your company logo</inlineHelpText>
+        <label>Company Logo</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>redwing__Custom_Leader_Board_Report__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Name of a custom report used for displaying leaderboard results</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of a custom report used for displaying leaderboard results</inlineHelpText>
+        <label>Custom Leader Board Report</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>redwing__Custom_Logout_URL__c</fullName>
+        <deprecated>false</deprecated>
+        <description>URL used by the logout button</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Custom Logout link used in the app header (e.g. /secur/logout.jsp)</inlineHelpText>
+        <label>Custom Logout URL</label>
+        <length>150</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>redwing__Custom_Section_Name__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Name of a custom section displayed in the header</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of a custom section displayed in the header</inlineHelpText>
+        <label>Custom Section Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>redwing__Custom_Section_URL__c</fullName>
+        <deprecated>false</deprecated>
+        <description>URL path for your custom page</description>
+        <externalId>false</externalId>
+        <inlineHelpText>URL for your custom page (e.g. https://instance.salesforce.com/apex/myhomepage)</inlineHelpText>
+        <label>Custom Section URL</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>redwing__Disable_Assignments_Version_Backup__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option to disable assignments backup when new versions are published</inlineHelpText>
+        <label>Disable Assignments Version Backup</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Disable_Async_Permission_Rules__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option to avoid running permission rules in async mode</inlineHelpText>
+        <label>Disable Async Permission Rules</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Disable_Correct_Response_Checkbox__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option if you&apos;d like to disable setting the correct response checkbox on every response</inlineHelpText>
+        <label>Disable Correct Response Checkbox</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Disable_Feed_Item_Audit_Fields__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option if you&apos;d like to disable setting the created by id for achievement feed items</inlineHelpText>
+        <label>Disable Audit Fields for Feed Items</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Disable_Future_Progress_Calculation__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option to force Learning Plan progress calculation in a single transaction</inlineHelpText>
+        <label>Disable Future Progress Calculation</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Disable_Leaderboard_Refresh_On_Load__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option if you&apos;d like disable leaderboard cache refresh on page load</inlineHelpText>
+        <label>Disable Leaderboard Refresh On Load</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Disable_Leaderboard__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option if you&apos;d like disable the homepage leaderboard</inlineHelpText>
+        <label>Disable Leaderboard</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Disable_Learning_Preview_Redirection__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option to disable the automatic learning redirection when previewing learning content</inlineHelpText>
+        <label>Disable Learning Preview Redirection</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Disable_Track_Achievements__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option to prevent automatic achievement assignment for track achievements</inlineHelpText>
+        <label>Disable Track Achievements</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Disable_Track_Progress_Calculation__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option to disable progress calculation for Learning Trac Assignments</inlineHelpText>
+        <label>Disable Track Progress Calculation</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Disable_Tracks_Progress_Calculation__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option to disable progress calculation for Tracs in My Learning page</inlineHelpText>
+        <label>Disable Tracs Progress Calculation</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Disable_User_Certification_Uploads__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option if you&apos;d like to prevent users from uploading certifications</inlineHelpText>
+        <label>Disable User Certification Uploads</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Disable_User_Trigger__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option to disable the LMS user trigger</inlineHelpText>
+        <label>Disable User Trigger</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Enable_Learning_Object_Sharing__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option to share learning objects with users</inlineHelpText>
+        <label>Enable Learning Object Sharing</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Enable_Previous_Version_Shared_Updates__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option to allow shared assignments learnings to be updated to previous versions</inlineHelpText>
+        <label>Enable Previous Version Shared Updates</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Enable_Private_Attachments__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option to make uploaded Task Attachments private</inlineHelpText>
+        <label>Enable Private Attachments</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Enable_iOS_Tap_Fix__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option if you&apos;re experiencing issues with taps in Salesforce1 + iOS8</inlineHelpText>
+        <label>Enable iOS Tap Fix</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Google_Maps_API_Key__c</fullName>
+        <deprecated>false</deprecated>
+        <description>URL path for your custom page</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Replace this value with your custom Google Maps API Key (https://console.developers.google.com)</inlineHelpText>
+        <label>Google Maps API Key</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>redwing__Header_Background_Color__c</fullName>
+        <deprecated>false</deprecated>
+        <description>HEX value for the header background color. (e.g. #EEEEEE)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>HEX value for the header background color. (e.g. #EEEEEE)</inlineHelpText>
+        <label>Header Background Color</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>redwing__Header_Text_Color__c</fullName>
+        <deprecated>false</deprecated>
+        <description>HEX value for the header text color. (e.g. #EEEEEE)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>HEX value for the header text color. (e.g. #EEEEEE)</inlineHelpText>
+        <label>Header Text Color</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>redwing__Header_Text_Hover_Color__c</fullName>
+        <deprecated>false</deprecated>
+        <description>HEX value for the header text hover color. (e.g. #EEEEEE)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>HEX value for the header text hover color. (e.g. #EEEEEE)</inlineHelpText>
+        <label>Header Text Hover Color</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>redwing__Hide_Back_to_SF_Button__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option if you&apos;d like to hide back to SF button when the SF header is disabled</inlineHelpText>
+        <label>Hide Back to SF Button</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Hide_Certifications_Section__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option to hide the certifications section in the achievements page</inlineHelpText>
+        <label>Hide Certifications Section</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Hide_Community_Salesforce_Header__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option to always hide the Salesforce headers in Communities and Portals</inlineHelpText>
+        <label>Hide Salesforce Header in Communities</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Hide_Company_Logo__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option to hide the header company logo</inlineHelpText>
+        <label>Hide Company Logo</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Hide_Published_Content__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option to hide publish content from the Learning Publish page</inlineHelpText>
+        <label>Hide Published Content</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Hide_Tracks_from_My_Training__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option to hide Learning Tracs from My Learning</inlineHelpText>
+        <label>Hide Tracs from My Learning</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Hide_Training_Catalog_Section__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option to hide entry points to the training catalog</inlineHelpText>
+        <label>Hide Training Catalog Section</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Hide_Training_Plans_Progress_Info__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option to hide Learning Plan progress info in the My Learning page</inlineHelpText>
+        <label>Hide Learning Plans Progress Info</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Hide_Training_Tracks_Section__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option to hide entry points to Learning Tracs</inlineHelpText>
+        <label>Hide Learning Tracs Section</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Hide_User_Menu__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option to hide the user menu from the app header</inlineHelpText>
+        <label>Hide User Menu</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Is_Cloudforce_Domain__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option if your org runs in a cloudforce.com domain</inlineHelpText>
+        <label>Is Cloudforce Domain</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Resize_To_Fit_Images__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option to resize to fit background images used across the app</inlineHelpText>
+        <label>Resize To Fit Images</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Show_SF_Header_In_Mobile__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option to display the SF Header in mobile devices</inlineHelpText>
+        <label>Show SF Header in Mobile</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Show_Salesforce_Header__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option to show the Salesforce header for the end-user training pages</inlineHelpText>
+        <label>Show Salesforce Header</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Track_Learning_Object_Launch_Attempts__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option to track launch attempts everytime a learning object is launched</inlineHelpText>
+        <label>Track Learning Object Launch Attempts</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>redwing__Training_Payment_URL__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>URL for processing payments for payment-enabled Learning Plans</inlineHelpText>
+        <label>Training Payment URL</label>
+        <length>150</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>redwing__Video_Components_Namespace__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Namespace used for loading video components</inlineHelpText>
+        <label>Video Components Namespace</label>
+        <length>15</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>LMS Settings</label>
+    <visibility>Public</visibility>
+</CustomObject>

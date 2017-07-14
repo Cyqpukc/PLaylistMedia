@@ -1,0 +1,4 @@
+<design:component >
+    <design:attribute name="recordId" label="Object Name Record ID" description="Please set '{!recordId}' "/>
+    <design:attribute name="isCreateMediaContent" label="Create Media Content"/>
+</design:component>

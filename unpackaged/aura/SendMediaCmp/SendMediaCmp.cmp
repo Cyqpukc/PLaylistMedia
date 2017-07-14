@@ -1,0 +1,263 @@
+<aura:component controller="SendMediaCmpCtrl" implements="force:lightningQuickActionWithoutHeader,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+    <aura:attribute name="emailTemplates" type="TemplateWrapper[]"/>
+    <aura:attribute name="medias" type="scormanywhere__Course__c[]"/>
+    <aura:attribute name="sites" type="Site[]"/>
+    <aura:attribute name="mediaLink" type="String"/>
+    <aura:attribute name="toAddresses" type="String[]"/>
+    <aura:attribute name="newEmailAddress" type="String"/>
+    <aura:attribute name="previewBody" type="String"/>
+    <aura:attribute name="previewBodyOriginal" type="String"/>
+    <aura:attribute name="templateBody" type="String"/>
+    <aura:attribute name="isPreview" type="Boolean"/>
+    <aura:attribute name="imHeight" type="String" Default="180"/>
+    <aura:attribute name="subject" type="String"/>
+    <aura:attribute name="previewSubject" type="String"/>
+    <aura:attribute name="erMessage" type="String"/>
+    <aura:attribute name="erMessagePreview" type="String"/>
+    <aura:attribute name="isCommunity" type="Boolean"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="change" value="{!v.templateBody}" action="{!c.templateBodyChanged}"/>
+
+    <ltng:require styles="{!$Resource.Components_Library + '/vendor/quill/quill.snow.css'}"
+        scripts="{!join(',',
+                           $Resource.Components_Library + '/vendor/quill/quill.js',
+                           $Resource.Components_Library + '/vendor/components/svg4everybody.min.js')}"
+        afterScriptsLoaded="{!c.quillInit}" />
+
+    <aura:renderIf isTrue="{!v.isCommunity}">
+        <div class="slds-modal__container slds-dynamic-modal__container" >
+            <div class="slds-modal__content slds-p-around--medium" style="width: 100%; margin: 50% auto; text-align: center; font-size: 120%;" >
+                {!$Label.c.SendMedia_FeatureDisabledInCommunity}
+            </div>
+        </div>
+    <aura:set attribute="else">
+        <div class="slds-modal__container slds-dynamic-modal__container" id="editTemplate" aura:id="editTemplate">
+            <div class="slds-modal__header">
+                <h2 class="slds-text-heading--medium slds-text-align--left">{!$Label.c.Send_Media}</h2>
+            </div>
+            <div class="slds-modal__content slds-p-around--medium">
+
+                <div class="slds-form-element slds-m-bottom--xxx-small">
+                    <label class="slds-form-element__label">{!$Label.c.Email_Template}</label>
+                    <div class="slds-form-element__control">
+                        <ui:inputSelect aura:id="emailTeplates" change="{!c.selectTemplate}" class="slds-select">
+                            <aura:iteration items="{!v.emailTemplates}" var="et">
+                                <ui:inputSelectOption text="{!et.id}" label="{!et.name}"/>
+                            </aura:iteration>
+                        </ui:inputSelect>
+                    </div>
+                </div>
+
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label">{!$Label.c.Subject}</label>
+                    <div class="slds-form-element__control">
+                        <ui:inputText class="slds-input" value="{!v.subject}" />
+                    </div>
+                </div>
+
+                <div class="slds-notify_container slds-hide" id="error-container" aura:id="error-container">
+                    <div class="slds-notify slds-notify--toast error-toast" role="alert">
+                        <span class="slds-assistive-text">{!$Label.c.Info}</span>
+                        <ui:button class="slds-button slds-notify__close slds-button--neutral" press="{!c.hideError}" Label="X">
+                            <c:svg class="slds-button__icon slds-button__icon--small"
+                                   xlinkHref="{!$Resource.slds + '/assets/icons/utility-sprite/svg/symbols.svg#close'}"
+                                   ariaHidden="true"
+                                   />
+                            <span class="slds-assistive-text">{!$Label.c.Close}</span>
+                        </ui:button>
+                        <div class="slds-notify__content">
+                            <h2 class="slds-text-heading--small">{!v.erMessage}</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============ Get Media Link Popup for Text Editor -->
+                <div id="link_popup" aura:id="link_popup" class="slds-datepicker slds-dropdown slds-hide">
+                    <div class="slds-datepicker__filter slds-grid">
+                        <div class="slds-datepicker__filter--month slds-grid slds-grid--align-spread slds-grow">
+                            <div class="slds-align-middle">
+
+                                <div class="slds-form-element slds-m-bottom--x-small">
+                                    <label class="slds-form-element__label">{!$Label.c.Media}</label>
+                                    <div class="slds-form-element__control">
+                                        <ui:inputSelect aura:id="medias" class="slds-select" change="{!c.setPublicLink}">
+                                            <aura:iteration items="{!v.medias}" var="media">
+                                                <ui:inputSelectOption text="{!media.Id}" label="{!media.Name}"/>
+                                            </aura:iteration>
+                                        </ui:inputSelect>
+                                    </div>
+                                </div>
+
+                                <div class="slds-form-element slds-m-bottom--x-small">
+                                    <label class="slds-form-element__label">{!$Label.c.Sites}</label>
+                                    <div class="slds-form-element__control">
+                                        <ui:inputSelect aura:id="sites" class="slds-select" change="{!c.setPublicLink}">
+                                            <aura:iteration items="{!v.sites}" var="site">
+                                                <ui:inputSelectOption text="{!site.Id}" label="{!site.Name}"/>
+                                            </aura:iteration>
+                                        </ui:inputSelect>
+                                    </div>
+                                </div>
+
+                                <div class="slds-form-element slds-m-bottom--x-small">
+                                    <ui:inputNumber class="slds-input" maxlength="4" format="###0;###0" value="{!v.imHeight}" label="{!$Label.c.Preview_Image_Height}"/>
+                                </div>
+
+                                <div class="slds-form-element">
+                                    <ui:button aura:id="linkButtonInsert" buttonType="submit" press="{!c.getLink}" class="slds-button slds-float--left slds-button--brand" label="{!$Label.c.Create_Link}" disabled="true"/>
+                                    <ui:button aura:id="linkButtonClose" buttonType="submit" press="{!c.closeGetLink}" class="slds-button slds-float--right" label="{!$Label.c.Cancel}" disabled="false"/>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ================================================ -->
+
+                <div class="slds-form-element slds-m-bottom--xxx-small">
+                    <label class="slds-form-element__label">{!$Label.c.Send_Media_Helper_Text}</label>
+                    <div id="toolbar">
+                      <!-- Add buttons as you would before -->
+                      <span class="ql-formats">
+                          <button class="ql-bold"></button>
+                          <button class="ql-italic"></button>
+                          <button class="ql-underline"></button>
+                          <button class="ql-strike"></button>
+                      </span>
+                      <span class="ql-formats">
+                          <select class="ql-font"></select>
+                      </span>
+                      <span class="ql-formats">
+                          <button class="ql-blockquote"></button>
+                          <button class="ql-code-block"></button>
+                      </span>
+                      <span class="ql-formats">
+                          <button class="ql-list" value="ordered"></button>
+                          <button class="ql-list" value="bullet"></button>
+                      </span>
+                      <span class="ql-formats">
+                          <button class="ql-script" value="sub"></button>
+                          <button class="ql-script" value="super"></button>
+                      </span>
+                      <span class="ql-formats">
+                          <select class="ql-header">
+                              <option value="1"></option>
+                              <option value="2"></option>
+                              <option value="3"></option>
+                              <option value="4"></option>
+                              <option value="5"></option>
+                              <option value="6"></option>
+                              <option value="default"></option>
+                          </select>
+                      </span>
+                      <span class="ql-formats">
+                          <select class="ql-color"></select>
+                          <select class="ql-background"></select>
+                      </span>
+                      <span class="ql-formats">
+                          <button class="ql-clean"></button>
+                      </span>
+                      <span class="ql-formats">
+                          <button aura:id="ql-linkToMedia" class="ql-linkToMedia"></button>
+                      </span>
+
+                    </div>
+                    <div class="slds-form-element__control">
+                        <div id="editor" aura:id="editor" aria-describedby="help" class="text-editor">{!v.templateBody}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-modal__footer">
+                <ui:button press="{!c.hideMainModal}" class="slds-button slds-modal__close-btn" label="{!$Label.c.Cancel}"/>
+                <ui:button aura:id="previewButton" press="{!c.goShowPreview}" class="slds-button slds-button--brand" label="{!$Label.c.Next}" disabled="true"/>
+            </div>
+        </div>
+        <!-- =================================================================================== -->
+        <div class="slds-modal__container slds-dynamic-modal__container hide" id="showPreview" aura:id="showPreview">
+            <div class="slds-modal__header">
+                <h2 class="slds-text-heading--medium slds-text-align--left">{!$Label.c.Send_Media}</h2>
+            </div>
+
+            <div class="slds-notify_container slds-hide" id="error-container-preview" aura:id="error-container-preview">
+                <div class="slds-notify slds-notify--toast error-toast" role="alert">
+                    <span class="slds-assistive-text">{!$Label.c.Info}</span>
+                    <ui:button class="slds-button slds-notify__close slds-button--neutral" press="{!c.hideErrorPreview}" Label="X">
+                        <c:svg class="slds-button__icon slds-button__icon--small"
+                               xlinkHref="{!$Resource.slds + '/assets/icons/utility-sprite/svg/symbols.svg#close'}"
+                               ariaHidden="true"
+                               />
+                        <span class="slds-assistive-text">{!$Label.c.Close}</span>
+                    </ui:button>
+                    <div class="slds-notify__content">
+                        <h2 class="slds-text-heading--small">{!v.erMessagePreview}</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slds-modal__content slds-p-around--medium">
+                <div class="slds-grid">
+                    <div class="slds-col slds-size--2-of-12">{!$Label.c.Subject}</div>
+                    <div class="slds-col slds-size--10-of-12">
+                        <p>{!v.previewSubject}</p>
+                    </div>
+                </div>
+
+                <div class="slds-grid">
+                    <div class="slds-col slds-size--2-of-12">{!$Label.c.Preview}</div>
+                    <div class="slds-col slds-size--10-of-12 ql-snow previewBody">
+                        <aura:unescapedHtml value="{!v.previewBody}"/>
+                    </div>
+                </div>
+
+                <label class="slds-form-element__label slds-m-top--small">{!$Label.c.Recepients_Of_Media}</label>
+                <div class="slds-pill_container slds-theme--shade slds-hyphenate" id="addresses" >
+                    <div class="addresses">
+                    <aura:iteration items="{!v.toAddresses}" var="addr" indexVar="indx">
+                        <span class="slds-pill"><span class="slds-pill__label">{!addr}</span>
+                            <button class="slds-button slds-button--icon slds-pill__remove" title="{!$Label.c.Remove}" onclick="{!c.removePill}" data-id="{!indx}">
+                                X
+                            </button>
+                        </span>
+                    </aura:iteration>
+                    </div>
+                </div>
+
+                <div class="slds-form-element">
+                    <div class="slds-grid">
+                        <div class="slds-col slds-size--10-of-12">
+                            <ui:inputText class="slds-input" value="{!v.newEmailAddress}" label="{!$Label.c.Add_Email_Address}"/>
+                        </div>
+                        <div class="slds-col slds-size--2-of-12 slds-align-bottom slds-m-left--xx-small">
+                            <ui:button press="{!c.addNewEmail}" class="slds-button slds-button--brand" label="{!$Label.c.Add}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slds-modal__footer">
+                <ui:button press="{!c.goEditTemplate}" class="slds-button slds-button--brand" label="{!$Label.c.Back}"/>
+                <ui:button press="{!c.goMailSent}" class="slds-button slds-button--neutral" label="{!$Label.c.Send}"/>
+            </div>
+        </div>
+
+        <!-- =================================================================================== -->
+        <div class="slds-modal__container slds-dynamic-modal__container slds-align--absolute-center slds-text-align--center hide" id="mailSent" aura:id="mailSent">
+            <div class="slds-modal__content slds-text-heading--meduim mail-sent_body">
+                <span class="slds-icon_container slds-icon-action-approval slds-icon_container--circle" style="width: 25px; height: 25px; margin-right: 10px;">
+                    <c:svg class="slds-button__icon slds-button__icon--small sent-email-icon"
+                           xlinkHref="{!$Resource.slds + '/assets/icons/utility-sprite/svg/symbols.svg#check'}"
+                           ariaHidden="true"
+                           />
+                </span>
+                {!$Label.c.Email_Sent}
+            </div>
+
+            <div class="slds-modal__footer mail-sent_footer">
+                <ui:button press="{!c.hideMainModal}" class="slds-button slds-modal__close-btn slds-float--right" label="{!$Label.c.Close}"/>
+            </div>
+        </div>
+    </aura:set>
+    </aura:renderIf>
+
+</aura:component>

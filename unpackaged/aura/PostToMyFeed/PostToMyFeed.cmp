@@ -1,0 +1,66 @@
+<aura:component controller="PostToMyFeedCtrl" implements="force:appHostable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,force:hasRecordId" access="global" >
+
+    <aura:attribute name="message" type="String" default=""/>
+
+    <ltng:require styles="/resource/ViewTracCustomCss.css"/>
+
+    <div class="slds-col slds-no-flex slds-align-bottom buttonDiv">
+        <div class="slds-button-group">
+            <button class="uiButton--default uiButton--brand uiButton buttonUpload" onclick="{!c.showModal}">{!$Label.c.Post_To_My_Feed}</button>
+        </div>
+    </div>
+    <div aria-hidden="false" aura:id="MyFeedSectionId" id="MyFeedSectionId" role="dialog" class="slds-modal slds-modal--large">
+        <div class="slds-modal__container">
+            <div class="slds-modal__header">
+                <button class="slds-button slds-button--icon-inverse slds-modal__close" onclick="{!c.showModalBox}">
+                    <c:svg class="slds-button__icon slds-button__icon--large"
+                    xlinkHref="{!$Resource.slds + '/assets/icons/action-sprite/svg/symbols.svg#close'}"
+                    ariaHidden="true"
+                    />
+                    <span class="slds-assistive-text">{!$Label.c.Close}</span>
+                </button>
+            </div>
+            <div class="slds-modal__content slds-p-around--medium">
+                <div>
+                    <center>
+                      <div class="slds-form-element">
+                          <div class="slds-form-element__control">
+                              <ui:inputTextArea aura:id="messageToMyFeed" class="slds-textarea" placeholder="Message" updateOn="keyUp" value="{!v.message}"/>
+                          </div>
+                      </div>
+                    </center>
+                </div>
+            </div>
+            <div class="slds-modal__footer">
+                <div class="slds-form-element">
+                    <ui:button aura:id="postButton" class="slds-button slds-button--neutral" press="{!c.postToMyFeed}" >{!$Label.c.Post}</ui:button>
+                    <button class="slds-button slds-button--neutral" onclick="{!c.showModalBox}" >{!$Label.c.Close}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div aria-hidden="false" aura:id="modalSuccessfully" id="modalSuccessfully" role="dialog" class="slds-modal slds-modal">
+        <div class="slds-modal__container">
+            <div class="slds-modal__header">
+                <button class="slds-button slds-button--icon-inverse slds-modal__close" onclick="{!c.showModalBox}">
+                    <c:svg class="slds-button__icon slds-button__icon--large"
+                    xlinkHref="{!$Resource.slds + '/assets/icons/action-sprite/svg/symbols.svg#close'}"
+                    ariaHidden="true"
+                    />
+                    <span class="slds-assistive-text">{!$Label.c.Close}</span>
+                </button>
+            </div>
+            <div class="slds-modal__content">
+                <div class="slds-m-around--xx-large slds-text-align--center">
+                    {!$Label.c.Posted_successfully}
+                </div>
+            </div>
+            <div class="slds-modal__footer">
+              <div class="slds-form-element slds-m-top--x-small">
+                    <button class="slds-button slds-button--neutral" onclick="{!c.showModalBox}" >{!$Label.c.Close}</button>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="slds-backdrop" aura:id="backGroundMyFeedSectionId" id="backGroundMyFeedSectionId"></div>
+</aura:component>

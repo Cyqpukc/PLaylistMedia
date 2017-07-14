@@ -1,0 +1,254 @@
+<aura:component controller="MyMediaCmpCtrl" implements="force:appHostable,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" >
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <ltng:require styles="{!join(',',
+                          $Resource.Components_Library + '/css/style-course-list.css,')}"
+                  scripts="{!join(',',
+                           $Resource.Components_Library + '/vendor/components/jquery/jquery.min.js',
+                           $Resource.Components_Library + '/vendor/twbs/bootstrap/dist/js/bootstrap.min.js',
+                           $Resource.Components_Library + '/js/course-list.js',
+                           $Resource.Components_Library + '/vendor/components/svg4everybody.min.js')}"
+                    afterScriptsLoaded="{!c.loadSvgScript}"
+                  />
+    <ltng:require styles="/resource/ViewTracCustomCss"/>
+
+    <aura:attribute name="videoDetail" type="MediaWrapper"/>
+    <aura:attribute name="videos" type="MediaWrapper[]"/>
+    <aura:attribute name="videoNames" type="String[]"/>
+    <aura:attribute name="channel" type="ChannelWrapper[]"/>
+    <aura:attribute name="carouselData" type="CarouselWrapper[]"/>
+
+    <aura:attribute name="showShared" type="Boolean" default="true" access="global"/>
+    <aura:attribute name="shareButtonStyle" type="String" access="global"/>
+    <aura:attribute name="shareLinkType" type="String" access="global"/>
+    <aura:attribute name="siteId" type="String" access="global"/>
+
+    <aura:attribute name="isMobile" type="Boolean"/>
+    <aura:attribute name="showPin" type="Boolean" access="global"/>
+    <aura:attribute name="showChannel" type="Boolean" default="true" access="global"/>
+    <aura:attribute name="isChannelListEmpty" type="Boolean" default="false"/>
+
+    <aura:attribute name="activeChannelId" type="String" default="All"/>
+    <aura:attribute name="activeChannelName" type="String" default=""/>
+    <aura:attribute name="search" type="String" default=""/>
+    <aura:attribute name="newChannelName" type="String"/>
+    <aura:attribute name="searchName" type="String[]"/>
+    <aura:attribute name="mobileMediaHeader" type="String" default="My Media"/>
+    <aura:attribute name="mediaLimit" type="String"/>
+
+    <!-- MediaPopupCmp params-->
+    <aura:attribute name="showMediaPopup" type="Boolean" default="false"/>
+    <aura:attribute name="showMediaPopupBackground" type="Boolean" default="false"/>
+    <aura:attribute name="currentMediaSrc" type="String" default=""/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <aura:handler name="showPopupBackgroundEvent" event="c:EventCmp" action="{!c.showPopupBackgroundHandler}"/>
+    <aura:handler name="openVideoModalEvent" event="c:EventCmp" action="{!c.openVideoModalHandler}"/>
+
+    <aura:handler name="getVideoDetailEvent" event="c:EventCmp" action="{!c.getVideoDetailEventHandler}"/>
+    <aura:handler name="setChannelsEvent" event="c:EventCmp" action="{!c.setChannelsEventHandler}"/>
+    <aura:handler name="removeMediaFromChanEvent" event="c:EventCmp" action="{!c.removeMediaFromChanEventHandler}"/>
+    <aura:handler name="addMediaToChannelEvent" event="c:EventCmp" action="{!c.addMediaToChannelEventHandler}"/>
+    <aura:handler name="deleteChannelEvent" event="c:EventCmp" action="{!c.deleteChannelEventHandler}"/>
+    <aura:handler name="renameChannelEvent" event="c:EventCmp" action="{!c.renameChannelEventHandler}"/>
+
+    <aura:registerEvent name="getManageChannelEvent" type="c:EventCmp"/>
+
+    <div>
+
+        <aura:renderIf isTrue="{!v.isMobile}">
+            <div class="slds-global-header-blue slds-text-align--center blue-mobile-header">
+                <p class="slds-text-heading--medium slds-hyphenate">{!v.mobileMediaHeader}</p>
+            </div>
+        </aura:renderIf>
+
+        <div aura:id="spinner" class="loader slds-spinner_container slds-hide">
+            <div class="slds-spinner--inverse slds-spinner slds-spinner--large" role="alert">
+                <span class="slds-assistive-text">{!$Label.c.Loading}</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+
+        <aura:renderIf isTrue="{!!v.isMobile}">
+        <div>
+            <div class="slds-form--inline slds-p-around--small slds-p-bottom--medium slds-search-form">
+                <div class="slds-form-element__control">
+                    <div class="slds-input-has-icon slds-input-has-icon--right slds-search-form-container">
+                        <div id="button" onclick="{!c.filter}">
+                            <c:svg ariaHidden="true" class="slds-icon slds-icon-text-default slds-input__icon"
+                                   xlinkHref="{!$Resource.slds + '/assets/icons/utility-sprite/svg/symbols.svg#search'}"
+                                   />
+                        </div>
+                        <ui:inputText aura:id="filter" label="" class="search-input slds-input no-border-radius" placeholder="Search" value="{!v.search}" keyup="{!c.change}" updateOn="keyup" blur="{!c.blur}" />
+
+                        <aura:renderIf isTrue="{!v.searchName.length > 0}">
+                            <div class="search-elements slds-bordered">
+                                <ul class="lgh-list slds-has-dividers--top">
+                                    <aura:iteration items="{!v.searchName}" var="name" indexVar="i">
+                                        <li class="slds-item slds-p-around--x-small" data-index="{!i}" onclick="{!c.search}">{!name}</li>
+                                    </aura:iteration>
+                                </ul>
+                            </div>
+                        </aura:renderIf>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </aura:renderIf>
+
+
+        <!--List channels-->
+        <aura:renderIf isTrue="{! (v.showChannel) &amp;&amp; (!v.isChannelListEmpty) &amp;&amp; (!v.isMobile)}">
+            <div class="channels slds-grid slds-wrap">
+                <div class="slds-size--7-of-12 slds-small-size--8-of-12 slds-medium-size--9-of-12">
+                    <a href="javascript:void(0)" data-channel-name="All" class="{! v.activeChannelId == 'All' ? 'channel-link active' : 'channel-link' }" data-channel-id="All" onclick="{!c.setChannel}">{!$Label.c.View_All_Channel}</a>
+                    <aura:iteration items="{!v.channel}" var="channel">
+                        <a href="javascript:void(0)" data-channel-name="{!channel.name}" class="{! channel.id == v.activeChannelId ? 'channel-link active' : 'channel-link' }" data-channel-id="{!channel.id}" onclick="{!c.setChannel}">{!channel.name}</a>
+                    </aura:iteration>
+                </div>
+                <div class="slds-size--5-of-12 slds-small-size--4-of-12 slds-medium-size--3-of-12 manageChannel" onclick="{!c.channelModalHandler}" data-modal-id="manageChannelsModal">
+                    <img src="{!$Resource.Components_Library + '/img/icon_manage_channels.svg'}" style="height: 22px;"></img>
+                    <span class="manage">{!$Label.c.Manage_Channels}</span>
+                </div>
+            </div>
+        </aura:renderIf>
+        <!-- list course -->
+        <c:MediaPopupCmp aura:id="mediaPopupInst"
+            mediaSrc="{!v.currentMediaSrc}"
+            showPopup="{!v.showMediaPopup}"
+            showPopupBackground="{!v.showMediaPopupBackground}"
+        />
+        <div class="slds-grid slds-wrap slds-news-list">
+            <c:MediaCmp mediaItems="{!v.videos}"
+                sldsStyle="true"
+                mediaLimit="{!v.mediaLimit}"
+                showPin="{!v.showPin}"
+                showChannel="{!v.showChannel}"
+                activeChannelId="{!v.activeChannelId}"
+                showShared="{!v.showShared}"
+                shareButtonStyle="{!v.shareButtonStyle}"
+                shareLinkType="{!v.shareLinkType}"
+                siteId="{!v.siteId}"
+            />
+        </div>
+        <div class="{!(v.videos == null || v.videos.length le 0) ? 'noresults' : 'hide'}">{!$Label.c.No_Media}</div>
+        <!-- carousel -->
+
+        <aura:renderIf isTrue="{! (!v.isMobile)}">
+            <aura:renderIf isTrue="{!v.carouselData.length > 0}">
+                <div id="carousel-example-generic" class="carousel slide slds-m-around--small" data-ride="carousel" data-interval="false">
+                    <div class="carousel-inner carousel-block-cmp" role="listbox">
+                        <aura:iteration items="{!v.carouselData}" var="cd" indexVar="i" start="0">
+                            <div class="{!cd.cssClass}">
+                                <div class="slds-grid">
+                                    <aura:iteration items="{!cd.videoList}" var="w" indexVar="i" start="0" end="6">
+                                        <div class="slds-size--2-of-12 slds-m-right--small " style="position:relative;">
+                                            <div class="slds-image__crop slds-image__crop--16-by-9">
+                                                <aura:renderIf isTrue="{!w.link != null}">
+                                                    <a data-transcript-id="{!w.transcriptId}" onclick="{!c.selectCarouselItem}" class="playLink"></a>
+                                                    <div class="slds-popover slds-popover--tooltip tooltipMedia" role="tooltip" >
+                                                        <div class="slds-popover__body" data-link="{!w.link}" data-transcript-id="{!w.transcriptId}" onclick="{!c.selectCarouselItem}">{!w.name}</div>
+                                                    </div>
+                                                    <aura:renderIf isTrue="{!w.backImage != null}">
+                                                        <img src="{!w.backImage}" width="100%" style="width:100%;"/>
+                                                        <aura:set attribute="else">
+                                                            <img src="{!$Resource.Components_Library + '/img/demo-img.png'}" width="100%" style="width:100%"/>
+                                                        </aura:set>
+                                                    </aura:renderIf>
+                                                    <aura:set attribute="else">
+                                                        <img src="{!$Resource.Components_Library + '/img/demo-img-empty.png'}" width="100%" style="width:100%"/>
+                                                    </aura:set>
+                                                </aura:renderIf>
+                                            </div>
+                                        </div>
+                                    </aura:iteration>
+                                </div>
+                            </div>
+                        </aura:iteration>
+                    </div>
+
+                    <a class="left carousel-control carousel-nav-cmp" href="#carousel-example-generic" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">{!$Label.c.Previous}</span>
+                    </a>
+                    <a class="right carousel-control carousel-nav-cmp" href="#carousel-example-generic" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">{!$Label.c.Next}</span>
+                    </a>
+                </div>
+            </aura:renderIf>
+        </aura:renderIf>
+
+        <c:ChannelManagementCmp aura:id="channelManagerInst"
+            activeChannelId="{!v.activeChannelId}"
+            activeChannelName="{!v.activeChannelName}"
+            channel="{!v.channel}"
+            isChannelListEmpty="{!v.isChannelListEmpty}"
+            showChannel="{!v.showChannel}"
+            videoDetail="{!v.videoDetail}"
+            />
+
+
+        <div id="link_popup" aura:id="link_popup" class="slds-dropdown-fixed slds-hide">
+            <div class="slds-datepicker__filter slds-grid">
+                <div class="slds-grid slds-grid--align-end slds-grow">
+                    <div class="slds-align-middle">
+                        <div class="slds-form-element slds-m-bottom--x-small">
+                               <div class="slds-form-element__control">
+                                <div class="slds-col">
+                                    <a href="javascript:void(0)" data-channel-name="All" data-channel-id="All" onclick="{!c.setChannelMobile}" class="{! v.activeChannelId == 'All' ? 'channelList active' : 'channelList' }">
+                                        <img src="{!$Resource.Components_Library + '/img/check.png'}" class="icon" />
+                                        {!$Label.c.View_All_Channel}
+                                    </a>
+                                        <aura:iteration items="{!v.channel}" var="channel">
+                                            <div>
+                                                <a href="javascript:void(0)" data-channel-name="{!channel.name}" data-channel-id="{!channel.id}" onclick="{!c.setChannelMobile}" class="{! channel.id == v.activeChannelId ? 'channelList active' : 'channelList' }">
+                                                    <img src="{!$Resource.Components_Library + '/img/check.png'}" class="icon" />
+                                                    {!channel.name}
+                                                </a>
+                                            </div>
+                                        </aura:iteration>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <aura:renderIf isTrue="{!v.isMobile}">
+
+            <footer class="slds-docked-composer__footer footer slds-is-fixed"  data-search-plugin="">
+                <div class="slds-grid slds-wrap" style="width: 100%;" data-region-name="footer">
+                    <div class="slds-size--2-of-12 slds-form-element slds-lookup slds-text-align--left">
+                        <a href="javascript:void(0)" onclick="{!c.openSearchFormMobile}" class="slds-search-btn">
+                            <c:svg ariaHidden="true" class="slds-icon slds-icon-text-default"
+                                xlinkHref="{!$Resource.slds + '/assets/icons/utility-sprite/svg/symbols.svg#search'}" />
+                        </a>
+                    </div>
+                    <div id="mobileSearch" class="slds-size--8-of-12 slds-form-element slds-search-input" data-hide="#header1">
+                        <div class="slds-input-has-icon slds-input-has-icon--right slds-hide" id="mobileSearchForm" aura:id="mobileSearchForm">
+                            <ui:inputText aura:id="filter" label="" class="slds-input no-border-radius" placeholder="Search" value="{!v.search}" keyup="{!c.change}" updateOn="keyup"/>
+                            <div id="slds-input-has-icon slds-input-has-icon--right" onclick="{!c.filter}">
+                                <c:svg ariaHidden="false" class="slds-input__icon"
+                                   xlinkHref="{!$Resource.slds + '/assets/icons/utility-sprite/svg/symbols.svg#search'}" />
+                            </div>
+                        </div>
+
+                    </div>
+                    <aura:renderIf isTrue="{!v.showChannel}">
+                        <div class="slds-size--2-of-12 slds-form-element slds-lookup slds-text-align--right">
+                            <a onclick="{!c.openChannelsMobile}" class="channelLink">
+                                <img src="{!$Resource.Components_Library + '/img/channel.svg'}"/>
+                            </a>
+                        </div>
+                    </aura:renderIf>
+                </div>
+            </footer>
+        </aura:renderIf>
+    </div>
+</aura:component>

@@ -1,0 +1,254 @@
+.THIS.attach-modal h2{
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+.THIS.attach-modal .slds-box,
+.THIS.remove-channel-modal .slds-box{
+    border: 0px;
+    padding: 0px 7px;
+}
+.THIS.attach-modal .options{
+    max-height: 100px;
+    overflow-y: auto;
+    margin-bottom: 8px;
+    border-top: 1px solid #bfbfbf;
+    /*border-bottom: 1px solid #bfbfbf;*/
+    padding: 5px 0px 5px 0px;
+}
+.THIS.attach-modal .options-container{
+    border-bottom: 1px solid #bfbfbf;
+}
+
+.THIS.attach-modal .channel-list-container{
+    margin-bottom: 10px;
+}
+
+.THIS.attach-modal .channel-list-container .delimiter{
+    content: 'OR';
+    display: block;
+    margin: auto;
+    background: #fff;
+    width: 2rem;
+    text-align: center;
+    margin-top: -12px;
+}
+
+.THIS.attach-modal .input{
+    border-radius: 2px;
+    border: 1px solid #c4c4c4;
+    width: 63%;
+    margin-right: 8px;
+    padding: 2px 7px 2px 7px;
+    height: 32px;
+    min-width: 99px;
+}
+.THIS.attach-modal button.create-channel,
+.THIS.attach-modal button.create-channel:active,
+.THIS.attach-modal button.create-channel:focus{
+    background: #1d5377;
+    padding: 2px 8px;
+    color: #fff;
+    font-weight: normal;
+    border-radius: 2px;
+    line-height: inherit;
+    width: 30%;
+    height: 31px;
+    min-width: 50px;
+}
+.THIS.attach-modal button.create-channel:active{
+    font-weight: bold;
+}
+.THIS.attach-modal .options{
+    overflow-y: scroll;
+}
+.THIS.attach-modal .options > .option{
+    font-size: 12px;
+    font-weight: normal;
+    color: #c0c3c8;
+    padding: 5px 0px 5px 0px;
+    cursor: pointer;
+}
+.THIS.attach-modal .options > .option:hover,
+.THIS.attach-modal .options > .option:active{
+	color: #2574a9;
+    font-weight: bold;
+}
+.THIS.attach-modal .options > .option:focus,
+.THIS.attach-modal .options > .option:active{
+     font-weight: normal;
+}
+.THIS.attach-modal .options > .option.active{
+    color: #2574a9;font-weight:bold;
+}
+.THIS.search-container .channels a.active{
+    font-weight: bold;
+}
+
+.THIS.manage-videos-modal .channels{
+    border-top: 1px solid #c4c4c4;
+    border-bottom: 1px solid #c4c4c4;
+    max-height: 230px;
+    overflow-y: auto;
+}
+.THIS.manage-videos-modal .channels .channel{
+    padding: 7px 0px;
+    border-bottom: 1px solid #c4c4c4;
+    color: #8f8f91;
+    font-size: 12px;
+}
+.THIS.manage-videos-modal .channels .channel.disabled{
+    opacity: 0.3;
+    pointer-events: none;
+}
+.THIS.manage-videos-modal .channels .channel:last-child{
+    border: 0px;
+}
+.THIS.manage-videos-modal .channels .channel .info,
+.THIS.manage-videos-modal .channels .channel .remove {
+    width: 100%;
+    overflow: auto;
+}
+.THIS.manage-videos-modal .channels .channel .info .name,
+.THIS.manage-videos-modal .channels .channel .remove .name{
+    width: 70%;
+    float: left;
+    overflow: hidden;
+}
+.THIS.manage-videos-modal .channels .channel .size{
+    color: #c7c7c7;
+    padding: 0px 7px;
+}
+.THIS.manage-videos-modal .channels .channel .actions{
+    float: right;
+    width: 25%;
+    text-align: right;
+}
+.THIS.manage-videos-modal .channels .channel .actions a{
+    margin-left: 3px;
+    margin-right: 3px;
+}
+.THIS.manage-videos-modal .channels .channel .actions a:hover{
+    text-decoration: underline;
+}
+.THIS.manage-videos-modal .channels .channel input{
+   	border: 1px solid #c7c7c7;
+    border-radius: 2px;
+    padding: 3px 5px;
+    width: 70%;
+}
+
+.THIS.manage-videos-modal .channels .channel input::placeholder {
+    font-size: 12px;
+}
+
+.THIS.remove-channel-modal #removeBtn1{
+    font-size: 13px;
+    margin-right: 50px;
+    margin-left: 13%;
+}
+.THIS.remove-channel-modal #removeBtn2{
+    border: 1px solid #1e5573;
+    background: #1e5573;
+    color: #fff;
+    border-radius: 2px;
+    padding: 5px 17px;
+    font-size: 12px;
+    margin-right: 20px;
+}
+.THIS.remove-channel-modal h3{
+    margin-bottom: 10%;
+    font-size: 16px;
+}
+.THIS.manage-videos-modal h3{
+    margin-bottom: 16px;
+}
+.THIS.manage-videos-modal .slds-p-around--medium {
+    padding-top: 3px;
+}
+
+.THIS.remove-channel-modal .slds-modal__header,
+.THIS.remove-channel-modal .slds-modal__footer,
+.THIS.attach-modal .slds-modal__header,
+.THIS.attach-modal .slds-modal__footer,
+.THIS.manage-videos-modal .slds-modal__header,
+.THIS.manage-videos-modal .slds-modal__footer{
+    border: 0px;
+    padding: 5px;
+}
+
+.THIS.manage-videos-modal .span-error {
+    color: red;
+    padding-left: 5px;
+}
+@media (max-width: 48em){
+    .THIS.attach-modal .channel-list-container .delimiter{
+        margin-top: -8px;
+    }
+
+    .THIS.attach-modal,
+    .THIS.remove-channel-modal{
+        font-size: 11px;
+    }
+    .THIS.attach-modal h2,
+    .THIS.remove-channel-modal h3{
+        font-size: 12px;
+    }
+    .THIS.attach-modal .input,
+    .THIS.attach-modal .input::-webkit-input-placeholder{
+        width: 100% !important;
+        margin-bottom: 5px;
+        font-size: 11px;
+    }
+    .THIS.attach-modal button.create-channel{
+        width: 100% !important;
+        font-size: 11px;
+    }
+    .THIS.manage-videos-modal .channels .channel .actions{
+        /*width: 25%;*/
+        width: 40%;
+    }
+    .THIS.manage-videos-modal .channels .channel .actions a{
+        font-size: 11px;
+    }
+    .THIS.manage-videos-modal .channels .channel .info .name,
+    .THIS.manage-videos-modal .channels .channel .remove .name,
+    .THIS.manage-videos-modal .channels .channel input{
+        /*width: 70%;*/
+        width: 60%;
+    }
+    .THIS .channels .manageChannel .manage{
+        font-size: 11px;
+    }
+    .THIS .channels .manageChannel img{
+        height: 15px !important;
+    }
+    .THIS.remove-channel-modal #removeBtn1 {
+        font-size: 13px;
+        margin-right: 15px;
+        margin-left: 0%;
+        font-size: 11px;
+    }
+    .THIS.remove-channel-modal #removeBtn2{
+        margin-right: 0px;
+        font-size: 11px;
+    }
+}
+.THIS .hide {
+    display: none !important;
+}
+.THIS .show {
+    display: block !important;
+}
+.THIS .uploadDate {
+    text-align: left;
+    max-width:225px;
+    color: white;
+    color: grey;
+    font-size: 10pt;
+    margin-top:5px;
+}
+.THIS .title {
+    font-family: Sans-serif;
+    font-weight: bold;
+    font-size: 12pt;
+}

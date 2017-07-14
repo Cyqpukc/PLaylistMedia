@@ -1,0 +1,111 @@
+<aura:component controller="redwing.TrainingPlanViewerCtrl" implements="forceCommunity:availableForAllPageTypes,flexipage:availableForAllPageTypes" access="global">
+
+    <!-- Component Dependencies -->
+    <aura:dependency resource="markup://redwing:LearningViewer" />
+
+    <!-- Attributes -->
+    <aura:attribute name="trainingPlanId" type="String" required="true" access="global" default="REPLACE_WITH_RECORD_ID"/>
+    <aura:attribute name="autoRegister" type="Boolean" default="true" access="global" />
+    <aura:attribute name="title" type="String" access="global" />
+    <aura:attribute name="progress" type="Double" />
+    <aura:attribute name="lmsNamespace" type="String" />
+    <aura:attribute name="showPlaceholder" type="Boolean" default="false"/>
+
+    <!-- LDS Lightning Resources -->
+    <aura:attribute name="ldsResource" type="String[]" default="['/resource/salesforce_lds/assets/styles/salesforce-lightning-design-system-ltng.min.css']"/>
+    <div aura:id="ltnReq"></div>
+
+    <!-- Registered Events -->
+    <aura:registerEvent name="tPlanViewEvent" type="redwing:TrainingPlanViewEvent"/>
+    <aura:registerEvent name="lmsSpinnerEvent" type="redwing:LMSSpinnerEvent"/>
+
+    <!-- Event Handlers -->
+    <aura:handler event="redwing:TrainingPlanViewEvent" action="{!c.handleLoadEvent}"/>
+    <aura:handler event="redwing:TrainingPlanItemViewEvent" action="{!c.handleItemViewEvent}"/>
+    <aura:handler event="redwing:LearningViewEvent" action="{!c.handleLearningViewEvent}"/>
+    <aura:handler event="aura:systemError" action="{!c.showSystemError}"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <h2 class="training-plan-view-header">{!v.title}</h2>
+
+    <div class="lmscore slds training-plan-panel">
+
+        <redwing:LMSSpinner sourceId="{!v.trainingPlanId}"/>
+
+        <div class="plan-viewer-container">
+
+            <aura:if isTrue="{!v.showPlaceholder == false}">
+                <aura:if isTrue="{!v.progress != null}">
+                    <div class="slds-grid slds-wrap progress-container">
+                         <section class="progress-container-left slds-col slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--4-of-5">
+                             <div class="meter blue nostripes">
+                                 <span style="{!'width:'+v.progress+'%;'}"></span>
+                             </div>
+                         </section>
+                         <section class="progress-container-right slds-col slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-5">
+                             <span class="slds-text-heading--small">
+                                 <ui:outputNumber value="{!v.progress}" format="0.00"/> %
+                             </span>
+                         </section>
+                    </div>
+                </aura:if>
+
+                <div class="slds-scrollable--x">
+                    <ul aura:id="learningLaunchers" class="slds-list--horizontal slds-has-cards">
+                    </ul>
+                </div>
+            </aura:if>
+            <aura:if isTrue="{!v.showPlaceholder}">
+
+                <div class="slds-grid slds-wrap progress-container">
+                     <section class="progress-container-left slds-col slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--4-of-5">
+                         <div class="meter blue nostripes">
+                             <span style="width:0%;'}"></span>
+                         </div>
+                     </section>
+                     <section class="progress-container-right slds-col slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-5">
+                         <span class="slds-text-heading--small">
+                             <ui:outputNumber value="0" format="0.00"/> %
+                         </span>
+                     </section>
+                </div>
+                <div class="slds-scrollable--x">
+                    <ul aura:id="learningLaunchers" class="slds-list--horizontal slds-has-cards">
+                        <li class="slds-list__item" style="min-width: 218px;">
+                            <div class="slds-tile slds-tile--board">
+                                <p class="slds-tile__title slds-truncate"><b>...</b></p>
+                                <div class="slds-tile__detail">
+                                    <redwing:SVGImage symbolsAnchor="solution" lmsNamespace="{!v.lmsNamespace}" communityName="" wrapperStyle="background-color:#f2cf5b;margin:40px 0;"/>
+                                </div>
+                                <p class="slds-text-heading--medium"><ui:outputNumber value="0.00" format="0.00"/> %</p>
+                            </div>
+                        </li>
+                        <li class="slds-list__item" style="min-width: 218px;">
+                            <div class="slds-tile slds-tile--board">
+                                <p class="slds-tile__title slds-truncate"><b>...</b></p>
+                                <div class="slds-tile__detail">
+                                    <redwing:SVGImage symbolsAnchor="article" lmsNamespace="{!v.lmsNamespace}" communityName="" wrapperStyle="background-color:#7dcf64;margin:40px 0;"/>
+                                </div>
+                                <p class="slds-text-heading--medium"><ui:outputNumber value="0.00" format="0.00"/> %</p>
+                            </div>
+                        </li>
+                        <li class="slds-list__item" style="min-width: 218px;">
+                            <div class="slds-tile slds-tile--board">
+                                <p class="slds-tile__title slds-truncate"><b>...</b></p>
+                                <div class="slds-tile__detail">
+                                    <redwing:SVGImage symbolsAnchor="task" lmsNamespace="{!v.lmsNamespace}" communityName="" wrapperStyle="background-color:#54698d;margin:40px 0;"/>
+                                </div>
+                                <p class="slds-text-heading--medium"><ui:outputNumber value="0.00" format="0.00"/> %</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+            </aura:if>
+
+            <div aura:id="learningViewer"></div>
+        </div>
+
+    </div>
+
+</aura:component>
